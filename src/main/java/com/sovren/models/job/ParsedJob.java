@@ -11,6 +11,7 @@ import com.sovren.models.Location;
 import com.sovren.models.ParsedDocument;
 import com.sovren.models.SovrenPrimitive;
 import com.sovren.models.job.skills.JobTaxonomyRoot;
+import com.sovren.models.resume.ParsedResume;
 import com.sovren.utilities.SovrenJsonSerializer;
 
 /**
@@ -93,7 +94,7 @@ public class ParsedJob extends ParsedDocument {
     /**
      * A list of <a href="https://docs.sovren.com/Documentation/AIMatching#ai-custom-values">User-Defined Tags</a> 
      * that are assigned to this job. These are used to filter search/match queries in the AI Matching Engine.
-     * <p><b>NOTE: you may add/remove these prior to indexing. This is the only property you may modify prior to indexing.</b></p>
+     * <p><b>NOTE: you may add/remove these prior to indexing. This is the only property you may modify prior to indexing.</b>
     */
     public List<String> UserDefinedTags;
 
@@ -109,6 +110,8 @@ public class ParsedJob extends ParsedDocument {
     /**
      * Load a parsed job from a json file using UTF-8 encoding. This is useful when you have stored parse results to disk for use later.
      * @param path The full path to the json file
+     * @return The deserialized {@link ParsedJob}
+     * @throws IOException When an error occurs reading the file
      */
     public static ParsedJob fromFile(String path) throws IOException {
         String fileContents = Files.readString(Paths.get(path), Charset.forName("utf8"));
@@ -118,6 +121,7 @@ public class ParsedJob extends ParsedDocument {
     /**
      * Create a parsed job from json. This is useful when you have stored parse results to disk for use later.
      * @param utf8json The UTF-8 encoded json string
+     * @return The deserialized {@link ParsedJob}
      */
     public static ParsedJob fromJson(String utf8json) {
         return SovrenJsonSerializer.deserialize(utf8json, ParsedJob.class);

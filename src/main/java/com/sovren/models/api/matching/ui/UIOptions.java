@@ -9,7 +9,7 @@ public class UIOptions {
 
     /**
      * The username of the user for which you are generating a Matching UI session.
-     * <br/><b>If you do not provide this, the user will be required to login when they view the page</b>
+     * <br><b>If you do not provide this, the user will be required to login when they view the page</b>
      * */
     public String Username;
 
@@ -68,7 +68,7 @@ public class UIOptions {
 
     /**
     * Picklists shown in the UI for your users to filter on your user-defined tags.
-    * <br/>See also: https://docs.sovren.com/Documentation/AIMatching#ai-custom-values
+    * <br>See also: https://docs.sovren.com/Documentation/AIMatching#ai-custom-values
     */
     public List<UserDefinedTagsPicklist> UserDefinedTagsPicklists;
 

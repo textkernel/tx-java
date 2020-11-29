@@ -2,6 +2,6 @@ package com.sovren.models.api.indexes;
 
 import com.sovren.models.api.ApiResponse;
 
-/** {@inheritDoc} */
+/** The response body from a IndexDocument API call*/
 public class IndexDocumentResponse extends ApiResponse<Object> {
 }

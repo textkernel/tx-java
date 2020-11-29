@@ -3,8 +3,8 @@ package com.sovren.models.api.matching.response;
 import java.util.List;
 
 /**
-* {@inheritDoc}
-*/
+ * Details about the score for the Job Titles category
+ */
 public class JobTitlesScoreData extends CategoryScoreData {
     
     /** List of terms requested, but not found.*/

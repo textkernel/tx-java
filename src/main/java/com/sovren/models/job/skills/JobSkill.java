@@ -3,7 +3,7 @@ package com.sovren.models.job.skills;
 import java.util.List;
 
 /**
-* {@inheritDoc} 
+* A skill listed in a job
 */
 public class JobSkill extends JobSkillVariation {
 

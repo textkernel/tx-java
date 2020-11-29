@@ -1,7 +1,7 @@
 package com.sovren.models.api.matching.response;
 
 /**
-* {@inheritDoc}
+* Details about the score for the Management Level category
 */
 public class ManagementLevelScoreData extends CategoryScoreData {
     

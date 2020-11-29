@@ -3,8 +3,8 @@ package com.sovren.models.api.matching.response;
 import java.util.List;
 
 /**
-* Details about the score for a specific category
-*/
+ * Details about the score for the Skills category
+ */
 public class SkillsScoreData extends CategoryScoreData {
     
     /** List of terms requested, but not found.*/

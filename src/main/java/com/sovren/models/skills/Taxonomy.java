@@ -9,7 +9,7 @@ public class Taxonomy extends ITaxonomy<SubTaxonomy> {
     private static List<Taxonomy> _sovrenDefaults = null;
 
     /** 
-     * A list of all the Sovren default taxonomy/subtaxonomy. This list can also be found here:
+     * @return A list of all the Sovren default taxonomy/subtaxonomy. This list can also be found here:
      * <a href="https://rest.resumeparsing.com/ui/v9/scripts/lib/taxonomies.js">https://rest.resumeparsing.com/ui/v9/scripts/lib/taxonomies.js</a>
     */
     public static List<Taxonomy> getSovrenDefaults() {

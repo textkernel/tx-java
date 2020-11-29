@@ -12,12 +12,12 @@ public class BaseScoredResponseValue<T> extends BaseSearchMatchResponseValue<T> 
      * The weights suggested by Sovren based solely on the data in the source document.
      * <p>NOTE: these should only be used as a fallback or initial value. Your system/users
      * should have the ability to adjust/override these (in the PreferredCategoryWeights in the request)
-     * </p>
+     * 
      * <p>
      * See also: <ul>
      * <li>{@link BimetricScoreRequest#PreferredCategoryWeights}</li>
      * <li>{@link MatchRequest#PreferredCategoryWeights}</li>
-     * </ul></p>
+     * </ul>
     */
     public CategoryWeights SuggestedCategoryWeights;
     
@@ -31,7 +31,7 @@ public class BaseScoredResponseValue<T> extends BaseSearchMatchResponseValue<T> 
      * See also: <ul>
      * <li>{@link BimetricScoreRequest#PreferredCategoryWeights}</li>
      * <li>{@link MatchRequest#PreferredCategoryWeights}</li>
-     * </ul></p>
+     * </ul>
     */
     public CategoryWeights AppliedCategoryWeights;
 }

@@ -17,9 +17,9 @@ public class MatchRequest extends SearchMatchRequestBase {
      * <p>These weights will be used except in the case
      * that you provided a non-zero weight for a category that is irrelevant in the source document.
      * For example, this can happen when the source document contains no languages.
-     * </p><p>
+     * <p>
      * See also: {@link BaseScoredResponseValue#AppliedCategoryWeights}
-     * </p>
+     * 
     */
     public CategoryWeights PreferredCategoryWeights;
 }

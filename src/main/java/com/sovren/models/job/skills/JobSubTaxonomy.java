@@ -4,7 +4,7 @@ import java.util.List;
 import com.sovren.models.skills.FoundSubTaxonomy;
 
 /**
-* {@inheritDoc} 
+* A subtaxonomy to group similar skills
 */
 public class JobSubTaxonomy extends FoundSubTaxonomy {
 

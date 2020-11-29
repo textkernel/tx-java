@@ -8,7 +8,7 @@ public class ServerSideHook extends UserActionHook {
     /**
      * Any data from your system that you need to associate with this session/action.
      * This is sent (in addition to document information) in the POST body.
-     * <br/>For more information see <see href="https://docs.sovren.com/Documentation/AIMatching#ui-match-hooks">here</see>.
+     * <br>For more information see https://docs.sovren.com/Documentation/AIMatching#ui-match-hooks
     */
     public Object CustomInfo;
 }

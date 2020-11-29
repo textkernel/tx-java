@@ -3,7 +3,7 @@ package com.sovren.models.api.matching.response;
 import java.util.List;
 
 /**
-* {@inheritDoc}
+* Details about the score for a specific category
 */
 public class SimpleCategoryScoreData extends CategoryScoreData {
     

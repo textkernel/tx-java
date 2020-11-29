@@ -1,8 +1,8 @@
 package com.sovren.models.skills;
 
-/** 
- * {@inheritDoc} 
- */
+/**
+* A subtaxonomy to group similar skills
+*/
 public abstract class FoundSubTaxonomy extends SubTaxonomy {
 
     /** The percent (0-100) of skills found in this subtaxonomy compared to all subtaxonomies */

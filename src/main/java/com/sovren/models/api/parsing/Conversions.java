@@ -8,7 +8,7 @@ public class Conversions {
     /**
      * If requested by {@link ParseOptions#OutputPdf}, this is the document converted to a PDF.
      * This is a {@code byte[]} as a Base64-encoded string. You can use {@link java.util.Base64#getDecoder()} and 
-     * then {@link java.util.Base64.Decoder#decode()} to turn this back into a {@code byte[]}
+     * then {@link java.util.Base64.Decoder#decode(String)} to turn this back into a {@code byte[]}
     */
     public String PDF;
     
@@ -20,7 +20,7 @@ public class Conversions {
     
     /**
      * If a candidate photo was extracted, it will be output here. This is a {@code byte[]} as a Base64-encoded string.
-     * You can use {@link ava.util.Base64#getDecoder()} and then {@link java.util.Base64.Decoder#decode()} to turn this back into a {@code byte[]}
+     * You can use {@link java.util.Base64#getDecoder()} and then {@link java.util.Base64.Decoder#decode(String)} to turn this back into a {@code byte[]}
     */
     public String CandidateImage;
     

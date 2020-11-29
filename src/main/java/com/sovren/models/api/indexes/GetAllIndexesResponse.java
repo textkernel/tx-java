@@ -4,6 +4,6 @@ import java.util.List;
 import com.sovren.models.matching.Index;
 import com.sovren.models.api.ApiResponse;
 
-/** {@inheritDoc} */
+/** The response body from a GetAllIndexes API call*/
 public class GetAllIndexesResponse extends ApiResponse<List<Index>> {
 }

@@ -10,12 +10,12 @@ public class WebAddress {
 
     /**
      * The type of address. One of:
-     * <p>- {@link WebAddressType#PersonalWebsite}</p>
-     * <p>- {@link WebAddressType#LinkedIn}</p>
-     * <p>- {@link WebAddressType#TwitterHandle}</p>
-     * <p>- {@link WebAddressType#Facebook}</p>
-     * <p>- {@link WebAddressType#Instagram}</p>
-     * <p>- {@link WebAddressType#ICQ}</p>
+     * <p>- {@link WebAddressType#PersonalWebsite}
+     * <p>- {@link WebAddressType#LinkedIn}
+     * <p>- {@link WebAddressType#TwitterHandle}
+     * <p>- {@link WebAddressType#Facebook}
+     * <p>- {@link WebAddressType#Instagram}
+     * <p>- {@link WebAddressType#ICQ}
      * */
     public String Type;
 }

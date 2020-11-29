@@ -173,7 +173,7 @@ public class FilterCriteria {
     
     /**
      * Results must have/require these language competencies (2-letter ISO 639-1 language codes).
-     * <p>Either all or at least one are required depending on the value of {@link #LanguagesKnownMustAllExist}</p>
+     * <p>Either all or at least one are required depending on the value of {@link #LanguagesKnownMustAllExist}
     */
     public List<String> LanguagesKnown;
     
@@ -185,7 +185,7 @@ public class FilterCriteria {
     
     /**
      * Results must contain at least one of the specified best-fit taxonomy IDs or best-fit subtaxonomy IDs.
-     * <p>See {@link Taxonomy#getSovrenDefaults()}</p>
+     * <p>See {@link Taxonomy#getSovrenDefaults()}
     */
     public List<String> Taxonomies;
 

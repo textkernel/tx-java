@@ -23,7 +23,7 @@ public class MatchResult extends SearchResult {
      * <p> See also:<ul>
      * <li>{@link CategoryScoreData#UnweightedScore}</li>
      * <li> {@link BaseScoredResponseValue#AppliedCategoryWeights}</li>
-     * </ul></p>
+     * </ul>
     */
     public int WeightedScore;
     

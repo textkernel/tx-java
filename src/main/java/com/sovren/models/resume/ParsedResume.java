@@ -97,7 +97,7 @@ public class ParsedResume extends ParsedDocument {
     /**
      * A list of <a href="https://docs.sovren.com/Documentation/AIMatching#ai-custom-values">User-Defined Tags</a> 
      * that are assigned to this resume. These are used to filter search/match queries in the AI Matching Engine.
-     * <p><b>NOTE: you may add/remove these prior to indexing. This is the only property you may modify prior to indexing.</b></p>
+     * <p><b>NOTE: you may add/remove these prior to indexing. This is the only property you may modify prior to indexing.</b>
     */
     public List<String> UserDefinedTags;
 
@@ -112,6 +112,8 @@ public class ParsedResume extends ParsedDocument {
     /**
      * Load a parsed resume from a json file using UTF-8 encoding. This is useful when you have stored parse results to disk for use later.
      * @param path The full path to the json file
+     * @return The deserialized {@link ParsedResume}
+     * @throws IOException When an error occurs reading the file
      */
     public static ParsedResume fromFile(String path) throws IOException {
         String fileContents = Files.readString(Paths.get(path), Charset.forName("utf8"));
@@ -121,6 +123,7 @@ public class ParsedResume extends ParsedDocument {
     /**
      * Create a parsed resume from json. This is useful when you have stored parse results to disk for use later.
      * @param utf8json The UTF-8 encoded json string
+     * @return The deserialized {@link ParsedResume}
      */
     public static ParsedResume fromJson(String utf8json) {
         return SovrenJsonSerializer.deserialize(utf8json, ParsedResume.class);

@@ -7,10 +7,10 @@ public class ExperienceSummary {
     
     /**
      * A paragraph of text that summarizes the candidate's experience. This paragraph is generated based on other data
-     * points in the <see cref="ExperienceSummary"/>. It will be the same language as the resume for Czech, Dutch, 
+     * points in the {@link ExperienceSummary}. It will be the same language as the resume for Czech, Dutch,
      * English, French, German, Greek, Hungarian, Italian, Norwegian, Russian, Spanish, and Swedish. To always generate the 
      * summary in English, set "OutputFormat.AllSummariesInEnglish = True;" in the configuration string when parsing.
-     * <p><b>In order for this value to be accurate, you must have provided an accurate RevisionDate when you parsed this resume.</b></p>
+     * <p><b>In order for this value to be accurate, you must have provided an accurate RevisionDate when you parsed this resume.</b>
     */
     public String Description;
     
@@ -18,7 +18,7 @@ public class ExperienceSummary {
      * The number of months of work experience as indicated by the range of 
      * start and end date values in the various jobs/positions in the resume. 
      * Overlapping date ranges are not double-counted. This value is NOT derived from text like "I have 15 years of experience".
-     * <p><b>In order for this value to be accurate, you must have provided an accurate RevisionDate when you parsed this resume.</b></p>
+     * <p><b>In order for this value to be accurate, you must have provided an accurate RevisionDate when you parsed this resume.</b>
     */
     public int MonthsOfWorkExperience;
     
@@ -27,7 +27,7 @@ public class ExperienceSummary {
      * start and end date values in the various jobs/positions in the resume that have been 
      * determined to be management-level positions. Overlapping date ranges are not double-counted.
      * This value is NOT derived from text like "I have 10 years of management experience".
-     * <p><b>In order for this value to be accurate, you must have provided an accurate RevisionDate when you parsed this resume.</b></p>
+     * <p><b>In order for this value to be accurate, you must have provided an accurate RevisionDate when you parsed this resume.</b>
     */
     public int MonthsOfManagementExperience;
     
@@ -52,14 +52,14 @@ public class ExperienceSummary {
     
     /**
      * The average number of months a candidate has spent at each employer. Note that this number is per employer, not per job.
-     * <p><b>In order for this value to be accurate, you must have provided an accurate RevisionDate when you parsed this resume.</b></p>
+     * <p><b>In order for this value to be accurate, you must have provided an accurate RevisionDate when you parsed this resume.</b>
     */
     public int AverageMonthsPerEmployer;
     
     /**
      * A score (0-100), where 0 means a candidate is more likely to have had (and want/pursue) short-term/part-time/temp/contracting 
      * jobs and 100 means a candidate is more likely to have had (and want/pursue) traditional full-time, direct-hire jobs.
-     * <p><b>In order for this value to be accurate, you must have provided an accurate RevisionDate when you parsed this resume.</b></p>
+     * <p><b>In order for this value to be accurate, you must have provided an accurate RevisionDate when you parsed this resume.</b>
     */
     public int FulltimeDirectHirePredictiveIndex;
     

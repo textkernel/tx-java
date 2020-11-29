@@ -21,7 +21,7 @@ public class ResumeSection {
      * <li>CERTIFICATIONS</li>
      * <li>etc...</li>
      * </ul>
-     * <p>For all possible types, see <a href="https://docs.sovren.com/Documentation/ResumeParser#sov-generated-metadata-resumeuserarea">here</a></p>
+     * <p>For all possible types, see <a href="https://docs.sovren.com/Documentation/ResumeParser#sov-generated-metadata-resumeuserarea">here</a>
     */
     public String SectionType;
     

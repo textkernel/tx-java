@@ -1,5 +1,7 @@
 package com.sovren.models.api.bimetricscoring;
 
+import com.sovren.models.api.matching.BaseScoredResponseValue;
+import com.sovren.models.api.matching.response.CategoryScoreData;
 import com.sovren.models.api.matching.response.EnrichedScoreData;
 
 /**
@@ -26,7 +28,7 @@ public class BimetricScoreResult {
      * <p> See also:<ul>
      * <li>{@link CategoryScoreData#UnweightedScore}</li>
      * <li> {@link BaseScoredResponseValue#AppliedCategoryWeights}</li>
-     * </ul></p>
+     * </ul>
     */
     public int WeightedScore;
     

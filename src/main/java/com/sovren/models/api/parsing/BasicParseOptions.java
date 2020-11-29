@@ -11,7 +11,7 @@ public class BasicParseOptions {
 
     /**
      * The configuration settings to use during parsing. See https://docs.sovren.com/#config-string-builder.
-     * <p>NOTE: leaving this null/empty will use the default parsing settings which is recommended in most cases.</p>
+     * <p>NOTE: leaving this null/empty will use the default parsing settings which is recommended in most cases.
      */
     public String Configuration;
 

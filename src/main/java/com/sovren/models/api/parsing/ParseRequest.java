@@ -11,7 +11,7 @@ public class ParseRequest extends ParseOptions {
      * A Base64 encoded string of the document file bytes. This should use the standard 'base64' 
      * encoding as defined in <a href="https://tools.ietf.org/html/rfc4648#section-4"> RFC 4648 Section 4</a> 
      * (not the 'base64url' variant). 
-     * <p>Java users can use {@link java.util.Base64#getEncoder()} and then {@link java.util.Base64.Encoder#encodeToString()}</p>
+     * <p>Java users can use {@link java.util.Base64#getEncoder()} and then {@link java.util.Base64.Encoder#encodeToString(byte[])}
     */
     public String DocumentAsBase64String;
     
@@ -23,7 +23,7 @@ public class ParseRequest extends ParseOptions {
      * passed as "2019-05-07". Failing to pass a DocumentLastModified, or passing DocumentLastModified that are clearly improbable, may 
      * result in rejection of data and/or additional charges, and will utterly decimate the usefulness of AI Matching and 
      * any Sovren generated metadata. 
-     * <p>Use of the DocumentLastModified field is subject to the <a href="https://docs.sovren.com/Policies/AcceptableUse?h=revision-date">Acceptable Use Policy</a>.</p>
+     * <p>Use of the DocumentLastModified field is subject to the <a href="https://docs.sovren.com/Policies/AcceptableUse?h=revision-date">Acceptable Use Policy</a>.
     */
     public String DocumentLastModified;
 

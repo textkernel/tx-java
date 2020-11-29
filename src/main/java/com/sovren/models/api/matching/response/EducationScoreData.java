@@ -1,8 +1,8 @@
 package com.sovren.models.api.matching.response;
 
 /**
-* Details about the score for a specific category
-*/
+ * Details about the score for the Education category
+ */
 public class EducationScoreData extends CategoryScoreData {
     
     /** Requested level of education.*/

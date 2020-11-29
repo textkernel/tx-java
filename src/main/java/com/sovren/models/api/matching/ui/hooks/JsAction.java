@@ -13,7 +13,7 @@ public class JsAction {
     /**
     * The 'targetOrigin' parameter for the window.postMessage() call. For more information see
     * https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
-    * <br/>NOTE: while this is optional, it is recommended for security purposes in the window.postMessage() protocol
+    * <br>NOTE: while this is optional, it is recommended for security purposes in the window.postMessage() protocol
     */
     public String TargetOrigin;
 

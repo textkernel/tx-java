@@ -1,7 +1,6 @@
 package com.sovren;
 
 import com.sovren.exceptions.SovrenException;
-import com.sovren.http.HttpResponse;
 import com.sovren.models.api.bimetricscoring.*;
 import com.sovren.models.api.matching.*;
 import com.sovren.models.api.matching.request.FilterCriteria;
@@ -12,11 +11,10 @@ import com.sovren.models.api.matching.ui.GenerateUIResponse;
 import com.sovren.models.api.matching.ui.request.*;
 import com.sovren.models.job.ParsedJob;
 import com.sovren.models.resume.ParsedResume;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 
 import java.util.List;
 
+/** Extension methods to generate the Sovren Matching UI. Access with {@link SovrenClient#ui(MatchUISettings)}*/
 public class SovrenUIClient {
 
     private final MatchUISettings _uiSessionOptions;
@@ -37,6 +35,7 @@ public class SovrenUIClient {
      * @param filters Any filters to apply prior to the match (a result must satisfy all the filters), or {@code null}
      * @param settings The settings for this match request. Use {@code null} for defaults.
      * @param numResults The number of results to show. Use {@code 0} for the default.
+     * @return The response containing a URL for the Matching UI session
      * @throws SovrenException Thrown when an API error occurs
      */
     public GenerateUIResponse match(
@@ -62,6 +61,7 @@ public class SovrenUIClient {
      * @param filters Any filters to apply prior to the match (a result must satisfy all the filters), or {@code null}
      * @param settings The settings for this match request. Use {@code null} for defaults.
      * @param numResults The number of results to show. Use {@code 0} for the default.
+     * @return The response containing a URL for the Matching UI session
      * @throws SovrenException Thrown when an API error occurs
      */
     public GenerateUIResponse match(
@@ -88,6 +88,7 @@ public class SovrenUIClient {
      * @param filters Any filters to apply prior to the match (a result must satisfy all the filters), or {@code null}
      * @param settings The settings for this match request. Use {@code null} for defaults.
      * @param numResults The number of results to show. Use {@code 0} for the default.
+     * @return The response containing a URL for the Matching UI session
      * @throws SovrenException Thrown when an API error occurs
      */
     public GenerateUIResponse match(
@@ -110,7 +111,8 @@ public class SovrenUIClient {
      * @param query The search query. A result must satisfy all of these criteria
      * @param settings The settings for this search request. Use {@code null} for defaults.
      * @param pagination Pagination settings. Use {@code null} for defaults.
-     * @throws SovrenException
+     * @return The response containing a URL for the Matching UI session
+     * @throws SovrenException Thrown when an API error occurs
      */
     public GenerateUIResponse search(
             List<String> indexesToQuery,
@@ -132,6 +134,7 @@ public class SovrenUIClient {
      * The preferred category weights for scoring the results. If {@code null},
      * Sovren will determine the best values based on the source resume.
      * @param settings The settings for this search request. Use {@code null} for defaults.
+     * @return The response containing a URL for the Matching UI session
      * @throws SovrenException Thrown when an API error occurs
      */
     public <TTarget extends IParsedDocWithId> GenerateUIResponse bimetricScore(
@@ -153,6 +156,7 @@ public class SovrenUIClient {
      * The preferred category weights for scoring the results. If {@code null},
      * Sovren will determine the best values based on the source job.
      * @param settings The settings for this search request. Use {@code null} for defaults.
+     * @return The response containing a URL for the Matching UI session
      * @throws SovrenException Thrown when an API error occurs
      */
     public <TTarget extends IParsedDocWithId> GenerateUIResponse bimetricScore(

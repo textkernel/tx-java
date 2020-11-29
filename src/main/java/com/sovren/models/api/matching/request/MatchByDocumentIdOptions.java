@@ -1,5 +1,7 @@
 package com.sovren.models.api.matching.request;
 
-/** {@inheritDoc}*/
+/**
+* Request body for a Match request
+*/
 public class MatchByDocumentIdOptions extends MatchRequest {
 }

@@ -1,8 +1,8 @@
 package com.sovren.models.api.matching.response;
 
 /**
-* {@inheritDoc}
-*/
+ * Details about the score for the Taxonomies category
+ */
 public class TaxonomiesScoreData extends CategoryScoreData {
     
     /** Taxonomies/industries found.*/

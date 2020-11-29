@@ -11,7 +11,7 @@ public class GeocodeOptionsBase extends GeocodeCredentials {
      * The address you wish to geocode. This field is optional. 
      * <p><b>If you specify this value,
      * this address will be used to get the geocode coordinates instead of the address included
-     * in the parsed document (if present); however, the address in the parsed document will not be modified.</b></p>
+     * in the parsed document (if present); however, the address in the parsed document will not be modified.</b>
     */
     public Address PostalAddress;
     
@@ -20,7 +20,7 @@ public class GeocodeOptionsBase extends GeocodeCredentials {
      * <p><b>Use this if you already 
      * have latitude/longitude coordinates and simply wish to add them to your parsed document. If provided, 
      * these values will be inserted into your parsed document and the address included in the 
-     * parsed document (if present), will not be modified.</b></p>
+     * parsed document (if present), will not be modified.</b>
     */
     public GeoCoordinates GeoCoordinates;
 }

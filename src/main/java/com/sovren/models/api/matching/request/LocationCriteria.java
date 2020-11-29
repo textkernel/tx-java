@@ -27,7 +27,7 @@ public class LocationCriteria {
     
     /**
      * Your private API key for the geocoding provider. If using {@link GeocodeProvider#Bing} you must specify your own API key.
-     * <p>If using {@link GeocodeProvider#Google}, you can optionally provide your own API key</p>
+     * <p>If using {@link GeocodeProvider#Google}, you can optionally provide your own API key
     */
     public String GeocodeProviderKey;
 }
