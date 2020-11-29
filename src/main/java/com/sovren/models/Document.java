@@ -1,0 +1,55 @@
+package com.sovren.models;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Base64;
+
+/** Represents an unparsed document (a file on the filesystem, byte[] from a database, etc)*/
+public class Document {
+    protected String _asBase64;
+
+    /** The base-64 encoded byte[] for this file. This is what is sent over HTTPS to Sovren's API*/
+    public String getAsBase64() {
+        return _asBase64;
+    }
+
+    /** The last revised/modified date for this file.*/
+    public LocalDate LastModified;
+
+    /**
+     * Create a {@link Document} from a file {@code byte[]}
+     * @param fileBytes - The file byte array
+     * @param lastModified - The last-revised date for this file.
+     * <p>Per our AUP (https://docs.sovren.com/Policies/AcceptableUse), you MUST pass a good-faith last-revised date for every parse transaction.</p>
+     * <p>This is extremely important so that the Parser knows how to interpret dates in the document that are 
+     * expressed as "current" or "as of" (or similar) to correctly calculate date spans</p>
+     * @return A {@link Document}, not null
+     * @throws {@link IllegalArgumentException}
+     */
+    public Document(byte[] fileBytes, LocalDate lastModified) {
+        if (fileBytes == null) throw new IllegalArgumentException("'fileBytes' cannot be null");
+        _asBase64 = Base64.getEncoder().encodeToString(fileBytes);
+        LastModified = lastModified;
+
+        if (LastModified == LocalDate.MIN || LastModified == LocalDate.MAX || LastModified == LocalDate.EPOCH) {
+            throw new IllegalArgumentException("You must provide a valid last-modified date so that parser metadata is accurate");
+        }
+    }
+
+    /**
+     * Create a {@link Document} from a file on the filesystem.
+     * <p>NOTE: this will automatically set the {@link #LastModified} using {@link Files#getLastModifiedTime()}</p>
+     * <p><b>If your files do not have an accurate 'LastWrite' or 'LastModified' time, you must use a different constructor</b></p>
+     * @param path - The path to the file
+     * @return A {@link Document}, not null
+     * @throws {@link IllegalArgumentException}
+     * @throws {@link IOException}
+     */
+    public Document(String path) throws IOException {
+        this(Files.readAllBytes(Paths.get(path)),
+             LocalDate.ofInstant(Files.getLastModifiedTime(Paths.get(path)).toInstant(), ZoneId.systemDefault()));
+    }
+}

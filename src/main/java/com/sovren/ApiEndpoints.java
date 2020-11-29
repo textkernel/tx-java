@@ -1,0 +1,68 @@
+package com.sovren;
+
+class ApiEndpoints {
+
+    private static String _matchUIPrefix = "/ui";
+    private DataCenter _dataCenter;
+
+    ApiEndpoints(DataCenter dataCenter) {
+        _dataCenter = dataCenter;
+    }
+
+    private String prefix() {
+        return _dataCenter.Root + "/" + _dataCenter.Version;
+    }
+
+    private String prefix(boolean isMatchUI) {
+        if (isMatchUI && !_dataCenter.IsSovrenSaaS) {
+            //throw new IllegalAccessException("Cannot call Matching UI on a self-hosted installation.");
+            //do not throw this for now, it will just be a 404
+        }
+
+        return _dataCenter.Root + "/" + (isMatchUI ? _matchUIPrefix : "") + "/" + _dataCenter.Version;
+    }
+
+    private String sanitize(String indexOrDocId) throws IllegalArgumentException {
+        if (indexOrDocId == null || indexOrDocId.isBlank()) {
+            throw new IllegalArgumentException("Index or document id is null or empty");
+        }
+
+        for (char c : indexOrDocId.toCharArray()) {
+            //if its not a letter, digit, dash, or underscore, invalid
+            if (!(Character.isLetterOrDigit(c) || c == '-' || c == '_')) {
+                String charName = Character.isWhitespace(c) ? "whitespace" : String.valueOf(c);
+                throw new IllegalArgumentException("Index or document id contains an invalid character: " + charName);
+            }
+        }
+
+        return indexOrDocId;
+    }
+
+    String account() { return prefix() + "/account"; }
+    String parseResume() { return prefix() + "/parser/resume"; }
+    String parseJob() { return prefix() + "/parser/joborder"; }
+    
+    String index(String id) { return prefix() + "/index/" + sanitize(id); }
+    String indexDocumentCount(String id) { return prefix() + "/index/" + sanitize(id) + "/count"; }
+    String allIndexes() { return prefix() + "/index"; }
+    
+    String resume(String indexId, String docId) { return prefix() + "/index/" + sanitize(indexId) + "/resume/" + sanitize(docId); }
+    String job(String indexId, String docId) { return prefix() + "/index/" + sanitize(indexId) + "/joborder/" + sanitize(docId); }
+    String multipleResumes(String indexId) { return prefix() + "/index/" + sanitize(indexId) + "/resumes"; }
+    String multipleJobs(String indexId) { return prefix() + "/index/" + sanitize(indexId) + "/joborders"; }
+    String document(String indexId, String docId) { return prefix() + "/index/" + sanitize(indexId) + "/documents/" + sanitize(docId); }
+    String multipleDocuments(String indexId) { return prefix() + "/index/" + sanitize(indexId) + "/documents"; }
+    
+    String matchResume(boolean isMatchUI) { return prefix(isMatchUI) + "/matcher/resume"; }
+    String matchJob(boolean isMatchUI) { return prefix(isMatchUI) + "/matcher/joborder"; }
+    String matchDocId(String indexId, String docId, boolean isMatchUI) { return prefix(isMatchUI) + "/matcher/indexes/" + sanitize(indexId) + "/documents/" + sanitize(docId); }
+    String search(boolean isMatchUI) { return prefix(isMatchUI) + "/searcher"; }
+    
+    String bimetricScoreResume(boolean isMatchUI) { return prefix(isMatchUI) + "/scorer/bimetric/resume"; }
+    String bimetricScoreJob(boolean isMatchUI) { return prefix(isMatchUI) + "/scorer/bimetric/joborder"; }
+    
+    String geocodeResume() { return prefix() + "/geocoder/resume"; }
+    String geocodeJob() { return prefix() + "/geocoder/joborder"; }
+    String geocodeAndIndexResume() { return prefix() + "/geocodeAndIndex/resume"; }
+    String geocodeAndIndexJob() { return prefix() + "/geocodeAndIndex/joborder"; }
+}
