@@ -28,7 +28,7 @@ public class ParsingTests extends TestBase {
     private static Stream<Arguments> provideBadDocuments() {
         return Stream.of(
                 Arguments.of(null, IllegalArgumentException.class),
-                Arguments.of(new Document(new byte[0], LocalDate.now()), SovrenException.class));
+                Arguments.of(new Document(new byte[1], LocalDate.now()), SovrenException.class));
     }
 
     @ParameterizedTest
