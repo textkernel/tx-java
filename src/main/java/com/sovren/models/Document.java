@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Base64;
 
 /** Represents an unparsed document (a file on the filesystem, byte[] from a database, etc)*/
@@ -35,7 +36,7 @@ public class Document {
         _asBase64 = Base64.getEncoder().encodeToString(fileBytes);
         LastModified = lastModified;
 
-        if (LastModified == LocalDate.MIN || LastModified == LocalDate.MAX || LastModified == LocalDate.EPOCH) {
+        if (LastModified == LocalDate.MIN || LastModified == LocalDate.MAX) {
             throw new IllegalArgumentException("You must provide a valid last-modified date so that parser metadata is accurate");
         }
     }
@@ -50,6 +51,11 @@ public class Document {
      */
     public Document(String path) throws IOException {
         this(Files.readAllBytes(Paths.get(path)),
-             LocalDate.ofInstant(Files.getLastModifiedTime(Paths.get(path)).toInstant(), ZoneId.systemDefault()));
+             Files.getLastModifiedTime(Paths.get(path)).toInstant().atZone(ZoneId.systemDefault()));
+    }
+
+    /** simply a private ctor to help with converting an Instant to a LocalDate */
+    private Document(byte[] fileBytes, ZonedDateTime time) {
+        this(fileBytes, LocalDate.of(time.getYear(), time.getMonth(), time.getDayOfMonth()));
     }
 }

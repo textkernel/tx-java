@@ -31,7 +31,7 @@ public abstract class ParsedDocument {
     public void toFile(String filepath, boolean formatted) throws IOException {
         String json = toJson(formatted);
         if (json != null) {
-            Files.writeString(Paths.get(filepath), json, Charset.forName("utf8"));
+            Files.write(Paths.get(filepath), json.getBytes(Charset.forName("utf8")));
         }
     }
 }

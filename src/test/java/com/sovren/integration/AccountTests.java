@@ -18,15 +18,20 @@ public class AccountTests extends TestBase
         assertDoesNotThrow(() -> {
             accountInfo.set(Client.getAccountInfo());
         });
-        
-        assertFalse(accountInfo.get().Info.CustomerDetails.AccountId.isBlank());
+
+        assertNotNull(accountInfo.get().Info.CustomerDetails.AccountId);
+        assertTrue(accountInfo.get().Info.CustomerDetails.AccountId.length() > 0);
         assertNotEquals(0, accountInfo.get().Info.CustomerDetails.CreditsRemaining);
         assertNotEquals(0, accountInfo.get().Info.CustomerDetails.CreditsUsed);
-        assertFalse(accountInfo.get().Info.CustomerDetails.ExpirationDate.isBlank());
-        assertFalse(accountInfo.get().Info.CustomerDetails.IPAddress.isBlank());
+        assertNotNull(accountInfo.get().Info.CustomerDetails.ExpirationDate);
+        assertTrue(accountInfo.get().Info.CustomerDetails.ExpirationDate.length() > 0);
+        assertNotNull(accountInfo.get().Info.CustomerDetails.IPAddress);
+        assertTrue(accountInfo.get().Info.CustomerDetails.IPAddress.length() > 0);
         assertTrue(accountInfo.get().Info.CustomerDetails.MaximumConcurrentRequests > 0);
-        assertFalse(accountInfo.get().Info.CustomerDetails.Name.isBlank());
-        assertFalse(accountInfo.get().Info.CustomerDetails.Region.isBlank());
+        assertNotNull(accountInfo.get().Info.CustomerDetails.Name);
+        assertTrue(accountInfo.get().Info.CustomerDetails.Name.length() > 0);
+        assertNotNull(accountInfo.get().Info.CustomerDetails.Region);
+        assertTrue(accountInfo.get().Info.CustomerDetails.Region.length() > 0);
         assertNotNull(accountInfo.get().Info.CustomerDetails.Region);
     }
 }

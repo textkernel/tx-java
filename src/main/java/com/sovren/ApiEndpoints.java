@@ -23,7 +23,7 @@ class ApiEndpoints {
     }
 
     private String sanitize(String indexOrDocId) throws IllegalArgumentException {
-        if (indexOrDocId == null || indexOrDocId.isBlank()) {
+        if (indexOrDocId == null || indexOrDocId.length() == 0) {
             throw new IllegalArgumentException("Index or document id is null or empty");
         }
 

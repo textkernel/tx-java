@@ -114,7 +114,7 @@ public class ParsedJob extends ParsedDocument {
      * @throws IOException When an error occurs reading the file
      */
     public static ParsedJob fromFile(String path) throws IOException {
-        String fileContents = Files.readString(Paths.get(path), Charset.forName("utf8"));
+        String fileContents = new String(Files.readAllBytes(Paths.get(path)), Charset.forName("utf8"));
         return fromJson(fileContents);
     }
 

@@ -70,11 +70,11 @@ public class SovrenClient {
      */
     public SovrenClient(String accountId, String serviceKey, DataCenter dataCenter, GeocodeCredentials geocodeCredentials) {
         
-        if (accountId == null || accountId.isBlank()) {
+        if (accountId == null || accountId.length() == 0) {
             throw new IllegalArgumentException("'accountId' must have a valid value");
         }
 
-        if (serviceKey == null || serviceKey.isBlank()) {
+        if (serviceKey == null || serviceKey.length() == 0) {
             throw new IllegalArgumentException("'serviceKey' must have a valid value");
         }
 
