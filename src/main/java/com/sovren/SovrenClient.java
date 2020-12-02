@@ -42,7 +42,6 @@ import java.util.List;
  * The SDK client to perform Sovren API calls.
  */
 public class SovrenClient {
-    private GeocodeCredentials _geocodeCreds;
     private ApiEndpoints _endpoints;
     private OkHttpClient _client;
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
@@ -63,11 +62,9 @@ public class SovrenClient {
      * @param accountId - The account id for your account
      * @param serviceKey - The service key for your account
      * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US} or {@link DataCenter#EU}
-     * @param geocodeCredentials - The credentials you want to use for geocoding, or {@code null}
-     * 
      * @throws IllegalArgumentException if the accountId, serviceKey, or dataCenter are null/empty
      */
-    public SovrenClient(String accountId, String serviceKey, DataCenter dataCenter, GeocodeCredentials geocodeCredentials) {
+    public SovrenClient(String accountId, String serviceKey, DataCenter dataCenter) {
         
         if (accountId == null || accountId.length() == 0) {
             throw new IllegalArgumentException("'accountId' must have a valid value");
@@ -82,12 +79,6 @@ public class SovrenClient {
         }
 
         _endpoints = new ApiEndpoints(dataCenter);
-        _geocodeCreds = geocodeCredentials;
-
-        if (_geocodeCreds == null) {
-            _geocodeCreds = new GeocodeCredentials();
-            _geocodeCreds.Provider = GeocodeProvider.Google;
-        }
 
         //do not validate credentials here, as this could lead to calling GetAccount for every parse call, an AUP violation
         _client = new OkHttpClient.Builder()
@@ -888,11 +879,11 @@ public class SovrenClient {
         return response;
     }
 
-    private GeocodeResumeResponse internalGeocode(ParsedResume resume, Address address) throws SovrenException {
+    private GeocodeResumeResponse internalGeocode(ParsedResume resume, GeocodeCredentials geocodeCredentials, Address address) throws SovrenException {
         GeocodeResumeRequest request = new GeocodeResumeRequest();
         request.ResumeData = resume;
-        request.Provider = _geocodeCreds.Provider;
-        request.ProviderKey = _geocodeCreds.ProviderKey;
+        request.Provider = geocodeCredentials != null ? geocodeCredentials.Provider : GeocodeProvider.Google;
+        request.ProviderKey = geocodeCredentials != null ? geocodeCredentials.ProviderKey : null;
         request.PostalAddress = address;
 
         RequestBody body = RequestBody.create(serialize(request), JSON);
@@ -905,11 +896,11 @@ public class SovrenClient {
         return response.getData();
     }
 
-    private GeocodeJobResponse internalGeocode(ParsedJob job, Address address) throws SovrenException {
+    private GeocodeJobResponse internalGeocode(ParsedJob job, GeocodeCredentials geocodeCredentials, Address address) throws SovrenException {
         GeocodeJobRequest request = new GeocodeJobRequest();
         request.JobData = job;
-        request.Provider = _geocodeCreds.Provider;
-        request.ProviderKey = _geocodeCreds.ProviderKey;
+        request.Provider = geocodeCredentials != null ? geocodeCredentials.Provider : GeocodeProvider.Google;
+        request.ProviderKey = geocodeCredentials != null ? geocodeCredentials.ProviderKey : null;
         request.PostalAddress = address;
 
         RequestBody body = RequestBody.create(serialize(request), JSON);
@@ -926,11 +917,12 @@ public class SovrenClient {
      * Uses the address in the resume (if present) to look up geocoordinates and add them into the ParsedResume object.
      * These coordinates are used by the AI Searching/Matching engine.
      * @param resume The resume to insert the geocoordinates (from the address) into
+     * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurred
      */
-    public GeocodeResumeResponse geocode(ParsedResume resume) throws SovrenException {
-        return internalGeocode(resume, null);
+    public GeocodeResumeResponse geocode(ParsedResume resume, GeocodeCredentials geocodeCredentials) throws SovrenException {
+        return internalGeocode(resume, geocodeCredentials, null);
     }
 
     /**
@@ -938,22 +930,24 @@ public class SovrenClient {
      * resume. The address included in the parsed resume (if present) will not be modified.
      * @param resume The resume to insert the geocoordinates (from the address) into
      * @param address The address to use to retrieve geocoordinates
+     * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurred
      */
-    public GeocodeResumeResponse geocode(ParsedResume resume, Address address) throws SovrenException {
-        return internalGeocode(resume, address);
+    public GeocodeResumeResponse geocode(ParsedResume resume, Address address, GeocodeCredentials geocodeCredentials) throws SovrenException {
+        return internalGeocode(resume, geocodeCredentials, address);
     }
 
     /**
      * Uses the address in the job (if present) to look up geocoordinates and add them into the ParsedJob object.
      * These coordinates are used by the AI Searching/Matching engine.
      * @param job The job to insert the geocoordinates (from the address) into
+     * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurred
      */
-    public GeocodeJobResponse geocode(ParsedJob job) throws SovrenException {
-        return internalGeocode(job, null);
+    public GeocodeJobResponse geocode(ParsedJob job, GeocodeCredentials geocodeCredentials) throws SovrenException {
+        return internalGeocode(job, geocodeCredentials, null);
     }
 
     /**
@@ -961,22 +955,24 @@ public class SovrenClient {
      * job. The address included in the parsed job (if present) will not be modified.
      * @param job The job to insert the geocoordinates (from the address) into
      * @param address The address to use to retrieve geocoordinates
+     * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurred
      */
-    public GeocodeJobResponse geocode(ParsedJob job, Address address) throws SovrenException {
-        return internalGeocode(job, address);
+    public GeocodeJobResponse geocode(ParsedJob job, Address address, GeocodeCredentials geocodeCredentials) throws SovrenException {
+        return internalGeocode(job, geocodeCredentials, address);
     }
 
     private GeocodeAndIndexResumeResponse internalGeocodeAndIndex(
             ParsedResume resume,
+            GeocodeCredentials geocodeCredentials,
             IndexSingleDocumentInfo indexingOptions,
             boolean indexIfGeocodeFails,
             Address address,
             GeoCoordinates coordinates) throws SovrenException {
         GeocodeOptionsBase options = new GeocodeOptionsBase();
-        options.Provider = _geocodeCreds.Provider;
-        options.ProviderKey = _geocodeCreds.ProviderKey;
+        options.Provider = geocodeCredentials != null ? geocodeCredentials.Provider : GeocodeProvider.Google;
+        options.ProviderKey = geocodeCredentials != null ? geocodeCredentials.ProviderKey : null;
         options.PostalAddress = address;
         options.GeoCoordinates = coordinates;
 
@@ -1008,13 +1004,14 @@ public class SovrenClient {
 
     private GeocodeAndIndexJobResponse internalGeocodeAndIndex(
             ParsedJob job,
+            GeocodeCredentials geocodeCredentials,
             IndexSingleDocumentInfo indexingOptions,
             boolean indexIfGeocodeFails,
             Address address,
             GeoCoordinates coordinates) throws SovrenException {
         GeocodeOptionsBase options = new GeocodeOptionsBase();
-        options.Provider = _geocodeCreds.Provider;
-        options.ProviderKey = _geocodeCreds.ProviderKey;
+        options.Provider = geocodeCredentials != null ? geocodeCredentials.Provider : GeocodeProvider.Google;
+        options.ProviderKey = geocodeCredentials != null ? geocodeCredentials.ProviderKey : null;
         options.PostalAddress = address;
         options.GeoCoordinates = coordinates;
 
@@ -1050,14 +1047,16 @@ public class SovrenClient {
      * @param resume The resume to geocode
      * @param indexingOptions What index/document id to use to index the document after geocoding
      * @param indexIfGeocodeFails Indicates whether or not the document should still be added to the index if the geocode request fails.
+     * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurred
      */
     public GeocodeAndIndexResumeResponse geocodeAndIndex(
             ParsedResume resume,
             IndexSingleDocumentInfo indexingOptions,
-            boolean indexIfGeocodeFails) throws SovrenException {
-        return internalGeocodeAndIndex(resume, indexingOptions, indexIfGeocodeFails, null, null);
+            boolean indexIfGeocodeFails,
+            GeocodeCredentials geocodeCredentials) throws SovrenException {
+        return internalGeocodeAndIndex(resume, geocodeCredentials, indexingOptions, indexIfGeocodeFails, null, null);
     }
 
     /**
@@ -1067,6 +1066,7 @@ public class SovrenClient {
      * @param indexingOptions What index/document id to use to index the document after geocoding
      * @param address The address to use to retrieve geocoordinates
      * @param indexIfGeocodeFails Indicates whether or not the document should still be added to the index if the geocode request fails.
+     * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurred
      */
@@ -1074,8 +1074,9 @@ public class SovrenClient {
             ParsedResume resume,
             IndexSingleDocumentInfo indexingOptions,
             Address address,
-            boolean indexIfGeocodeFails) throws SovrenException {
-        return internalGeocodeAndIndex(resume, indexingOptions, indexIfGeocodeFails, address, null);
+            boolean indexIfGeocodeFails,
+            GeocodeCredentials geocodeCredentials) throws SovrenException {
+        return internalGeocodeAndIndex(resume, geocodeCredentials, indexingOptions, indexIfGeocodeFails, address, null);
     }
 
     /**
@@ -1086,6 +1087,7 @@ public class SovrenClient {
      * @param indexingOptions What index/document id to use to index the document after geocoding
      * @param coordinates The geocoordinates to use
      * @param indexIfGeocodeFails Indicates whether or not the document should still be added to the index if the geocode request fails.
+     * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurred
      */
@@ -1093,8 +1095,9 @@ public class SovrenClient {
             ParsedResume resume,
             IndexSingleDocumentInfo indexingOptions,
             GeoCoordinates coordinates,
-            boolean indexIfGeocodeFails) throws SovrenException {
-        return internalGeocodeAndIndex(resume, indexingOptions, indexIfGeocodeFails, null, coordinates);
+            boolean indexIfGeocodeFails,
+            GeocodeCredentials geocodeCredentials) throws SovrenException {
+        return internalGeocodeAndIndex(resume, geocodeCredentials, indexingOptions, indexIfGeocodeFails, null, coordinates);
     }
 
     /**
@@ -1103,14 +1106,16 @@ public class SovrenClient {
      * @param job The job to geocode
      * @param indexingOptions What index/document id to use to index the document after geocoding
      * @param indexIfGeocodeFails Indicates whether or not the document should still be added to the index if the geocode request fails.
+     * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurred
      */
     public GeocodeAndIndexJobResponse geocodeAndIndex(
             ParsedJob job,
             IndexSingleDocumentInfo indexingOptions,
-            boolean indexIfGeocodeFails) throws SovrenException {
-        return internalGeocodeAndIndex(job, indexingOptions, indexIfGeocodeFails, null, null);
+            boolean indexIfGeocodeFails,
+            GeocodeCredentials geocodeCredentials) throws SovrenException {
+        return internalGeocodeAndIndex(job, geocodeCredentials, indexingOptions, indexIfGeocodeFails, null, null);
     }
 
     /**
@@ -1120,6 +1125,7 @@ public class SovrenClient {
      * @param indexingOptions What index/document id to use to index the document after geocoding
      * @param address The address to use to retrieve geocoordinates
      * @param indexIfGeocodeFails Indicates whether or not the document should still be added to the index if the geocode request fails.
+     * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurred
      */
@@ -1127,8 +1133,9 @@ public class SovrenClient {
             ParsedJob job,
             IndexSingleDocumentInfo indexingOptions,
             Address address,
-            boolean indexIfGeocodeFails) throws SovrenException {
-        return internalGeocodeAndIndex(job, indexingOptions, indexIfGeocodeFails, address, null);
+            boolean indexIfGeocodeFails,
+            GeocodeCredentials geocodeCredentials) throws SovrenException {
+        return internalGeocodeAndIndex(job, geocodeCredentials, indexingOptions, indexIfGeocodeFails, address, null);
     }
 
     /**
@@ -1139,6 +1146,7 @@ public class SovrenClient {
      * @param indexingOptions What index/document id to use to index the document after geocoding
      * @param coordinates The geocoordinates to use
      * @param indexIfGeocodeFails Indicates whether or not the document should still be added to the index if the geocode request fails.
+     * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurred
      */
@@ -1146,8 +1154,9 @@ public class SovrenClient {
             ParsedJob job,
             IndexSingleDocumentInfo indexingOptions,
             GeoCoordinates coordinates,
-            boolean indexIfGeocodeFails) throws SovrenException {
-        return internalGeocodeAndIndex(job, indexingOptions, indexIfGeocodeFails, null, coordinates);
+            boolean indexIfGeocodeFails,
+            GeocodeCredentials geocodeCredentials) throws SovrenException {
+        return internalGeocodeAndIndex(job, geocodeCredentials, indexingOptions, indexIfGeocodeFails, null, coordinates);
     }
 
     /**
