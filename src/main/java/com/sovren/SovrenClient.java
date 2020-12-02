@@ -49,8 +49,7 @@ public class SovrenClient {
     private static final String _sdkVersion;
     
     static {
-        //_sdkVersion = SovrenClient.class.getPackage().getSpecificationVersion();//TODO: fix this
-        _sdkVersion = "0.1.0-beta";
+        _sdkVersion = SovrenClient.class.getPackage().getImplementationVersion();
     }
     
     /** 
