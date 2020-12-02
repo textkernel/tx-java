@@ -60,12 +60,12 @@ SovrenClient client = new SovrenClient("12345678", "abcdefghijklmnopqrstuvwxyz",
 List<String> indexesToSearch = ...;
 FilterCriteria searchQuery = ...;
 
-SearchResponse searchResponse = await client.search(indexesToSearch, searchQuery, null, null);
+SearchResponse searchResponse = client.search(indexesToSearch, searchQuery, null, null);
 ```
 To generate a Matching UI session with the above Search query, you simply need to call the `ui(...)` method on the `SovrenClient` object, pass in any UI settings, and then make the same call as above:
 ```java
 MatchUISettings uiSettings = ...;
-GenerateUIResponse uiResponse = await client.ui(uiSettings).search(indexesToSearch, searchQuery, null, null);
+GenerateUIResponse uiResponse = client.ui(uiSettings).search(indexesToSearch, searchQuery, null, null);
 ```
 For every relevant method in the `SovrenClient`, you can create a Matching UI session for that query by doing the same as above.
 
