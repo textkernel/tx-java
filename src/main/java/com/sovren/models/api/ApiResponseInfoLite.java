@@ -12,7 +12,7 @@ public class ApiResponseInfoLite {
     /** A short human-readable description explaining the {@link #Code} value*/
     public String Message;
 
-    public boolean isSuccess() { //TODO: JWW should this be public or package-private??
+    public boolean isSuccess() {
         switch (Code) {
             case "Success":
             case "WarningsFoundDuringParsing":
