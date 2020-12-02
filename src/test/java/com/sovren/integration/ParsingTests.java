@@ -1,5 +1,6 @@
 package com.sovren.integration;
 
+import com.google.gson.JsonParseException;
 import com.sovren.TestBase;
 import com.sovren.TestData;
 import com.sovren.exceptions.*;
@@ -12,14 +13,21 @@ import com.sovren.models.api.parsing.ParseJobResponseValue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.sovren.models.job.ParsedJob;
 import com.sovren.models.matching.IndexType;
+import com.sovren.models.resume.ParsedResume;
 import com.sovren.models.resume.metadata.ResumeQualityLevel;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
@@ -174,7 +182,89 @@ public class ParsingTests extends TestBase {
     }
 
     @Test
-    public void testparseJobGeocodeIndex() throws SovrenException {
+    public void testResumeToFromJson() throws IOException {
+        String tempFile1 = UUID.randomUUID().toString();
+        String tempFile2 = UUID.randomUUID().toString();
+
+        try {
+            ParseResumeResponse response = Client.parseResume(new ParseRequest(TestData.Resume, null));
+
+            String unformatted = response.Value.ResumeData.toJson(false);
+            String formatted = response.Value.ResumeData.toJson(true);
+
+            response.Value.ResumeData.toFile(tempFile1, true);
+            response.Value.ResumeData.toFile(tempFile2, false);
+
+            ParsedResume resume1 = ParsedResume.fromJson(unformatted);
+            ParsedResume resume2 = ParsedResume.fromJson(formatted);
+
+            assertNotNull(resume1);
+            assertNotNull(resume2);
+
+            assertNotNull(resume1.ContactInformation.CandidateName.FormattedName);
+            assertNotNull(resume2.ContactInformation.CandidateName.FormattedName);
+
+            resume1 = ParsedResume.fromFile(tempFile1);
+            resume2 = ParsedResume.fromFile(tempFile2);
+
+            assertNotNull(resume1);
+            assertNotNull(resume2);
+
+            assertNotNull(resume1.ContactInformation.CandidateName.FormattedName);
+            assertNotNull(resume2.ContactInformation.CandidateName.FormattedName);
+
+            assertThrows(JsonParseException.class, () -> { ParsedResume.fromJson("{}"); });
+        }
+        catch (Exception e) {}
+        finally {
+            Files.delete(Paths.get(tempFile1));
+            Files.delete(Paths.get(tempFile2));
+        }
+    }
+
+    @Test
+    public void testJobToFromJson() throws IOException {
+        String tempFile1 = UUID.randomUUID().toString();
+        String tempFile2 = UUID.randomUUID().toString();
+
+        try {
+            ParseJobResponse response = Client.parseJob(new ParseRequest(TestData.JobOrder, null));
+
+            String unformatted = response.Value.JobData.toJson(false);
+            String formatted = response.Value.JobData.toJson(true);
+
+            response.Value.JobData.toFile(tempFile1, true);
+            response.Value.JobData.toFile(tempFile2, false);
+
+            ParsedJob job1 = ParsedJob.fromJson(unformatted);
+            ParsedJob job2 = ParsedJob.fromJson(formatted);
+
+            assertNotNull(job1);
+            assertNotNull(job2);
+
+            assertNotNull(job1.JobMetadata.PlainText);
+            assertNotNull(job2.JobMetadata.PlainText);
+
+            job2 = ParsedJob.fromFile(tempFile1);
+            job2 = ParsedJob.fromFile(tempFile2);
+
+            assertNotNull(job2);
+            assertNotNull(job2);
+
+            assertNotNull(job1.JobMetadata.PlainText);
+            assertNotNull(job2.JobMetadata.PlainText);
+
+            assertThrows(JsonParseException.class, () -> { ParsedJob.fromJson("{}"); });
+        }
+        catch (Exception e) {}
+        finally {
+            Files.delete(Paths.get(tempFile1));
+            Files.delete(Paths.get(tempFile2));
+        }
+    }
+
+    @Test
+    public void testParseJobGeocodeIndex() throws SovrenException {
         String indexId = "SDK-testparseJobGeocodeIndex";
         String documentId = "1";
 
