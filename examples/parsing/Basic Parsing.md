@@ -34,7 +34,7 @@ public class ParsingExample {
             ParseResumeResponse response = client.parseResume(request);
             //if we get here, it was 200-OK and all operations succeeded
     
-            //now we can use the response from Sovren to ouput some of the data from the resume
+            //now we can use the response from Sovren to output some of the data from the resume
             printBasicResumeInfo(response);
         }
         catch (SovrenException e) {
@@ -75,14 +75,12 @@ public class ParsingExample {
                 System.out.println("Country: " + contactInfo.Location.CountryCode);
             }
             
-            if (contactInfo.WebAddresses.size() > 0) {
-                WebAddress linkedIn = contactInfo.WebAddresses
+            if (contactInfo.WebAddresses != null) {
+                contactInfo.WebAddresses
                         .stream()
                         .filter(w -> w.Type.equals(WebAddressType.LinkedIn.Value))
                         .findFirst()
-                        .orElse(null);
-                if (linkedIn != null)
-                    System.out.println("LinkedIn: " + linkedIn.Address);
+                        .ifPresent(w -> System.out.println("LinkedIn: " + w.Address));
             }
         }
     }
