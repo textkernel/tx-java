@@ -39,6 +39,13 @@ public abstract class TestBase {
         public String ServiceKey;
         public String GeocodeProviderKey;
     }
+
+    private static class TestDataCenter extends DataCenter {
+        public static TestDataCenter Local = new TestDataCenter("https://rest-local.sovren.com", "v10");
+        protected TestDataCenter(String root, String version) {
+            super(root, version, true);
+        }
+    }
     
     static {
         try {
@@ -49,7 +56,7 @@ public abstract class TestBase {
             GeocodeCredentials.Provider = GeocodeProvider.Google;
             GeocodeCredentials.ProviderKey = data.GeocodeProviderKey;
 
-            Client = new SovrenClient(data.AccountId, data.ServiceKey, DataCenter.US);
+            Client = new SovrenClient(data.AccountId, data.ServiceKey, TestDataCenter.Local);
 
             ParseResumeResponseValue parseResumeResponseValue = Client.parseResume(new ParseRequest(TestData.Resume, null)).Value;
             TestParsedResume = parseResumeResponseValue.ResumeData;

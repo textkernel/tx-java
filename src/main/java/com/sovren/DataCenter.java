@@ -13,7 +13,7 @@ public class DataCenter {
     String Version;
     boolean IsSovrenSaaS;
 
-    private DataCenter(String root, String version, boolean isSaaS) {
+    protected DataCenter(String root, String version, boolean isSaaS) {
         Root = root;
         Version = version;
         IsSovrenSaaS = isSaaS;
