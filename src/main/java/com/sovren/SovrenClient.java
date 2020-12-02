@@ -116,7 +116,12 @@ public class SovrenClient {
         try {
             rawResponse = _client.newCall(apiRequest).execute();
             apiResponse = new HttpResponse(rawResponse, classOfT);
-            
+
+            if (apiResponse != null && apiResponse.getResponse() != null && apiResponse.getResponse().code() == 413) {
+                errorInfo.Message = "Request body was too large.";
+                throw new SovrenException(requestBody, rawResponse, errorInfo, null);
+            }
+
             if (apiResponse == null || apiResponse.getData() == null) throw new SovrenException(requestBody, rawResponse, errorInfo, null);
         }
         catch (IOException e) {

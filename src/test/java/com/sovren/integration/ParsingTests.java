@@ -54,6 +54,15 @@ public class ParsingTests extends TestBase {
     }
 
     @Test
+    public void testLargeDocumentParse() {
+        SovrenException e = assertThrows(SovrenException.class, () -> {
+                Client.parseResume(new ParseRequest(new Document(new byte[32_000_000], LocalDate.now()), null));
+            });
+
+        assertEquals(e.getMessage(), "Request body was too large.");
+    }
+
+    @Test
     public void verifyParseResumeSuccess() throws Exception
     {
         AtomicReference<ParseResumeResponseValue> responseAtomic = new AtomicReference<>();
