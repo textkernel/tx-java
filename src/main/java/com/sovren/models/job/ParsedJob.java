@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.google.gson.JsonParseException;
 import com.sovren.models.Location;
 import com.sovren.models.ParsedDocument;
 import com.sovren.models.SovrenPrimitive;
@@ -112,8 +113,9 @@ public class ParsedJob extends ParsedDocument {
      * @param path The full path to the json file
      * @return The deserialized {@link ParsedJob}
      * @throws IOException When an error occurs reading the file
+     * @throws JsonParseException If you try to parse an invalid ParsedResume JSON string
      */
-    public static ParsedJob fromFile(String path) throws IOException {
+    public static ParsedJob fromFile(String path) throws IOException, JsonParseException {
         String fileContents = new String(Files.readAllBytes(Paths.get(path)), Charset.forName("utf8"));
         return fromJson(fileContents);
     }
@@ -122,8 +124,16 @@ public class ParsedJob extends ParsedDocument {
      * Create a parsed job from json. This is useful when you have stored parse results to disk for use later.
      * @param utf8json The UTF-8 encoded json string
      * @return The deserialized {@link ParsedJob}
+     * @throws JsonParseException If you try to parse an invalid ParsedResume JSON string
      */
-    public static ParsedJob fromJson(String utf8json) {
-        return SovrenJsonSerializer.deserialize(utf8json, ParsedJob.class);
+    public static ParsedJob fromJson(String utf8json) throws JsonParseException {
+        ParsedJob newJob = SovrenJsonSerializer.deserialize(utf8json, ParsedJob.class);
+
+        if (newJob.JobMetadata == null) {
+            //this should never happen, it was bad json
+            throw new JsonParseException("The provided JSON is not a valid ParsedJob created by the Sovren Job Parser");
+        }
+
+        return newJob;
     }
 }
