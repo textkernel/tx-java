@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 
 public class ParsingExample {
     public static void main(String[] args) throws IOException {
-        SovrenClient client = new SovrenClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US, null);
+        SovrenClient client = new SovrenClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US);
         
         //A Document is an unparsed File (PDF, Word Doc, etc)
         Document doc = new Document("resume.docx");
@@ -38,8 +38,7 @@ public class ParsingExample {
             printBasicResumeInfo(response);
         }
         catch (SovrenException e) {
-            //this was an outright failure, always try/catch for SovrenExceptions when using
-            // the ParsingService
+            //this was an outright failure, always try/catch for SovrenExceptions when using SovrenClient
             System.out.println("Error: " + e.SovrenErrorCode + ", Message: " + e.getMessage());
         }
     }

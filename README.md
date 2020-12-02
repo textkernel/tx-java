@@ -42,7 +42,7 @@ For full code examples, see [here][examples].
 ### Creating a `SovrenClient`
 This is the object that you will use to perform API calls. You create it with your account credentials and the `SovrenClient` makes the raw API calls for you. These credentials can be found in the [Sovren Portal][portal]. Be sure to select the correct `DataCenter` for your account.
 ```java
-SovrenClient client = new SovrenClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US, null);
+SovrenClient client = new SovrenClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US);
 ```
 
 For self-hosted customers, you can create a `DataCenter` object with your custom URL using the constructor provided on that class.
@@ -56,7 +56,7 @@ Additionally, there are `SovrenUsableResumeException` and `SovrenUsableJobExcept
 You may be wondering, "where are the Matching UI endpoints/methods?". We have made the difference between a normal API call (such as `Search`) and its equivalent Matching UI call extremely trivial. See the following example:
 
 ```java
-SovrenClient client = new SovrenClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US, null);
+SovrenClient client = new SovrenClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US);
 List<String> indexesToSearch = ...;
 FilterCriteria searchQuery = ...;
 
