@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class TestBase {
     protected static SovrenClient Client;
+    protected static GeocodeCredentials GeocodeCredentials;
 
     protected static ParsedResume TestParsedResume;
     protected static ParsedResume TestParsedResumeWithAddress;
@@ -44,11 +45,11 @@ public abstract class TestBase {
             String jsonCreds = new String(Files.readAllBytes(Paths.get("src\\test\\resources\\credentials.json")), Charset.forName("utf8"));
             Credentials data = new Gson().fromJson(jsonCreds, Credentials.class);
 
-            GeocodeCredentials geocodeCredentials = new GeocodeCredentials();
-            geocodeCredentials.Provider = GeocodeProvider.Google;
-            geocodeCredentials.ProviderKey = data.GeocodeProviderKey;
+            GeocodeCredentials = new GeocodeCredentials();
+            GeocodeCredentials.Provider = GeocodeProvider.Google;
+            GeocodeCredentials.ProviderKey = data.GeocodeProviderKey;
 
-            Client = new SovrenClient(data.AccountId, data.ServiceKey, DataCenter.US, geocodeCredentials);
+            Client = new SovrenClient(data.AccountId, data.ServiceKey, DataCenter.US);
 
             ParseResumeResponseValue parseResumeResponseValue = Client.parseResume(new ParseRequest(TestData.Resume, null)).Value;
             TestParsedResume = parseResumeResponseValue.ResumeData;

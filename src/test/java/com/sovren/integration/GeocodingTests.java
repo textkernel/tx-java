@@ -14,7 +14,7 @@ public class GeocodingTests extends TestBase {
     @Test
     public void testResumeNoAddress() {
         assertThrows(SovrenException.class, () -> {
-            Client.geocode(TestParsedResume);
+            Client.geocode(TestParsedResume, GeocodeCredentials);
             });
 
         assertThrows(SovrenException.class, () -> {
@@ -22,13 +22,13 @@ public class GeocodingTests extends TestBase {
             });
 
         assertThrows(SovrenException.class, () -> {
-            Client.geocode(TestParsedResume, new Address());
+            Client.geocode(TestParsedResume, new Address(), GeocodeCredentials);
             });
 
         assertThrows(SovrenException.class, () -> {
             Address addr = new Address();
             addr.CountryCode = "US";
-            Client.geocode(TestParsedResume, addr);
+            Client.geocode(TestParsedResume, addr, GeocodeCredentials);
         });
 
         assertDoesNotThrow(() -> {
@@ -36,32 +36,32 @@ public class GeocodingTests extends TestBase {
             addr.CountryCode = "US";
             addr.Municipality = "Dallas";
             addr.Region = "TX";
-            Client.geocode(TestParsedResume, addr);
+            Client.geocode(TestParsedResume, addr, GeocodeCredentials);
         });
 
         assertDoesNotThrow(() -> {
-            Client.geocode(TestParsedResumeWithAddress);
+            Client.geocode(TestParsedResumeWithAddress, GeocodeCredentials);
         });
     }
 
     @Test
     public void testJobNoAddress() {
         assertThrows(SovrenException.class, () -> {
-            Client.geocode(TestParsedJob);
+            Client.geocode(TestParsedJob, GeocodeCredentials);
             });
 
         assertThrows(SovrenException.class, () -> {
-            Client.geocode(TestParsedJob, null);
+            Client.geocode(TestParsedJob, null, GeocodeCredentials);
             });
 
         assertThrows(SovrenException.class, () -> {
-            Client.geocode(TestParsedJob, new Address());
+            Client.geocode(TestParsedJob, new Address(), GeocodeCredentials);
             });
 
         assertThrows(SovrenException.class, () -> {
             Address addr = new Address();
             addr.CountryCode = "US";
-            Client.geocode(TestParsedJob, addr);
+            Client.geocode(TestParsedJob, addr, GeocodeCredentials);
         });
 
         assertDoesNotThrow(() -> {
@@ -69,11 +69,11 @@ public class GeocodingTests extends TestBase {
             addr.CountryCode = "US";
             addr.Municipality = "Dallas";
             addr.Region = "TX";
-            Client.geocode(TestParsedJob, addr);
+            Client.geocode(TestParsedJob, addr, GeocodeCredentials);
         });
 
         assertDoesNotThrow(() -> {
-            Client.geocode(TestParsedJobWithAddress);
+            Client.geocode(TestParsedJobWithAddress, GeocodeCredentials);
         });
     }
 
@@ -87,30 +87,30 @@ public class GeocodingTests extends TestBase {
 
             // missing indexing options
             assertThrows(SovrenException.class, () -> {
-                Client.geocodeAndIndex(TestParsedResumeWithAddress, null, false);
+                Client.geocodeAndIndex(TestParsedResumeWithAddress, null, false, GeocodeCredentials);
             });
 
             // empty indexing options
             IndexSingleDocumentInfo indexingOptions = new IndexSingleDocumentInfo();
             assertThrows(SovrenException.class, () -> {
-                Client.geocodeAndIndex(TestParsedResumeWithAddress, indexingOptions, false);
+                Client.geocodeAndIndex(TestParsedResumeWithAddress, indexingOptions, false, GeocodeCredentials);
             });
 
             // missing documentid
             indexingOptions.IndexId = indexId;
             assertThrows(SovrenException.class, () -> {
-                Client.geocodeAndIndex(TestParsedResumeWithAddress, indexingOptions, false);
+                Client.geocodeAndIndex(TestParsedResumeWithAddress, indexingOptions, false, GeocodeCredentials);
             });
 
             indexingOptions.DocumentId = documentId;
 
             // not enough data points to index
             assertThrows(SovrenException.class, () -> {
-                Client.geocodeAndIndex(TestParsedResume, indexingOptions, false);
+                Client.geocodeAndIndex(TestParsedResume, indexingOptions, false, GeocodeCredentials);
             });
 
             assertDoesNotThrow(() -> {
-                Client.geocodeAndIndex(TestParsedResumeWithAddress, indexingOptions, false);
+                Client.geocodeAndIndex(TestParsedResumeWithAddress, indexingOptions, false, GeocodeCredentials);
             });
 
             assertDoesNotThrow(() -> {
@@ -132,30 +132,30 @@ public class GeocodingTests extends TestBase {
 
             // missing indexing options
             assertThrows(SovrenException.class, () -> {
-                Client.geocodeAndIndex(TestParsedJobWithAddress, null, false);
+                Client.geocodeAndIndex(TestParsedJobWithAddress, null, false, GeocodeCredentials);
             });
 
             // empty indexing options
             IndexSingleDocumentInfo indexingOptions = new IndexSingleDocumentInfo();
             assertThrows(SovrenException.class, () -> {
-                Client.geocodeAndIndex(TestParsedJobWithAddress, indexingOptions, false);
+                Client.geocodeAndIndex(TestParsedJobWithAddress, indexingOptions, false, GeocodeCredentials);
             });
 
             // missing documentid
             indexingOptions.IndexId = indexId;
             assertThrows(SovrenException.class, () -> {
-                Client.geocodeAndIndex(TestParsedJobWithAddress, indexingOptions, false);
+                Client.geocodeAndIndex(TestParsedJobWithAddress, indexingOptions, false, GeocodeCredentials);
             });
 
             indexingOptions.DocumentId = documentId;
 
             // not enough data points to index
             assertThrows(SovrenException.class, () -> {
-                Client.geocodeAndIndex(TestParsedJob, indexingOptions, false);
+                Client.geocodeAndIndex(TestParsedJob, indexingOptions, false, GeocodeCredentials);
             });
 
             assertDoesNotThrow(() -> {
-                Client.geocodeAndIndex(TestParsedJobWithAddress, indexingOptions, false);
+                Client.geocodeAndIndex(TestParsedJobWithAddress, indexingOptions, false, GeocodeCredentials);
             });
 
             assertDoesNotThrow(() -> {
