@@ -23,7 +23,7 @@ public class ResumeQualityFinding {
     /**
      * If applicable, areas in the resume where this issue was found or that are affected by this issue.
     */
-    public List<SectionIdentifier> Identifiers;
+    public List<SectionIdentifier> SectionIdentifiers;
         
     /** A human-readable message explaining the issue that is being reported and possibly how to fix.*/
     public String Message;
