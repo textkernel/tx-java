@@ -11,9 +11,6 @@ public abstract class Skill {
     /** The name of the skill*/
     public String Name;
 
-    /** Where the skill was found*/
-    public String FoundIn;
-
     /** Whether or not this skill was found verbatim in the text*/
     public boolean ExistsInText;
 }
