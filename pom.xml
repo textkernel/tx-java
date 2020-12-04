@@ -4,7 +4,7 @@
     <groupId>com.sovren</groupId>
     <artifactId>sovren-java</artifactId>
 
-    <version>0.1.8-beta</version>
+    <version>0.1.9-beta</version>
 
     <packaging>jar</packaging>
     <name>Sovren Java SDK</name>
