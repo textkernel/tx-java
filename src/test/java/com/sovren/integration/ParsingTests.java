@@ -410,7 +410,6 @@ public class ParsingTests extends TestBase {
         assertNotNull(response.Value.ResumeData.Certifications);
         assertHasItems(response.Value.ResumeData.Certifications);
         assertNotNull(response.Value.ResumeData.Certifications.get(0).Name);
-        assertNotNull(response.Value.ResumeData.Certifications.get(0).FoundInContext);
 
         assertNotNull(response.Value.ResumeData.ContactInformation);
         assertNotNull(response.Value.ResumeData.ContactInformation.CandidateName);
