@@ -485,7 +485,7 @@ public class ParsingTests extends TestBase {
         assertNotNull(response.Value.ResumeData.ResumeMetadata.FoundSections);
         assertHasItems(response.Value.ResumeData.ResumeMetadata.FoundSections);
         assertNotNull(response.Value.ResumeData.ResumeMetadata.FoundSections.get(0).SectionType);
-        assertNotEquals(0, response.Value.ResumeData.ResumeMetadata.FoundSections.get(0).LastLine);
+        assertNotEquals(0, response.Value.ResumeData.ResumeMetadata.FoundSections.get(0).LastLineNumber);
         assertNotNull(response.Value.ResumeData.ResumeMetadata.ReservedData);
         assertNotNull(response.Value.ResumeData.ResumeMetadata.SovrenSignature);
         assertNotNull(response.Value.ResumeData.ResumeMetadata.ParserSettings);
