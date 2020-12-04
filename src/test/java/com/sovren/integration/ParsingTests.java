@@ -1,3 +1,8 @@
+// Copyright © 2020 Sovren Group, Inc. All rights reserved.
+// This file is provided for use by, or on behalf of, Sovren licensees
+// within the terms of their license of Sovren products or Sovren customers
+// within the Terms of Service pertaining to the Sovren SaaS products.
+
 package com.sovren.integration;
 
 import com.google.gson.JsonParseException;
@@ -355,10 +360,10 @@ public class ParsingTests extends TestBase {
         assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings);
         assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings);
         assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).Message);
-        assertNotEquals(0, response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).QualityCode);
-        assertEquals(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).QualityCode, 413);
-        assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(3).Findings.get(0).Identifiers);
-        assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality.get(3).Findings.get(0).Identifiers);
+        assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).QualityCode);
+        assertEquals("413", response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).QualityCode);
+        assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(3).Findings.get(0).SectionIdentifiers);
+        assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality.get(3).Findings.get(0).SectionIdentifiers);
     }
     
     @Test
