@@ -19,14 +19,11 @@ public class PersonName {
     /** The given (first) name*/
     public String GivenName;
 
-    /** The preferred given (first) name or nickname. */
-    public String PreferredGivenName;
-
     /** The middle name or initial*/
     public String MiddleName;
 
-    /** The nickname*/
-    public String Nickname;
+    /** The nickname/moniker, this is rarely populated */
+    public String Moniker;
 
     /** The family (last) name*/
     public String FamilyName;
