@@ -5,19 +5,21 @@
 
 package com.sovren.models.resume.metadata;
 
+import com.sovren.models.ParsedDocumentMetadata;
+
 /**
 * A section in the resume (work history, education, etc)
 */
 public class ResumeSection {
 
-    /** The first line of the section (zero-based)*/
-    public int FirstLine;
+    /** The first line of the section (zero-based). This refers to the lines (delimited by newline) in the {@link ParsedDocumentMetadata#PlainText} */
+    public int FirstLineNumber;
     
-    /** The last line of the section (zero-based)*/
-    public int LastLine;
+    /** The last line of the section (zero-based). This refers to the lines (delimited by newline) in the {@link ParsedDocumentMetadata#PlainText} */
+    public int LastLineNumber;
     
     /**
-     * The type of section. Some possibilites:
+     * The type of section. Some possibilities:
      * <ul>
      * <li>CONTACT_INFO</li>
      * <li>EDUCATION</li>
@@ -34,5 +36,5 @@ public class ResumeSection {
      * The exact text that was used to identify the beginning of the section.
      * If there was no text indicator and the location was calculated, then the value is {@code "CALCULATED"}
     */
-    public String HeaderFound;
+    public String HeaderTextFound;
 }
