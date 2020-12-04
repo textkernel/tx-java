@@ -17,8 +17,5 @@ public class Certification {
      * {@code true} if Sovren found this by matching to a known list of certifications.
      * {@code false} if Sovren found this by analyzing the context and determining it was a certification.
     */
-    public boolean MatchedToList;
-
-    /** The full text where Sovren found the certification*/
-    public String FoundInContext;
+    public boolean MatchedFromList;
 }
