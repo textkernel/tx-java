@@ -5,7 +5,8 @@ name: Maven Package Publish
 
 on:
   release:
-    types: [created]
+    types: [published]
+  workflow_dispatch: #add this option in case of a failure and we need to re-run
 
 jobs:
   build:
