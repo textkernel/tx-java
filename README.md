@@ -1,6 +1,7 @@
 # sovren-java
-![GitHub](https://img.shields.io/github/license/sovren/sovren-java?color=3498af)
-![Maven Central](https://img.shields.io/maven-central/v/com.sovren/sovren-java?color=be0913)
+![GitHub](https://img.shields.io/github/license/sovren/sovren-java?color=0575aa)
+![Maven Central](https://img.shields.io/maven-central/v/com.sovren/sovren-java?color=0575aa)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/sovren/sovren-java/build)
 
 The official Java SDK for the Sovren v10 API for resume/CV and job parsing, searching, and matching. Supports Java 1.8+.
 
@@ -12,7 +13,7 @@ The official Java SDK for the Sovren v10 API for resume/CV and job parsing, sear
 ### Gradle Users
 Add this dependency to your project's build file:
 ```
-implementation "com.sovren:sovren-java:0.1.7
+implementation "com.sovren:sovren-java:0.1.14-beta
 ```
 
 ### Maven Users
@@ -21,13 +22,13 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.sovren</groupId>
   <artifactId>sovren-java</artifactId>
-  <version>0.1.7</version>
+  <version>0.1.14-beta</version>
 </dependency>
 ```
 
 ### Others
 You'll need to manually install the following JARs:
-- The Sovren JAR from https://repo1.maven.org/maven2/com/sovren/sovren-java/0.1.9-beta/sovren-java-0.1.7.jar
+- The Sovren JAR from https://repo1.maven.org/maven2/com/sovren/sovren-java/0.1.14-beta/sovren-java-0.1.14-beta.jar
 - [Google Gson][gson_url] from https://repo1.maven.org/maven2/com/google/code/gson/gson/2.8.6/gson-2.8.6.jar.
 - [Square OkHttp][okhttp_url] from https://repo1.maven.org/maven2/com/squareup/okhttp3/okhttp/4.9.0/okhttp-4.9.0.jar
 
