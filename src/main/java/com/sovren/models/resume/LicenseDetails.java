@@ -17,8 +17,5 @@ public class LicenseDetails {
      * {@code true} if Sovren found this by matching to a known list of licenses.
      * {@code false} if Sovren found this by analyzing the context and determining it was a license.
     */
-    public boolean MatchedToList;
-
-    /** The full text where Sovren found the license*/
-    public String FoundInContext;
+    public boolean MatchedFromList;
 }
