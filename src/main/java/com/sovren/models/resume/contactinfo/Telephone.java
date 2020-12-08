@@ -12,12 +12,12 @@ import com.sovren.models.resume.NormalizedString;
 */
 public class Telephone extends NormalizedString {
 
-    /** If OutputFormat.TelcomNumber.Style = Structured configuration setting is set, the international country code part of the phone number*/
+    /** The international country code part of the phone number*/
     public String InternationalCountryCode;
 
-    /** If OutputFormat.TelcomNumber.Style = Structured configuration setting is set, the area code part of the phone number*/
+    /** The area code part of the phone number*/
     public String AreaCityCode;
 
-    /** If OutputFormat.TelcomNumber.Style = Structured configuration setting is set, the subscriber part of the phone number*/
+    /** The subscriber number part of the phone number*/
     public String SubscriberNumber;
 }
