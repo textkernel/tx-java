@@ -7,7 +7,6 @@ package com.sovren.models.resume.contactinfo;
 
 import java.util.List;
 import com.sovren.models.Location;
-import com.sovren.models.resume.NormalizedString;
 
 /**
 * A candidate's contact information listed on a resume
@@ -18,7 +17,7 @@ public class ContactInformation {
     public PersonName CandidateName;
 
     /** The candidate's phone numbers. If multiple numbers are found, mobile phone numbers will be listed first*/
-    public List<NormalizedString> Telephones;
+    public List<Telephone> Telephones;
 
     /** The candidate's email addresses*/
     public List<String> EmailAddresses;
