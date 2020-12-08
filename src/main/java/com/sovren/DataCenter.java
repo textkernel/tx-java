@@ -9,10 +9,10 @@ package com.sovren;
 public class DataCenter {
     
     /** Represents the Sovren US datacenter. You can find out which datacenter your account is in at https://portal.sovren.com*/
-    public static DataCenter US = new DataCenter("https://staging-rest.resumeparsing.com", "v10", false);
+    public static DataCenter US = new DataCenter("https://rest.resumeparsing.com", "v10", false);
 
     /** Represents the Sovren EU datacenter. You can find out which datacenter your account is in at https://portal.sovren.com*/
-    public static DataCenter EU = new DataCenter("https://staging-rest.resumeparsing.com", "v10", false);
+    public static DataCenter EU = new DataCenter("https://eu-rest.resumeparsing.com", "v10", false);
 
     String Root;
     String Version;
