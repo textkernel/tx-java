@@ -82,4 +82,7 @@ public class Position {
     
     /** The job description*/
     public String Description;
+    
+    /** Bullet points found in the {@link #Description} (available when {@code OutputFormat.CreateBullets = true} is set in the Configuration string on the request)*/
+    public List<Bullet> Bullets;
 }
