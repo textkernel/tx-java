@@ -25,6 +25,9 @@ public class ApiResponseInfo extends ApiResponseInfoLite {
 
     /** The version of the API */
     public String ApiVersion;
+    
+    /** How many credits the customer was charged for this transaction*/
+    public double CreditsUsed;
 
     /** Information about the customer who made the API call*/
     public AccountInfo CustomerDetails;
