@@ -66,6 +66,30 @@ public class ParsingTests extends TestBase {
 
         assertEquals(e.getMessage(), "Request body was too large.");
     }
+    
+    @Test
+    public void testBullets() throws Exception
+    {
+        AtomicReference<ParseResumeResponseValue> responseAtomic = new AtomicReference<>();
+
+        assertDoesNotThrow(() -> {
+            ParseOptions opts = new ParseOptions();
+            opts.Configuration = "OutputFormat.CreateBullets = true";
+            responseAtomic.set(Client.parseResume(new ParseRequest(TestData.Resume, opts)).Value);
+        });
+
+        ParseResumeResponseValue response = responseAtomic.get();
+
+        assertTrue(response.ParsingResponse.isSuccess());
+        assertNotNull(response.ResumeData);
+        assertNotNull(response.ResumeData.EmploymentHistory);
+        assertHasItems(response.ResumeData.EmploymentHistory.Positions);
+        assertHasItems(response.ResumeData.EmploymentHistory.Positions.get(0).Bullets);
+        assertNotNull(response.ResumeData.EmploymentHistory.Positions.get(0).Bullets.get(0).Text);
+        assertNotEquals("", response.ResumeData.EmploymentHistory.Positions.get(0).Bullets.get(0).Text);
+        assertNotNull(response.ResumeData.EmploymentHistory.Positions.get(0).Bullets.get(0).Type);
+        assertNotEquals("", response.ResumeData.EmploymentHistory.Positions.get(0).Bullets.get(0).Type);
+    }
 
     @Test
     public void verifyParseResumeSuccess() throws Exception
@@ -332,10 +356,10 @@ public class ParsingTests extends TestBase {
     public void testSkillsData() throws SovrenException {
         ParseResumeResponseValue response = Client.parseResume(new ParseRequest(TestData.Resume, null)).Value;
     
-        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(0).MonthsExperience.Value, 12);
-        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(0).LastUsed.Value.toString(), "2018-07-01");
-        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(0).Variations.get(0).MonthsExperience.Value, 12);
-        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(0).Variations.get(0).LastUsed.Value.toString(), "2018-07-01");
+        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(1).MonthsExperience.Value, 12);
+        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(1).LastUsed.Value.toString(), "2018-07-01");
+        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(1).Variations.get(0).MonthsExperience.Value, 12);
+        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(1).Variations.get(0).LastUsed.Value.toString(), "2018-07-01");
     }
 
     @Test
@@ -362,8 +386,8 @@ public class ParsingTests extends TestBase {
         assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).Message);
         assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).QualityCode);
         assertEquals("413", response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).QualityCode);
-        assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(3).Findings.get(0).SectionIdentifiers);
-        assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality.get(3).Findings.get(0).SectionIdentifiers);
+        assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(2).Findings.get(1).SectionIdentifiers);
+        assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality.get(2).Findings.get(1).SectionIdentifiers);
     }
     
     @Test
