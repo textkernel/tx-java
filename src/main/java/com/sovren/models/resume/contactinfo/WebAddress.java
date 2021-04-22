@@ -17,10 +17,25 @@ public class WebAddress {
      * The type of address. One of:
      * <p>- {@link WebAddressType#PersonalWebsite}
      * <p>- {@link WebAddressType#LinkedIn}
-     * <p>- {@link WebAddressType#TwitterHandle}
+     * <p>- {@link WebAddressType#Twitter}
+     * <p>- {@link WebAddressType#GitHub}
      * <p>- {@link WebAddressType#Facebook}
+     * <p>- {@link WebAddressType#Skype}
+     * <p>- {@link WebAddressType#WhatsApp}
+     * <p>- {@link WebAddressType#StackOverflow}
      * <p>- {@link WebAddressType#Instagram}
+     * <p>- {@link WebAddressType#Reddit}
+     * <p>- {@link WebAddressType#Signal}
+     * <p>- {@link WebAddressType#Quora}
      * <p>- {@link WebAddressType#ICQ}
+     * <p>- {@link WebAddressType#WeChat}
+     * <p>- {@link WebAddressType#QQ}
+     * <p>- {@link WebAddressType#Telegraph}
+     * <p>- {@link WebAddressType#Telegram}
+     * <p>- {@link WebAddressType#MeWe}
+     * <p>- {@link WebAddressType#Parler}
+     * <p>- {@link WebAddressType#Gab}
+     * <p>- {@link WebAddressType#Unknown}
      * */
     public String Type;
 }

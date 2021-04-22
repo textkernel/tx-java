@@ -33,4 +33,28 @@ public class CategoryWeights {
     
     /** The weight of the ManagementLevel category relative to other categories.*/
     public double ManagementLevel;
+    
+    /** If {@code false}, the Education category has no data and should be ignored/hidden.*/
+    public boolean EducationHasData;
+    
+    /** If {@code false}, the JobTitles category has no data and should be ignored/hidden.*/
+    public boolean JobTitlesHasData;
+    
+    /** If {@code false}, the Skills category has no data and should be ignored/hidden.*/
+    public boolean SkillsHasData;
+    
+    /** If {@code false}, the Industries/Taxonomies category has no data and should be ignored/hidden.*/
+    public boolean IndustriesHasData;
+    
+    /** If {@code false}, the Languages category has no data and should be ignored/hidden.*/
+    public boolean LanguagesHasData;
+    
+    /** If {@code false}, the Certifications category has no data and should be ignored/hidden.*/
+    public boolean CertificationsHasData;
+    
+    /** If {@code false}, the ExecutiveType category has no data and should be ignored/hidden.*/
+    public boolean ExecutiveTypeHasData;
+    
+    /** If {@code false}, the ManagementLevel category has no data and should be ignored/hidden.*/
+    public boolean ManagementLevelHasData;
 }
