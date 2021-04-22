@@ -18,7 +18,7 @@ public class WebAddressType {
     public static WebAddressType LinkedIn = new WebAddressType("LinkedIn");
 
     /** A Twitter handle*/
-    public static WebAddressType TwitterHandle = new WebAddressType("Twitter");
+    public static WebAddressType Twitter = new WebAddressType("Twitter");
 
     /** A Facebook profile URL*/
     public static WebAddressType Facebook = new WebAddressType("Facebook");
