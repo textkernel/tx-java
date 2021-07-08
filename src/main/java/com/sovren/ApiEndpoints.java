@@ -14,8 +14,16 @@ class ApiEndpoints {
         _dataCenter = dataCenter;
     }
 
+    private String versionSuffix() {
+        String versionSuffix = "";
+        if (_dataCenter.Version != null && !_dataCenter.Version.trim().isEmpty()){
+            versionSuffix = "/" + _dataCenter.Version;
+        }
+        return versionSuffix;
+    }
+    
     private String prefix() {
-        return _dataCenter.Root + "/" + _dataCenter.Version;
+        return _dataCenter.Root + versionSuffix();
     }
 
     private String prefix(boolean isMatchUI) {
@@ -24,7 +32,7 @@ class ApiEndpoints {
             //do not throw this for now, it will just be a 404
         }
 
-        return _dataCenter.Root + "/" + (isMatchUI ? _matchUIPrefix : "") + "/" + _dataCenter.Version;
+        return _dataCenter.Root + "/" + (isMatchUI ? _matchUIPrefix : "") + versionSuffix();
     }
 
     private String sanitize(String indexOrDocId) throws IllegalArgumentException {
