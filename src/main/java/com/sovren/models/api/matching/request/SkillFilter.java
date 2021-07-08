@@ -5,8 +5,6 @@
 
 package com.sovren.models.api.matching.request;
 
-import java.util.Optional;
-
 /**
 * Filter for a specific skill
 */
@@ -19,7 +17,7 @@ public class SkillFilter {
     public String SkillName;
     
     /** The experience level of the skill*/
-    public Optional<SkillExperienceLevel> ExperienceLevel;
+    public SkillExperienceLevel ExperienceLevel;
     
     /** Whether or not the skill must be a current skill*/
     public boolean IsCurrent;

@@ -5,7 +5,6 @@
 
 package com.sovren.models.api.matching.request;
 
-import java.util.Optional;
 import com.sovren.models.api.matching.CategoryWeights;
 import com.sovren.models.api.matching.BaseScoredResponseValue;
 
