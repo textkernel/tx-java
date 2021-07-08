@@ -182,7 +182,15 @@ public class SovrenClient {
     private String getBodyIfDebug(Request request) {
         
         if (ShowFullRequestBodyInExceptions) {
-            return request.body().toString();
+            try {
+                final Request copy = request.newBuilder().build();
+                final okio.Buffer buffer = new okio.Buffer();
+                copy.body().writeTo(buffer);
+                return buffer.readUtf8();
+            }
+            catch (IOException e) {
+                return null;
+            }
         }
         
         return null;
