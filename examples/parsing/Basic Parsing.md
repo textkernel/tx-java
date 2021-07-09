@@ -39,7 +39,7 @@ public class ParsingExample {
         }
         catch (SovrenException e) {
             //this was an outright failure, always try/catch for SovrenExceptions when using SovrenClient
-            System.out.println("Error: " + e.SovrenErrorCode + ", Message: " + e.getMessage());
+            System.out.println("Code: " + e.HttpStatusCode + ", Error: " + e.SovrenErrorCode + ", Message: " + e.getMessage());
         }
     }
     
