@@ -11,6 +11,7 @@ import com.sovren.exceptions.SovrenException;
 import com.sovren.models.api.matching.MatchResponseValue;
 import com.sovren.models.api.matching.SearchResponseValue;
 import com.sovren.models.api.matching.request.FilterCriteria;
+import com.sovren.models.api.matching.request.PaginationSettings;
 import com.sovren.models.api.matching.ui.GenerateUIResponse;
 import com.sovren.models.matching.IndexType;
 import okhttp3.OkHttpClient;
@@ -99,7 +100,9 @@ public class AIMatchingTests extends TestBase {
 
         filterCritera.SearchExpression = validSearchTerm;
         assertDoesNotThrow(() -> {
-            SearchResponseValue response = Client.search(indexesToQuery, filterCritera, null, null).Value;
+            PaginationSettings pageSettings = new PaginationSettings();
+            pageSettings.Take = 10;
+            SearchResponseValue response = Client.search(indexesToQuery, filterCritera, null, pageSettings).Value;
             assertEquals(1, response.CurrentCount);
             assertEquals(1, response.TotalCount);
         });
