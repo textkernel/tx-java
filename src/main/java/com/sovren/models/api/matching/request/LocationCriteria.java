@@ -6,7 +6,6 @@
 package com.sovren.models.api.matching.request;
 
 import java.util.List;
-import java.util.Optional;
 import com.sovren.models.Location;
 import com.sovren.models.api.geocoding.GeocodeProvider;
 
@@ -19,7 +18,7 @@ public class LocationCriteria {
     public List<Location> Locations;
     
     /** The distance from {@link #Locations} within which to find results.*/
-    public Optional<Integer> Distance;
+    public Integer Distance;
     
     /** The units for the specified distance. */
     public DistanceUnit DistanceUnit;

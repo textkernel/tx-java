@@ -122,9 +122,14 @@ public class SovrenClient {
             rawResponse = _client.newCall(apiRequest).execute();
             apiResponse = new HttpResponse(rawResponse, classOfT);
 
-            if (apiResponse != null && apiResponse.getResponse() != null && apiResponse.getResponse().code() == 413) {
+            if (rawResponse != null && rawResponse.code() == 413) {
                 errorInfo.Message = "Request body was too large.";
                 throw new SovrenException(requestBody, rawResponse, errorInfo, null);
+            }
+            
+            if (rawResponse != null && apiResponse.getData() == null && rawResponse.code() != 200) {
+                //something went wrong, a non-200 status code
+                errorInfo.Message = rawResponse.code() + " - " + rawResponse.message();
             }
 
             if (apiResponse == null || apiResponse.getData() == null) throw new SovrenException(requestBody, rawResponse, errorInfo, null);
@@ -177,7 +182,15 @@ public class SovrenClient {
     private String getBodyIfDebug(Request request) {
         
         if (ShowFullRequestBodyInExceptions) {
-            return request.body().toString();
+            try {
+                final Request copy = request.newBuilder().build();
+                final okio.Buffer buffer = new okio.Buffer();
+                copy.body().writeTo(buffer);
+                return buffer.readUtf8();
+            }
+            catch (IOException e) {
+                return null;
+            }
         }
         
         return null;

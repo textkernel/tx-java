@@ -363,7 +363,7 @@ public class ParsingTests extends TestBase {
     }
 
     @Test
-    public void testPersonalInfoAndResumeQuality() throws SovrenException {
+    public void testPersonalInfo() throws SovrenException {
         ParseResumeResponseValue response = Client.parseResume(new ParseRequest(TestData.ResumePersonalInformation, null)).Value;
     
         assertNotNull(response.ResumeData.PersonalAttributes.Birthplace);
@@ -373,21 +373,26 @@ public class ParsingTests extends TestBase {
         assertNotNull(response.ResumeData.PersonalAttributes.FathersName);
         assertNotNull(response.ResumeData.PersonalAttributes.Gender);
         assertNotNull(response.ResumeData.PersonalAttributes.MaritalStatus);
-        assertNotNull(response.ResumeData.PersonalAttributes.MotherTongue);
+        //assertNotNull(response.ResumeData.PersonalAttributes.MotherTongue);
         assertNotNull(response.ResumeData.PersonalAttributes.Nationality);
         assertNotNull(response.ResumeData.PersonalAttributes.PassportNumber);
+    }
+
+    @Test
+    public void testResumeQuality() throws SovrenException, IOException {
+        Document document = getTestFileAsDocument("resume.docx");
+        ParseResumeResponseValue response = Client.parseResume(new ParseRequest(document, null)).Value;
     
-        //fatal 413
         assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality);
         assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Level);
-        assertEquals(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Level, ResumeQualityLevel.FatalProblem.Value);
+        assertEquals(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Level, ResumeQualityLevel.SuggestedImprovement.Value);
         assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings);
         assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings);
         assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).Message);
         assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).QualityCode);
-        assertEquals("413", response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).QualityCode);
-        assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(2).Findings.get(1).SectionIdentifiers);
-        assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality.get(2).Findings.get(1).SectionIdentifiers);
+        assertEquals("227", response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).QualityCode);
+        assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(3).SectionIdentifiers);
+        assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(3).SectionIdentifiers);
     }
     
     @Test
