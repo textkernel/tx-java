@@ -50,8 +50,6 @@ public abstract class TestBase {
         }
     }
 
-    static String error = "";
-    
     static {
         try {
             String jsonCreds = new String(Files.readAllBytes(Paths.get("./src/test/resources/credentials.json")), Charset.forName("utf8"));
@@ -79,18 +77,11 @@ public abstract class TestBase {
             TestParsedJobTech = parseJobResponseValue.JobData;
         }
         catch (Exception e) {
-            java.io.StringWriter sw = new java.io.StringWriter();
-            e.printStackTrace(new java.io.PrintWriter(sw));
-            error = e.getClass().getName() + e.getMessage() + sw.toString();
         }
     }
 
-    public Document getTestFileAsDocument(String filename) throws Exception {
-              
-        throw new Exception(error);
-        //return new Document("./src/test/resources/" + filename);
-
-  
+    public Document getTestFileAsDocument(String filename) throws IOException {
+        return new Document("./src/test/resources/" + filename);
     }
 
     public static void delayForIndexSync() {

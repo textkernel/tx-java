@@ -379,7 +379,7 @@ public class ParsingTests extends TestBase {
     }
 
     @Test
-    public void testResumeQuality() throws SovrenException, Exception {
+    public void testResumeQuality() throws SovrenException, IOException {
         Document document = getTestFileAsDocument("resume.docx");
         ParseResumeResponseValue response = Client.parseResume(new ParseRequest(document, null)).Value;
     
