@@ -54,7 +54,7 @@ public abstract class TestBase {
     
     static {
         try {
-            String jsonCreds = new String(Files.readAllBytes(Paths.get(".src/test/resources/credentials.json")), Charset.forName("utf8"));
+            String jsonCreds = new String(Files.readAllBytes(Paths.get("./src/test/resources/credentials.json")), Charset.forName("utf8"));
             Credentials data = new Gson().fromJson(jsonCreds, Credentials.class);
 
             GeocodeCredentials = new GeocodeCredentials();
