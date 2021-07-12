@@ -18,9 +18,7 @@ import com.sovren.models.job.ParsedJob;
 import com.sovren.models.resume.ParsedResume;
 import com.sovren.models.resume.education.Degree;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -54,7 +52,7 @@ public abstract class TestBase {
     
     static {
         try {
-            String jsonCreds = new String(Files.readAllBytes(Paths.get("src\\test\\resources\\credentials.json")), Charset.forName("utf8"));
+            String jsonCreds = new String(Files.readAllBytes(Paths.get(".src/test/resources/credentials.json")), Charset.forName("utf8"));
             Credentials data = new Gson().fromJson(jsonCreds, Credentials.class);
 
             GeocodeCredentials = new GeocodeCredentials();
@@ -83,7 +81,7 @@ public abstract class TestBase {
     }
 
     public Document getTestFileAsDocument(String filename) throws IOException {
-        return new Document("src\\src\\test\\resources\\" + filename);
+        return new Document("./src/test/resources/" + filename);
     }
 
     public static void delayForIndexSync() {

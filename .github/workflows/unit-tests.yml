@@ -20,7 +20,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Create credentials file
-      run: 'echo "$CREDENTIALS_FILE" > src/test/resources/credentials.json'
+      run: 'echo "$CREDENTIALS_FILE" > ./src/test/resources/credentials.json'
       shell: bash
       env:
         CREDENTIALS_FILE: ${{secrets.TEST_CREDENTIALS}}
