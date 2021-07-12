@@ -49,9 +49,19 @@ public abstract class TestBase {
             super(root, version, true);
         }
     }
+
+    static String temp= "";
     
     static {
         try {
+
+            Files.find(Paths.get("./"),
+           Integer.MAX_VALUE,
+           (filePath, fileAttr) -> filePath.getFileName().toString().toLowerCase().contains("docx"))
+        .forEach(f -> {temp += f + "\r\n";});
+
+
+
             String jsonCreds = new String(Files.readAllBytes(Paths.get(".src/test/resources/credentials.json")), Charset.forName("utf8"));
             Credentials data = new Gson().fromJson(jsonCreds, Credentials.class);
 
@@ -80,8 +90,12 @@ public abstract class TestBase {
         }
     }
 
-    public Document getTestFileAsDocument(String filename) throws IOException {
-        return new Document("./src/test/resources/" + filename);
+    public Document getTestFileAsDocument(String filename) throws Exception {
+              
+        throw new Exception(temp);
+        //return new Document("./src/test/resources/" + filename);
+
+  
     }
 
     public static void delayForIndexSync() {
