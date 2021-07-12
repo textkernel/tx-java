@@ -25,7 +25,7 @@ jobs:
       env:
         CREDENTIALS_FILE: ${{secrets.TEST_CREDENTIALS}}
     - name: Test with Maven
-      run: mvn test --batch-mode --fail-at-end --file pom.xml
+      run: mvn test --fail-at-end --file pom.xml
     - name: Publish Test Report
       if: ${{ always() }}
       uses: scacap/action-surefire-report@v1
