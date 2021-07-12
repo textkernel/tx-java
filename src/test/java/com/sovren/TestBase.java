@@ -79,7 +79,9 @@ public abstract class TestBase {
             TestParsedJobTech = parseJobResponseValue.JobData;
         }
         catch (Exception e) {
-            error = e.getMessage() + e.getStackTrace();
+            java.io.StringWriter sw = new java.io.StringWriter();
+            e.printStackTrace(new java.io.PrintWriter(sw));
+            error = e.getClass().getName() + e.getMessage() + sw.toString();
         }
     }
 
