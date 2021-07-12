@@ -57,7 +57,7 @@ public abstract class TestBase {
 
             Files.find(Paths.get("./"),
            Integer.MAX_VALUE,
-           (filePath, fileAttr) -> filePath.getFileName().toString().toLowerCase().contains("docx"))
+           (filePath, fileAttr) -> filePath.getFileName().toString().toLowerCase().contains("json"))
         .forEach(f -> {temp += f + "\r\n";});
 
 
