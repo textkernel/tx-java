@@ -27,7 +27,7 @@ jobs:
     #     restore-keys: ${{runner.os}}-m2
 
     - name: Test with Maven
-      run: mvn -B test --batch-mode --file pom.xml
+      run: mvn test --batch-mode --fail-at-end --file pom.xml
     - name: Publish Test Report
         if: ${{ always() }}
         uses: scacap/action-surefire-report@v1
