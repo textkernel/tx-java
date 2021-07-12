@@ -46,7 +46,7 @@ public abstract class TestBase {
     }
 
     private static class TestDataCenter extends DataCenter {
-        public static TestDataCenter Local = new TestDataCenter("https://rest-local.sovren.com", "v10");
+        public static TestDataCenter Local = new TestDataCenter("https://staging-rest.resumeparsing.com", "v10");
         protected TestDataCenter(String root, String version) {
             super(root, version, true);
         }
@@ -83,7 +83,7 @@ public abstract class TestBase {
     }
 
     public Document getTestFileAsDocument(String filename) throws IOException {
-        return new Document("src\\test\\resources\\" + filename);
+        return new Document("src\\src\\test\\resources\\" + filename);
     }
 
     public static void delayForIndexSync() {
