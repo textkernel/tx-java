@@ -50,18 +50,10 @@ public abstract class TestBase {
         }
     }
 
-    static String temp= "";
+    static String error = "";
     
     static {
         try {
-
-            Files.find(Paths.get("./"),
-           Integer.MAX_VALUE,
-           (filePath, fileAttr) -> filePath.getFileName().toString().toLowerCase().contains("json"))
-        .forEach(f -> {temp += f + "\r\n";});
-
-
-
             String jsonCreds = new String(Files.readAllBytes(Paths.get(".src/test/resources/credentials.json")), Charset.forName("utf8"));
             Credentials data = new Gson().fromJson(jsonCreds, Credentials.class);
 
@@ -87,12 +79,13 @@ public abstract class TestBase {
             TestParsedJobTech = parseJobResponseValue.JobData;
         }
         catch (Exception e) {
+            error = e.getMessage() + e.getStackTrace();
         }
     }
 
     public Document getTestFileAsDocument(String filename) throws Exception {
               
-        throw new Exception(temp);
+        throw new Exception(error);
         //return new Document("./src/test/resources/" + filename);
 
   
