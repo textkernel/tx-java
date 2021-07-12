@@ -19,6 +19,11 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Create credentials file
+      run: 'echo "$CREDENTIALS_FILE" > src/test/resources/credentials.json'
+      shell: bash
+      env:
+        CREDENTIALS_FILE: ${{secrets.TEST_CREDENTIALS}}
     - name: Test with Maven
       run: mvn test --batch-mode --fail-at-end --file pom.xml
     - name: Publish Test Report
