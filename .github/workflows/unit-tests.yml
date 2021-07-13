@@ -6,7 +6,7 @@ on:
   pull_request:
     branches:
       - master
-  workflow_dispatch: #add this option in case we change credentials/account settings and want to re-run
+  workflow_dispatch: #add this option in case we change credentials/account settings and want to re-run tests
 
 jobs:
   unit-tests:
