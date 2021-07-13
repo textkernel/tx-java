@@ -37,7 +37,7 @@ public class SDKTests extends TestBase {
         }
         catch (SovrenException e){
             assertEquals(500, e.HttpStatusCode);
-            assertEquals("connect timed out", e.getMessage().toLowerCase());
+            //this message is very dependent upon test environment, so simply do not check it
         }
     }
     
