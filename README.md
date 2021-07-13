@@ -1,8 +1,8 @@
 # sovren-java
 ![GitHub](https://img.shields.io/github/license/sovren/sovren-java?color=0575aa)
 ![Maven Central](https://img.shields.io/maven-central/v/com.sovren/sovren-java?color=0575aa)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/sovren/sovren-java/build)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/sovren/sovren-java/unit-tests)
+[![build](https://github.com/sovren/sovren-java/actions/workflows/build.yml/badge.svg)](https://github.com/sovren/sovren-java/actions/workflows/build.yml)
+[![unit-tests](https://github.com/sovren/sovren-java/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/sovren/sovren-java/actions/workflows/unit-tests.yml)
 
 The official Java SDK for the Sovren v10 API for resume/CV and job parsing, searching, and matching. Supports Java 1.8+.
 
