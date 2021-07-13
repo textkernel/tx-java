@@ -37,14 +37,7 @@ public class SDKTests extends TestBase {
         }
         catch (SovrenException e){
             assertEquals(500, e.HttpStatusCode);
-
-            //'connect timed out' is windows, 'name or service not known' is ubuntu, on which we run the CI unit tests via GitHub Actions
-            boolean goodMessage = "connect timed out" == e.getMessage().toLowerCase() || e.getMessage().toLowerCase().contains("name or service not known");
-            if (!goodMessage) {
-                //this should not actually be null, but will show the actual message in the test output
-                assertNull(e.getMessage().toLowerCase());
-            }
-            assertTrue(goodMessage);
+            //this message is very dependent upon test environment, so simply do not check it
         }
     }
     
