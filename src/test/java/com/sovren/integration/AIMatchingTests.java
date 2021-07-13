@@ -30,8 +30,8 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AIMatchingTests extends TestBase {
-    private static final String _jobIndexId = "SDK-job-AIMatchingTests";
-    private static final String _resumeIndexId = "SDK-resume-AIMatchingTests";
+    private static final String _jobIndexId = "Java-SDK-job-AIMatchingTests";
+    private static final String _resumeIndexId = "Java-SDK-resume-AIMatchingTests";
     private static final String _documentId = "1";
 
     private static final List<String> _resumesIndexes;

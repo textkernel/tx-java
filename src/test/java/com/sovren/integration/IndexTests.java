@@ -26,8 +26,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class IndexTests extends TestBase {
-    private static final String resumeIndexId = "SDK-IntegrationTest-Resume";
-    private static final String jobIndexId = "SDK-IntegrationTest-Job";
+    private static final String resumeIndexId = "Java-SDK-IntegrationTest-Resume";
+    private static final String jobIndexId = "Java-SDK-IntegrationTest-Job";
 
     private static String getIndexName(IndexType indexType) {
         return indexType == IndexType.Resume ? resumeIndexId : jobIndexId;
