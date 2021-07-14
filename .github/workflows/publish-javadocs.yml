@@ -7,6 +7,9 @@ on:
     branches:
       - master
   workflow_dispatch: #add this option for testing
+  pull_request: #add this option for testing
+    branches:
+      - master
 
 jobs:
   publish-javadocs:
