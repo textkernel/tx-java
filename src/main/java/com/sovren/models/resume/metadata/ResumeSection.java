@@ -19,16 +19,35 @@ public class ResumeSection {
     public int LastLineNumber;
     
     /**
-     * The type of section. Some possibilities:
+     * The type of section. One of:
      * <ul>
+     * <li>ARTICLES</li>
+     * <li>AVAILABILITY</li>
+     * <li>BOOKS</li>
+     * <li>CERTIFICATIONS</li>
+     * <li>CONFERENCE_PAPERS</li>
      * <li>CONTACT_INFO</li>
      * <li>EDUCATION</li>
-     * <li>WORK_HISTORY</li>
+     * <li>HOBBIES</li>
+     * <li>IGNORE_DATA_AFTER</li>
+     * <li>LANGUAGES</li>
+     * <li>LICENSES</li>
+     * <li>MILITARY</li>
+     * <li>OBJECTIVE</li>
+     * <li>OTHER_PUBLICATIONS</li>
+     * <li>PATENTS</li>
+     * <li>PERSONAL_INTERESTS_AND_ACCOMPLISHMENTS</li>
+     * <li>PROFESSIONAL_AFFILIATIONS</li>
+     * <li>QUALIFICATIONS_SUMMARY</li>
+     * <li>REFERENCES</li>
+     * <li>SECURITY_CLEARANCES</li>
      * <li>SKILLS</li>
-     * <li>CERTIFICATIONS</li>
-     * <li>etc...</li>
+     * <li>SPEAKING</li>
+     * <li>SUMMARY</li>
+     * <li>TRAINING</li>
+     * <li>WORK_HISTORY</li>
+     * <li>WORK_STATUS</li>
      * </ul>
-     * <p>For all possible types, see <a href="https://docs.sovren.com/Documentation/ResumeParser#sov-generated-metadata-resumeuserarea">here</a>
     */
     public String SectionType;
     

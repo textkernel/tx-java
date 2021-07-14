@@ -22,7 +22,11 @@ public class ContactInformation {
     /** The candidate's email addresses*/
     public List<String> EmailAddresses;
 
-    /** The candidate's location/address*/
+    /** 
+     * The candidate's location/address. The Parser does not standardize addresses. Address standardization
+     * services are available, including for example the Google Maps API, that can take the Parser's contact
+     * info fields and standardize/geocode the data.
+    */
     public Location Location;
 
     /** The candidate's web addresses (URLs, social media) listed on the resume*/
