@@ -34,7 +34,7 @@ public class FilterCriteria {
     
     /**
      * Full-text boolean semantic expresion. For full details on the syntax and supported 
-     * operations refer to https://docs.sovren.com/Documentation/AIMatching#ai-filtering-fulltext
+     * operations refer to https://sovren.com/technical-specs/latest/rest-api/ai-matching/overview/querying/#ai-filtering-fulltext
     */
     public String SearchExpression;
     
@@ -47,7 +47,7 @@ public class FilterCriteria {
     /**
      * Results must have/require at least one of the security credentials specified.
      * Supports (*, ?) wildcard characters after the third character in the term as defined 
-     * in https://docs.sovren.com/Documentation/AIMatching#ai-filtering-special-operators
+     * in https://sovren.com/technical-specs/latest/rest-api/ai-matching/overview/querying/#ai-filtering-special-operators
     */
     public List<String> SecurityCredentials;
     
@@ -63,14 +63,14 @@ public class FilterCriteria {
     /**
      * Results must have at least one of the specified school names. Supports (*, ?) wildcard 
      * characters after the third character in the term as defined in
-     * https://docs.sovren.com/Documentation/AIMatching#ai-filtering-special-operators
+     * https://sovren.com/technical-specs/latest/rest-api/ai-matching/overview/querying/#ai-filtering-special-operators
     */
     public List<String> SchoolNames;
     
     /**
      * Results must have at least one of the specified degree names. Supports (*, ?) wildcard 
      * characters after the third character in the term as defined in
-     * https://docs.sovren.com/Documentation/AIMatching#ai-filtering-special-operators
+     * hhttps://sovren.com/technical-specs/latest/rest-api/ai-matching/overview/querying/#ai-filtering-special-operators
     */
     public List<String> DegreeNames;
     
@@ -103,7 +103,7 @@ public class FilterCriteria {
     /**
      * Results must have at least one of the specified employers. Supports (*, ?) wildcard 
      * characters after the third character in the term as defined in
-     * https://docs.sovren.com/Documentation/AIMatching#ai-filtering-special-operators
+     * https://sovren.com/technical-specs/latest/rest-api/ai-matching/overview/querying/#ai-filtering-special-operators
     */
     public List<String> Employers;
     
@@ -158,7 +158,7 @@ public class FilterCriteria {
     /**
      * Results must have at least one of the specified certifications. Supports (*, ?) wildcard 
      * characters after the third character in the term as defined in
-     * https://docs.sovren.com/Documentation/AIMatching#ai-filtering-special-operators
+     * https://sovren.com/technical-specs/latest/rest-api/ai-matching/overview/querying/#ai-filtering-special-operators
     */
     public List<String> Certifications;
     

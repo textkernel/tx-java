@@ -12,7 +12,7 @@ public class SkillFilter {
     
     /**
      * The name of the skill. Supports (*, ?) wildcard characters after the third character in the term
-     * as defined in https://docs.sovren.com/Documentation/AIMatching#ai-filtering-special-operators
+     * as defined in https://sovren.com/technical-specs/latest/rest-api/ai-matching/overview/querying/#ai-filtering-special-operators
     */
     public String SkillName;
     

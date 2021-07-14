@@ -27,7 +27,7 @@ public class ParsingExample {
         Document doc = new Document("resume.docx");
     
         //when you create a ParseRequest, you can specify many configuration settings
-        //in the ParseOptions. See https://docs.sovren.com/API/Rest/Parsing#parse-resume
+        //in the ParseOptions. See https://sovren.com/technical-specs/latest/rest-api/resume-parser/api/
         ParseRequest request = new ParseRequest(doc, new ParseOptions());
     
         try {

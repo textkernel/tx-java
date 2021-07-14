@@ -31,7 +31,7 @@ public class Document {
      * Create a {@link Document} from a file {@code byte[]}
      * @param fileBytes - The file byte array
      * @param lastModified - The last-revised date for this file.
-     * <p>Per our AUP (https://docs.sovren.com/Policies/AcceptableUse), you MUST pass a good-faith last-revised date for every parse transaction.
+     * <p>Per our AUP (https://sovren.com/policies-and-agreements/acceptable-use-policy/), you MUST pass a good-faith last-revised date for every parse transaction.
      * <p>This is extremely important so that the Parser knows how to interpret dates in the document that are 
      * expressed as "current" or "as of" (or similar) to correctly calculate date spans
      * @throws IllegalArgumentException If the fileBytes is null or empty

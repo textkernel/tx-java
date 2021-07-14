@@ -22,6 +22,15 @@ public class GradePointAverage {
     /** The minimum score in the {@link #ScoringSystem}*/
     public String MinimumScore;
     
-    /** The {@link #Score}, normalized to a 0.0-1.0 scale*/
+    /**
+     * The {@link #Score}, normalized to a 0.0-1.0 scale, with 1.0 being the top mark. 
+     * This takes into account different min/max values and whether high or low numbers 
+     * are ranked higher. This makes it possible/valid to compare GPAs across various scales.
+     * For example:
+     * <ul>
+     * <li>USA degree with GPA of 3.5 / 4.0 = 0.875</li>
+     * <li>German degree with 1.5 / 6.0 = 0.916</li>
+     * </ul>
+    */
     public double NormalizedScore;
 }

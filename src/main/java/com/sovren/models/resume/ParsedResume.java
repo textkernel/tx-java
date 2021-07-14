@@ -102,7 +102,7 @@ public class ParsedResume extends ParsedDocument {
     public ResumeMetadata ResumeMetadata;
 
     /**
-     * A list of <a href="https://docs.sovren.com/Documentation/AIMatching#ai-custom-values">User-Defined Tags</a> 
+     * A list of <a href="https://sovren.com/technical-specs/latest/rest-api/ai-matching/overview/user-defined-tags/">User-Defined Tags</a> 
      * that are assigned to this resume. These are used to filter search/match queries in the AI Matching Engine.
      * <p><b>NOTE: you may add/remove these prior to indexing. This is the only property you may modify prior to indexing.</b>
     */
