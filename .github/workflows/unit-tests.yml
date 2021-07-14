@@ -6,6 +6,8 @@ on:
   pull_request:
     branches:
       - master
+    paths-ignore:
+      - 'docs/**'
   workflow_dispatch: #add this option in case we change credentials/account settings and want to re-run tests
 
 jobs:

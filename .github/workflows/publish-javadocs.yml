@@ -3,9 +3,12 @@
 name: publish-javadocs
 
 on:
-  push:
+  pull_request:
     branches:
       - master
+    paths-ignore:
+      - 'docs/**'
+  workflow_dispatch: #add this option for testing
 
 jobs:
   publish-javadocs:
@@ -23,7 +26,6 @@ jobs:
     - name: Publish javadocs to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@4.1.4
       with:
-        branch: master
+        branch: ${GITHUB_HEAD_REF#refs/heads/}
         folder: target/site/apidocs
         target-folder: docs
-        token: ${{ secrets.JAVADOCS_CI_TOKEN }}
