@@ -4,7 +4,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Degree (Sovren Java SDK 1.1.0 API)</title>
+<title>Degree (Sovren Java SDK 1.1.2 API)</title>
 
 <link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
 <script type="text/javascript" src="../../../../../script.js"></script>
@@ -13,7 +13,7 @@
 <script type="text/javascript"><!--
     try {
         if (location.href.indexOf('is-external=true') == -1) {
-            parent.document.title="Degree (Sovren Java SDK 1.1.0 API)";
+            parent.document.title="Degree (Sovren Java SDK 1.1.2 API)";
         }
     }
     catch(err) {
@@ -134,7 +134,8 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <tr class="rowColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/sovren/models/resume/education/Degree.html#Type">Type</a></span></code>
-<div class="block">The type of degree</div>
+<div class="block">These values are not very global-friendly, but the Parser does normalize all degrees
+ to one of these pre-defined types.</div>
 </td>
 </tr>
 </table>
@@ -201,7 +202,36 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <li class="blockList">
 <h4>Type</h4>
 <pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> Type</pre>
-<div class="block">The type of degree</div>
+<div class="block">These values are not very global-friendly, but the Parser does normalize all degrees
+ to one of these pre-defined types. This list is sorted, as well as possible, by increasing
+ level of education, although there are certainly ambiguities from one discipline to
+ another, such as whether professional is above or below bachelors. Here are the possible values:
+ <ul>
+ <li>lessThanHighSchool</li>
+ <li>specialeducation</li>
+ <li>someHighSchoolOrEquivalent</li>
+ <li>ged</li>
+ <li>certification</li>
+ <li>vocational</li>
+ <li>secondary</li>
+ <li>highSchoolOrEquivalent</li>
+ <li>someCollege</li>
+ <li>HND_HNC_OrEquivalent</li>
+ <li>ASc</li>
+ <li>associates</li>
+ <li>international</li>
+ <li>professional</li>
+ <li>postprofessional</li>
+ <li>BSc</li>
+ <li>bachelors</li>
+ <li>somePostgraduate</li>
+ <li>MBA</li>
+ <li>MSc</li>
+ <li>masters</li>
+ <li>intermediategraduate</li>
+ <li>doctorate</li>
+ <li>postdoctorate</li>
+ </ul></div>
 </li>
 </ul>
 </li>

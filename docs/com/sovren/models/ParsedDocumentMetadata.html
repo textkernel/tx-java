@@ -4,7 +4,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ParsedDocumentMetadata (Sovren Java SDK 1.1.0 API)</title>
+<title>ParsedDocumentMetadata (Sovren Java SDK 1.1.2 API)</title>
 
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
 <script type="text/javascript" src="../../../script.js"></script>
@@ -13,7 +13,7 @@
 <script type="text/javascript"><!--
     try {
         if (location.href.indexOf('is-external=true') == -1) {
-            parent.document.title="ParsedDocumentMetadata (Sovren Java SDK 1.1.0 API)";
+            parent.document.title="ParsedDocumentMetadata (Sovren Java SDK 1.1.2 API)";
         }
     }
     catch(err) {
@@ -132,13 +132,14 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <tr class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../com/sovren/models/ParsedDocumentMetadata.html#DocumentCulture">DocumentCulture</a></span></code>
-<div class="block">The xx-XX language/culture value for the parsed document.</div>
+<div class="block">An ISO 3066 code that represents the cultural context of the document regarding formatting of
+ numbers, dates, character symbols, etc.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../com/sovren/models/ParsedDocumentMetadata.html#DocumentLanguage">DocumentLanguage</a></span></code>
-<div class="block">The two-letter ISO 639-1 code for the language the document was written in</div>
+<div class="block">An ISO 639-1 code that represents the primary language of the parsed text.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -229,7 +230,11 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <li class="blockList">
 <h4>DocumentLanguage</h4>
 <pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> DocumentLanguage</pre>
-<div class="block">The two-letter ISO 639-1 code for the language the document was written in</div>
+<div class="block">An ISO 639-1 code that represents the primary language of the parsed text. When the
+ language could not be automatically determined, it is reported as the special value 
+ <code>iv</code>(invariant/unknown). Note that the two-letter ISO codes reported by the
+ Parser - such as <code>zh</code> for Chinese - do not differentiate between language
+ variants, such as Mandarin and Cantonese.</div>
 </li>
 </ul>
 <a name="DocumentCulture">
@@ -239,7 +244,11 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <li class="blockList">
 <h4>DocumentCulture</h4>
 <pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> DocumentCulture</pre>
-<div class="block">The xx-XX language/culture value for the parsed document. See also <a href="../../../com/sovren/models/ParsedDocumentMetadata.html#DocumentLanguage"><code>DocumentLanguage</code></a></div>
+<div class="block">An ISO 3066 code that represents the cultural context of the document regarding formatting of
+ numbers, dates, character symbols, etc. This value is usually a simple concatenation of the 
+ language and country codes, such as <code>en-US</code> for US English; however, note that culture 
+ can be set independently of language and country to achieve fine-tuned cultural control over parsing,
+ so if you use this value you should not assume that it always matches the language and country.</div>
 </li>
 </ul>
 <a name="ParserSettings">

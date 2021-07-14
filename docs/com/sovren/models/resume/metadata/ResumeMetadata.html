@@ -4,7 +4,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ResumeMetadata (Sovren Java SDK 1.1.0 API)</title>
+<title>ResumeMetadata (Sovren Java SDK 1.1.2 API)</title>
 
 <link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
 <script type="text/javascript" src="../../../../../script.js"></script>
@@ -13,7 +13,7 @@
 <script type="text/javascript"><!--
     try {
         if (location.href.indexOf('is-external=true') == -1) {
-            parent.document.title="ResumeMetadata (Sovren Java SDK 1.1.0 API)";
+            parent.document.title="ResumeMetadata (Sovren Java SDK 1.1.2 API)";
         }
     }
     catch(err) {
@@ -145,7 +145,7 @@ extends <a href="../../../../../com/sovren/models/ParsedDocumentMetadata.html" t
 <tr class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../com/sovren/models/resume/metadata/ResumeQualityAssessment.html" title="class in com.sovren.models.resume.metadata">ResumeQualityAssessment</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/sovren/models/resume/metadata/ResumeMetadata.html#ResumeQuality">ResumeQuality</a></span></code>
-<div class="block">A list of quality assessments for the resume.</div>
+<div class="block">This is an advanced level feature.</div>
 </td>
 </tr>
 </table>
@@ -219,10 +219,20 @@ extends <a href="../../../../../com/sovren/models/ParsedDocumentMetadata.html" t
 <li class="blockList">
 <h4>ResumeQuality</h4>
 <pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../com/sovren/models/resume/metadata/ResumeQualityAssessment.html" title="class in com.sovren.models.resume.metadata">ResumeQualityAssessment</a>&gt; ResumeQuality</pre>
-<div class="block">A list of quality assessments for the resume. These are very useful for
- providing feedback to candidates about why their resume did not parse properly.
- These can also be used to determine if a resume is 'high quality' enough to put into
- your system.</div>
+<div class="block">This is an advanced level feature. Please ignore the data in the Resume Quality output unless/until you have discussed its proper use with Sovren, and been approved to use it.<br><br>
+ The Resume Quality section output should NEVER IN ANY SENSE WHATSOEVER be used as an indication that the Parser has failed or performed poorly. 
+ The sole purpose of the Resume Quality section is to help you, the integrator, to understand substandard aspects of the candidate's resume. 
+ The majority of resumes will have at least one entry in this section. AGAIN, that does not mean that parsing "failed" or that the Parser needs fixing.<br><br>
+ Please recall that candidates' resumes fall within a bell curve. Some resumes are really well done. Some are horrible. Most fall into the Good to Pretty Good range. 
+ The Resume Quality section is designed to help you understand where the resume falls in that bell curve. Great resumes will parse great. Horrible resumes will parse poorly. 
+ That is a limitation of the quality of the resume. The Parser cannot fix candidate mistakes.<br><br>
+ For instance, the Resume Quality section may report that the candidate provided neither a phone nor an email address. Reporting that fact does not indicate that the Parser failed. 
+ The failure was that the candidate did not include a way to be contacted electronically. We cannot fix that, nor can you, the integrator. Only the candidate can.<br><br>
+ You should not use the Resume Quality section to communicate problems/suggestions to candidates unless you have a very sophisticated workflow and step-by-step improvement process. 
+ Otherwise, you will frustrate candidates and do more harm than good.<br><br>
+ The Resume Quality is a series of assessments of how well the resume conforms to best practices for constructing machine-readable resumes. Assessments are ordered by severity, 
+ from fatal problems (which nevertheless may not have caused an actual parsing problem), to suggested improvements. Each assessment contains a list of findings, 
+ describing the exact issue with the resume and a recommendation for how the candidate could resolve the issue.</div>
 </li>
 </ul>
 <a name="ReservedData">

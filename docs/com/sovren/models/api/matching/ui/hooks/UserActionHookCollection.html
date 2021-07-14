@@ -4,7 +4,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>UserActionHookCollection (Sovren Java SDK 1.1.0 API)</title>
+<title>UserActionHookCollection (Sovren Java SDK 1.1.2 API)</title>
 
 <link rel="stylesheet" type="text/css" href="../../../../../../../stylesheet.css" title="Style">
 <script type="text/javascript" src="../../../../../../../script.js"></script>
@@ -13,7 +13,7 @@
 <script type="text/javascript"><!--
     try {
         if (location.href.indexOf('is-external=true') == -1) {
-            parent.document.title="UserActionHookCollection (Sovren Java SDK 1.1.0 API)";
+            parent.document.title="UserActionHookCollection (Sovren Java SDK 1.1.2 API)";
         }
     }
     catch(err) {
@@ -128,7 +128,7 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <tr class="altColor">
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../../com/sovren/models/api/matching/ui/hooks/ClientSideHook.html" title="class in com.sovren.models.api.matching.ui.hooks">ClientSideHook</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/sovren/models/api/matching/ui/hooks/UserActionHookCollection.html#Client">Client</a></span></code>
-<div class="block">The client-side <a href="https://docs.sovren.com/Documentation/AIMatching#ui-match-hooks">User Action Hooks</a>
+<div class="block">The client-side <a href="https://sovren.com/technical-specs/latest/rest-api/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
  for a Matching UI session.</div>
 </td>
 </tr>
@@ -136,7 +136,7 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../../com/sovren/models/api/matching/ui/hooks/ServerSideHook.html" title="class in com.sovren.models.api.matching.ui.hooks">ServerSideHook</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/sovren/models/api/matching/ui/hooks/UserActionHookCollection.html#Server">Server</a></span></code>
 <div class="block">The server-side (HTTP POST)
- <a href="https://docs.sovren.com/Documentation/AIMatching#ui-match-hooks">User Action Hooks</a>
+ <a href="https://sovren.com/technical-specs/latest/rest-api/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
  for a Matching UI session.</div>
 </td>
 </tr>
@@ -144,7 +144,7 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <td class="colFirst"><code><a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../../com/sovren/models/api/matching/ui/hooks/SourcingHook.html" title="class in com.sovren.models.api.matching.ui.hooks">SourcingHook</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/sovren/models/api/matching/ui/hooks/UserActionHookCollection.html#Sourcing">Sourcing</a></span></code>
 <div class="block">The server-side (HTTP POST)
- <a href="https://docs.sovren.com/Documentation/AIMatching#ui-match-hooks">User Action Hooks</a>
+ <a href="https://sovren.com/technical-specs/latest/rest-api/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
  for 'Sovren Sourcing' results during a Matching UI session.</div>
 </td>
 </tr>
@@ -202,7 +202,7 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <li class="blockList">
 <h4>Client</h4>
 <pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../../com/sovren/models/api/matching/ui/hooks/ClientSideHook.html" title="class in com.sovren.models.api.matching.ui.hooks">ClientSideHook</a>&gt; Client</pre>
-<div class="block">The client-side <a href="https://docs.sovren.com/Documentation/AIMatching#ui-match-hooks">User Action Hooks</a>
+<div class="block">The client-side <a href="https://sovren.com/technical-specs/latest/rest-api/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
  for a Matching UI session. These can be used to do some client-side action (opening a tab/window, running some javascript)
  when a user clicks a button on a particular match result.</div>
 </li>
@@ -215,7 +215,7 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <h4>Server</h4>
 <pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../../com/sovren/models/api/matching/ui/hooks/ServerSideHook.html" title="class in com.sovren.models.api.matching.ui.hooks">ServerSideHook</a>&gt; Server</pre>
 <div class="block">The server-side (HTTP POST)
- <a href="https://docs.sovren.com/Documentation/AIMatching#ui-match-hooks">User Action Hooks</a>
+ <a href="https://sovren.com/technical-specs/latest/rest-api/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
  for a Matching UI session. These can be used to do some server-side action (performs an HTTP POST to your server) 
  when a user clicks a button on a particular match result.</div>
 </li>
@@ -228,7 +228,7 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <h4>Sourcing</h4>
 <pre>public&nbsp;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../../../com/sovren/models/api/matching/ui/hooks/SourcingHook.html" title="class in com.sovren.models.api.matching.ui.hooks">SourcingHook</a>&gt; Sourcing</pre>
 <div class="block">The server-side (HTTP POST)
- <a href="https://docs.sovren.com/Documentation/AIMatching#ui-match-hooks">User Action Hooks</a>
+ <a href="https://sovren.com/technical-specs/latest/rest-api/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
  for 'Sovren Sourcing' results during a Matching UI session. These can be used to do some server-side action (performs an HTTP POST to your server) 
  when a user clicks a button on a particular 'Sovren Sourcing' result.</div>
 </li>
