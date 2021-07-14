@@ -13,7 +13,7 @@ public class GenerateUIResponse {
      * display the Matching UI. This URL will be valid for at least 24 hours.
      * <br><b>NOTE: for security purposes, you should redirect a user to the session
      * immediately after generating the session for that user</b>
-     * <br>For more info, see <a href="https://docs.sovren.com/Documentation/AIMatching#ui-match-authentication">here</a>
+     * <br>For more info, see https://sovren.com/technical-specs/latest/rest-api/matching-ui/overview/#authentication
      * */
     public String url;
 

@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
     <name>Sovren Java SDK</name>
     <description>The official Java SDK for the Sovren v10 API.</description>
-    <url>https://docs.sovren.com</url>
+    <url>https://sovren.com/technical-specs/latest/rest-api/overview/</url>
 
     <licenses>
         <license>

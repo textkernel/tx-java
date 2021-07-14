@@ -7,7 +7,7 @@ package com.sovren.models.api;
 
 /**
 * Information/metadata for an individual REST API call. 
-* See https://docs.sovren.com/API/Rest#http-status-codes
+* See https://sovren.com/technical-specs/latest/rest-api/overview/#http-status-codes
 */
 public class ApiResponseInfo extends ApiResponseInfoLite {
 
