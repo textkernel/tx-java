@@ -6,10 +6,6 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch: #add this option for testing
-  pull_request: #add this option for testing
-    branches:
-      - master
 
 jobs:
   publish-javadocs:
@@ -30,4 +26,3 @@ jobs:
         branch: master
         folder: target/site/apidocs
         target-folder: docs
-        token: ${{ secrets.JAVADOCS_CI_TOKEN }}
