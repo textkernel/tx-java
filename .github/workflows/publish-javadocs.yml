@@ -26,3 +26,4 @@ jobs:
         branch: master
         folder: target/site/apidocs
         target-folder: docs
+        token: ${{ secrets.JAVADOCS_CI_TOKEN }}
