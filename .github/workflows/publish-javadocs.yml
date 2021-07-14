@@ -36,5 +36,5 @@ jobs:
         branch: ${{ steps.extract_branch.outputs.branch }}
         folder: target/site/apidocs
         target-folder: docs
-        git-config-name: CI
-        commit-message: --auto-generation of javadocs--
+        git-config-name: Continuous Integration
+        commit-message: --- auto-generation of javadocs ---
