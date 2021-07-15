@@ -32,6 +32,8 @@ jobs:
       #auto_commit_msg: $(echo '"${{ steps.set_message.outputs.autoCommitMsg }}"')
   outputdebug:
     needs: get_javadocs_status
+    runs-on: ubuntu-latest
+    steps:
     - name: debug-stuff
       run: echo ${{needs.get_javadocs_status.outputs.generate_javadocs}}
       shell: bash
