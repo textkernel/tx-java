@@ -30,16 +30,9 @@ jobs:
     outputs:
       generate_javadocs: ${{ !contains(steps.extract_message.outputs.commitMsg, steps.set_message.outputs.autoCommitMsg) }}
       #auto_commit_msg: $(echo '"${{ steps.set_message.outputs.autoCommitMsg }}"')
-  outputdebug:
-    needs: get_javadocs_status
-    runs-on: ubuntu-latest
-    steps:
-    - name: debug-stuff
-      run: echo ${{needs.get_javadocs_status.outputs.generate_javadocs}}
-      shell: bash
   publish-javadocs:
     needs: get_javadocs_status
-    if: false #needs.get_javadocs_status.outputs.generate_javadocs
+    if: needs.get_javadocs_status.outputs.generate_javadocs
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -71,7 +64,7 @@ jobs:
     
   build:
     needs: get_javadocs_status
-    if: false #"!needs.get_javadocs_status.outputs.generate_javadocs"
+    if: ${{ !needs.get_javadocs_status.outputs.generate_javadocs }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -84,7 +77,7 @@ jobs:
   unit-tests:
     needs: get_javadocs_status
     runs-on: ubuntu-latest
-    if: false #"!needs.get_javadocs_status.outputs.generate_javadocs"
+    if: ${{ !needs.get_javadocs_status.outputs.generate_javadocs }}
     steps:
     - name: Checkout the latest code
       uses: actions/checkout@v2
