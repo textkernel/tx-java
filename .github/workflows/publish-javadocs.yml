@@ -28,7 +28,7 @@ jobs:
       id: extract_branch
     - name: Get last commit message
       shell: bash
-      run: echo "##[set-output name=commitMsg;]$(git log -1 --pretty=format:'%s')"
+      run: echo "##[set-output name=commitMsg;]$(git log origin/fix/javadocs-publish -1 --pretty=format:'%s')"
       id: extract_message
     - name: Set CI commit message
       shell: bash
