@@ -39,3 +39,4 @@ jobs:
         git-config-name: Continuous Integration
         git-config-email: devs@sovren.com
         commit-message: --- auto-generation of javadocs ---
+        token: ${{ secrets.JAVADOCS_CI_TOKEN }}
