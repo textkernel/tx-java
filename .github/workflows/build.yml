@@ -6,7 +6,7 @@ on:
   pull_request:
     branches:
       - master
-    paths-ignore:
+    paths: # the javadocs publish happens first, so lets wait for that commit to run the build check
       - 'docs/**'
 
 jobs:

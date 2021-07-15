@@ -6,7 +6,7 @@ on:
   pull_request:
     branches:
       - master
-    paths-ignore:
+    paths: # the javadocs publish happens first, so lets wait for that commit to run unit tests
       - 'docs/**'
   workflow_dispatch: #add this option in case we change credentials/account settings and want to re-run tests
 
