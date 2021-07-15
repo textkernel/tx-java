@@ -34,13 +34,17 @@ jobs:
       shell: bash
       run: echo "##[set-output name=autoCommitMsg;]$(echo '--- auto-generation of javadocs ---')"
       id: set_message
+    - name: log1
+      run: echo "${{ steps.extract_message.outputs.commitMsg }}"
+    - name: log2
+      run: echo "${{ steps.set_message.outputs.autoCommitMsg }}"
     # generate the javadocs into the target/site/apidocs folder (default)
     - name: Generate javadocs with Maven
       if: ${{ !contains(steps.extract_message.outputs.commitMsg, steps.set_message.outputs.autoCommitMsg) }}
       run: mvn javadoc:javadoc
     # publish the generated javadocs into the /docs folder on a new commit in this branch
     - name: Publish javadocs to GitHub Pages
-      if: ${{ !contains(steps.extract_message.outputs.commitMsg, steps.set_message.outputs.autoCommitMsg) }}
+      if: false #${{ !contains(steps.extract_message.outputs.commitMsg, steps.set_message.outputs.autoCommitMsg) }}
       uses: JamesIves/github-pages-deploy-action@4.1.4
       with:
         branch: ${{ steps.extract_branch.outputs.branch }}
