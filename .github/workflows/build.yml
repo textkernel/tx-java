@@ -59,7 +59,7 @@ jobs:
         target-folder: docs
         git-config-name: Continuous Integration
         git-config-email: devs@sovren.com
-        commit-message: ${{ needs.get_javadocs_status.outputs.auto_commit_msg }}
+        commit-message: '${{ needs.get_javadocs_status.outputs.auto_commit_msg }}'
         token: ${{ secrets.JAVADOCS_CI_TOKEN }}
     
   build:
