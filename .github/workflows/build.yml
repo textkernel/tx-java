@@ -44,14 +44,14 @@ jobs:
       #auto_commit_msg: $(echo '"${{ steps.set_message.outputs.autoCommitMsg }}"')
   publish-javadocs:
     needs: get_javadocs_status
-    if: ${{ needs.get_javadocs_status.outputs.generate_javadocs == true }}
+    if: ${{ needs.get_javadocs_status.outputs.generate_javadocs == 'true' }}
     runs-on: ubuntu-latest
     steps:
     - name: debug-stuff1
       run: echo ${{ needs.get_javadocs_status.outputs.generate_javadocs }}
       shell: bash
     - name: debug-stuff2
-      run: echo ${{ needs.get_javadocs_status.outputs.generate_javadocs == true }}
+      run: echo ${{ needs.get_javadocs_status.outputs.generate_javadocs == 'true' }}
       shell: bash
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
@@ -80,7 +80,7 @@ jobs:
     
   build:
     needs: get_javadocs_status
-    if: ${{ needs.get_javadocs_status.outputs.generate_javadocs == false }}
+    if: ${{ needs.get_javadocs_status.outputs.generate_javadocs == 'false' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -93,7 +93,7 @@ jobs:
   unit-tests:
     needs: get_javadocs_status
     runs-on: ubuntu-latest
-    if: ${{ needs.get_javadocs_status.outputs.generate_javadocs == false }}
+    if: ${{ needs.get_javadocs_status.outputs.generate_javadocs == 'false' }}
     steps:
     - name: Checkout the latest code
       uses: actions/checkout@v2
