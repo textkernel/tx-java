@@ -31,3 +31,12 @@ hs_err_pid*
 
 #any output files
 target/*
+
+#any vscode files
+.settings/*
+.vscode/*
+.classpath
+.project
+
+#any docs, should be autogenerate in the CI pipeline now
+#docs/*
