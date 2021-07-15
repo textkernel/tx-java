@@ -1,26 +1,97 @@
-# # This workflow will build a package using Maven
+# This workflow will build a package using Maven
 
-# name: build
+name: build
 
-# on:
-#   pull_request:
-#     branches:
-#       - master
-#     paths: # the javadocs publish happens first, so lets wait for that commit to run the build check
-#       - 'docs/**'
+on:
+  pull_request:
+    branches:
+      - master
+    paths: # the javadocs publish happens first, so lets wait for that commit to run the build check
+      - 'docs/**'
 
-# jobs:
-#   build:
-
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - uses: actions/checkout@v2
-#     - name: Set up JDK 1.8
-#       uses: actions/setup-java@v1
-#       with:
-#         java-version: 1.8
-#     - name: Build with Maven
-#       run: mvn -B compile --file pom.xml
-#     # - name: Generate javadocs with Maven
-#     #   run: mvn javadoc:javadoc
+jobs:
+  get_javadocs_status:
+    name: get-javadocs-status
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 10
+    # find the last commit message on the source branch
+    - name: Get last commit message
+      shell: bash
+      run: echo "##[set-output name=commitMsg;]$(git log --format=%B -n 1 HEAD^2)"
+      id: extract_message
+    # set a 'variable' for the CI commit message to use and check against
+    - name: Set CI commit message
+      shell: bash
+      run: echo "##[set-output name=autoCommitMsg;]$(echo '--- auto-generation of javadocs ---')"
+      id: set_message
+    outputs:
+      generate_javadocs: $(echo "${{ !contains(steps.extract_message.outputs.commitMsg, steps.set_message.outputs.autoCommitMsg) }}")
+      auto_commit_msg: $(echo "${{ steps.set_message.outputs.autoCommitMsg }}")
+  publish-javadocs:
+    needs: get_javadocs_status
+    if: needs.get_javadocs_status.outputs.generate_javadocs
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    # extract the PR source branch name from the env variable where we can use it later
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_HEAD_REF#refs/heads/})"
+      id: extract_branch
+    # generate the javadocs into the target/site/apidocs folder (default)
+    - name: Generate javadocs with Maven
+      #if: ${{ needs.get_javadocs_status.outputs.generate_javadocs }}
+      run: mvn javadoc:javadoc
+    # publish the generated javadocs into the /docs folder on a new commit in this branch
+    - name: Publish javadocs to GitHub Pages
+      #if: ${{ needs.get_javadocs_status.outputs.generate_javadocs }}
+      uses: JamesIves/github-pages-deploy-action@4.1.4
+      with:
+        branch: ${{ steps.extract_branch.outputs.branch }}
+        folder: target/site/apidocs
+        target-folder: docs
+        git-config-name: Continuous Integration
+        git-config-email: devs@sovren.com
+        commit-message: ${{ needs.get_javadocs_status.outputs.auto_commit_msg }}
+        token: ${{ secrets.JAVADOCS_CI_TOKEN }}
+    
+  build:
+    needs: get_javadocs_status
+    if: "!needs.get_javadocs_status.outputs.generate_javadocs"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build with Maven
+      run: mvn -B compile --file pom.xml
+  unit-tests:
+    needs: get_javadocs_status
+    runs-on: ubuntu-latest
+    if: "!needs.get_javadocs_status.outputs.generate_javadocs"
+    steps:
+    - name: Checkout the latest code
+      uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Create credentials file
+      run: 'echo "$CREDENTIALS_FILE" > ./src/test/resources/credentials.json'
+      shell: bash
+      env:
+        CREDENTIALS_FILE: ${{secrets.TEST_CREDENTIALS}}
+    - name: Test with Maven
+      run: mvn test --fail-at-end --file pom.xml
+    - name: Publish Test Report
+      if: ${{ always() }}
+      uses: scacap/action-surefire-report@v1
