@@ -25,11 +25,11 @@ jobs:
     # set a 'variable' for the CI commit message to use and check against
     - name: Set CI commit message
       shell: bash
-      run: echo "##[set-output name=autoCommitMsg;]$(echo '--- auto-generation of javadocs ---')"
+      run: echo "##[set-output name=autoCommitMsg;]$(echo '++ auto-generation of javadocs ++')"
       id: set_message
     outputs:
       generate_javadocs: $(echo "${{ !contains(steps.extract_message.outputs.commitMsg, steps.set_message.outputs.autoCommitMsg) }}")
-      auto_commit_msg: $(echo '"${{ steps.set_message.outputs.autoCommitMsg }}"')
+      auto_commit_msg: $(echo "'${{ steps.set_message.outputs.autoCommitMsg }}'")
   publish-javadocs:
     needs: get_javadocs_status
     if: needs.get_javadocs_status.outputs.generate_javadocs
