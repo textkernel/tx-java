@@ -21,6 +21,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+        fetch-depth: 2
     # extract the PR source branch name from the env variable where we can use it later
     - name: Extract branch name
       shell: bash
@@ -29,15 +30,15 @@ jobs:
     - name: Get last commit message
       shell: bash
       #run: echo "##[set-output name=commitMsg;]$(git log ${{ steps.extract_branch.outputs.branch }} -1 --pretty=format:'%s')"
-      run: echo "##[set-output name=commitMsg;]$(echo '${{ github.event.pull_request.commits[0].commit.message }}')"
+      run: echo "##[set-output name=commitMsg;]$(git log --format=%B -n 1 HEAD^2)"
       id: extract_message
     - name: Set CI commit message
       shell: bash
       run: echo "##[set-output name=autoCommitMsg;]$(echo '--- auto-generation of javadocs ---')"
       id: set_message
-    - name : GITHUB CONTEXT
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github.event) }}
+    # - name : GITHUB CONTEXT
+    #   env:
+    #     GITHUB_CONTEXT: ${{ toJson(github.event) }}
       run: echo "$GITHUB_CONTEXT"
     - name: log1
       run: echo "${{ steps.extract_message.outputs.commitMsg }}"
