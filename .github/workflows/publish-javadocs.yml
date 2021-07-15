@@ -35,8 +35,12 @@ jobs:
       shell: bash
       run: echo "##[set-output name=autoCommitMsg;]$(echo '--- auto-generation of javadocs ---')"
       id: set_message
+    - name : GITHUB CONTEXT
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github.event) }}
+        run: echo "$GITHUB_CONTEXT"
     - name: log1
-      run: echo "$GITHUB_CONTEXT" #echo "${{ steps.extract_message.outputs.commitMsg }}"
+      run: echo "${{ steps.extract_message.outputs.commitMsg }}"
     - name: log2
       run: echo "${{ steps.set_message.outputs.autoCommitMsg }}"
     # generate the javadocs into the target/site/apidocs folder (default)
