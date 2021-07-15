@@ -39,7 +39,7 @@ jobs:
     # - name : GITHUB CONTEXT
     #   env:
     #     GITHUB_CONTEXT: ${{ toJson(github.event) }}
-      run: echo "$GITHUB_CONTEXT"
+    #   run: echo "$GITHUB_CONTEXT"
     - name: log1
       run: echo "${{ steps.extract_message.outputs.commitMsg }}"
     - name: log2
