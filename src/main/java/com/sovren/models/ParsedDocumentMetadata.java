@@ -25,7 +25,6 @@ public class ParsedDocumentMetadata {
      */
     public String DocumentLanguage;
 
-    /** The xx-XX language/culture value for the parsed document. See also {@link #DocumentLanguage}*/
     /**
      * An ISO 3066 code that represents the cultural context of the document regarding formatting of
      * numbers, dates, character symbols, etc. This value is usually a simple concatenation of the 
