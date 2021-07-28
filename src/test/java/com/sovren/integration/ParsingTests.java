@@ -431,6 +431,7 @@ public class ParsingTests extends TestBase {
         assertEquals(response.Value.ConversionMetadata.SuggestedFileExtension, "docx");
         assertEquals(response.Value.ConversionMetadata.OutputValidityCode, "ovIsProbablyValid");
         assertNotEquals(0, response.Value.ConversionMetadata.ElapsedMilliseconds);
+        assertEquals("96E36138DAFB03B057D1607B86C452FE", response.Value.ConversionMetadata.DocumentHash);
 
         assertEquals(response.Value.ResumeData.ResumeMetadata.DocumentCulture, "en-US");
         assertNotEquals(0, response.Value.ParsingMetadata.ElapsedMilliseconds);
