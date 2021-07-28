@@ -390,9 +390,10 @@ public class ParsingTests extends TestBase {
         assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings);
         assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).Message);
         assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).QualityCode);
-        assertEquals("227", response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).QualityCode);
-        assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(3).SectionIdentifiers);
-        assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(3).SectionIdentifiers);
+        // these are subject to change, so do not include them in this test
+        // assertEquals("227", response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).QualityCode);
+        // assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(3).SectionIdentifiers);
+        // assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(3).SectionIdentifiers);
     }
     
     @Test
