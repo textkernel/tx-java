@@ -29,4 +29,7 @@ public class ConversionMetadata {
      * This is a subset of {@link ApiResponseInfo#TotalElapsedMilliseconds}
     */
     public int ElapsedMilliseconds;
+
+    /** The MD5 hash of the document bytes*/
+    public String DocumentHash;
 }

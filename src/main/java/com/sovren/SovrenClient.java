@@ -70,6 +70,18 @@ public class SovrenClient {
      * @throws IllegalArgumentException if the accountId, serviceKey, or dataCenter are null/empty
      */
     public SovrenClient(String accountId, String serviceKey, DataCenter dataCenter) {
+        this(accountId, serviceKey, dataCenter, null);
+    }
+
+    /**
+     * Create an SDK client to perform Sovren API calls with the account information found at https://portal.sovren.com
+     * @param accountId - The account id for your account
+     * @param serviceKey - The service key for your account
+     * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US} or {@link DataCenter#EU}
+     * @param trackingTags - Optional tags to use to track API usage for your account
+     * @throws IllegalArgumentException if the accountId, serviceKey, or dataCenter are null/empty
+     */
+    public SovrenClient(String accountId, String serviceKey, DataCenter dataCenter, List<String> trackingTags) {
         
         if (accountId == null || accountId.length() == 0) {
             throw new IllegalArgumentException("'accountId' must have a valid value");
@@ -85,6 +97,18 @@ public class SovrenClient {
 
         _endpoints = new ApiEndpoints(dataCenter);
 
+        final String trackingTagsHeaderValue;//must be final to be passed into the interceptor below
+
+        if (trackingTags != null && trackingTags.size() > 0) {
+            trackingTagsHeaderValue = String.join(", ", trackingTags);
+            if (trackingTagsHeaderValue.length() >= 75) {//API allows 100, but just to be safe, this should be way more than enough
+                throw new IllegalArgumentException("'trackingTags' has too many values or the values are too long");
+            }
+        }
+        else {
+            trackingTagsHeaderValue = null;
+        }
+
         //do not validate credentials here, as this could lead to calling GetAccount for every parse call, an AUP violation
         _client = new OkHttpClient.Builder()
             .addInterceptor(new Interceptor() {
@@ -93,12 +117,16 @@ public class SovrenClient {
                     Request original = chain.request();
 
                     //set all of these headers on every request
-                    Request request = original.newBuilder()
-                        .header("Sovren-AccountId", accountId)
-                        .header("Sovren-ServiceKey", serviceKey)
-                        .header("User-Agent", "sovren-java-" + _sdkVersion)
-                        .build();
+                    okhttp3.Request.Builder builder = original.newBuilder();
+                    builder.header("Sovren-AccountId", accountId);
+                    builder.header("Sovren-ServiceKey", serviceKey);
+                    builder.header("User-Agent", "sovren-java-" + _sdkVersion);
 
+                    if (trackingTagsHeaderValue != null && !trackingTagsHeaderValue.isEmpty()){
+                        builder.header("Sovren-TrackingTag", trackingTagsHeaderValue);
+                    }
+
+                    Request request = builder.build();
                     return chain.proceed(request);
                 }
             })

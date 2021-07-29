@@ -390,9 +390,10 @@ public class ParsingTests extends TestBase {
         assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings);
         assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).Message);
         assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).QualityCode);
-        assertEquals("227", response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).QualityCode);
-        assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(3).SectionIdentifiers);
-        assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(3).SectionIdentifiers);
+        // these are subject to change, so do not include them in this test
+        // assertEquals("227", response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(0).QualityCode);
+        // assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(3).SectionIdentifiers);
+        // assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Findings.get(3).SectionIdentifiers);
     }
     
     @Test
@@ -430,6 +431,7 @@ public class ParsingTests extends TestBase {
         assertEquals(response.Value.ConversionMetadata.SuggestedFileExtension, "docx");
         assertEquals(response.Value.ConversionMetadata.OutputValidityCode, "ovIsProbablyValid");
         assertNotEquals(0, response.Value.ConversionMetadata.ElapsedMilliseconds);
+        assertEquals("96E36138DAFB03B057D1607B86C452FE", response.Value.ConversionMetadata.DocumentHash);
 
         assertEquals(response.Value.ResumeData.ResumeMetadata.DocumentCulture, "en-US");
         assertNotEquals(0, response.Value.ParsingMetadata.ElapsedMilliseconds);
