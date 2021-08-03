@@ -132,23 +132,26 @@ public class SovrenClient {
             })
             .build();
     }
-    
-    private static String serialize(Object o) {
-        return SovrenJsonSerializer.serialize(o);
+
+    @SuppressWarnings("deprecation")
+    private RequestBody createJsonBody(Object body) {
+        // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
+        // https://github.com/sovren/sovren-java/issues/36
+        return RequestBody.create(JSON, SovrenJsonSerializer.serialize(body));
     }
     
-    private <T extends ApiResponse> HttpResponse<T> executeRequest(Request apiRequest, Class<T> classOfT, String requestBody) throws SovrenException {
+    private <T extends ApiResponse<?>> HttpResponse<T> executeRequest(Request apiRequest, Class<T> classOfT, String requestBody) throws SovrenException {
         
         ApiResponseInfoLite errorInfo = new ApiResponseInfoLite();
         errorInfo.Code = "Error";
         errorInfo.Message = "Unknown API error.";
         
-        HttpResponse apiResponse = null;
+        HttpResponse<T> apiResponse = null;
         Response rawResponse = null;
         
         try {
             rawResponse = _client.newCall(apiRequest).execute();
-            apiResponse = new HttpResponse(rawResponse, classOfT);
+            apiResponse = new HttpResponse<T>(rawResponse, classOfT);
 
             if (rawResponse != null && rawResponse.code() == 413) {
                 errorInfo.Message = "Request body was too large.";
@@ -245,7 +248,7 @@ public class SovrenClient {
      * @throws SovrenException Thrown when an API error occurs
      */
     public ParseResumeResponse parseResume(ParseRequest request) throws SovrenException {
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
             .url(_endpoints.parseResume())
             .post(body)
@@ -275,7 +278,7 @@ public class SovrenClient {
      * @throws SovrenException Thrown when an API error occurs
      */
     public ParseJobResponse parseJob(ParseRequest request) throws SovrenException {
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
             .url(_endpoints.parseJob())
             .post(body)
@@ -311,7 +314,7 @@ public class SovrenClient {
         CreateIndexRequest request = new CreateIndexRequest();
         request.IndexType = type;
         
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
             .url(_endpoints.index(indexId))
             .post(body)
@@ -372,7 +375,7 @@ public class SovrenClient {
         request.ResumeData = resume;
         request.UserDefinedTags = userDefinedTags;
 
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.resume(indexId, documentId))
                 .post(body)
@@ -402,7 +405,7 @@ public class SovrenClient {
         request.JobData = job;
         request.UserDefinedTags = userDefinedTags;
 
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.job(indexId, documentId))
                 .post(body)
@@ -423,7 +426,7 @@ public class SovrenClient {
         IndexMultipleResumesRequest request = new IndexMultipleResumesRequest();
         request.Resumes = resumes;
 
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.multipleResumes(indexId))
                 .post(body)
@@ -444,7 +447,7 @@ public class SovrenClient {
         IndexMultipleJobsRequest request = new IndexMultipleJobsRequest();
         request.Jobs = jobs;
 
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.multipleJobs(indexId))
                 .post(body)
@@ -479,7 +482,7 @@ public class SovrenClient {
      * @throws SovrenException Thrown when an API error occurs
      */
     public DeleteMultipleDocumentsResponse deleteMultipleDocuments(String indexId, List<String> documentIds) throws SovrenException {
-        RequestBody requestBody = RequestBody.create(serialize(documentIds), JSON);
+        RequestBody requestBody = createJsonBody(documentIds);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.multipleDocuments(indexId))
                 .delete(requestBody)
@@ -539,7 +542,7 @@ public class SovrenClient {
         request.UserDefinedTags = userDefinedTags;
         request.Method = method;
 
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.resume(indexId, documentId))
                 .patch(body)
@@ -567,7 +570,7 @@ public class SovrenClient {
         request.UserDefinedTags = userDefinedTags;
         request.Method = method;
 
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.job(indexId, documentId))
                 .patch(body)
@@ -599,7 +602,7 @@ public class SovrenClient {
             int numResults) throws SovrenException {
 
         MatchResumeRequest request = createRequest(resume, indexesToQuery, preferredWeights, filters, settings, numResults);
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.matchResume(false))
                 .post(body)
@@ -648,7 +651,7 @@ public class SovrenClient {
             int numResults) throws SovrenException {
 
         MatchJobRequest request = createRequest(job, indexesToQuery, preferredWeights, filters, settings, numResults);
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.matchJob(false))
                 .post(body)
@@ -699,7 +702,7 @@ public class SovrenClient {
             int numResults) throws SovrenException {
 
         MatchByDocumentIdOptions request = createRequest(indexesToQuery, preferredWeights, filters, settings, numResults);
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.matchDocId(indexId, documentId, false))
                 .post(body)
@@ -725,7 +728,7 @@ public class SovrenClient {
     }
 
     GenerateUIResponse uiMatch(String indexId, String documentId, UIMatchByDocumentIdOptions options) throws SovrenException {
-        RequestBody body = RequestBody.create(serialize(options), JSON);
+        RequestBody body = createJsonBody(options);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.matchDocId(indexId, documentId, true))
                 .post(body)
@@ -736,7 +739,7 @@ public class SovrenClient {
     }
 
     GenerateUIResponse uiMatch(UIMatchResumeRequest request) throws SovrenException {
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.matchResume(true))
                 .post(body)
@@ -747,7 +750,7 @@ public class SovrenClient {
     }
 
     GenerateUIResponse uiMatch(UIMatchJobRequest request) throws SovrenException {
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.matchJob(true))
                 .post(body)
@@ -773,7 +776,7 @@ public class SovrenClient {
             SearchMatchSettings settings,
             PaginationSettings pagination) throws SovrenException {
         SearchRequest request = createRequest(indexesToQuery, query, settings, pagination);
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.search(false))
                 .post(body)
@@ -793,7 +796,7 @@ public class SovrenClient {
     }
 
     GenerateUIResponse uiSearch(UISearchRequest request) throws SovrenException {
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.search(true))
                 .post(body)
@@ -822,7 +825,7 @@ public class SovrenClient {
             CategoryWeights preferredWeights,
             SearchMatchSettings settings) throws SovrenException {
         BimetricScoreResumeRequest request = createRequest(sourceResume, targetDocuments, preferredWeights, settings);
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.bimetricScoreResume(false))
                 .post(body)
@@ -832,6 +835,7 @@ public class SovrenClient {
         return response.getData();
     }
 
+    @SuppressWarnings("unchecked") //these actually are checked, compiler just can't tell
     <TTarget extends IParsedDocWithId> BimetricScoreResumeRequest createRequest(
             ParsedResumeWithId sourceResume,
             List<TTarget> targetDocuments,
@@ -874,7 +878,7 @@ public class SovrenClient {
             CategoryWeights preferredWeights,
             SearchMatchSettings settings) throws SovrenException {
         BimetricScoreJobRequest request = createRequest(sourceJob, targetDocuments, preferredWeights, settings);
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.bimetricScoreJob(false))
                 .post(body)
@@ -884,6 +888,7 @@ public class SovrenClient {
         return response.getData();
     }
 
+    @SuppressWarnings("unchecked") //these actually are checked, compiler just can't tell
     <TTarget extends IParsedDocWithId> BimetricScoreJobRequest createRequest(
             ParsedJobWithId sourceJob,
             List<TTarget> targetDocuments,
@@ -909,7 +914,7 @@ public class SovrenClient {
     }
 
     GenerateUIResponse uiBimetricScore(UIBimetricScoreResumeRequest request) throws SovrenException {
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.bimetricScoreResume(true))
                 .post(body)
@@ -920,7 +925,7 @@ public class SovrenClient {
     }
 
     GenerateUIResponse uiBimetricScore(UIBimetricScoreJobRequest request) throws SovrenException {
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.bimetricScoreJob(true))
                 .post(body)
@@ -937,7 +942,7 @@ public class SovrenClient {
         request.ProviderKey = geocodeCredentials != null ? geocodeCredentials.ProviderKey : null;
         request.PostalAddress = address;
 
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.geocodeResume())
                 .post(body)
@@ -954,7 +959,7 @@ public class SovrenClient {
         request.ProviderKey = geocodeCredentials != null ? geocodeCredentials.ProviderKey : null;
         request.PostalAddress = address;
 
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.geocodeJob())
                 .post(body)
@@ -1033,7 +1038,7 @@ public class SovrenClient {
         request.IndexingOptions = indexingOptions;
         request.IndexIfGeocodeFails = indexIfGeocodeFails;
 
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.geocodeAndIndexResume())
                 .post(body)
@@ -1072,7 +1077,7 @@ public class SovrenClient {
         request.IndexingOptions = indexingOptions;
         request.IndexIfGeocodeFails = indexIfGeocodeFails;
 
-        RequestBody body = RequestBody.create(serialize(request), JSON);
+        RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.geocodeAndIndexJob())
                 .post(body)
