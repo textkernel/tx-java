@@ -13,7 +13,7 @@ import okhttp3.Response;
 /**
  * A simple class to contain a raw OkHttp Response and a deserialized response body
  */
-public class HttpResponse<T extends ApiResponse> {
+public class HttpResponse<T extends ApiResponse<?>> {
     private Response _response;
     private T _data = null;
     
