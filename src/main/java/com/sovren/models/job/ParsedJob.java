@@ -17,7 +17,6 @@ import com.sovren.models.Location;
 import com.sovren.models.ParsedDocument;
 import com.sovren.models.SovrenPrimitive;
 import com.sovren.models.job.skills.JobTaxonomyRoot;
-import com.sovren.models.resume.ParsedResume;
 import com.sovren.utilities.SovrenJsonSerializer;
 
 /**

@@ -132,7 +132,7 @@ public abstract class TestBase {
         }
     }
     
-    public void assertHasItems(List list) {
+    public void assertHasItems(List<?> list) {
         assertTrue(list != null && list.size() > 0);
     }
 }

@@ -82,7 +82,7 @@ public class IndexTests extends TestBase {
 
         try {
             // verify index doesn't exist
-            List<Index> indexes = Client.getAllIndexes().Value;
+            Client.getAllIndexes();
             assertFalse(doesIndexExist(indexName));
 
             // create index
@@ -226,13 +226,13 @@ public class IndexTests extends TestBase {
         final String documentId = "1";
         try {
             // verify can't retrieve a document that doesn't exist
-            SovrenException sovrenException = assertThrows(SovrenException.class, () -> {
+            assertThrows(SovrenException.class, () -> {
                     Client.getJob(jobIndexId, documentId);
             });
             assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);
 
             // verify can't add document to an index that doesn't exist
-            sovrenException = assertThrows(SovrenException.class, () -> {
+            assertThrows(SovrenException.class, () -> {
                     Client.indexDocument(TestParsedJob, jobIndexId, documentId, null);
             });
             assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);
@@ -242,7 +242,7 @@ public class IndexTests extends TestBase {
             delayForIndexSync();
 
             // verify document still doesn't exist
-            sovrenException = assertThrows(SovrenException.class, () -> {
+            assertThrows(SovrenException.class, () -> {
                     Client.getJob(jobIndexId, documentId);
             });
             assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);
@@ -292,12 +292,12 @@ public class IndexTests extends TestBase {
             delayForIndexSync();
 
             // verify can't retrieve a document that doesn't exist
-            sovrenException = assertThrows(SovrenException.class, () -> {
+            assertThrows(SovrenException.class, () -> {
                     Client.getJob(jobIndexId, documentId);
             });
             assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);
 
-            sovrenException = assertThrows(SovrenException.class, () -> {
+            assertThrows(SovrenException.class, () -> {
                     Client.deleteDocument(jobIndexId, documentId);
             });
             assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);
@@ -305,7 +305,7 @@ public class IndexTests extends TestBase {
             Client.deleteIndex(jobIndexId);
             delayForIndexSync();
 
-            sovrenException = assertThrows(SovrenException.class, () -> {
+            assertThrows(SovrenException.class, () -> {
                     Client.deleteDocument(jobIndexId, documentId);
             });
             assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);

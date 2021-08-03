@@ -29,7 +29,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -128,7 +127,7 @@ public class ParsingTests extends TestBase {
                     opts.GeocodeOptions.IncludeGeocoding = true;
                     opts.GeocodeOptions.Provider= GeocodeProvider.Google;
                     
-                    ParseResumeResponseValue r = Client.parseResume(new ParseRequest(TestData.Resume, opts)).Value;
+                    Client.parseResume(new ParseRequest(TestData.Resume, opts));
                 });
         
         assertTrue(!e.Response.Value.GeocodeResponse.isSuccess());

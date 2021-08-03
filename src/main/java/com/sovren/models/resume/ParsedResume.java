@@ -9,12 +9,10 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.IllegalFormatException;
 import java.util.List;
 
 import com.google.gson.JsonParseException;
 import com.sovren.models.ParsedDocument;
-import com.sovren.models.job.ParsedJob;
 import com.sovren.models.resume.contactinfo.ContactInformation;
 import com.sovren.models.resume.education.EducationHistory;
 import com.sovren.models.resume.employment.EmploymentHistory;
