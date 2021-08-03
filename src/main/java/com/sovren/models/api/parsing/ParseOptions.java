@@ -5,7 +5,6 @@
 
 package com.sovren.models.api.parsing;
 
-import java.util.List;
 import com.sovren.models.api.geocoding.GeocodeOptions;
 import com.sovren.models.api.indexes.IndexSingleDocumentInfo;
 
