@@ -3,30 +3,27 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models;
+package com.sovren.models.api.matching.request;
 
-import java.util.List;
+import com.sovren.models.GeoCoordinates;
 
 /**
-* Represents a physical location on Earth (mostly used for addresses)
+* A location used for filtering results by exact location or radius searching
 */
-public class Location {
-
+public class FilterLocation {
+    
     /** The 2-letter ISO 3166 country code*/
     public String CountryCode;
 
     /** The Postal or Zip code*/
     public String PostalCode;
 
-    /** The Regions/Districts/States*/
-    public List<String> Regions;
+    /** The Region/District/State*/
+    public String Region;
 
     /** The City/Municipality/Town*/
     public String Municipality;
 
-    /** Street address lines*/
-    public List<String> StreetAddressLines;
-
-    /** If geocoding has been done, this is the lat/lon for the location*/
-    public GeocodedCoordinates GeoCoordinates;
+    /** The geocordinates to be used in the location*/
+    public GeoCoordinates GeoPoint;
 }

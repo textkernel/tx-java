@@ -6,13 +6,10 @@
 package com.sovren.models;
 
 /**
-* Represents a lat/lon
+* Represents a lat/lon provided by a 3rd party service
 */
-public class GeoCoordinates {
+public class GeocodedCoordinates extends GeoCoordinates {
 
-    /** The latitude, in degrees */
-    public double Latitude;
-
-    /** The longitude, in degrees*/
-    public double Longitude;
+    /** The geocoding source, such as Google or Bing*/
+    public String Source;
 }
