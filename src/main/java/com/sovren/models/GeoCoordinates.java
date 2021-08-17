@@ -15,7 +15,4 @@ public class GeoCoordinates {
 
     /** The longitude, in degrees*/
     public double Longitude;
-
-    /** The geocoding source, such as Google or Bing*/
-    public String Source;
 }

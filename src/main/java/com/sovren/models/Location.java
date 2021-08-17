@@ -28,5 +28,5 @@ public class Location {
     public List<String> StreetAddressLines;
 
     /** If geocoding has been done, this is the lat/lon for the location*/
-    public GeoCoordinates GeoCoordinates;
+    public GeocodedCoordinates GeoCoordinates;
 }
