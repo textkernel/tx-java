@@ -13,7 +13,7 @@ The official Java SDK for the Sovren v10 API for resume/CV and job parsing, sear
 ### Gradle Users
 Add this dependency to your project's build file:
 ```
-implementation "com.sovren:sovren-java:1.2.2"
+implementation "com.sovren:sovren-java:1.3.0"
 ```
 
 ### Maven Users
@@ -22,7 +22,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.sovren</groupId>
   <artifactId>sovren-java</artifactId>
-  <version>1.2.2</version>
+  <version>1.3.0</version>
 </dependency>
 ```
 
