@@ -66,7 +66,7 @@ public class SovrenClient {
      * Create an SDK client to perform Sovren API calls with the account information found at https://portal.sovren.com
      * @param accountId - The account id for your account
      * @param serviceKey - The service key for your account
-     * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US} or {@link DataCenter#EU}
+     * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US}, {@link DataCenter#EU}, or @link DataCenter#AU}
      * @throws IllegalArgumentException if the accountId, serviceKey, or dataCenter are null/empty
      */
     public SovrenClient(String accountId, String serviceKey, DataCenter dataCenter) {
@@ -77,7 +77,7 @@ public class SovrenClient {
      * Create an SDK client to perform Sovren API calls with the account information found at https://portal.sovren.com
      * @param accountId - The account id for your account
      * @param serviceKey - The service key for your account
-     * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US} or {@link DataCenter#EU}
+     * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US}, {@link DataCenter#EU} or {@link DataCenter#AU}
      * @param trackingTags - Optional tags to use to track API usage for your account
      * @throws IllegalArgumentException if the accountId, serviceKey, or dataCenter are null/empty
      */
