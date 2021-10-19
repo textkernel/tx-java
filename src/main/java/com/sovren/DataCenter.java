@@ -13,6 +13,9 @@ public class DataCenter {
 
     /** Represents the Sovren EU datacenter. You can find out which datacenter your account is in at https://portal.sovren.com*/
     public static DataCenter EU = new DataCenter("https://eu-rest.resumeparsing.com", "v10", true);
+	
+	/** Represents the Sovren AU datacenter. You can find out which datacenter your account is in at https://portal.sovren.com*/
+    public static DataCenter AU = new DataCenter("https://au-rest.resumeparsing.com", "v10", true);
 
     String Root;
     String Version;

@@ -437,9 +437,9 @@ public class ParsingTests extends TestBase {
         assertEquals(response.Value.ParsingMetadata.TimedOut, false);
         assertNull(response.Value.ParsingMetadata.TimedOutAtMilliseconds);
 
-        assertNotNull(response.Value.ResumeData.Certifications);
-        assertHasItems(response.Value.ResumeData.Certifications);
-        assertNotNull(response.Value.ResumeData.Certifications.get(0).Name);
+        assertNotNull(response.Value.ResumeData.Licenses);
+        assertHasItems(response.Value.ResumeData.Licenses);
+        assertNotNull(response.Value.ResumeData.Licenses.get(0).Name);
 
         assertNotNull(response.Value.ResumeData.ContactInformation);
         assertNotNull(response.Value.ResumeData.ContactInformation.CandidateName);
