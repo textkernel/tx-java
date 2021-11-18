@@ -51,6 +51,7 @@ public class ParseRequest extends ParseOptions {
             this.NormalizerData = optionsToUse.NormalizerData;
             this.OutputCandidateImage = optionsToUse.OutputCandidateImage;
             this.OutputHtml = optionsToUse.OutputHtml;
+            this.HideHtmlImages = optionsToUse.HideHtmlImages;
             this.OutputPdf = optionsToUse.OutputPdf;
             this.OutputRtf = optionsToUse.OutputRtf;
             this.SkillsData = optionsToUse.SkillsData;

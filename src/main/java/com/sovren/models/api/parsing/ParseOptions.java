@@ -17,6 +17,9 @@ public class ParseOptions extends BasicParseOptions {
 
     /** {@code true} to output the document converted to HTML*/
     public boolean OutputHtml;
+
+    /** {@code true} to remove any images in the converted HTML*/
+    public boolean HideHtmlImages;
     
     /** {@code true} to output the document converted to RTF*/
     public boolean OutputRtf;
