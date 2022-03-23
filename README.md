@@ -13,7 +13,7 @@ The official Java SDK for the Sovren v10 API for resume/CV and job parsing, sear
 ### Gradle Users
 Add this dependency to your project's build file:
 ```
-implementation "com.sovren:sovren-java:1.4.0"
+implementation "com.sovren:sovren-java:1.5.0"
 ```
 
 ### Maven Users
@@ -22,13 +22,13 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.sovren</groupId>
   <artifactId>sovren-java</artifactId>
-  <version>1.4.0</version>
+  <version>1.5.0</version>
 </dependency>
 ```
 
 ### Others
 You'll need to manually install the following JARs:
-- The Sovren JAR from https://repo1.maven.org/maven2/com/sovren/sovren-java/1.4.0/sovren-java-1.4.0.jar
+- The Sovren JAR from https://repo1.maven.org/maven2/com/sovren/sovren-java/1.5.0/sovren-java-1.5.0.jar
 - [Google Gson][gson_url] from https://repo1.maven.org/maven2/com/google/code/gson/gson/2.8.6/gson-2.8.6.jar.
 - [Square OkHttp][okhttp_url] from https://repo1.maven.org/maven2/com/squareup/okhttp3/okhttp/4.9.0/okhttp-4.9.0.jar
 
@@ -57,7 +57,7 @@ Every call to any of the methods in the `SovrenClient` should be wrapped in a `t
 Additionally, there are `SovrenUsableResumeException` and `SovrenUsableJobException` which are thrown when some error/issue occurs in the API, but the response still contains a usable resume/job. For example, if you are geocoding while parsing and there is a geocoding error (which happens after parsing is done), the `ParsedResume` might still be usable in your application.
 
 ### How to create a Matching UI session
-You may be wondering, "where are the Matching UI endpoints/methods?". We have made the difference between a normal API call (such as `Search`) and its equivalent Matching UI call extremely trivial. See the following example:
+You may be wondering, "where are the Matching UI endpoints/methods?". We have made the difference between a normal API call (such as `Search`) and its equivalent Matching UI call extremely trivial. See the following example: 
 
 ```java
 SovrenClient client = new SovrenClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US);

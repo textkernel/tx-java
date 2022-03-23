@@ -19,9 +19,20 @@ public class UIOptions {
     public String Username;
 
     /**
+     * Specifies custom style options for the Matching UI session.
+     */
+    public Style Style;
+
+    /**
     * {@code true} to allow the user to see/modify the filter criteria (default = {@code true}).
     */
     public boolean ShowFilterCriteria = true;
+
+    /**
+     * If specified, only allows the user to see/modify certain filter categories.
+     * Also, the order specified here is the order in which the filters will appear in the UI.
+     */
+    public List<FilterToShow> FiltersToShow;
 
     /**
     * {@code true} to execute the query as soon as the page loads (default = {@code false}). This is only applicable for Searching.
