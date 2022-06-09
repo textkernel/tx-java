@@ -17,6 +17,7 @@ import com.sovren.models.resume.contactinfo.ContactInformation;
 import com.sovren.models.resume.education.EducationHistory;
 import com.sovren.models.resume.employment.EmploymentHistory;
 import com.sovren.models.resume.skills.ResumeTaxonomyRoot;
+import com.sovren.models.resume.skills.SkillsOutput;
 import com.sovren.models.resume.military.MilitaryDetails;
 import com.sovren.models.resume.military.SecurityCredential;
 import com.sovren.models.resume.metadata.ResumeMetadata;
@@ -48,8 +49,11 @@ public class ParsedResume extends ParsedDocument {
     /** The candidate's employment/work history found on the resume*/
     public EmploymentHistory EmploymentHistory;
 
-    /** All the skills found in the resume*/
+    /** All the skills found in the resume when v1 skills taxonomy is used.*/
     public List<ResumeTaxonomyRoot> SkillsData;
+
+    /** Skills output when v2 skills taxonomy is used.*/
+    public SkillsOutput Skills;
 
     /** Certifications found on a resume.*/
     public List<Certification> Certifications;

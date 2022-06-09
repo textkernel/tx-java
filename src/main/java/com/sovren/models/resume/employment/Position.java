@@ -85,4 +85,7 @@ public class Position {
     
     /** Bullet points found in the {@link #Description} (available when {@code OutputFormat.CreateBullets = true} is set in the Configuration string on the request)*/
     public List<Bullet> Bullets;
+
+    /** Normalized profession of the {@link #JobTitle} */
+    public NormalizedProfession NormalizedProfession;
 }
