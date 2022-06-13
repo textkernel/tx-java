@@ -358,10 +358,10 @@ public class ParsingTests extends TestBase {
     public void testSkillsData() throws SovrenException {
         ParseResumeResponseValue response = Client.parseResume(new ParseRequest(TestData.Resume, null)).Value;
     
-        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(1).MonthsExperience.Value, 12);
-        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(1).LastUsed.Value.toString(), "2018-07-01");
-        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(1).Variations.get(0).MonthsExperience.Value, 12);
-        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(1).Variations.get(0).LastUsed.Value.toString(), "2018-07-01");
+        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(0).MonthsExperience.Value, 12);
+        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(0).LastUsed.Value.toString(), "2018-07-01");
+        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(0).Variations.get(0).MonthsExperience.Value, 12);
+        assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(0).Variations.get(0).LastUsed.Value.toString(), "2018-07-01");
     }
 
     @Test
