@@ -66,7 +66,7 @@ public class AIMatchingTests extends TestBase {
     private static Stream<Arguments> provideSearchTerms() {
         return Stream.of(
                 Arguments.of(_jobIndexId, "Developer"),
-                Arguments.of(_resumeIndexId, "Javascript")
+                Arguments.of(_resumeIndexId, "VB6")
         );
     }
 
