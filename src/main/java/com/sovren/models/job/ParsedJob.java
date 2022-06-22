@@ -18,7 +18,6 @@ import com.sovren.models.ParsedDocument;
 import com.sovren.models.SovrenPrimitive;
 import com.sovren.models.job.skills.JobTaxonomyRoot;
 import com.sovren.models.job.skills.JobV2Skills;
-import com.sovren.models.resume.skills.ResumeV2Skills;
 import com.sovren.utilities.SovrenJsonSerializer;
 import com.sovren.models.api.parsing.SkillsSettings;
 

@@ -23,7 +23,6 @@ import com.sovren.models.job.ParsedJob;
 import com.sovren.models.matching.IndexType;
 import com.sovren.models.resume.ParsedResume;
 import com.sovren.models.resume.metadata.ResumeQualityLevel;
-import com.sovren.models.skills.Skill;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
