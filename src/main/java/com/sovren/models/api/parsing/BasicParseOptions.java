@@ -32,6 +32,16 @@ public class BasicParseOptions {
      */
     public String NormalizerData;
 
+    /**
+    * Enable skills normalization and enhanced candidate summarization, and specify the version of the skills taxonomy for this parsing transaction.
+    */
+    public SkillsSettings SkillsSettings;
+
+    /**
+    * Enable normalization of job titles using our proprietary taxonomy and international standards.
+    */
+    public ProfessionsSettings ProfessionsSettings;
+
     //********************************
     //IF YOU ADD ANY PARAMS HERE BE SURE TO ADD THEM IN THE DEEP COPY INSIDE ParseRequest.ctor() !!
     //********************************
