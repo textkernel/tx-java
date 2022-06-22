@@ -23,13 +23,17 @@ public class BasicParseOptions {
     /**
      * If you want to use custom skills lists during parsing, set those here. This not a recommended
      * feature for most customers. For more information, reach out to support@sovren.com
+     * @deprecated use {@link #SkillsSettings} instead
      */
+    @Deprecated
     public List<String> SkillsData;
 
     /**
      * If you want to use custom normalizations during parsing, set those here. This not a recommended
      * feature for most customers. For more information, reach out to support@sovren.com
+     * @deprecated use {@link #SkillsSettings} and {@link #ProfessionsSettings} instead
      */
+    @Deprecated
     public String NormalizerData;
 
     /**
