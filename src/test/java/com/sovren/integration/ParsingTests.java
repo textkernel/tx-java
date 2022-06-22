@@ -37,7 +37,7 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
-
+@SuppressWarnings("deprecation")
 public class ParsingTests extends TestBase {
     private static Stream<Arguments> provideBadDocuments() {
         return Stream.of(

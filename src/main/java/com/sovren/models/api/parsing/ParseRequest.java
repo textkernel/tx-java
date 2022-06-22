@@ -38,6 +38,7 @@ public class ParseRequest extends ParseOptions {
      * @param optionsToUse Any non-default options to use ({@code null} for default)
      * @throws IllegalArgumentException if the document is null
      */
+    @SuppressWarnings("deprecation")
     public ParseRequest(Document doc, ParseOptions optionsToUse) {
         if (doc == null) throw new IllegalArgumentException("Argument 'doc' cannot be null");
 
