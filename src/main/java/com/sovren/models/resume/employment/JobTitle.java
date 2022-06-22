@@ -15,7 +15,11 @@ public class JobTitle {
     /** The raw text as it was found in the resume*/
     public String Raw;
     
-    /** The normalized job title*/
+    /** 
+     * The normalized job title
+     * @deprecated use {@link Position#NormalizedProfession} instead
+    */
+    @Deprecated
     public String Normalized;
     
     /**
@@ -29,6 +33,10 @@ public class JobTitle {
     */
     public String Probability;
     
-    /** Any variations of this job title that might be useful for matching*/
+    /** 
+     * Any variations of this job title that might be useful for matching
+     * @deprecated use {@link Position#NormalizedProfession} instead
+    */
+    @Deprecated
     public List<String> Variations;
 }
