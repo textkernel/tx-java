@@ -17,8 +17,10 @@ import com.sovren.models.Location;
 import com.sovren.models.ParsedDocument;
 import com.sovren.models.SovrenPrimitive;
 import com.sovren.models.job.skills.JobTaxonomyRoot;
-import com.sovren.models.resume.skills.SkillsOutput;
+import com.sovren.models.job.skills.JobV2Skills;
+import com.sovren.models.resume.skills.ResumeV2Skills;
 import com.sovren.utilities.SovrenJsonSerializer;
+import com.sovren.models.api.parsing.SkillsSettings;
 
 /**
 * All of the information extracted while parsing a job
@@ -91,11 +93,15 @@ public class ParsedJob extends ParsedDocument {
     /** Any owners of the job posting, if listed.*/
     public List<String> Owners;
     
-    /** The skills found in the job when v1 skills taxonomy is used. Used by Sovren for AI Matching*/
+    /** 
+     * All the skills found in the job when {@link SkillsSettings#TaxonomyVersion} is set to (or defaults to) {@code V1}.
+     * @deprecated use {@link #Skills} instead for better results
+    */
+    @Deprecated
     public List<JobTaxonomyRoot> SkillsData;
 
-    /** Skills output when v2 skills taxonomy is used. */
-    public SkillsOutput Skills;
+    /** Skills output when {@link SkillsSettings#TaxonomyVersion} is set to (or defaults to) {@code V2}.*/
+    public JobV2Skills Skills;
     
     /** Metadata about the parsed job*/
     public JobMetadata JobMetadata;

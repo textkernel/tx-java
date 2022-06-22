@@ -1,4 +1,4 @@
-package com.sovren.models.resume.skills;
+package com.sovren.models.skills;
 
 import java.util.List;
 
