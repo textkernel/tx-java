@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
 public class TestData {
-    private static String _resumeText = "John Wesson\n\nWork History\nSr. Software Developer at Sovren Inc.   07/2017 - 07/2018\n- used Javascript and ReactJS to make a web app";
+    private static String _resumeText = "John Wesson\n\nWork History\nSr. Software Developer at Sovren Inc.   07/2017 - 07/2018\n- used Visual Basic and VB6 to make a web app";
 
     public static Document Resume = new Document(_resumeText.getBytes(StandardCharsets.UTF_8), LocalDate.now());
 

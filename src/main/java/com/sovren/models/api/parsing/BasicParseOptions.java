@@ -23,14 +23,28 @@ public class BasicParseOptions {
     /**
      * If you want to use custom skills lists during parsing, set those here. This not a recommended
      * feature for most customers. For more information, reach out to support@sovren.com
+     * @deprecated use {@link #SkillsSettings} instead
      */
+    @Deprecated
     public List<String> SkillsData;
 
     /**
      * If you want to use custom normalizations during parsing, set those here. This not a recommended
      * feature for most customers. For more information, reach out to support@sovren.com
+     * @deprecated use {@link #SkillsSettings} and {@link #ProfessionsSettings} instead
      */
+    @Deprecated
     public String NormalizerData;
+
+    /**
+    * Enable skills normalization and enhanced candidate summarization, and specify the version of the skills taxonomy for this parsing transaction.
+    */
+    public SkillsSettings SkillsSettings;
+
+    /**
+    * Enable normalization of job titles using our proprietary taxonomy and international standards.
+    */
+    public ProfessionsSettings ProfessionsSettings;
 
     //********************************
     //IF YOU ADD ANY PARAMS HERE BE SURE TO ADD THEM IN THE DEEP COPY INSIDE ParseRequest.ctor() !!

@@ -39,4 +39,10 @@ public class BaseParseResponseValue {
     
     /** The status of the parse transaction*/
     public ApiResponseInfoLite ParsingResponse;
+
+    /** 
+    * If profesison normalization was requested in the {@link ParseOptions#ProfessionsSettings}, 
+    * the status of the profession normalization transaction will be output here
+    */
+    public ApiResponseInfoLite ProfessionNormalizationResponse;
 }

@@ -38,6 +38,7 @@ public class ParseRequest extends ParseOptions {
      * @param optionsToUse Any non-default options to use ({@code null} for default)
      * @throws IllegalArgumentException if the document is null
      */
+    @SuppressWarnings("deprecation")
     public ParseRequest(Document doc, ParseOptions optionsToUse) {
         if (doc == null) throw new IllegalArgumentException("Argument 'doc' cannot be null");
 
@@ -55,6 +56,8 @@ public class ParseRequest extends ParseOptions {
             this.OutputPdf = optionsToUse.OutputPdf;
             this.OutputRtf = optionsToUse.OutputRtf;
             this.SkillsData = optionsToUse.SkillsData;
+            this.SkillsSettings = optionsToUse.SkillsSettings;
+            this.ProfessionsSettings = optionsToUse.ProfessionsSettings;
         }
     }
 }

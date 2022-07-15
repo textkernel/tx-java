@@ -57,10 +57,18 @@ public class Position {
     */
     public String JobType;
     
-    /** The name of the skills taxonomy that this position was categorized as based on skills found in the job description.*/
+    /** 
+     * The name of the skills taxonomy that this position was categorized as based on skills found in the job description.
+     * @deprecated use {@link #NormalizedProfession} instead
+     * */
+    @Deprecated
     public String TaxonomyName;
     
-    /** The name of the skills subtaxonomy that this position was categorized as based on skills found in the job description.*/
+    /** 
+     * The name of the skills subtaxonomy that this position was categorized as based on skills found in the job description.
+     * @deprecated use {@link #NormalizedProfession} instead
+     * */
+    @Deprecated
     public String SubTaxonomyName;
     
     /**
@@ -77,7 +85,11 @@ public class Position {
     */
     public String JobLevel;
 
-    /** The percentage of this job described by the {@link #TaxonomyName} */
+    /** 
+     * The percentage of this job described by the {@link #TaxonomyName} 
+     * @deprecated use {@link #NormalizedProfession} instead
+    */
+    @Deprecated
     public int TaxonomyPercentage;
     
     /** The job description*/
@@ -85,4 +97,7 @@ public class Position {
     
     /** Bullet points found in the {@link #Description} (available when {@code OutputFormat.CreateBullets = true} is set in the Configuration string on the request)*/
     public List<Bullet> Bullets;
+
+    /** Normalized profession of the {@link #JobTitle} */
+    public NormalizedProfession NormalizedProfession;
 }
