@@ -1226,4 +1226,299 @@ public class SovrenClient {
     public SovrenUIClient ui(MatchUISettings uiOptions) {
         return new SovrenUIClient(uiOptions, this);
     }
+
+    /**
+     * Get entire skills taxonomy
+     * @param format Can either be 'json' or 'csv', determines how the data is returned
+     * @param language The lanugage code that should be input to return skills taxonomy in the specified language
+     * @return The API response body
+     * @throws SovrenException Thrown when an API error occurs
+     */
+    public GetSkillsTaxonomyResponse getSkillsTaxonomy(String format, String language) throws SovrenException {
+        Request apiRequest = new Request.Builder()
+                .url(_endpoints.desSkillsGetTaxonomy(format,language))
+                .build();
+
+        HttpResponse<GetSkillsTaxonomyResponse> response = executeRequest(apiRequest, GetSkillsTaxonomyResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Specify the beginning of a word that the service will use to search skills that match the beginning of that word and return a list
+     * @param prefix The text that will be used as the beginning of the skills to be searched on
+     * @param limit The number of autocompleted skills that should be returned
+     * @param categories The categories that the skills should be filtered to
+     * @param languages The lanugage(s) that the autocompleted skills should be searched in
+     * @param outputLanguage The lanugage that the autocompleted skills should be returned in
+     * @return The API response body
+     * @throws SovrenException Thrown when an API error occurs
+     */
+    public SkillsAutoCompleteResponse skillsAutoComplete(String prefix, int limit, List<String> categories, List<String> languages, String outputLanguage) throws SovrenException {
+        SkillsAutoCompleteRequest request = new SkillsAutoCompleteRequest();
+        request.Prefix = prefix;
+        request.Limit = limit;
+        request.Categories = categories;
+        request.Languages = languages;
+        request.OutputLanguage = outputLanguage;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desSkillsAutoComplete())
+            .post(body)
+            .build();
+
+        HttpResponse<SkillsAutoCompleteResponse> response = executeRequest(apiRequest, SkillsAutoCompleteResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Provides descriptions for the requested code Ids.
+     * @param codeIds The list of codes to return descriptions of skills on
+     * @param categories The categories that the skills should be filtered to
+     * @param outputLanguage The lanugage that the looked up skills should be returned in
+     * @return The API response body
+     * @throws SovrenException Thrown when an API error occurs
+     */
+    public SkillsLookupResponse skillsLookup(List<String> codeIds, List<String> categories, String outputLanguage) throws SovrenException {
+        SkillsLookupRequest request = new SkillsLookupRequest();
+        request.CodeIds = codeIds;
+        request.Categories = categories;
+        request.OutputLanguage = outputLanguage;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desSkillsLookup())
+            .post(body)
+            .build();
+
+        HttpResponse<SkillsLookupResponse> response = executeRequest(apiRequest, SkillsLookupResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Service takes in skill strings and returns fully normalized skills with metadata.
+     * @param skills The skills to return normalized skills for
+     * @param language The language of the skill taxonomy to be searched on
+     * @param outputLanguage The lanugage that the normalized skills should be returned in
+     * @return The API response body
+     * @throws SovrenException Thrown when an API error occurs
+     */
+    public SkillsNormalizeResponse skillsNormalize(List<String> skills, String language, String outputLanguage) throws SovrenException {
+        SkillsNormalizeRequest request = new SkillsNormalizeRequest();
+        request.Skills = skills;
+        request.Language = language;
+        request.OutputLanguage = outputLanguage;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desSkillsNormalize())
+            .post(body)
+            .build();
+
+        HttpResponse<SkillsNormalizeResponse> response = executeRequest(apiRequest, SkillsNormalizeResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Service extracts the known skills from the input text
+     * @param text The text to extract skills from
+     * @param language The language of the input text
+     * @param outputLanguage The lanugage that the normalized skills should be returned in
+     * @param threshold The minimum confidence trheshold for including a skill in the response float from 0 - 1 
+     * @return The API response body
+     * @throws SovrenException Thrown when an API error occurs
+     */
+    public SkillsExtractResponse skillsExtract(String text, String language, float threshold, String outputLanguage) throws SovrenException {
+        SkillsExtractRequest request = new SkillsExtractRequest();
+        request.Text = text;
+        request.Language = language;
+        request.OutputLanguage = outputLanguage;
+        request.Threshold = threshold;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desSkillsExtract())
+            .post(body)
+            .build();
+
+        HttpResponse<SkillsExtractResponse> response = executeRequest(apiRequest, SkillsExtractResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Get entire professions taxonomy
+     * @param format Can either be 'json' or 'csv', determines how the data is returned
+     * @param language The lanugage code that should be input to return professions taxonomy in the specified language
+     * @return The API response body
+     * @throws SovrenException Thrown when an API error occurs
+     */
+    public GetProfessionsTaxonomyResponse getProfessionsTaxonomy(String format, String language) throws SovrenException {
+        Request apiRequest = new Request.Builder()
+                .url(_endpoints.desProfessionsGetTaxonomy(format,language))
+                .build();
+
+        HttpResponse<GetProfessionsTaxonomyResponse> response = executeRequest(apiRequest, GetProfessionsTaxonomyResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Specify the beginning of a word that the service will use to search professions that match the beginning of that word and return a list
+     * @param prefix The text that will be used as the beginning of the professions to be searched on
+     * @param limit The number of autocompleted professions that should be returned
+     * @param categories The categories that the professions should be filtered to
+     * @param languages The lanugage(s) that the autocompleted professions should be searched in
+     * @param outputLanguage The lanugage that the autocompleted professions should be returned in
+     * @return The API response body
+     * @throws SovrenException Thrown when an API error occurs
+     */
+    public ProfessionsAutoCompleteResponse professionsAutoComplete(String prefix, int limit, List<String> categories, List<String> languages, String outputLanguage) throws SovrenException {
+        ProfessionsAutoCompleteRequest request = new ProfessionsAutoCompleteRequest();
+        request.Prefix = prefix;
+        request.Limit = limit;
+        request.Categories = categories;
+        request.Languages = languages;
+        request.OutputLanguage = outputLanguage;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desProfessionsAutoComplete())
+            .post(body)
+            .build();
+
+        HttpResponse<ProfessionsAutoCompleteResponse> response = executeRequest(apiRequest, ProfessionsAutoCompleteResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Service takes in job titles array of strings and returns fully normalized professions with metadata.
+     * @param jobTitles The job titles to return normalized professions for
+     * @param language The language of the professions taxonomy to be searched on
+     * @param outputLanguage The lanugage that the normalized professions should be returned in
+     * @return The API response body
+     * @throws SovrenException Thrown when an API error occurs
+     */
+    public ProfessionsNormalizeResponse professionsNormalize(List<String> jobTitles, String language, String outputLanguage) throws SovrenException {
+        ProfessionsNormalizeRequest request = new ProfessionsNormalizeRequest();
+        request.JobTitles = jobTitles;
+        request.Language = language;
+        request.OutputLanguage = outputLanguage;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desProfessionsNormalize())
+            .post(body)
+            .build();
+
+        HttpResponse<ProfessionsNormalizeResponse> response = executeRequest(apiRequest, ProfessionsNormalizeResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Provides descriptions for the requested code Ids.
+     * @param codeIds The list of codes to return descriptions of professions on
+     * @param outputLanguage The language that the looked up professions should be returned in
+     * @return The API response body
+     * @throws SovrenException Thrown when an API error occurs
+     */
+    public ProfessionsLookupResponse professionsLookup(List<String> codeIds, String outputLanguage) throws SovrenException {
+        ProfessionsLookupRequest request = new ProfessionsLookupRequest();
+        request.CodeIds = codeIds;
+        request.OutputLanguage = outputLanguage;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desProfessionsLookup())
+            .post(body)
+            .build();
+
+        HttpResponse<ProfessionsLookupResponse> response = executeRequest(apiRequest, ProfessionsLookupResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Service allows a user to compare two given professions with respect to their related skills
+     * @param codeIds The list of profession codes to compare skills against
+     * @return The API response body
+     * @throws SovrenException Thrown when an API error occurs
+     */
+    public CompareSkillsResponse compareSkills(List<String> codeIds) throws SovrenException {
+        CompareSkillsRequest request = new CompareSkillsRequest();
+        request.CodeIds = codeIds;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desOntologyCompareSkills())
+            .post(body)
+            .build();
+
+        HttpResponse<CompareSkillsResponse> response = executeRequest(apiRequest, CompareSkillsResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Service allows a user to compare the skill set of a candidate to the skill set related to a target profession
+     * @param skillCodeIds The list of skill codes that should be compared against the given profession
+     * @param professionCodeId The profession code that the skills should be compared to
+     * @return The API response body
+     * @throws SovrenException Thrown when an API error occurs
+     */
+    public CompareSkillsToProfessionsResponse compareSkillsToProfessions(List<String> skillCodeIds, String professionCodeId) throws SovrenException {
+        CompareSkillsToProfessionsRequest request = new CompareSkillsToProfessionsRequest();
+        request.CodeIds = codeIds;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desOntologyCompareSkillsToProfessions())
+            .post(body)
+            .build();
+
+        HttpResponse<CompareSkillsToProfessionsResponse> response = executeRequest(apiRequest, CompareSkillsToProfessionsResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Service returns skills related to a given profession
+     * @param codeIds The list of profession codes for which the service should return related skills
+     * @param limit The maximum amount of suggested skills that should be returned
+     * @return The API response body
+     * @throws SovrenException Thrown when an API error occurs
+     */
+    public SuggestSkillsResponse suggestSkills(List<String> codeIds, int limit) throws SovrenException {
+        SuggestSkillsRequest request = new SuggestSkillsRequest();
+        request.CodeIds = codeIds;
+        request.Limit = limit;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desOntologySuggestSkills())
+            .post(body)
+            .build();
+
+        HttpResponse<SuggestSkillsResponse> response = executeRequest(apiRequest, SuggestSkillsResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Service returns suggested professions based off on an input set of skills
+     * @param codeIds The list of skill codes for which the service should return suggested professions
+     * @param limit The maximum amount of suggested professions that should be returned
+     * @param returnMissingSkills A boolean flag that tells the service whether or not to return skills that were missing from the input set of skills that are necessary for the suggested profession
+     * @return The API response body
+     * @throws SovrenException Thrown when an API error occurs
+     */
+    public SuggestProfessionsResponse suggestProfessions(List<String> codeIds, int limit, boolean returnMissingSkills) throws SovrenException {
+        SuggestProfessionsRequest request = new SuggestProfessionsRequest();
+        request.CodeIds = codeIds;
+        request.Limit = limit;
+        request.ReturnMissingSkills = returnMissingSkills;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desOntologySuggestProfessions())
+            .post(body)
+            .build();
+
+        HttpResponse<SuggestProfessionsResponse> response = executeRequest(apiRequest, SuggestProfessionsResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
 }
