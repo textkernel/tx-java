@@ -5,6 +5,8 @@
 
 package com.sovren.models.api.dataenrichmentservices.skills.request;
 
+import java.util.List;
+
 public class SkillsAutoCompleteRequest {
     public String Prefix;
     public int Limit = 10;

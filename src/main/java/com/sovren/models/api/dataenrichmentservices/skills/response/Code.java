@@ -5,8 +5,11 @@
 
 package com.sovren.models.api.dataenrichmentservices.skills.response;
 
-import java.util.List;
+import com.sovren.models.api.dataenrichmentservices.professions.response.AllLangsDescriptions;
 
-public class SkillsLookupResponseValue {
-    public List<BaseSkill> Codes;
+public class Code {
+    public String CodeId;
+    public AllLangsDescriptions Descriptions;
+    public String Category;
+    public String IsoCode;
 }

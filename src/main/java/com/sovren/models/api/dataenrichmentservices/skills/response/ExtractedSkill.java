@@ -5,6 +5,8 @@
 
 package com.sovren.models.api.dataenrichmentservices.skills.response;
 
+import java.util.List;
+
 public class ExtractedSkill extends BaseSkill {
     public float Confidence;
     public List<Match> Matches;

@@ -6,8 +6,8 @@
 package com.sovren.models.api.dataenrichmentservices.professions.response;
 
 public class LookupProfessionGroupOrClassInfo {
-    public LookupGroupOrClassInfo<int> Class;
-    public LookupGroupOrClassInfo<int> Group;
+    public LookupGroupOrClassInfo<Integer> Class;
+    public LookupGroupOrClassInfo<Integer> Group;
     public int CodeId;
     public String Description;
 }

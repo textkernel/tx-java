@@ -5,6 +5,8 @@
 
 package com.sovren.models.api.dataenrichmentservices.professions.request;
 
+import java.util.List;
+
 public class ProfessionsLookupRequest {
     public List<String> CodeIds;
     public String OutputLanguage = "en";

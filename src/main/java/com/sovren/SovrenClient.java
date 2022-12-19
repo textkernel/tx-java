@@ -12,6 +12,30 @@ import com.sovren.models.api.ApiResponse;
 import com.sovren.models.api.ApiResponseInfoLite;
 import com.sovren.models.api.account.GetAccountInfoResponse;
 import com.sovren.models.api.bimetricscoring.*;
+import com.sovren.models.api.dataenrichmentservices.ontology.request.CompareSkillsRequest;
+import com.sovren.models.api.dataenrichmentservices.ontology.request.CompareSkillsToProfessionsRequest;
+import com.sovren.models.api.dataenrichmentservices.ontology.request.SuggestProfessionsRequest;
+import com.sovren.models.api.dataenrichmentservices.ontology.request.SuggestSkillsRequest;
+import com.sovren.models.api.dataenrichmentservices.ontology.response.CompareSkillsResponse;
+import com.sovren.models.api.dataenrichmentservices.ontology.response.CompareSkillsToProfessionsResponse;
+import com.sovren.models.api.dataenrichmentservices.ontology.response.SuggestProfessionsResponse;
+import com.sovren.models.api.dataenrichmentservices.ontology.response.SuggestSkillsResponse;
+import com.sovren.models.api.dataenrichmentservices.professions.request.ProfessionsAutoCompleteRequest;
+import com.sovren.models.api.dataenrichmentservices.professions.request.ProfessionsLookupRequest;
+import com.sovren.models.api.dataenrichmentservices.professions.request.ProfessionsNormalizeRequest;
+import com.sovren.models.api.dataenrichmentservices.professions.response.GetProfessionsTaxonomyResponse;
+import com.sovren.models.api.dataenrichmentservices.professions.response.ProfessionsAutoCompleteResponse;
+import com.sovren.models.api.dataenrichmentservices.professions.response.ProfessionsLookupResponse;
+import com.sovren.models.api.dataenrichmentservices.professions.response.ProfessionsNormalizeResponse;
+import com.sovren.models.api.dataenrichmentservices.skills.request.SkillsAutoCompleteRequest;
+import com.sovren.models.api.dataenrichmentservices.skills.request.SkillsExtractRequest;
+import com.sovren.models.api.dataenrichmentservices.skills.request.SkillsLookupRequest;
+import com.sovren.models.api.dataenrichmentservices.skills.request.SkillsNormalizeRequest;
+import com.sovren.models.api.dataenrichmentservices.skills.response.GetSkillsTaxonomyResponse;
+import com.sovren.models.api.dataenrichmentservices.skills.response.SkillsAutoCompleteResponse;
+import com.sovren.models.api.dataenrichmentservices.skills.response.SkillsExtractResponse;
+import com.sovren.models.api.dataenrichmentservices.skills.response.SkillsLookupResponse;
+import com.sovren.models.api.dataenrichmentservices.skills.response.SkillsNormalizeResponse;
 import com.sovren.models.api.geocoding.*;
 import com.sovren.models.api.indexes.*;
 import com.sovren.models.api.matching.*;
@@ -1464,7 +1488,8 @@ public class SovrenClient {
      */
     public CompareSkillsToProfessionsResponse compareSkillsToProfessions(List<String> skillCodeIds, String professionCodeId) throws SovrenException {
         CompareSkillsToProfessionsRequest request = new CompareSkillsToProfessionsRequest();
-        request.CodeIds = codeIds;
+        request.SkillCodeIds = skillCodeIds;
+        request.ProfessionCodeId = professionCodeId;
 
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()

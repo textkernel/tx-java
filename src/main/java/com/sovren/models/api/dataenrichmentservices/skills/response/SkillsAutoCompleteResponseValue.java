@@ -5,6 +5,8 @@
 
 package com.sovren.models.api.dataenrichmentservices.skills.response;
 
+import java.util.List;
+
 public class SkillsAutoCompleteResponseValue {
     public List<AutoComplete> Completions;
 }

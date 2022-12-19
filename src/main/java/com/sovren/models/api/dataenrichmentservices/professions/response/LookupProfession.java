@@ -6,11 +6,11 @@
 package com.sovren.models.api.dataenrichmentservices.professions.response;
 
 public class LookupProfession {
-    public LookupProfessionGroupClassInfo TkInfo;
-    public LookupGroupOrClassInfo<string> Onet;
-    public LookupGroupOrClassInfo<string> Isco;
-    public LookupGroupOrClassInfo<string> Onet2019;
-    public LookupGroupOrClassInfo<string> Kldb2020;
-    public LookupGroupOrClassInfo<string> UwvBoc;
-    public LookupGroupOrClassInfo<string> UkSoc2010;
+    public LookupProfessionGroupOrClassInfo TkInfo;
+    public LookupGroupOrClassInfo<String> Onet;
+    public LookupGroupOrClassInfo<String> Isco;
+    public LookupGroupOrClassInfo<String> Onet2019;
+    public LookupGroupOrClassInfo<String> Kldb2020;
+    public LookupGroupOrClassInfo<String> UwvBoc;
+    public LookupGroupOrClassInfo<String> UkSoc2010;
 }

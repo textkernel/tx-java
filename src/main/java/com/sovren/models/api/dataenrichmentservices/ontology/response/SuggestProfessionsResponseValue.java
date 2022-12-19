@@ -5,9 +5,11 @@
 
 package com.sovren.models.api.dataenrichmentservices.ontology.response;
 
+import java.util.List;
+
 public class SuggestProfessionsResponseValue {
     
     public OntologyMetadata Meta;
     public float SimilarityScore;
-    public List<SuggestProfession> SuggestedProfessions;
+    public List<SuggestedProfession> SuggestedProfessions;
 }

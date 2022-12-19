@@ -6,8 +6,8 @@
 package com.sovren.models.api.dataenrichmentservices.professions.response;
 
 public class ProfessionGroupClassInfo {
-    public GroupOrClassInfo<int> Class;
-    public GroupOrClassInfo<int> Group;
+    public GroupOrClassInfo<Integer> Class;
+    public GroupOrClassInfo<Integer> Group;
     public int CodeId;
     public AllLangsDescriptions Descriptions;
 }

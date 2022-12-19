@@ -5,10 +5,12 @@
 
 package com.sovren.models.api.dataenrichmentservices.professions.request;
 
+import java.util.List;
+
 public class ProfessionsAutoCompleteRequest {
     public String Prefix;
     public int Limit = 10;
     public List<String> Categories;
     public List<String> Languages;
-    public string OutputLanguage = "en";
+    public String OutputLanguage = "en";
 }

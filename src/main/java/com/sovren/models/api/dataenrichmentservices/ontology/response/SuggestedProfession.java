@@ -5,7 +5,7 @@
 
 package com.sovren.models.api.dataenrichmentservices.ontology.response;
 
-import com.sovren.models.api.ApiResponse;
+import java.util.List;
 
 public class SuggestedProfession extends BaseProfession {
     public List<SuggestedSkill> MissingSkills;

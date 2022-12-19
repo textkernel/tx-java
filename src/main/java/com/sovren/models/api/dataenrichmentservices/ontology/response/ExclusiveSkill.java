@@ -5,6 +5,8 @@
 
 package com.sovren.models.api.dataenrichmentservices.ontology.response;
 
+import java.util.List;
+
 public class ExclusiveSkill {
     public String CodeId;
     public List<BaseProfession> Professions;

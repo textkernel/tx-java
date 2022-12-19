@@ -5,6 +5,8 @@
 
 package com.sovren.models.api.dataenrichmentservices.ontology.request;
 
+import java.util.List;
+
 public class SuggestProfessionsRequest {
     
     public List<String> CodeIds;

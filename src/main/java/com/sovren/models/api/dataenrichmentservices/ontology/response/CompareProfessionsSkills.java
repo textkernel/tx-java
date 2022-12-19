@@ -5,6 +5,8 @@
 
 package com.sovren.models.api.dataenrichmentservices.ontology.response;
 
+import java.util.List;
+
 public class CompareProfessionsSkills {
     public List<ExclusiveSkill> SkillBasedProfessions;
     public List<BaseProfession> InputSkills;

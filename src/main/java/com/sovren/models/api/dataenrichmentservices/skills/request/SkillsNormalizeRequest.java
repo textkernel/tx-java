@@ -5,6 +5,8 @@
 
 package com.sovren.models.api.dataenrichmentservices.skills.request;
 
+import java.util.List;
+
 public class SkillsNormalizeRequest {
     public List<String> Skills;
     public String Language;

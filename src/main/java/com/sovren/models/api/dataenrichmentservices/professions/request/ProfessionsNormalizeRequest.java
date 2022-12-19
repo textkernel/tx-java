@@ -5,6 +5,8 @@
 
 package com.sovren.models.api.dataenrichmentservices.professions.request;
 
+import java.util.List;
+
 public class ProfessionsNormalizeRequest {
         public List<String> JobTitles;
         public String Language;

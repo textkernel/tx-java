@@ -5,8 +5,9 @@
 
 package com.sovren.models.api.dataenrichmentservices.professions.response;
 
-import com.sovren.models.api.ApiResponse;
 import java.util.List;
+import com.sovren.models.api.dataenrichmentservices.skills.response.AutoComplete;
 
-public class ProfessionsNormalizeResponse extends ApiResponse<List<ProfessionsNormalizeResponseValue>> {
+public class ProfessionsAutoCompleteResponseValue {
+    public List<AutoComplete> Completions;
 }

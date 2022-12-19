@@ -5,8 +5,10 @@
 
 package com.sovren.models.api.dataenrichmentservices.skills.request;
 
+import java.util.List;
+
 public class SkillsLookupRequest {
     public List<String> CodeIds;
-    public List<String> Categories = new List<String> { "all" };
+    public List<String> Categories;
     public String OutputLanguage = "en";
 }

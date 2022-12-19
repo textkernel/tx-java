@@ -5,6 +5,10 @@
 
 package com.sovren.models.api.dataenrichmentservices.professions.response;
 
+import java.util.List;
+
+import com.sovren.models.api.dataenrichmentservices.ontology.response.OntologyMetadata;
+
 public class ProfessionsTaxonomyResponseValue {
     public List<ProfessionGroupClass> Professions;
     public String CsvOutput;

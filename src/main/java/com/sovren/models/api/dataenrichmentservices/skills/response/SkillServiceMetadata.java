@@ -3,10 +3,12 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.dataenrichmentservices.professions.response;
+package com.sovren.models.api.dataenrichmentservices.skills.response;
 
-import com.sovren.models.api.ApiResponse;
-import java.util.List;
-
-public class ProfessionsNormalizeResponse extends ApiResponse<List<ProfessionsNormalizeResponseValue>> {
+public class SkillServiceMetadata {
+    public String ConceptType;
+    public String Language;
+    public String Purpose;
+    public String ReleaseDateTime;
+    public String Version;
 }
