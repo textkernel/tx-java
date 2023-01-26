@@ -4,12 +4,17 @@
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
 package com.sovren.models.api.dataenrichmentservices.skills.response;
+import com.sovren.models.api.dataenrichmentservices.professions.response.LangDescription;
 
-import com.sovren.models.api.dataenrichmentservices.professions.response.AllLangsDescriptions;
-
+import java.util.List;
+/** A skill object. */
 public class Code {
-    public String CodeId;
-    public AllLangsDescriptions Descriptions;
-    public String Category;
+    /** The ID for the skill in the taxonomy. */
+    public String Id;
+    /** A list of descriptions of the skill in all supported/requested languages. */
+    public List<LangDescription> Descriptions;
+    /** Type of skill. Possible values are Professional, IT, Language, or Soft. */
+    public String Type;
+    /** The language ISO 639-1 code. This will only appear for language skills (Type = Language). */
     public String IsoCode;
 }

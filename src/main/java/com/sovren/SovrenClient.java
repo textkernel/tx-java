@@ -12,30 +12,32 @@ import com.sovren.models.api.ApiResponse;
 import com.sovren.models.api.ApiResponseInfoLite;
 import com.sovren.models.api.account.GetAccountInfoResponse;
 import com.sovren.models.api.bimetricscoring.*;
-import com.sovren.models.api.dataenrichmentservices.ontology.request.CompareSkillsRequest;
-import com.sovren.models.api.dataenrichmentservices.ontology.request.CompareSkillsToProfessionsRequest;
+import com.sovren.models.api.dataenrichmentservices.ontology.request.CompareProfessionsRequest;
+import com.sovren.models.api.dataenrichmentservices.ontology.request.CompareSkillsToProfessionRequest;
 import com.sovren.models.api.dataenrichmentservices.ontology.request.SuggestProfessionsRequest;
 import com.sovren.models.api.dataenrichmentservices.ontology.request.SuggestSkillsRequest;
-import com.sovren.models.api.dataenrichmentservices.ontology.response.CompareSkillsResponse;
-import com.sovren.models.api.dataenrichmentservices.ontology.response.CompareSkillsToProfessionsResponse;
+import com.sovren.models.api.dataenrichmentservices.ontology.response.CompareProfessionsResponse;
+import com.sovren.models.api.dataenrichmentservices.ontology.response.CompareSkillsToProfessionResponse;
 import com.sovren.models.api.dataenrichmentservices.ontology.response.SuggestProfessionsResponse;
 import com.sovren.models.api.dataenrichmentservices.ontology.response.SuggestSkillsResponse;
 import com.sovren.models.api.dataenrichmentservices.professions.request.ProfessionsAutoCompleteRequest;
-import com.sovren.models.api.dataenrichmentservices.professions.request.ProfessionsLookupRequest;
-import com.sovren.models.api.dataenrichmentservices.professions.request.ProfessionsNormalizeRequest;
+import com.sovren.models.api.dataenrichmentservices.professions.request.LookupProfessionCodesRequest;
+import com.sovren.models.api.dataenrichmentservices.professions.request.NormalizeProfessionsRequest;
+import com.sovren.models.api.dataenrichmentservices.professions.response.GetProfessionsMetadataResponse;
 import com.sovren.models.api.dataenrichmentservices.professions.response.GetProfessionsTaxonomyResponse;
 import com.sovren.models.api.dataenrichmentservices.professions.response.ProfessionsAutoCompleteResponse;
-import com.sovren.models.api.dataenrichmentservices.professions.response.ProfessionsLookupResponse;
-import com.sovren.models.api.dataenrichmentservices.professions.response.ProfessionsNormalizeResponse;
+import com.sovren.models.api.dataenrichmentservices.professions.response.LookupProfessionCodesResponse;
+import com.sovren.models.api.dataenrichmentservices.professions.response.NormalizeProfessionsResponse;
 import com.sovren.models.api.dataenrichmentservices.skills.request.SkillsAutoCompleteRequest;
-import com.sovren.models.api.dataenrichmentservices.skills.request.SkillsExtractRequest;
-import com.sovren.models.api.dataenrichmentservices.skills.request.SkillsLookupRequest;
-import com.sovren.models.api.dataenrichmentservices.skills.request.SkillsNormalizeRequest;
+import com.sovren.models.api.dataenrichmentservices.skills.request.ExtractSkillsRequest;
+import com.sovren.models.api.dataenrichmentservices.skills.request.LookupSkillCodesRequest;
+import com.sovren.models.api.dataenrichmentservices.skills.request.NormalizeSkillsRequest;
 import com.sovren.models.api.dataenrichmentservices.skills.response.GetSkillsTaxonomyResponse;
-import com.sovren.models.api.dataenrichmentservices.skills.response.SkillsAutoCompleteResponse;
-import com.sovren.models.api.dataenrichmentservices.skills.response.SkillsExtractResponse;
-import com.sovren.models.api.dataenrichmentservices.skills.response.SkillsLookupResponse;
-import com.sovren.models.api.dataenrichmentservices.skills.response.SkillsNormalizeResponse;
+import com.sovren.models.api.dataenrichmentservices.skills.response.AutoCompleteSkillsResponse;
+import com.sovren.models.api.dataenrichmentservices.skills.response.ExtractSkillsResponse;
+import com.sovren.models.api.dataenrichmentservices.skills.response.GetSkillsMetadataResponse;
+import com.sovren.models.api.dataenrichmentservices.skills.response.LookupSkillCodesResponse;
+import com.sovren.models.api.dataenrichmentservices.skills.response.NormalizeSkillsResponse;
 import com.sovren.models.api.geocoding.*;
 import com.sovren.models.api.indexes.*;
 import com.sovren.models.api.matching.*;
@@ -1252,15 +1254,14 @@ public class SovrenClient {
     }
 
     /**
-     * Get entire skills taxonomy
-     * @param format Can either be 'json' or 'csv', determines how the data is returned
-     * @param language The lanugage code that should be input to return skills taxonomy in the specified language
+     * Get all skills in the taxonomy with associated IDs and descriptions in all supported languages.
+     * @param format The datatype to return the taxonomy in. Can be either json or csv.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public GetSkillsTaxonomyResponse getSkillsTaxonomy(String format, String language) throws SovrenException {
+    public GetSkillsTaxonomyResponse getSkillsTaxonomy(String format) throws SovrenException {
         Request apiRequest = new Request.Builder()
-                .url(_endpoints.desSkillsGetTaxonomy(format,language))
+                .url(_endpoints.desSkillsGetTaxonomy(format))
                 .build();
 
         HttpResponse<GetSkillsTaxonomyResponse> response = executeRequest(apiRequest, GetSkillsTaxonomyResponse.class, getBodyIfDebug(apiRequest));
@@ -1268,20 +1269,34 @@ public class SovrenClient {
     }
 
     /**
-     * Specify the beginning of a word that the service will use to search skills that match the beginning of that word and return a list
-     * @param prefix The text that will be used as the beginning of the skills to be searched on
-     * @param limit The number of autocompleted skills that should be returned
-     * @param categories The categories that the skills should be filtered to
-     * @param languages The lanugage(s) that the autocompleted skills should be searched in
-     * @param outputLanguage The lanugage that the autocompleted skills should be returned in
+     * Get metadata about the skills taxonomy/service.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SkillsAutoCompleteResponse skillsAutoComplete(String prefix, int limit, List<String> categories, List<String> languages, String outputLanguage) throws SovrenException {
+    public GetSkillsMetadataResponse getSkillsMetadata() throws SovrenException {
+        Request apiRequest = new Request.Builder()
+                .url(_endpoints.desSkillsGetMetadata())
+                .build();
+
+        HttpResponse<GetSkillsMetadataResponse> response = executeRequest(apiRequest, GetSkillsMetadataResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Returns normalized skills that begin with a given prefix, based on the chosen language(s). Each skill is associated with multiple descriptions. If any of the descriptions are a good completion of the given prefix, the skill is included in the results.
+     * @param prefix The skill prefix to be completed. Must contain at least 1 character.
+     * @param limit The maximum number of returned skills. The default is 10 and the maximum is 100.
+     * @param types If specified, only these types of skills will be returned. The following values are acceptable: Professional, IT, Language, Soft, All.
+     * @param languages The language(s) used to search for matching skills (the language of the provided Prefix). A maximum of 5 languages can be provided. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.
+     * @param outputLanguage The language to ouput the found skill descriptions in (default is en). Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.
+     * @return The API response body
+     * @throws SovrenException Thrown when an API error occurs
+     */
+    public AutoCompleteSkillsResponse skillsAutoComplete(String prefix, int limit, List<String> types, List<String> languages, String outputLanguage) throws SovrenException {
         SkillsAutoCompleteRequest request = new SkillsAutoCompleteRequest();
         request.Prefix = prefix;
         request.Limit = limit;
-        request.Categories = categories;
+        request.Types = types;
         request.Languages = languages;
         request.OutputLanguage = outputLanguage;
 
@@ -1291,22 +1306,20 @@ public class SovrenClient {
             .post(body)
             .build();
 
-        HttpResponse<SkillsAutoCompleteResponse> response = executeRequest(apiRequest, SkillsAutoCompleteResponse.class, getBodyIfDebug(apiRequest));
+        HttpResponse<AutoCompleteSkillsResponse> response = executeRequest(apiRequest, AutoCompleteSkillsResponse.class, getBodyIfDebug(apiRequest));
         return response.getData();
     }
 
     /**
-     * Provides descriptions for the requested code Ids.
-     * @param codeIds The list of codes to return descriptions of skills on
-     * @param categories The categories that the skills should be filtered to
-     * @param outputLanguage The lanugage that the looked up skills should be returned in
+     * Get the details associated with given skills in the taxonomy.
+     * @param skillIds The IDs of the skills to get details about. A maximum of 100 IDs can be requested.
+     * @param outputLanguage The language to use for the output skill descriptions. If not provided, defaults to en. If specified, must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SkillsLookupResponse skillsLookup(List<String> codeIds, List<String> categories, String outputLanguage) throws SovrenException {
-        SkillsLookupRequest request = new SkillsLookupRequest();
-        request.CodeIds = codeIds;
-        request.Categories = categories;
+    public LookupSkillCodesResponse skillsLookup(List<String> skillIds, String outputLanguage) throws SovrenException {
+        LookupSkillCodesRequest request = new LookupSkillCodesRequest();
+        request.SkillIds = skillIds;
         request.OutputLanguage = outputLanguage;
 
         RequestBody body = createJsonBody(request);
@@ -1315,20 +1328,20 @@ public class SovrenClient {
             .post(body)
             .build();
 
-        HttpResponse<SkillsLookupResponse> response = executeRequest(apiRequest, SkillsLookupResponse.class, getBodyIfDebug(apiRequest));
+        HttpResponse<LookupSkillCodesResponse> response = executeRequest(apiRequest, LookupSkillCodesResponse.class, getBodyIfDebug(apiRequest));
         return response.getData();
     }
 
     /**
-     * Service takes in skill strings and returns fully normalized skills with metadata.
-     * @param skills The skills to return normalized skills for
-     * @param language The language of the skill taxonomy to be searched on
-     * @param outputLanguage The lanugage that the normalized skills should be returned in
+     * Normalize the given skills to the most closely-related skills in the taxonomy.
+     * @param skills The list of skills to normalize (up to 50 skills, each skill may not exceed 100 characters).
+     * @param language The language of the given skills. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.
+     * @param outputLanguage The language to use for the output skill descriptions. If not provided, defaults to the input language. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SkillsNormalizeResponse skillsNormalize(List<String> skills, String language, String outputLanguage) throws SovrenException {
-        SkillsNormalizeRequest request = new SkillsNormalizeRequest();
+    public NormalizeSkillsResponse skillsNormalize(List<String> skills, String language, String outputLanguage) throws SovrenException {
+        NormalizeSkillsRequest request = new NormalizeSkillsRequest();
         request.Skills = skills;
         request.Language = language;
         request.OutputLanguage = outputLanguage;
@@ -1339,21 +1352,21 @@ public class SovrenClient {
             .post(body)
             .build();
 
-        HttpResponse<SkillsNormalizeResponse> response = executeRequest(apiRequest, SkillsNormalizeResponse.class, getBodyIfDebug(apiRequest));
+        HttpResponse<NormalizeSkillsResponse> response = executeRequest(apiRequest, NormalizeSkillsResponse.class, getBodyIfDebug(apiRequest));
         return response.getData();
     }
 
     /**
-     * Service extracts the known skills from the input text
-     * @param text The text to extract skills from
-     * @param language The language of the input text
-     * @param outputLanguage The lanugage that the normalized skills should be returned in
-     * @param threshold The minimum confidence trheshold for including a skill in the response float from 0 - 1 
+     * Extracts known skills from the given text.
+     * @param text The text to extract skills from. There is a 24,000 character limit.
+     * @param language The language of the input text. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.
+     * @param outputLanguage The language to use for the output skill descriptions. If not provided, defaults to the input language. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.
+     * @param threshold A value from [0 - 1] for the minimum confidence threshold for extracted skills. Lower values will return more skills, but also increase the likelihood of ambiguity-related errors. The recommended and default value is 0.5.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SkillsExtractResponse skillsExtract(String text, String language, float threshold, String outputLanguage) throws SovrenException {
-        SkillsExtractRequest request = new SkillsExtractRequest();
+    public ExtractSkillsResponse skillsExtract(String text, String language, float threshold, String outputLanguage) throws SovrenException {
+        ExtractSkillsRequest request = new ExtractSkillsRequest();
         request.Text = text;
         request.Language = language;
         request.OutputLanguage = outputLanguage;
@@ -1365,14 +1378,14 @@ public class SovrenClient {
             .post(body)
             .build();
 
-        HttpResponse<SkillsExtractResponse> response = executeRequest(apiRequest, SkillsExtractResponse.class, getBodyIfDebug(apiRequest));
+        HttpResponse<ExtractSkillsResponse> response = executeRequest(apiRequest, ExtractSkillsResponse.class, getBodyIfDebug(apiRequest));
         return response.getData();
     }
 
     /**
-     * Get entire professions taxonomy
-     * @param format Can either be 'json' or 'csv', determines how the data is returned
-     * @param language The lanugage code that should be input to return professions taxonomy in the specified language
+     * Get all professions in the taxonomy with associated IDs and descriptions in all supported languages.
+     * @param format The datatype to return the taxonomy in. Can be either json or csv.
+     * @param language 	The language parameter returns the taxonomy with descriptions only in that specified language. If not specified, descriptions in all languages are returned. Must be specified as one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
@@ -1386,20 +1399,32 @@ public class SovrenClient {
     }
 
     /**
-     * Specify the beginning of a word that the service will use to search professions that match the beginning of that word and return a list
-     * @param prefix The text that will be used as the beginning of the professions to be searched on
-     * @param limit The number of autocompleted professions that should be returned
-     * @param categories The categories that the professions should be filtered to
-     * @param languages The lanugage(s) that the autocompleted professions should be searched in
-     * @param outputLanguage The lanugage that the autocompleted professions should be returned in
+     * Get metadata about the professions taxonomy/service.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public ProfessionsAutoCompleteResponse professionsAutoComplete(String prefix, int limit, List<String> categories, List<String> languages, String outputLanguage) throws SovrenException {
+    public GetProfessionsMetadataResponse getProfessionsMetadata() throws SovrenException {
+        Request apiRequest = new Request.Builder()
+                .url(_endpoints.desProfessionsGetMetadata())
+                .build();
+
+        HttpResponse<GetProfessionsMetadataResponse> response = executeRequest(apiRequest, GetProfessionsMetadataResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Returns normalized professions that begin with a given prefix, based on the chosen language(s). Each profession is associated with multiple descriptions. If any of the descriptions are a good completion of the given prefix, the profession is included in the results.
+     * @param prefix The job title prefix to be completed. Must contain at least 1 character.
+     * @param limit The maximum number of returned professions. The default is 10 and the maximum is 100.
+     * @param languages The language(s) used to search for matching professions (the language of the provided Prefix). A maximum of 5 languages can be provided. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>.
+     * @param outputLanguage The language to ouput the found professions in (default is en). Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>.
+     * @return The API response body
+     * @throws SovrenException Thrown when an API error occurs
+     */
+    public ProfessionsAutoCompleteResponse professionsAutoComplete(String prefix, int limit, List<String> languages, String outputLanguage) throws SovrenException {
         ProfessionsAutoCompleteRequest request = new ProfessionsAutoCompleteRequest();
         request.Prefix = prefix;
         request.Limit = limit;
-        request.Categories = categories;
         request.Languages = languages;
         request.OutputLanguage = outputLanguage;
 
@@ -1414,15 +1439,15 @@ public class SovrenClient {
     }
 
     /**
-     * Service takes in job titles array of strings and returns fully normalized professions with metadata.
-     * @param jobTitles The job titles to return normalized professions for
-     * @param language The language of the professions taxonomy to be searched on
-     * @param outputLanguage The lanugage that the normalized professions should be returned in
+     * Normalize the given job titles to the most closely-related professions in the taxonomy.
+     * @param jobTitles The list of job titles to normalize (up to 10 job titles, each job title may not exceed 400 characters).
+     * @param language The language of the input job titles. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>.
+     * @param outputLanguage The language to use for descriptions of the returned normalized professions. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public ProfessionsNormalizeResponse professionsNormalize(List<String> jobTitles, String language, String outputLanguage) throws SovrenException {
-        ProfessionsNormalizeRequest request = new ProfessionsNormalizeRequest();
+    public NormalizeProfessionsResponse professionsNormalize(List<String> jobTitles, String language, String outputLanguage) throws SovrenException {
+        NormalizeProfessionsRequest request = new NormalizeProfessionsRequest();
         request.JobTitles = jobTitles;
         request.Language = language;
         request.OutputLanguage = outputLanguage;
@@ -1433,19 +1458,19 @@ public class SovrenClient {
             .post(body)
             .build();
 
-        HttpResponse<ProfessionsNormalizeResponse> response = executeRequest(apiRequest, ProfessionsNormalizeResponse.class, getBodyIfDebug(apiRequest));
+        HttpResponse<NormalizeProfessionsResponse> response = executeRequest(apiRequest, NormalizeProfessionsResponse.class, getBodyIfDebug(apiRequest));
         return response.getData();
     }
 
     /**
-     * Provides descriptions for the requested code Ids.
-     * @param codeIds The list of codes to return descriptions of professions on
+     * Get details for the given professions in the taxonomy.
+     * @param codeIds The profession code IDs to get details about from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a>.
      * @param outputLanguage The language that the looked up professions should be returned in
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public ProfessionsLookupResponse professionsLookup(List<String> codeIds, String outputLanguage) throws SovrenException {
-        ProfessionsLookupRequest request = new ProfessionsLookupRequest();
+    public LookupProfessionCodesResponse professionsLookup(List<Integer> codeIds, String outputLanguage) throws SovrenException {
+        LookupProfessionCodesRequest request = new LookupProfessionCodesRequest();
         request.CodeIds = codeIds;
         request.OutputLanguage = outputLanguage;
 
@@ -1455,62 +1480,62 @@ public class SovrenClient {
             .post(body)
             .build();
 
-        HttpResponse<ProfessionsLookupResponse> response = executeRequest(apiRequest, ProfessionsLookupResponse.class, getBodyIfDebug(apiRequest));
+        HttpResponse<LookupProfessionCodesResponse> response = executeRequest(apiRequest, LookupProfessionCodesResponse.class, getBodyIfDebug(apiRequest));
         return response.getData();
     }
 
     /**
-     * Service allows a user to compare two given professions with respect to their related skills
-     * @param codeIds The list of profession codes to compare skills against
+     * Compare two professions based on the skills associated with each.
+     * @param professionCodeIds The two profession code IDs from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare. This list must have 2 values.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public CompareSkillsResponse compareSkills(List<String> codeIds) throws SovrenException {
-        CompareSkillsRequest request = new CompareSkillsRequest();
-        request.CodeIds = codeIds;
+    public CompareProfessionsResponse compareProfessions(List<Integer> professionCodeIds) throws SovrenException {
+        CompareProfessionsRequest request = new CompareProfessionsRequest();
+        request.ProfessionCodeIds = professionCodeIds;
 
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
-            .url(_endpoints.desOntologyCompareSkills())
+            .url(_endpoints.desOntologyCompareProfessions())
             .post(body)
             .build();
 
-        HttpResponse<CompareSkillsResponse> response = executeRequest(apiRequest, CompareSkillsResponse.class, getBodyIfDebug(apiRequest));
+        HttpResponse<CompareProfessionsResponse> response = executeRequest(apiRequest, CompareProfessionsResponse.class, getBodyIfDebug(apiRequest));
         return response.getData();
     }
 
     /**
-     * Service allows a user to compare the skill set of a candidate to the skill set related to a target profession
-     * @param skillCodeIds The list of skill codes that should be compared against the given profession
-     * @param professionCodeId The profession code that the skills should be compared to
+     * Compare a given set of skills to the skills related to a given profession.
+     * @param skillIds The skill IDs which should be compared against the given profession. The list can contain up to 50 skills.
+     * @param professionCodeId The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare the skill set to.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public CompareSkillsToProfessionsResponse compareSkillsToProfessions(List<String> skillCodeIds, String professionCodeId) throws SovrenException {
-        CompareSkillsToProfessionsRequest request = new CompareSkillsToProfessionsRequest();
-        request.SkillCodeIds = skillCodeIds;
+    public CompareSkillsToProfessionResponse compareSkillsToProfessions(List<String> skillIds, int professionCodeId) throws SovrenException {
+        CompareSkillsToProfessionRequest request = new CompareSkillsToProfessionRequest();
+        request.SkillIds = skillIds;
         request.ProfessionCodeId = professionCodeId;
 
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
-            .url(_endpoints.desOntologyCompareSkillsToProfessions())
+            .url(_endpoints.desOntologyCompareSkillsToProfession())
             .post(body)
             .build();
 
-        HttpResponse<CompareSkillsToProfessionsResponse> response = executeRequest(apiRequest, CompareSkillsToProfessionsResponse.class, getBodyIfDebug(apiRequest));
+        HttpResponse<CompareSkillsToProfessionResponse> response = executeRequest(apiRequest, CompareSkillsToProfessionResponse.class, getBodyIfDebug(apiRequest));
         return response.getData();
     }
 
     /**
-     * Service returns skills related to a given profession
-     * @param codeIds The list of profession codes for which the service should return related skills
-     * @param limit The maximum amount of suggested skills that should be returned
+     * Returns skills related to a given profession. The service returns salient skills that are strongly associated with the profession.
+     * @param professionCodeIds The profession code IDs from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> for which the service should return related skills. The list can contain up to 10 profession codes.
+     * @param limit The maximum amount of suggested skills returned. If not specified this parameter defaults to 10.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkills(List<String> codeIds, int limit) throws SovrenException {
+    public SuggestSkillsResponse suggestSkills(List<Integer> professionCodeIds, int limit) throws SovrenException {
         SuggestSkillsRequest request = new SuggestSkillsRequest();
-        request.CodeIds = codeIds;
+        request.ProfessionCodeIds = professionCodeIds;
         request.Limit = limit;
 
         RequestBody body = createJsonBody(request);
@@ -1524,16 +1549,16 @@ public class SovrenClient {
     }
 
     /**
-     * Service returns suggested professions based off on an input set of skills
-     * @param codeIds The list of skill codes for which the service should return suggested professions
-     * @param limit The maximum amount of suggested professions that should be returned
-     * @param returnMissingSkills A boolean flag that tells the service whether or not to return skills that were missing from the input set of skills that are necessary for the suggested profession
+     * Suggest professions based on a given set of skills.
+     * @param skillIds The skill IDs used to return the most relevant professions. The list can contain up to 50 skill IDs.
+     * @param limit The maximum amount of professions returned. If not specified this parameter defaults to 10.
+     * @param returnMissingSkills Flag to enable returning a list of missing skills per suggested profession.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SuggestProfessionsResponse suggestProfessions(List<String> codeIds, int limit, boolean returnMissingSkills) throws SovrenException {
+    public SuggestProfessionsResponse suggestProfessions(List<String> skillIds, int limit, boolean returnMissingSkills) throws SovrenException {
         SuggestProfessionsRequest request = new SuggestProfessionsRequest();
-        request.CodeIds = codeIds;
+        request.SkillIds = skillIds;
         request.Limit = limit;
         request.ReturnMissingSkills = returnMissingSkills;
 

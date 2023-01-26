@@ -5,7 +5,8 @@
 
 package com.sovren.models.api.dataenrichmentservices.skills.request;
 
+/** Request body for a 'GetSkillsTaxonomy' request */
 public class GetSkillsTaxonomyRequest {
+    /** The datatype to return the taxonomy in. Can be either json or csv. */
     public String Format;
-    public String Language;
 }

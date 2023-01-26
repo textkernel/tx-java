@@ -5,12 +5,18 @@
 
 package com.sovren.models.api.dataenrichmentservices.professions.response;
 
-public class ProfessionGroupClass {
-        public ProfessionGroupClassInfo TKInfo;
+/** The profession group class object */
+public class ProfessionGroupClass extends ProfessionGroupClassInfo {
+        /** The O*NET 2010 (deprecated) details of this profession. */
         public GroupOrClassInfo<String> Onet;
+        /** The O*NET 2019 details of this profession. */
         public GroupOrClassInfo<String> Onet2019;
+        /** The KLDB-2020 details of this profession. */
         public GroupOrClassInfo<String> Kldb2020;
+        /** The UWV-BOC details of this profession. */
         public GroupOrClassInfo<String> UwvBoc;
+        /** The UK-SOC-2010 details of this profession. */
         public GroupOrClassInfo<String> UkSoc2010;
+        /** The ISCO-2008 details of this profession. */
         public GroupOrClassInfo<String> Isco;
 }

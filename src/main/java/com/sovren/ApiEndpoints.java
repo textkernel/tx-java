@@ -79,17 +79,19 @@ class ApiEndpoints {
     String geocodeAndIndexResume() { return prefix() + "/geocodeAndIndex/resume"; }
     String geocodeAndIndexJob() { return prefix() + "/geocodeAndIndex/joborder"; }
 
-    String desSkillsGetTaxonomy(String format, String language) { return prefix() + "/skills/taxonomy?format="+ format +"&language="+ language; }
+    String desSkillsGetTaxonomy(String format) { return prefix() + "/skills/taxonomy?format="+ format; }
+    String desSkillsGetMetadata() { return prefix() + "/skills/metadata"; }
     String desSkillsNormalize() { return prefix() + "/skills/normalize"; }
     String desSkillsExtract() { return prefix() + "/skills/extract"; }
     String desSkillsLookup() { return prefix() + "/skills/lookup"; }
     String desSkillsAutoComplete() { return prefix() + "/skills/autoComplete"; }
     String desProfessionsGetTaxonomy(String format, String language) { return prefix() + "/professions/taxonomy?format="+ format +"&language="+ language; }
+    String desProfessionsGetMetadata() { return prefix() + "/professions/metadata"; }
     String desProfessionsNormalize() { return prefix() + "/professions/normalize"; }
     String desProfessionsLookup() { return prefix() + "/professions/lookup"; }
     String desProfessionsAutoComplete() { return prefix() + "/professions/autoComplete"; }
     String desOntologySuggestSkills() { return prefix() + "/ontology/suggestSkills"; }
-    String desOntologyCompareSkills() { return prefix() + "/ontology/compareSkills"; }
+    String desOntologyCompareProfessions() { return prefix() + "/ontology/compareProfessions"; }
     String desOntologySuggestProfessions() { return prefix() + "/ontology/suggestProfessions"; }
-    String desOntologyCompareSkillsToProfessions() { return prefix() + "/ontology/compareSkillsToProfessions"; }
+    String desOntologyCompareSkillsToProfession() { return prefix() + "/ontology/compareSkillsToProfession"; }
 }

@@ -5,7 +5,10 @@
 
 package com.sovren.models.api.dataenrichmentservices.professions.response;
 
+/** The group or class info object. */
 public class LookupGroupOrClassInfo<T> {
+    /** The unique code ID of the item in the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a>. */
     public T CodeId;
+    /** The description of the item. */
     public String Description;
 }

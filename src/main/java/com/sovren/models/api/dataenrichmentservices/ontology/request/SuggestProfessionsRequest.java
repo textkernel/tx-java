@@ -7,9 +7,12 @@ package com.sovren.models.api.dataenrichmentservices.ontology.request;
 
 import java.util.List;
 
+/** Request body for a 'SuggestProfessions' request  */
 public class SuggestProfessionsRequest {
-    
-    public List<String> CodeIds;
+    /** The skill IDs used to return the most relevant professions. The list can contain up to 50 skill IDs. */
+    public List<String> SkillIds;
+    /** Flag to enable returning a list of missing skills per suggested profession. */
     public boolean ReturnMissingSkills = false;
+    /** The maximum amount of professions returned. If not specified this parameter defaults to 10. */
     public int Limit = 10;
 }

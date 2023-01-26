@@ -5,7 +5,10 @@
 
 package com.sovren.models.api.dataenrichmentservices.professions.request;
 
+/** Request body for a 'GetProfessionsTaxonomy' request */
 public class GetProfessionsTaxonomyRequest {
+    /** The datatype to return the taxonomy in. Can be either json or csv. */
     public String Format;
+    /** The language parameter returns the taxonomy with descriptions only in that specified language. If not specified, descriptions in all languages are returned. Must be specified as one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>. */
     public String Language;
 }

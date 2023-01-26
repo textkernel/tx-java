@@ -6,8 +6,9 @@
 package com.sovren.models.api.dataenrichmentservices.professions.response;
 
 import java.util.List;
-import com.sovren.models.api.dataenrichmentservices.skills.response.AutoComplete;
 
+/** One entry in the {@link ApiResponse#Value} from a 'ProfessionsAutocomplete' response */
 public class ProfessionsAutoCompleteResponseValue {
-    public List<AutoComplete> Completions;
+    /** A list of professions that match the given Prefix. */
+    public List<AutoCompleteProfession> Professions;
 }

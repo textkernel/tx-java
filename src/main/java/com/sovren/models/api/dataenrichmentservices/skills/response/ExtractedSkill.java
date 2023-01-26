@@ -7,7 +7,8 @@ package com.sovren.models.api.dataenrichmentservices.skills.response;
 
 import java.util.List;
 
+/** An extracted skill object. */
 public class ExtractedSkill extends BaseSkill {
-    public float Confidence;
-    public List<Match> Matches;
+    /** A list of matches where this skill was found in the text. */
+    public List<SkillMatch> Matches;
 }

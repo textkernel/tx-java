@@ -7,10 +7,10 @@ package com.sovren.models.api.dataenrichmentservices.skills.request;
 
 import java.util.List;
 
-public class SkillsAutoCompleteRequest {
-    public String Prefix;
-    public int Limit = 10;
-    public List<String> Categories;
-    public List<String> Languages;
-    public String OutputLanguage = "en";
+import com.sovren.models.api.dataenrichmentservices.professions.request.ProfessionsAutoCompleteRequest;
+
+/** Request body for a 'SkillsAutocomplete' request */
+public class SkillsAutoCompleteRequest extends ProfessionsAutoCompleteRequest {
+    /** If specified, only these types of skills will be returned. The following values are acceptable: Professional, IT, Language, Soft, All. */
+    public List<String> Types;
 }

@@ -7,5 +7,6 @@ package com.sovren.models.api.dataenrichmentservices.professions.response;
 
 import com.sovren.models.api.ApiResponse;
 
+/** The response body from a ProfessionsAutocomplete API call*/
 public class ProfessionsAutoCompleteResponse extends ApiResponse<ProfessionsAutoCompleteResponseValue> {
 }

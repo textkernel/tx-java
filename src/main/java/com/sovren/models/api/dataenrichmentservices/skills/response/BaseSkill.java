@@ -5,8 +5,16 @@
 
 package com.sovren.models.api.dataenrichmentservices.skills.response;
 
+/** A skill from the skill taxonomy. */
 public class BaseSkill {
-    public String CodeId;
+    /** Type of skill. Possible values are Professional, IT, Language, or Soft. */
+    public String Type;
+    /** The ID for the skill in the skills taxonomy. */
+    public String Id;
+    /** Overall confidence that the skill was normalized to the correct skill. */
+    public float Confidence;
+    /** The description of the normalized skill concept in the requested language. */
     public String Description;
-    public String Category;
+    /** The language ISO 639-1 code. This will only appear for language skills (Type = Language). */
+    public String IsoCode;
 }

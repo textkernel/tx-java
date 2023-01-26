@@ -7,5 +7,6 @@ package com.sovren.models.api.dataenrichmentservices.professions.response;
 
 import com.sovren.models.api.ApiResponse;
 
-public class GetProfessionsTaxonomyResponse extends ApiResponse<ProfessionsTaxonomyResponseValue> {
+/** The response body from a GetProfessionsTaxonomy API call*/
+public class GetProfessionsTaxonomyResponse extends ApiResponse<GetProfessionsTaxonomyResponseValue> {
 }

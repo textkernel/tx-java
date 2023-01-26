@@ -7,5 +7,6 @@ package com.sovren.models.api.dataenrichmentservices.ontology.response;
 
 import com.sovren.models.api.ApiResponse;
 
+/** The response body from a SuggestProfessions API call*/
 public class SuggestProfessionsResponse extends ApiResponse<SuggestProfessionsResponseValue> {
 }

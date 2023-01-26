@@ -6,21 +6,24 @@
 package com.sovren.integration;
 
 import com.sovren.TestBase;
-import com.sovren.exceptions.SovrenException;
-import com.sovren.models.api.dataenrichmentservices.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DataEnrichmentServiceTests extends TestBase {
     @Test
     public void testSkillsTaxonomy() {
         assertDoesNotThrow(() -> {
-            Client.getSkillsTaxonomy("json", "en");
+            Client.getSkillsTaxonomy("json");
+        });
+    }
+
+    @Test
+    public void testSkillsMetadata() {
+        assertDoesNotThrow(() -> {
+            Client.getSkillsMetadata();
         });
     }
 
@@ -29,20 +32,18 @@ public class DataEnrichmentServiceTests extends TestBase {
         assertDoesNotThrow(() -> {
             ArrayList<String> languages = new ArrayList<String>();
             languages.add("en");
-            ArrayList<String> categories = new ArrayList<String>();
-            categories.add("all");
-            Client.skillsAutoComplete("soft", 10, categories, languages, "en");
+            ArrayList<String> types = new ArrayList<String>();
+            types.add("all");
+            Client.skillsAutoComplete("soft", 10, types, languages, "en");
         });
     }
 
     @Test
     public void testSkillsLookup() {
         assertDoesNotThrow(() -> {
-            ArrayList<String> lookupList = new ArrayList<String>();
-            lookupList.add("KS120B874P2P6BK1MQ0T");
-            ArrayList<String> categories = new ArrayList<String>();
-            categories.add("all");
-            Client.skillsLookup(lookupList, categories, "en");
+            ArrayList<String> skillIds = new ArrayList<String>();
+            skillIds.add("KS120B874P2P6BK1MQ0T");
+            Client.skillsLookup(skillIds, "en");
         });
     }
 
@@ -70,59 +71,64 @@ public class DataEnrichmentServiceTests extends TestBase {
     }
 
     @Test
+    public void testProfessionsMetadata() {
+        assertDoesNotThrow(() -> {
+            Client.getProfessionsMetadata();
+        });
+    }
+
+    @Test
     public void testProfessionsAutoComplete() {
         assertDoesNotThrow(() -> {
-            ArrayList<String> categories = new ArrayList<String>();
-            categories.add("all");
             ArrayList<String> languages = new ArrayList<String>();
             languages.add("en");
-            Client.professionsAutoComplete("soft", 10, categories, languages, "en");
+            Client.professionsAutoComplete("soft", 10, languages, "en");
         });
     }
 
     @Test
     public void testProfessionsNormalize() {
         assertDoesNotThrow(() -> {
-            ArrayList<String> jobTitlesToNormalize = new ArrayList<String>();
-            jobTitlesToNormalize.add("Software Engineer");
-            Client.professionsNormalize(jobTitlesToNormalize, "en", "en");
+            ArrayList<String> jobTitles = new ArrayList<String>();
+            jobTitles.add("Software Engineer");
+            Client.professionsNormalize(jobTitles, "en", "en");
         });
     }
 
     @Test
     public void testProfessionsLookup() {
         assertDoesNotThrow(() -> {
-            ArrayList<String> professionCodeIds = new ArrayList<String>();
-            professionCodeIds.add("2000");
-            Client.professionsLookup(professionCodeIds, "en");
+            ArrayList<Integer> codeIds = new ArrayList<Integer>();
+            codeIds.add(2000);
+            Client.professionsLookup(codeIds, "en");
         });
     }
 
     @Test
-    public void testCompareSkills() {
+    public void testCompareProfessions() {
         assertDoesNotThrow(() -> {
-            ArrayList<String> professionCodeIds = new ArrayList<String>();
-            professionCodeIds.add("696");
-            professionCodeIds.add("3178");
-            Client.compareSkills(professionCodeIds);
+            ArrayList<Integer> professionCodeIds = new ArrayList<Integer>();
+            professionCodeIds.add(696);
+            professionCodeIds.add(3178);
+            Client.compareProfessions(professionCodeIds);
         });
     }
 
     @Test
     public void testCompareSkillsToProfessions() {
         assertDoesNotThrow(() -> {
-            ArrayList<String> skillCodeIds = new ArrayList<String>();
-            skillCodeIds.add("KS120076FGP5WGWYMP0F");
-            skillCodeIds.add("KS04UWLJBN9X1M3N0PZ4");
-            Client.compareSkillsToProfessions(skillCodeIds, "696");
+            ArrayList<String> skillIds = new ArrayList<String>();
+            skillIds.add("KS120076FGP5WGWYMP0F");
+            skillIds.add("KS04UWLJBN9X1M3N0PZ4");
+            Client.compareSkillsToProfessions(skillIds, 696);
         });
     }
 
     @Test
     public void testSuggestSkills() {
         assertDoesNotThrow(() -> {
-            ArrayList<String> professionCodeIds = new ArrayList<String>();
-            professionCodeIds.add("696");
+            ArrayList<Integer> professionCodeIds = new ArrayList<Integer>();
+            professionCodeIds.add(696);
             Client.suggestSkills(professionCodeIds, 10);
         });
     }
@@ -130,11 +136,11 @@ public class DataEnrichmentServiceTests extends TestBase {
     @Test
     public void testSuggestProfessions() {
         assertDoesNotThrow(() -> {
-            ArrayList<String> skillCodeIds = new ArrayList<String>();
-            skillCodeIds.add("KS120076FGP5WGWYMP0F");
-            skillCodeIds.add("KS125HH5XDBPZT3RFGZZ");
-            skillCodeIds.add("KS124PR62MV42B5C9S9F");
-            Client.suggestProfessions(skillCodeIds, 10, false);
+            ArrayList<String> skillIds = new ArrayList<String>();
+            skillIds.add("KS120076FGP5WGWYMP0F");
+            skillIds.add("KS125HH5XDBPZT3RFGZZ");
+            skillIds.add("KS124PR62MV42B5C9S9F");
+            Client.suggestProfessions(skillIds, 10, false);
         });
     }
 }

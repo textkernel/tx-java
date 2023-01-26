@@ -7,5 +7,6 @@ package com.sovren.models.api.dataenrichmentservices.skills.response;
 
 import com.sovren.models.api.ApiResponse;
 
-public class GetSkillsTaxonomyResponse extends ApiResponse<SkillsTaxonomyResponseValue> {
+/** The response body from a GetSkillsTaxonomy API call*/
+public class GetSkillsTaxonomyResponse extends ApiResponse<GetSkillsTaxonomyResponseValue> {
 }

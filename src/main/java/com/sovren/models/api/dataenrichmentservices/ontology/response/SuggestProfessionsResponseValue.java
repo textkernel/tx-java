@@ -7,9 +7,8 @@ package com.sovren.models.api.dataenrichmentservices.ontology.response;
 
 import java.util.List;
 
+/** One entry in the {@link ApiResponse#Value} from a 'SuggestProfessions' response */
 public class SuggestProfessionsResponseValue {
-    
-    public OntologyMetadata Meta;
-    public float SimilarityScore;
+    /** A list of professions most relevant to the given skills. */
     public List<SuggestedProfession> SuggestedProfessions;
 }
