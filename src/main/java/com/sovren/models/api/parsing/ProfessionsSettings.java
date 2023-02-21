@@ -5,7 +5,7 @@
 
 package com.sovren.models.api.parsing;
 
-import com.sovren.models.api.dataenrichmentservices.professions.ProfessionNormalizationVersions;
+import com.sovren.models.api.dataenrichment.professions.ProfessionNormalizationVersions;
 import com.sovren.models.api.matching.request.SearchMatchSettings;
 
 /**

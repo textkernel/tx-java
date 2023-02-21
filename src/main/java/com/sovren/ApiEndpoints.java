@@ -5,6 +5,8 @@
 
 package com.sovren;
 
+import com.sovren.models.api.dataenrichment.TaxonomyFormat;
+
 class ApiEndpoints {
 
     private static String _matchUIPrefix = "/ui";
@@ -26,15 +28,11 @@ class ApiEndpoints {
         return _dataCenter.Root + versionSuffix();
     }
 
-    private String prefix(boolean isMatchUI, boolean isDES) {
+    private String prefix(boolean isMatchUI) {
         if (isMatchUI && !_dataCenter.IsSovrenSaaS) {
             //throw new IllegalAccessException("Cannot call Matching UI on a self-hosted installation.");
             //do not throw this for now, it will just be a 404
-        } else if (isDES && !_dataCenter.IsSovrenSaaS){
-            //throw new IllegalAccessException("Cannot call Data Enrichment Services on a self-hosted installation.");
-            //do not throw this for now, it will just be a 404
         }
-
         return _dataCenter.Root + "/" + (isMatchUI ? _matchUIPrefix : "") + versionSuffix();
     }
 
@@ -69,32 +67,32 @@ class ApiEndpoints {
     String document(String indexId, String docId) { return prefix() + "/index/" + sanitize(indexId) + "/documents/" + sanitize(docId); }
     String multipleDocuments(String indexId) { return prefix() + "/index/" + sanitize(indexId) + "/documents"; }
     
-    String matchResume(boolean isMatchUI) { return prefix(isMatchUI, false) + "/matcher/resume"; }
-    String matchJob(boolean isMatchUI) { return prefix(isMatchUI, false) + "/matcher/joborder"; }
-    String matchDocId(String indexId, String docId, boolean isMatchUI) { return prefix(isMatchUI, false) + "/matcher/indexes/" + sanitize(indexId) + "/documents/" + sanitize(docId); }
-    String search(boolean isMatchUI) { return prefix(isMatchUI, false) + "/searcher"; }
+    String matchResume(boolean isMatchUI) { return prefix(isMatchUI) + "/matcher/resume"; }
+    String matchJob(boolean isMatchUI) { return prefix(isMatchUI) + "/matcher/joborder"; }
+    String matchDocId(String indexId, String docId, boolean isMatchUI) { return prefix(isMatchUI) + "/matcher/indexes/" + sanitize(indexId) + "/documents/" + sanitize(docId); }
+    String search(boolean isMatchUI) { return prefix(isMatchUI) + "/searcher"; }
     
-    String bimetricScoreResume(boolean isMatchUI) { return prefix(isMatchUI, false) + "/scorer/bimetric/resume"; }
-    String bimetricScoreJob(boolean isMatchUI) { return prefix(isMatchUI, false) + "/scorer/bimetric/joborder"; }
+    String bimetricScoreResume(boolean isMatchUI) { return prefix(isMatchUI) + "/scorer/bimetric/resume"; }
+    String bimetricScoreJob(boolean isMatchUI) { return prefix(isMatchUI) + "/scorer/bimetric/joborder"; }
     
     String geocodeResume() { return prefix() + "/geocoder/resume"; }
     String geocodeJob() { return prefix() + "/geocoder/joborder"; }
     String geocodeAndIndexResume() { return prefix() + "/geocodeAndIndex/resume"; }
     String geocodeAndIndexJob() { return prefix() + "/geocodeAndIndex/joborder"; }
 
-    String desSkillsGetTaxonomy(String format) { return prefix(false, true) + "/skills/taxonomy?format="+ format; }
-    String desSkillsGetMetadata() { return prefix(false, true) + "/skills/metadata"; }
-    String desSkillsNormalize() { return prefix(false, true) + "/skills/normalize"; }
-    String desSkillsExtract() { return prefix(false, true) + "/skills/extract"; }
-    String desSkillsLookup() { return prefix(false, true) + "/skills/lookup"; }
-    String desSkillsAutoComplete() { return prefix(false, true) + "/skills/autoComplete"; }
-    String desProfessionsGetTaxonomy(String format, String language) { return prefix(false, true) + "/professions/taxonomy?format="+ format +"&language="+ language; }
-    String desProfessionsGetMetadata() { return prefix(false, true) + "/professions/metadata"; }
-    String desProfessionsNormalize() { return prefix(false, true) + "/professions/normalize"; }
-    String desProfessionsLookup() { return prefix(false, true) + "/professions/lookup"; }
-    String desProfessionsAutoComplete() { return prefix(false, true) + "/professions/autoComplete"; }
-    String desOntologySuggestSkills() { return prefix(false, true) + "/ontology/suggestSkills"; }
-    String desOntologyCompareProfessions() { return prefix(false, true) + "/ontology/compareProfessions"; }
-    String desOntologySuggestProfessions() { return prefix(false, true) + "/ontology/suggestProfessions"; }
-    String desOntologyCompareSkillsToProfession() { return prefix(false, true) + "/ontology/compareSkillsToProfession"; }
+    String desSkillsGetTaxonomy(TaxonomyFormat format) { return prefix(false) + "/skills/taxonomy?format="+ format; }
+    String desSkillsGetMetadata() { return prefix(false) + "/skills/metadata"; }
+    String desSkillsNormalize() { return prefix(false) + "/skills/normalize"; }
+    String desSkillsExtract() { return prefix(false) + "/skills/extract"; }
+    String desSkillsLookup() { return prefix(false) + "/skills/lookup"; }
+    String desSkillsAutoComplete() { return prefix(false) + "/skills/autoComplete"; }
+    String desProfessionsGetTaxonomy(TaxonomyFormat format, String language) { return prefix(false) + "/professions/taxonomy?format="+ format +"&language="+ language; }
+    String desProfessionsGetMetadata() { return prefix(false) + "/professions/metadata"; }
+    String desProfessionsNormalize() { return prefix(false) + "/professions/normalize"; }
+    String desProfessionsLookup() { return prefix(false) + "/professions/lookup"; }
+    String desProfessionsAutoComplete() { return prefix(false) + "/professions/autoComplete"; }
+    String desOntologySuggestSkills() { return prefix(false) + "/ontology/suggestSkills"; }
+    String desOntologyCompareProfessions() { return prefix(false) + "/ontology/compareProfessions"; }
+    String desOntologySuggestProfessions() { return prefix(false) + "/ontology/suggestProfessions"; }
+    String desOntologyCompareSkillsToProfession() { return prefix(false) + "/ontology/compareSkillsToProfession"; }
 }
