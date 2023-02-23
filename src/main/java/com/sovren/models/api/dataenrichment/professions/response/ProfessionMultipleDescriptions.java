@@ -1,5 +1,4 @@
 package com.sovren.models.api.dataenrichment.professions.response;
-
 import java.util.List;
 
 /**

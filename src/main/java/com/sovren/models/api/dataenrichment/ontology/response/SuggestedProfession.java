@@ -4,6 +4,7 @@
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
 package com.sovren.models.api.dataenrichment.ontology.response;
+import com.sovren.models.api.dataenrichment.ontology.request.SuggestProfessionsRequest;
 
 import java.util.List;
 

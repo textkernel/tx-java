@@ -4,7 +4,7 @@
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
 package com.sovren.models.api.dataenrichment.professions.response;
-
+import com.sovren.models.api.ApiResponse;
 import java.util.List;
 
 /** One entry in the {@link ApiResponse#Value} from a 'ProfessionsAutocomplete' response */
