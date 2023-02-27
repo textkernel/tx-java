@@ -1,4 +1,4 @@
-package com.sovren.models.api.dataenrichment.professions.response;
+package com.sovren.models.dataenrichment;
 
 /** 
  * A profession ID/description from the Sovren Professions Taxonomy.

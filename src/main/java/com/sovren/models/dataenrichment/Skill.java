@@ -1,4 +1,4 @@
-package com.sovren.models.api.dataenrichment.skills.response;
+package com.sovren.models.dataenrichment;
 
 /** A skill from the Skills Taxonomy */
 public class Skill {

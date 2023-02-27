@@ -1,4 +1,5 @@
 package com.sovren.models.api.dataenrichment;
+import com.sovren.models.dataenrichment.Taxonomy;
 
 /**
 *  The format used to retrieve the DES skills or professions taxonomy

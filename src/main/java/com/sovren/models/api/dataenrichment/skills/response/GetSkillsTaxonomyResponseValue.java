@@ -6,7 +6,8 @@
 package com.sovren.models.api.dataenrichment.skills.response;
 import java.util.List;
 import com.sovren.models.api.ApiResponse;
-import com.sovren.models.api.dataenrichment.Taxonomy;
+import com.sovren.models.dataenrichment.SkillMultipleDescriptions;
+import com.sovren.models.dataenrichment.Taxonomy;
 
 /** One entry in the {@link ApiResponse#Value} from a 'GetSkillsTaxonomy' response */
 public class GetSkillsTaxonomyResponseValue extends Taxonomy {

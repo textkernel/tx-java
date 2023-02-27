@@ -1,4 +1,4 @@
-package com.sovren.models.api.dataenrichment.professions.response;
+package com.sovren.models.dataenrichment;
 
 /**
  * A normalized profession from the Sovren Professions Taxonomy

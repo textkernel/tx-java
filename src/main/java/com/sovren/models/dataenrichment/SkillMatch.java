@@ -1,4 +1,4 @@
-package com.sovren.models.api.dataenrichment.skills.response;
+package com.sovren.models.dataenrichment;
 /** A matched skill that was found in the text provided. */
 public class SkillMatch {
     /** The index of the first character of the match (0-based). */

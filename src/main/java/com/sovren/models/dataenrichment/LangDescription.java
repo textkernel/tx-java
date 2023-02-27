@@ -1,4 +1,4 @@
-package com.sovren.models.api.dataenrichment.skills.response;
+package com.sovren.models.dataenrichment;
 
 /**
  * The description in thed particular language.

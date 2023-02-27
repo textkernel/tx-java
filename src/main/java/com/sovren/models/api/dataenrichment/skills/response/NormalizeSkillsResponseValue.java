@@ -5,6 +5,8 @@
 
 package com.sovren.models.api.dataenrichment.skills.response;
 import com.sovren.models.api.ApiResponse;
+import com.sovren.models.dataenrichment.NormalizedSkill;
+
 import java.util.List;
 
 /** One entry in the {@link ApiResponse#Value} from a 'NormalizeSkills' response */

@@ -1,4 +1,4 @@
-package com.sovren.models.api.dataenrichment.professions.response;
+package com.sovren.models.dataenrichment;
 import java.util.List;
 
 /**
@@ -14,6 +14,6 @@ public class ProfessionMultipleDescriptions extends Profession {
      * The description of the skill in the requested language.<br/><b>NOTE: if multiple languages were requested, this is simply the first from {@link Descriptions}</b>
      */
     public ProfessionMultipleDescriptions(){
-        this.Description = Descriptions != null ? Descriptions.get(0).Description : null;
+        this.Description = (Descriptions != null && !Descriptions.isEmpty()) ? Descriptions.get(0).Description : null;
     }
 }

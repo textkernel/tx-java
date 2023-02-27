@@ -1,4 +1,4 @@
-package com.sovren.models.api.dataenrichment.professions.response;
+package com.sovren.models.dataenrichment;
 
 /**
  * Object representing a profession concept
