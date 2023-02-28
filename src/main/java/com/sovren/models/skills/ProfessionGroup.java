@@ -13,7 +13,7 @@ public class ProfessionGroup {
         public String Id;
 
         /** Percent of overall document described by this profession group. All groups across all classes will add up to 100%.*/
-        public double Percent;
+        public int Percent;
 
         /** Array of normalized skills associated to this profession group. */
         public List<String> NormalizedSkills;

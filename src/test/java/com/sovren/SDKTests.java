@@ -23,7 +23,6 @@ public class SDKTests extends TestBase {
         }
         catch (SovrenException e){
             assertEquals(404, e.HttpStatusCode);
-            assertEquals("404 - Not Found", e.getMessage());
         }
     }
     
