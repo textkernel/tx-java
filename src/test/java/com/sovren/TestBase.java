@@ -12,8 +12,11 @@ import com.sovren.models.SovrenDate;
 import com.sovren.models.api.geocoding.GeocodeCredentials;
 import com.sovren.models.api.geocoding.GeocodeProvider;
 import com.sovren.models.api.parsing.ParseJobResponseValue;
+import com.sovren.models.api.parsing.ParseOptions;
 import com.sovren.models.api.parsing.ParseRequest;
 import com.sovren.models.api.parsing.ParseResumeResponseValue;
+import com.sovren.models.api.parsing.ProfessionsSettings;
+import com.sovren.models.api.parsing.SkillsSettings;
 import com.sovren.models.job.ParsedJob;
 import com.sovren.models.resume.ParsedResume;
 import com.sovren.models.resume.education.Degree;
@@ -32,6 +35,7 @@ public abstract class TestBase {
     protected static GeocodeCredentials GeocodeCredentials;
 
     protected static ParsedResume TestParsedResume;
+    protected static ParsedResume TestParsedResumeV2;
     protected static ParsedResume TestParsedResumeWithAddress;
     protected static ParsedJob TestParsedJob;
     protected static ParsedJob TestParsedJobWithAddress;
@@ -63,6 +67,15 @@ public abstract class TestBase {
 
             ParseResumeResponseValue parseResumeResponseValue = Client.parseResume(new ParseRequest(TestData.Resume, null)).Value;
             TestParsedResume = parseResumeResponseValue.ResumeData;
+
+            ParseOptions v2Options = new ParseOptions();
+            v2Options.ProfessionsSettings = new ProfessionsSettings();
+            v2Options.ProfessionsSettings.Normalize = true;
+            v2Options.SkillsSettings = new SkillsSettings();
+            v2Options.SkillsSettings.Normalize = true;
+            v2Options.SkillsSettings.TaxonomyVersion = "V2";
+            parseResumeResponseValue = Client.parseResume(new ParseRequest(TestData.Resume, v2Options)).Value;
+            TestParsedResumeV2 = parseResumeResponseValue.ResumeData;
 
             parseResumeResponseValue = Client.parseResume(new ParseRequest(TestData.ResumeWithAddress, null)).Value;
             TestParsedResumeWithAddress = parseResumeResponseValue.ResumeData;

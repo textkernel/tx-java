@@ -159,6 +159,13 @@ public class IndexTests extends TestBase {
             // confirm you can now retrieve the resume
             Client.getResume(resumeIndexId, documentId);
 
+            // add v2 skills resume to index
+            Client.indexDocument(TestParsedResumeV2, resumeIndexId, documentId, null);
+            delayForIndexSync();
+
+            // confirm you can now retrieve the resume
+            Client.getResume(resumeIndexId, documentId);
+
             // confirm the resume shows up in searches
             List<String> indexesToQuery = new ArrayList<>();
             indexesToQuery.add(resumeIndexId);

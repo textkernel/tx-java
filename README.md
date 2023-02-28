@@ -28,7 +28,7 @@ Add this dependency to your project's POM:
 
 ### Others
 You'll need to manually install the following JARs:
-- The Sovren JAR from https://repo1.maven.org/maven2/com/sovren/sovren-java/1.6.1/sovren-java-1.6.1.jar
+- The Sovren JAR from https://repo1.maven.org/maven2/com/sovren/sovren-java/1.6.2/sovren-java-1.6.2.jar
 - [Google Gson][gson_url] from https://repo1.maven.org/maven2/com/google/code/gson/gson/2.9.0/gson-2.9.0.jar
 - [Square OkHttp][okhttp_url] from https://repo1.maven.org/maven2/com/squareup/okhttp3/okhttp/4.9.3/okhttp-4.9.3.jar
 
