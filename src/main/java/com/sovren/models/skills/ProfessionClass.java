@@ -12,7 +12,7 @@ public class ProfessionClass {
         public String Id;
 
         /** Percent of overall document that relates to this profession. */
-        public double Percent;
+        public int Percent;
 
         /** Array of objects representing groups of professions. */
         public List<ProfessionGroup> Groups;
