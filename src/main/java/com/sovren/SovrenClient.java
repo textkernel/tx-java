@@ -15,6 +15,8 @@ import com.sovren.models.api.bimetricscoring.*;
 import com.sovren.models.api.dataenrichment.AutocompleteRequest;
 import com.sovren.models.api.dataenrichment.GetMetadataResponse;
 import com.sovren.models.api.dataenrichment.TaxonomyFormat;
+import com.sovren.models.api.dataenrichment.skills.response.GetSkillsTaxonomyResponseValue;
+import com.sovren.models.api.dataenrichment.professions.response.GetProfessionsTaxonomyResponseValue;
 import com.sovren.models.api.dataenrichment.ontology.request.CompareProfessionsRequest;
 import com.sovren.models.api.dataenrichment.ontology.request.CompareSkillsToProfessionRequest;
 import com.sovren.models.api.dataenrichment.ontology.request.SuggestProfessionsRequest;
@@ -1259,7 +1261,7 @@ public class SovrenClient {
 
     /**
      * Get all skills in the taxonomy with associated IDs and descriptions in all supported languages.
-     * @param format The format of the returned taxonomy. <br>NOTE: if you set this to {@link TaxonomyFormat#csv}, only the {@link TaxonomyFormat#CsvOutput} will be populated.
+     * @param format The format of the returned taxonomy. <br>NOTE: if you set this to {@link TaxonomyFormat#csv}, only the {@link GetSkillsTaxonomyResponseValue#CsvOutput} will be populated.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
@@ -1438,7 +1440,7 @@ public class SovrenClient {
     /**
      * Get all professions in the taxonomy with associated IDs and descriptions in all supported languages.
      * @param language The language parameter returns the taxonomy with descriptions only in that specified language. If not specified, descriptions in all languages are returned. Must be specified as one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>.
-     * @param format The format of the returned taxonomy. <br>NOTE: if you set this to {@link TaxonomyFormat#csv}, only the {@link TaxonomyFormat#CsvOutput} will be populated.
+     * @param format The format of the returned taxonomy. <br>NOTE: if you set this to {@link TaxonomyFormat#csv}, only the {@link GetProfessionsTaxonomyResponseValue#CsvOutput} will be populated.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
@@ -1632,7 +1634,7 @@ public class SovrenClient {
     /**
      * Compare the skills of a candidate to the skills related to a job using the Ontology API.
      * @param resume The resume containing the skills of the candidate
-     * @param skillIds The skill IDs which should be compared against the given profession. The list can contain up to 50 skills.
+     * @param professionCodeId The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare the skill set to.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
