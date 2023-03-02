@@ -9,6 +9,6 @@ import java.util.List;
 
 /** Request body for a 'CompareProfessions' request */
 public class CompareProfessionsRequest {
-    /**  The two profession code IDs from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare. This list must have 2 values. */
+    /**  The two profession code IDs from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare. This list must have 2 values. */
     public List<Integer> ProfessionCodeIds;
 }

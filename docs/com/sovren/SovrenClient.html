@@ -1645,8 +1645,8 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>prefix</code> - The skill prefix to be completed. Must contain at least 1 character.</dd>
-<dd><code>languages</code> - The language(s) used to search for matching skills (the language of the provided Prefix). A maximum of 5 languages can be provided. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.<br>Default is 'en' only.</dd>
-<dd><code>outputLanguage</code> - The language to ouput the found skill descriptions in (default is 'en'). Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.</dd>
+<dd><code>languages</code> - The language(s) used to search for matching skills (the language of the provided Prefix). A maximum of 5 languages can be provided. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Default is 'en' only.</dd>
+<dd><code>outputLanguage</code> - The language to ouput the found skill descriptions in (default is 'en'). Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO codes</a>.</dd>
 <dd><code>types</code> - If specified, only these types of skills will be returned. The following values are acceptable: Professional, IT, Language, Soft, All.</dd>
 <dd><code>limit</code> - The maximum number of returned skills. The default is 10 and the maximum is 100.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -1688,7 +1688,7 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>skillIds</code> - The IDs of the skills to get details about. A maximum of 100 IDs can be requested.</dd>
-<dd><code>outputLanguage</code> - The language to use for the output skill descriptions. If not provided, defaults to en. If specified, must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.</dd>
+<dd><code>outputLanguage</code> - The language to use for the output skill descriptions. If not provided, defaults to en. If specified, must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The API response body</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -1729,8 +1729,8 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>skills</code> - The list of skills to normalize (up to 50 skills, each skill may not exceed 100 characters).</dd>
-<dd><code>language</code> - The language of the given skills. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.</dd>
-<dd><code>outputLanguage</code> - The language to use for the output skill descriptions. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.<br>Defaults to whatever is used for the 'language' parameter.</dd>
+<dd><code>language</code> - The language of the given skills. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.</dd>
+<dd><code>outputLanguage</code> - The language to use for the output skill descriptions. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Defaults to whatever is used for the 'language' parameter.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The API response body</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -1772,8 +1772,8 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>text</code> - The text to extract skills from. There is a 24,000 character limit.</dd>
-<dd><code>language</code> - The language of the input text. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.</dd>
-<dd><code>outputLanguage</code> - The language to use for the output skill descriptions. If not provided, defaults to the input language. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.</dd>
+<dd><code>language</code> - The language of the input text. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.</dd>
+<dd><code>outputLanguage</code> - The language to use for the output skill descriptions. If not provided, defaults to the input language. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO codes</a>.</dd>
 <dd><code>threshold</code> - A value from [0 - 1] for the minimum confidence threshold for extracted skills. Lower values will return more skills, but also increase the likelihood of ambiguity-related errors. The recommended and default value is 0.5.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The API response body</dd>
@@ -1813,7 +1813,7 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <div class="block">Get all professions in the taxonomy with associated IDs and descriptions in all supported languages.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>language</code> - The language parameter returns the taxonomy with descriptions only in that specified language. If not specified, descriptions in all languages are returned. Must be specified as one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>.</dd>
+<dd><code>language</code> - The language parameter returns the taxonomy with descriptions only in that specified language. If not specified, descriptions in all languages are returned. Must be specified as one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO codes</a>.</dd>
 <dd><code>format</code> - The format of the returned taxonomy. <br>NOTE: if you set this to <a href="../../com/sovren/models/api/dataenrichment/TaxonomyFormat.html#csv"><code>TaxonomyFormat.csv</code></a>, only the <a href="../../com/sovren/models/dataenrichment/Taxonomy.html#CsvOutput"><code>Taxonomy.CsvOutput</code></a> will be populated.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The API response body</dd>
@@ -1871,8 +1871,8 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>prefix</code> - The job title prefix to be completed. Must contain at least 1 character.</dd>
-<dd><code>languages</code> - The language(s) used to search for matching professions (the language of the provided Prefix). A maximum of 5 languages can be provided. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>. Default is 'en' only.</dd>
-<dd><code>outputLanguage</code> - The language to ouput the found professions in (default is 'en'). Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>.</dd>
+<dd><code>languages</code> - The language(s) used to search for matching professions (the language of the provided Prefix). A maximum of 5 languages can be provided. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO codes</a>. Default is 'en' only.</dd>
+<dd><code>outputLanguage</code> - The language to ouput the found professions in (default is 'en'). Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO codes</a>.</dd>
 <dd><code>limit</code> - The maximum number of returned professions. The default is 10 and the maximum is 100.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The API response body</dd>
@@ -1914,8 +1914,8 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>jobTitles</code> - The list of job titles to normalize (up to 10 job titles, each job title may not exceed 400 characters).</dd>
-<dd><code>language</code> - The language of the input job titles. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>.<br>Default is 'en'.</dd>
-<dd><code>outputLanguage</code> - The language to use for descriptions of the returned normalized professions. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>.<br>Defaults to whatever is used for the 'language' parameter.</dd>
+<dd><code>language</code> - The language of the input job titles. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO codes</a>.<br>Default is 'en'.</dd>
+<dd><code>outputLanguage</code> - The language to use for descriptions of the returned normalized professions. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO codes</a>.<br>Defaults to whatever is used for the 'language' parameter.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The API response body</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -1954,8 +1954,8 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <div class="block">Get details for the given professions in the taxonomy.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>codeIds</code> - The profession code IDs to get details about from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a>.</dd>
-<dd><code>outputLanguage</code> - The language to use for professions descriptions (default is en). Must be an allowed <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO code</a>. <br>Default is 'en'.</dd>
+<dd><code>codeIds</code> - The profession code IDs to get details about from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a>.</dd>
+<dd><code>outputLanguage</code> - The language to use for professions descriptions (default is en). Must be an allowed <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO code</a>. <br>Default is 'en'.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The API response body</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -1974,7 +1974,7 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <div class="block">Get details for the given professions in the taxonomy.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>codeIds</code> - The profession code IDs to get details about from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a>.</dd>
+<dd><code>codeIds</code> - The profession code IDs to get details about from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a>.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The API response body</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -1994,8 +1994,8 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <div class="block">Compare two professions based on the skills associated with each.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>profession1</code> - A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare.</dd>
-<dd><code>profession2</code> - A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare.</dd>
+<dd><code>profession1</code> - A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare.</dd>
+<dd><code>profession2</code> - A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The API response body</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -2015,7 +2015,7 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <div class="block">Compare a given set of skills to the skills related to a given profession.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>professionCodeId</code> - The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare the skill set to.</dd>
+<dd><code>professionCodeId</code> - The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare the skill set to.</dd>
 <dd><code>skillIds</code> - The skill IDs which should be compared against the given profession. The list can contain up to 50 skills.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The API response body</dd>
@@ -2037,7 +2037,7 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>resume</code> - The resume containing the skills of the candidate</dd>
-<dd><code>professionCodeId</code> - The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare the skill set to.</dd>
+<dd><code>professionCodeId</code> - The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare the skill set to.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The API response body</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>

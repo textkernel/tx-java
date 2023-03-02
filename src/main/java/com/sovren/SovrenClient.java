@@ -1300,8 +1300,8 @@ public class SovrenClient {
     /**
      * Returns normalized skills that begin with a given prefix, based on the chosen language(s). Each skill is associated with multiple descriptions. If any of the descriptions are a good completion of the given prefix, the skill is included in the results.
      * @param prefix The skill prefix to be completed. Must contain at least 1 character.
-     * @param languages The language(s) used to search for matching skills (the language of the provided Prefix). A maximum of 5 languages can be provided. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.<br>Default is 'en' only.
-     * @param outputLanguage The language to ouput the found skill descriptions in (default is 'en'). Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.
+     * @param languages The language(s) used to search for matching skills (the language of the provided Prefix). A maximum of 5 languages can be provided. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Default is 'en' only.
+     * @param outputLanguage The language to ouput the found skill descriptions in (default is 'en'). Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO codes</a>.
      * @param types If specified, only these types of skills will be returned. The following values are acceptable: Professional, IT, Language, Soft, All.
      * @param limit The maximum number of returned skills. The default is 10 and the maximum is 100.
      * @return The API response body
@@ -1338,7 +1338,7 @@ public class SovrenClient {
     /**
      * Get the details associated with given skills in the taxonomy.
      * @param skillIds The IDs of the skills to get details about. A maximum of 100 IDs can be requested.
-     * @param outputLanguage The language to use for the output skill descriptions. If not provided, defaults to en. If specified, must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.
+     * @param outputLanguage The language to use for the output skill descriptions. If not provided, defaults to en. If specified, must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
@@ -1370,8 +1370,8 @@ public class SovrenClient {
     /**
      * Normalize the given skills to the most closely-related skills in the taxonomy.
      * @param skills The list of skills to normalize (up to 50 skills, each skill may not exceed 100 characters).
-     * @param language The language of the given skills. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.
-     * @param outputLanguage The language to use for the output skill descriptions. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.<br>Defaults to whatever is used for the 'language' parameter.
+     * @param language The language of the given skills. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.
+     * @param outputLanguage The language to use for the output skill descriptions. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Defaults to whatever is used for the 'language' parameter.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
@@ -1404,8 +1404,8 @@ public class SovrenClient {
     /**
      * Extracts known skills from the given text.
      * @param text The text to extract skills from. There is a 24,000 character limit.
-     * @param language The language of the input text. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.
-     * @param outputLanguage The language to use for the output skill descriptions. If not provided, defaults to the input language. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#skills-languages">ISO codes</a>.
+     * @param language The language of the input text. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.
+     * @param outputLanguage The language to use for the output skill descriptions. If not provided, defaults to the input language. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO codes</a>.
      * @param threshold A value from [0 - 1] for the minimum confidence threshold for extracted skills. Lower values will return more skills, but also increase the likelihood of ambiguity-related errors. The recommended and default value is 0.5.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
@@ -1439,7 +1439,7 @@ public class SovrenClient {
 
     /**
      * Get all professions in the taxonomy with associated IDs and descriptions in all supported languages.
-     * @param language The language parameter returns the taxonomy with descriptions only in that specified language. If not specified, descriptions in all languages are returned. Must be specified as one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>.
+     * @param language The language parameter returns the taxonomy with descriptions only in that specified language. If not specified, descriptions in all languages are returned. Must be specified as one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO codes</a>.
      * @param format The format of the returned taxonomy. <br>NOTE: if you set this to {@link TaxonomyFormat#csv}, only the {@link GetProfessionsTaxonomyResponseValue#CsvOutput} will be populated.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
@@ -1479,8 +1479,8 @@ public class SovrenClient {
     /**
      * Returns normalized professions that begin with a given prefix, based on the chosen language(s). Each profession is associated with multiple descriptions. If any of the descriptions are a good completion of the given prefix, the profession is included in the results.
      * @param prefix The job title prefix to be completed. Must contain at least 1 character.
-     * @param languages The language(s) used to search for matching professions (the language of the provided Prefix). A maximum of 5 languages can be provided. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>. Default is 'en' only.
-     * @param outputLanguage The language to ouput the found professions in (default is 'en'). Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>.
+     * @param languages The language(s) used to search for matching professions (the language of the provided Prefix). A maximum of 5 languages can be provided. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO codes</a>. Default is 'en' only.
+     * @param outputLanguage The language to ouput the found professions in (default is 'en'). Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO codes</a>.
      * @param limit The maximum number of returned professions. The default is 10 and the maximum is 100.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
@@ -1517,8 +1517,8 @@ public class SovrenClient {
     /**
      * Normalize the given job titles to the most closely-related professions in the taxonomy.
      * @param jobTitles The list of job titles to normalize (up to 10 job titles, each job title may not exceed 400 characters).
-     * @param language The language of the input job titles. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>.<br>Default is 'en'.
-     * @param outputLanguage The language to use for descriptions of the returned normalized professions. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>.<br>Defaults to whatever is used for the 'language' parameter.
+     * @param language The language of the input job titles. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO codes</a>.<br>Default is 'en'.
+     * @param outputLanguage The language to use for descriptions of the returned normalized professions. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO codes</a>.<br>Defaults to whatever is used for the 'language' parameter.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
@@ -1550,8 +1550,8 @@ public class SovrenClient {
 
     /**
      * Get details for the given professions in the taxonomy.
-     * @param codeIds The profession code IDs to get details about from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a>.
-     * @param outputLanguage The language to use for professions descriptions (default is en). Must be an allowed <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO code</a>. <br>Default is 'en'.
+     * @param codeIds The profession code IDs to get details about from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a>.
+     * @param outputLanguage The language to use for professions descriptions (default is en). Must be an allowed <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO code</a>. <br>Default is 'en'.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
@@ -1572,7 +1572,7 @@ public class SovrenClient {
 
     /**
      * Get details for the given professions in the taxonomy.
-     * @param codeIds The profession code IDs to get details about from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a>.
+     * @param codeIds The profession code IDs to get details about from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a>.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
@@ -1582,8 +1582,8 @@ public class SovrenClient {
 
     /**
      * Compare two professions based on the skills associated with each.
-     * @param profession1 A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare.
-     * @param profession2 A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare.
+     * @param profession1 A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare.
+     * @param profession2 A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
@@ -1605,7 +1605,7 @@ public class SovrenClient {
 
     /**
      * Compare a given set of skills to the skills related to a given profession.
-     * @param professionCodeId The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare the skill set to.
+     * @param professionCodeId The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare the skill set to.
      * @param skillIds The skill IDs which should be compared against the given profession. The list can contain up to 50 skills.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
@@ -1634,7 +1634,7 @@ public class SovrenClient {
     /**
      * Compare the skills of a candidate to the skills related to a job using the Ontology API.
      * @param resume The resume containing the skills of the candidate
-     * @param professionCodeId The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare the skill set to.
+     * @param professionCodeId The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare the skill set to.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */

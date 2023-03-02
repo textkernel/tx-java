@@ -11,8 +11,8 @@ import java.util.List;
 public class NormalizeProfessionsRequest {
         /** The list of job titles to normalize (up to 10 job titles, each job title may not exceed 400 characters). */
         public List<String> JobTitles;
-        /** The language of the input job titles. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>. */
+        /** The language of the input job titles. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO codes</a>. */
         public String Language;
-        /** The language to use for descriptions of the returned normalized professions. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment-services/overview/#professions-languages">ISO codes</a>. */
+        /** The language to use for descriptions of the returned normalized professions. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO codes</a>. */
         public String OutputLanguage;
 }
