@@ -11,7 +11,7 @@ public class SkillMultipleDescriptions extends Skill {
      */
     public List<LangDescription> Descriptions;
     /** 
-     * The description of the skill in the requested language. <br/><b>NOTE: if multiple languages were requested, this is simply the first from {@link Descriptions}</b>
+     * The description of the skill in the requested language. <br><b>NOTE: if multiple languages were requested, this is simply the first from {@link Descriptions}</b>
      */
     public SkillMultipleDescriptions(){
         this.Description = (Descriptions != null && !Descriptions.isEmpty()) ? Descriptions.get(0).Description : null;
