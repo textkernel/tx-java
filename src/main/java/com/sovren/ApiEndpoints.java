@@ -5,6 +5,8 @@
 
 package com.sovren;
 
+import com.sovren.models.api.dataenrichment.TaxonomyFormat;
+
 class ApiEndpoints {
 
     private static String _matchUIPrefix = "/ui";
@@ -31,7 +33,6 @@ class ApiEndpoints {
             //throw new IllegalAccessException("Cannot call Matching UI on a self-hosted installation.");
             //do not throw this for now, it will just be a 404
         }
-
         return _dataCenter.Root + "/" + (isMatchUI ? _matchUIPrefix : "") + versionSuffix();
     }
 
@@ -78,4 +79,20 @@ class ApiEndpoints {
     String geocodeJob() { return prefix() + "/geocoder/joborder"; }
     String geocodeAndIndexResume() { return prefix() + "/geocodeAndIndex/resume"; }
     String geocodeAndIndexJob() { return prefix() + "/geocodeAndIndex/joborder"; }
+
+    String desSkillsGetTaxonomy(TaxonomyFormat format) { return prefix(false) + "/skills/taxonomy?format="+ format; }
+    String desSkillsGetMetadata() { return prefix(false) + "/skills/metadata"; }
+    String desSkillsNormalize() { return prefix(false) + "/skills/normalize"; }
+    String desSkillsExtract() { return prefix(false) + "/skills/extract"; }
+    String desSkillsLookup() { return prefix(false) + "/skills/lookup"; }
+    String desSkillsAutoComplete() { return prefix(false) + "/skills/autoComplete"; }
+    String desProfessionsGetTaxonomy(TaxonomyFormat format, String language) { return prefix(false) + "/professions/taxonomy?format="+ format +"&language="+ language; }
+    String desProfessionsGetMetadata() { return prefix(false) + "/professions/metadata"; }
+    String desProfessionsNormalize() { return prefix(false) + "/professions/normalize"; }
+    String desProfessionsLookup() { return prefix(false) + "/professions/lookup"; }
+    String desProfessionsAutoComplete() { return prefix(false) + "/professions/autoComplete"; }
+    String desOntologySuggestSkills() { return prefix(false) + "/ontology/suggestSkills"; }
+    String desOntologyCompareProfessions() { return prefix(false) + "/ontology/compareProfessions"; }
+    String desOntologySuggestProfessions() { return prefix(false) + "/ontology/suggestProfessions"; }
+    String desOntologyCompareSkillsToProfession() { return prefix(false) + "/ontology/compareSkillsToProfession"; }
 }

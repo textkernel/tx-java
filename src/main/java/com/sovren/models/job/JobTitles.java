@@ -19,5 +19,5 @@ public class JobTitles {
     public List<String> JobTitle;
 
     /** Normalized profession for the main job title.*/
-    public com.sovren.models.resume.employment.NormalizedProfession NormalizedProfession;
+    public com.sovren.models.resume.employment.ParsingNormalizedProfession NormalizedProfession;
 }

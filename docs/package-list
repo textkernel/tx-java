@@ -5,6 +5,14 @@ com.sovren.models
 com.sovren.models.api
 com.sovren.models.api.account
 com.sovren.models.api.bimetricscoring
+com.sovren.models.api.dataenrichment
+com.sovren.models.api.dataenrichment.ontology.request
+com.sovren.models.api.dataenrichment.ontology.response
+com.sovren.models.api.dataenrichment.professions
+com.sovren.models.api.dataenrichment.professions.request
+com.sovren.models.api.dataenrichment.professions.response
+com.sovren.models.api.dataenrichment.skills.request
+com.sovren.models.api.dataenrichment.skills.response
 com.sovren.models.api.geocoding
 com.sovren.models.api.indexes
 com.sovren.models.api.matching
@@ -14,6 +22,7 @@ com.sovren.models.api.matching.ui
 com.sovren.models.api.matching.ui.hooks
 com.sovren.models.api.matching.ui.request
 com.sovren.models.api.parsing
+com.sovren.models.dataenrichment
 com.sovren.models.job
 com.sovren.models.job.skills
 com.sovren.models.matching

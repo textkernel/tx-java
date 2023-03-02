@@ -99,5 +99,5 @@ public class Position {
     public List<Bullet> Bullets;
 
     /** Normalized profession of the {@link #JobTitle} */
-    public NormalizedProfession NormalizedProfession;
+    public ParsingNormalizedProfession NormalizedProfession;
 }

@@ -10,6 +10,8 @@ import com.sovren.TestBase;
 import com.sovren.TestData;
 import com.sovren.exceptions.*;
 import com.sovren.models.Document;
+import com.sovren.models.api.dataenrichment.professions.ONETVersion;
+import com.sovren.models.api.dataenrichment.professions.ProfessionNormalizationVersions;
 import com.sovren.models.api.geocoding.GeocodeOptions;
 import com.sovren.models.api.geocoding.GeocodeProvider;
 import com.sovren.models.api.indexes.IndexSingleDocumentInfo;
@@ -610,6 +612,42 @@ public class ParsingTests extends TestBase {
         assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.Group);
         assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.ISCO);
         assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.ONET);
+        assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.ONET.Version);
+        assertEquals("2010", response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.ONET.Version);
+        assertNotEquals(0, response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.Confidence);
+
+        assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(1).NormalizedProfession);
+        assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(2).NormalizedProfession);
+        assertNull(response.Value.ResumeData.EmploymentHistory.Positions.get(3).NormalizedProfession);
+    }
+
+    @Test
+    public void TestONET2019ProfessionNormalization() throws Exception {
+        Document document = getTestFileAsDocument("resume.docx");
+        ParseOptions options = new ParseOptions();
+        options.ProfessionsSettings = new ProfessionsSettings();
+        options.ProfessionsSettings.Normalize = true;
+        ParseResumeResponse response = Client.parseResume(new ParseRequest(document, options));
+
+        assertTrue(response.Info.isSuccess());
+        assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession);
+
+        options.ProfessionsSettings.Normalize = true;
+        options.ProfessionsSettings.Version = new ProfessionNormalizationVersions();
+        options.ProfessionsSettings.Version.ONET = ONETVersion.ONET2019;
+
+        response = Client.parseResume(new ParseRequest(document, options));
+
+        assertTrue(response.Info.isSuccess());
+        assertTrue(response.Value.ProfessionNormalizationResponse.isSuccess());
+        assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession);
+        assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.Profession);
+        assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.Class);
+        assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.Group);
+        assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.ISCO);
+        assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.ONET);
+        assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.ONET.Version);
+        assertEquals("2019", response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.ONET.Version);
         assertNotEquals(0, response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.Confidence);
 
         assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(1).NormalizedProfession);
