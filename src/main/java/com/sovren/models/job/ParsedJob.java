@@ -59,7 +59,7 @@ public class ParsedJob extends ParsedDocument {
     /** The end date for the job, if listed.*/
     public SovrenPrimitive<LocalDate> EndDate;
     
-    /** The full job description*/
+    /** Section containing information about the job. Job description strictly includes duties, tasks, and responsibilities for the role with as little irrelevant text as possible.*/
     public String JobDescription;
     
     /** Any requirement listed by the job*/
