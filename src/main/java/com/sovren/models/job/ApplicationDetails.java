@@ -31,6 +31,9 @@ public class ApplicationDetails {
     /** Deadline to apply for the job*/
     public SovrenPrimitive<LocalDate> ApplicationDeadline;
 
+    /** Date the job was posted*/
+    public SovrenPrimitive<LocalDate> PostedDate;
+
     /** Any reference number found for the job application*/
     public String ReferenceNumber;
 }

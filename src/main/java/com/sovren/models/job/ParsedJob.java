@@ -53,7 +53,7 @@ public class ParsedJob extends ParsedDocument {
     /** The required educational degree, if listed. Used by Sovren for AI Matching*/
     public String RequiredDegree;
     
-    /** The start date for the job, if listed.*/
+    /** The start date of the job.*/
     public SovrenPrimitive<LocalDate> StartDate;
     
     /** The end date for the job, if listed.*/
@@ -62,8 +62,11 @@ public class ParsedJob extends ParsedDocument {
     /** Section containing information about the job. Job description strictly includes duties, tasks, and responsibilities for the role with as little irrelevant text as possible.*/
     public String JobDescription;
     
-    /** Any requirement listed by the job*/
+    /** Full text of any requirements listed by the job.*/
     public String JobRequirements;
+
+    /** Full text of any benefits listed by the job.*/
+    public String Benefits;
     
     /** The job titles found in the job. Used by Sovren for AI Matching*/
     public JobTitles JobTitles;
@@ -106,6 +109,15 @@ public class ParsedJob extends ParsedDocument {
 
     /** The maximum number of working hours per week*/
     public SovrenPrimitive<Integer> MaximumWorkingHours;
+
+    /**
+    * The type of working hours. One of:
+    * <ul>
+    * <li>regular</li>
+    * <li>irregular</li>
+    * </ul>
+    */
+    public String WorkingHours;
 
     /** Whether or not the position is remote. Includes fulltime, partial and temporary remote working opportunities*/
     public boolean IsRemote;
