@@ -67,6 +67,9 @@ public class ParsedJob extends ParsedDocument {
 
     /** Full text of any benefits listed by the job.*/
     public String Benefits;
+
+    /** Full text of any employer description listed by the job.*/
+    public String EmployerDescription;
     
     /** The job titles found in the job. Used by Sovren for AI Matching*/
     public JobTitles JobTitles;
@@ -86,7 +89,7 @@ public class ParsedJob extends ParsedDocument {
     /** Any languages listed in the job. Used by Sovren for AI Matching*/
     public List<String> LanguageCodes;
     
-    /** The location of the job, if listed. Used by Sovren for AI Matching*/
+    /** The location of the job, if listed. If no job location is found, this is the location of the company, if listed.*/
     public Location CurrentLocation;
 
     /** Information about the application process.*/
