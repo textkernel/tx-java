@@ -53,17 +53,23 @@ public class ParsedJob extends ParsedDocument {
     /** The required educational degree, if listed. Used by Sovren for AI Matching*/
     public String RequiredDegree;
     
-    /** The start date for the job, if listed.*/
+    /** The start date of the job.*/
     public SovrenPrimitive<LocalDate> StartDate;
     
     /** The end date for the job, if listed.*/
     public SovrenPrimitive<LocalDate> EndDate;
     
-    /** The full job description*/
+    /** Section containing information about the job. Job description strictly includes duties, tasks, and responsibilities for the role with as little irrelevant text as possible.*/
     public String JobDescription;
     
-    /** Any requirement listed by the job*/
+    /** Full text of any requirements listed by the job.*/
     public String JobRequirements;
+
+    /** Full text of any benefits listed by the job.*/
+    public String Benefits;
+
+    /** Full text of any employer description listed by the job.*/
+    public String EmployerDescription;
     
     /** The job titles found in the job. Used by Sovren for AI Matching*/
     public JobTitles JobTitles;
@@ -83,8 +89,74 @@ public class ParsedJob extends ParsedDocument {
     /** Any languages listed in the job. Used by Sovren for AI Matching*/
     public List<String> LanguageCodes;
     
-    /** The location of the job, if listed. Used by Sovren for AI Matching*/
+    /** The location of the job, if listed. If no job location is found, this is the location of the company, if listed.*/
     public Location CurrentLocation;
+
+    /** Information about the application process.*/
+    public ApplicationDetails ApplicationDetails;
+
+    /**
+     * The salary found for the position
+     * If no lexical cues are available from the vacancy, the time scale is guessed based on predefined salary ranges. Here are some rough salary ranges (note: country-specific conditions may apply):
+     * <ul>
+     *  <li>1 or 2 digits salary (9, 12): hourly</li>
+     *  <li>3 or 4 digits salary (3800, 5000): monthly</li>
+     *  <li>5 digit salary (38000, 50000): yearly</li>
+     * </ul>
+     * If a monthly salary is extracted, to get the annual salary it is multiplied by 14 (if country = AT) or 12 (all other countries).
+     */
+    public PayRange Salary;
+
+    /** The minimum number of working hours per week*/
+    public SovrenPrimitive<Integer> MinimumWorkingHours;
+
+    /** The maximum number of working hours per week*/
+    public SovrenPrimitive<Integer> MaximumWorkingHours;
+
+    /**
+    * The type of working hours. One of:
+    * <ul>
+    * <li>regular</li>
+    * <li>irregular</li>
+    * </ul>
+    */
+    public String WorkingHours;
+
+    /** Whether or not the position is remote. Includes fulltime, partial and temporary remote working opportunities*/
+    public boolean IsRemote;
+
+    /** Any drivers license requirements*/
+    public List<String> DriversLicenses;
+
+    /**
+    * The type of employment. One of:
+    * <ul>
+    * <li>unspecified</li>
+    * <li>fulltime</li>
+    * <li>parttime</li>
+    * <li>fulltime/parttime</li>
+    * </ul>
+    */
+    public String EmploymentType;
+
+    /**
+    * The contract type. One of:
+    * <ul>
+    * <li>unspecified</li>
+    * <li>permanent</li>
+    * <li>temporary</li>
+    * <li>possibly_permanent</li>
+    * <li>interim</li>
+    * <li>franchise</li>
+    * <li>side</li>
+    * <li>internship</li>
+    * <li>voluntary</li>
+    * <li>freelance</li>
+    * <li>apprenticeship</li>
+    * <li>assisted</li>
+    * </ul>
+    */
+    public String ContractType;
     
     /** Terms of interest listed in the job*/
     public List<String> TermsOfInterest;

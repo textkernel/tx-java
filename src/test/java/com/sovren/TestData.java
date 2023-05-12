@@ -24,7 +24,7 @@ public class TestData {
     public static Document ResumePersonalInformation = new Document(_resumePersonalInformationText.getBytes(StandardCharsets.UTF_8), LocalDate.now());
 
 
-    private static String _jobOrderText = "Position Title: Sales Manager\n\nSkills:\n\tBudgeting\n\tAudit\n\tFinancial Statements";
+    private static String _jobOrderText = "Position Title: Sales Manager\n\nCompany: Google\n\nSkills:\n\tBudgeting\n\tAudit\n\tFinancial Statements";
 
     public static Document JobOrder = new Document(_jobOrderText.getBytes(StandardCharsets.UTF_8), LocalDate.now());
 
