@@ -142,7 +142,7 @@ public class ParsingExample {
                 if (edu.GPA != null)
                     System.out.println("GPA: " + edu.GPA.NormalizedScore + "/1.0 (" + edu.GPA.Score + "/" + edu.GPA.MaxScore + ")");
                 String endDateRepresents = edu.Graduated != null && edu.Graduated.Value ? "Graduated" : "Last Attended";
-                System.out.println(endDateRepresents + ": " + getSovrenDateAsString(edu.LastEducationDate));
+                System.out.println(endDateRepresents + ": " + getSovrenDateAsString(edu.EndDate));
             }
         }
     }
