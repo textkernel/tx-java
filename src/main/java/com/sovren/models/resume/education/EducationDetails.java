@@ -57,8 +57,16 @@ public class EducationDetails {
     /** The GPA/marks listed on the resume*/
     public GradePointAverage GPA;
     
-    /** The date graduated or education ended*/
+    /** The date graduated or education ended
+     * @deprecated use {@link #EndDate} instead
+    */
     public SovrenDate LastEducationDate;
+
+    /** The date education started*/
+    public SovrenDate StartDate;
+
+    /** The date graduated or education ended*/
+    public SovrenDate EndDate;
     
     /** Whether or not the candidate graduated*/
     public SovrenPrimitive<Boolean> Graduated;

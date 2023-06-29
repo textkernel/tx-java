@@ -475,7 +475,8 @@ public class ParsingTests extends TestBase {
         assertNotNull(response.Value.ResumeData.Education.EducationDetails.get(0).GPA.Score);
         assertNotNull(response.Value.ResumeData.Education.EducationDetails.get(0).GPA.ScoringSystem);
         assertNull(response.Value.ResumeData.Education.EducationDetails.get(0).Graduated);
-        assertDateNotNull(response.Value.ResumeData.Education.EducationDetails.get(0).LastEducationDate);
+        assertDateNotNull(response.Value.ResumeData.Education.EducationDetails.get(0).StartDate);
+        assertDateNotNull(response.Value.ResumeData.Education.EducationDetails.get(0).EndDate);
         assertNotNull(response.Value.ResumeData.Education.EducationDetails.get(0).Majors);
         assertHasItems(response.Value.ResumeData.Education.EducationDetails.get(0).Majors);
         assertNotNull(response.Value.ResumeData.Education.EducationDetails.get(0).SchoolName);
