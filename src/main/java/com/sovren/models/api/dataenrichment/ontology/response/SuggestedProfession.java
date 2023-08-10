@@ -16,4 +16,6 @@ public class SuggestedProfession {
     public float Score;
     /** The code ID of the profession in the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a>. */
     public int CodeId;
+    /** The description of the profession in the Professions Taxonomy. */
+    public String Description;
 }
