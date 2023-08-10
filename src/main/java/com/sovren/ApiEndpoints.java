@@ -16,16 +16,8 @@ class ApiEndpoints {
         _dataCenter = dataCenter;
     }
 
-    private String versionSuffix() {
-        String versionSuffix = "";
-        if (_dataCenter.Version != null && !_dataCenter.Version.trim().isEmpty()){
-            versionSuffix = "/" + _dataCenter.Version;
-        }
-        return versionSuffix;
-    }
-    
     private String prefix() {
-        return _dataCenter.Root + versionSuffix();
+        return prefix(false);
     }
 
     private String prefix(boolean isMatchUI) {
@@ -33,7 +25,13 @@ class ApiEndpoints {
             //throw new IllegalAccessException("Cannot call Matching UI on a self-hosted installation.");
             //do not throw this for now, it will just be a 404
         }
-        return _dataCenter.Root + "/" + (isMatchUI ? _matchUIPrefix : "") + versionSuffix();
+
+        String versionSuffix = "";
+        if (_dataCenter.Version != null && !_dataCenter.Version.trim().isEmpty()){
+            versionSuffix = "/" + _dataCenter.Version;
+        }
+
+        return _dataCenter.Root + (isMatchUI ? _matchUIPrefix : "") + versionSuffix;
     }
 
     private String sanitize(String indexOrDocId) throws IllegalArgumentException {
