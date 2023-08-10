@@ -1584,14 +1584,15 @@ public class SovrenClient {
      * Compare two professions based on the skills associated with each.
      * @param profession1 A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare.
      * @param profession2 A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare.
+     * @param outputLanguage The language to use for the returned descriptions.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public CompareProfessionsResponse compareProfessions(int profession1, int profession2) throws SovrenException {
+    public CompareProfessionsResponse compareProfessions(int profession1, int profession2, String outputLanguage) throws SovrenException {
         CompareProfessionsRequest request = new CompareProfessionsRequest();
-        request.ProfessionCodeIds = new ArrayList<Integer>();
-        request.ProfessionCodeIds.add(profession1);
-        request.ProfessionCodeIds.add(profession2);
+        request.ProfessionACodeId = profession1;
+        request.ProfessionBCodeId = profession2;
+        request.OutputLanguage = outputLanguage;
 
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()

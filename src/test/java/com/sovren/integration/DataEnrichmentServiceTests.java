@@ -109,7 +109,7 @@ public class DataEnrichmentServiceTests extends TestBase {
     @Test
     public void testCompareProfessions() {
         assertDoesNotThrow(() -> {
-            Client.compareProfessions(696,3178);
+            Client.compareProfessions(696, 3178, "en");
         });
     }
 
