@@ -15,4 +15,6 @@ public class SuggestProfessionsRequest {
     public boolean ReturnMissingSkills = false;
     /** The maximum amount of professions returned. If not specified this parameter defaults to 10. */
     public int Limit = 10;
+    /** The language to use for the returned descriptions. */
+    public String OutputLanguage;
 }

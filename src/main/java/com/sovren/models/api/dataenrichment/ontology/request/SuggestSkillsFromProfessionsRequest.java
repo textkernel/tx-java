@@ -13,4 +13,6 @@ public class SuggestSkillsFromProfessionsRequest {
     public List<Integer> ProfessionCodeIds;
     /** The maximum amount of suggested skills returned. If not specified this parameter defaults to 10. This limit cannot exceed 10. */
     public int Limit = 10;
+    /** The language to use for the returned descriptions. */
+    public String OutputLanguage;
 }

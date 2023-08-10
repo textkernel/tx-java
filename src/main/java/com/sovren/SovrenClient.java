@@ -1678,13 +1678,15 @@ public class SovrenClient {
      * Suggests skills related to given professions. The service returns salient skills that are strongly associated with the professions.
      * @param professionCodeIds  The code IDs of the professions to suggest skills for.
      * @param limit The maximum amount of suggested skills returned. The maximum amount allowed is 10. If not sure what value should be, provide 10 as default limit.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkillsFromProfessions(List<Integer> professionCodeIds, int limit) throws SovrenException {
+    public SuggestSkillsResponse suggestSkillsFromProfessions(List<Integer> professionCodeIds, int limit, String outputLanguage) throws SovrenException {
         SuggestSkillsFromProfessionsRequest request = new SuggestSkillsFromProfessionsRequest();
         request.ProfessionCodeIds = professionCodeIds;
         request.Limit = limit;
+        request.OutputLanguage = outputLanguage;
 
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
@@ -1699,21 +1701,22 @@ public class SovrenClient {
     /**
      * Suggests skills related to given professions. The service returns salient skills that are strongly associated with the professions.
      * @param professionCodeIds  The code IDs of the professions to suggest skills for.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkillsFromProfessions(List<Integer> professionCodeIds) throws SovrenException {
-        return suggestSkillsFromProfessions(professionCodeIds, 10);
+    public SuggestSkillsResponse suggestSkillsFromProfessions(List<Integer> professionCodeIds, String outputLanguage) throws SovrenException {
+        return suggestSkillsFromProfessions(professionCodeIds, 10, outputLanguage);
     }
 
     /**
      * Suggests skills related to a resume based on the recent professions in the resume.
      * @param resume The resume to suggest skills for (based on the professions in the resume).
-     * @param limit The maximum amount of suggested skills returned. The maximum amount allowed is 10. If not sure what value should be, provide 10 as default limit.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedResume resume, int limit) throws SovrenException {
+    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedResume resume, String outputLanguage) throws SovrenException {
         if(resume != null && resume.EmploymentHistory != null && resume.EmploymentHistory.Positions != null){
             List<Integer> normalizedProfs = new ArrayList<Integer>();
             for(Position position: resume.EmploymentHistory.Positions){
@@ -1723,7 +1726,7 @@ public class SovrenClient {
             }
 
             if (normalizedProfs.size() > 0){
-                return suggestSkillsFromProfessions(normalizedProfs,limit);
+                return suggestSkillsFromProfessions(normalizedProfs, outputLanguage);
             }
         }
         throw new IllegalArgumentException("No professions were found in the resume, or the resume was parsed without professions normalization enabled");
@@ -1736,22 +1739,22 @@ public class SovrenClient {
      * @throws SovrenException Thrown when an API error occurs
      */
     public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedResume resume) throws SovrenException {
-        return suggestSkillsFromProfessions(resume, 10);
+        return suggestSkillsFromProfessions(resume, null);
     }
 
     /**
      * Suggests skills related to a job based on the profession title in the job.
      * @param job The resume to suggest skills for (based on the professions in the resume).
-     * @param limit The maximum amount of suggested skills returned. The maximum amount allowed is 10. If not sure what value should be, provide 10 as default limit.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedJob job, int limit) throws SovrenException {
+    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedJob job, String outputLanguage) throws SovrenException {
         if(job != null && job.JobTitles != null && job.JobTitles.NormalizedProfession != null && job.JobTitles.NormalizedProfession.Profession != null && job.JobTitles.NormalizedProfession.Profession.CodeId != null){
             List<Integer> ids = new ArrayList<Integer>();
             ids.add(job.JobTitles.NormalizedProfession.Profession.CodeId);
 
-            return suggestSkillsFromProfessions(ids,limit);
+            return suggestSkillsFromProfessions(ids, outputLanguage);
         }
         throw new IllegalArgumentException("No professions were found in the job, or the job was parsed without professions normalization enabled");
     }
@@ -1763,7 +1766,7 @@ public class SovrenClient {
      * @throws SovrenException Thrown when an API error occurs
      */
     public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedJob job) throws SovrenException {
-        return suggestSkillsFromProfessions(job, 10);
+        return suggestSkillsFromProfessions(job, null);
     }
 
     /**
