@@ -91,8 +91,10 @@ class ApiEndpoints {
     String desProfessionsNormalize() { return prefix(false) + "/professions/normalize"; }
     String desProfessionsLookup() { return prefix(false) + "/professions/lookup"; }
     String desProfessionsAutoComplete() { return prefix(false) + "/professions/autoComplete"; }
-    String desOntologySuggestSkillsFromProfessions() { return prefix(false) + "/ontology/suggestSkills"; }
-    String desOntologyCompareProfessions() { return prefix(false) + "/ontology/compareProfessions"; }
-    String desOntologySuggestProfessions() { return prefix(false) + "/ontology/suggestProfessions"; }
-    String desOntologyCompareSkillsToProfession() { return prefix(false) + "/ontology/compareSkillsToProfession"; }
+    String desOntologySuggestSkillsFromProfessions() { return prefix(false) + "/ontology/suggest-skills-from-professions"; }
+    String desOntologySuggestSkillsFromSkills() { return prefix(false) + "/ontology/suggest-skills-from-skills"; }
+    String desOntologyCompareProfessions() { return prefix(false) + "/ontology/compare-professions"; }
+    String desOntologySuggestProfessions() { return prefix(false) + "/ontology/suggest-professions"; }
+    String desOntologyCompareSkillsToProfession() { return prefix(false) + "/ontology/compare-skills-to-profession"; }
+    String desOntologySkillsSimilarityScore() { return prefix(false) + "/ontology/skills-similarity-score"; }
 }
