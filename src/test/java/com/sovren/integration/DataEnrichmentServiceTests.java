@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DataEnrichmentServiceTests extends TestBase {
     @Test
@@ -117,13 +118,11 @@ public class DataEnrichmentServiceTests extends TestBase {
     @Test
     public void testCompareSkillsToProfessions() {
         assertDoesNotThrow(() -> {
-            SkillScore s1 = new SkillScore();
-            SkillScore s2 = new SkillScore();
+            List<SkillScore> skills = new ArrayList<SkillScore>();
+            skills.add(new SkillScore("KS120076FGP5WGWYMP0F"));
+            skills.add(new SkillScore("KS04UWLJBN9X1M3N0PZ4"));
 
-            s1.Id = "KS120076FGP5WGWYMP0F";
-            s2.Id = "KS04UWLJBN9X1M3N0PZ4";
-
-            Client.compareSkillsToProfessions(696, "en", s1, s2);
+            Client.compareSkillsToProfessions(696, "en", skills);
         });
     }
 
@@ -132,7 +131,7 @@ public class DataEnrichmentServiceTests extends TestBase {
         assertDoesNotThrow(() -> {
             ArrayList<Integer> professionCodeIds = new ArrayList<Integer>();
             professionCodeIds.add(696);
-            Client.suggestSkillsFromProfessions(professionCodeIds, 10);
+            Client.suggestSkillsFromProfessions(professionCodeIds, 10, null);
         });
     }
 
@@ -143,7 +142,7 @@ public class DataEnrichmentServiceTests extends TestBase {
             skillIds.add("KS120076FGP5WGWYMP0F");
             skillIds.add("KS125HH5XDBPZT3RFGZZ");
             skillIds.add("KS124PR62MV42B5C9S9F");
-            Client.suggestProfessions((skillIds));
+            Client.suggestProfessionsFromSkills(skillIds, null);
         });
     }
 }

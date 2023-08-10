@@ -13,4 +13,9 @@ public class SkillScore {
     public String Id;
     /** The description of the skill in the Skills Taxonomy. Will only be returned if OutputLanguage is specified in the request. This has no effect in a request body. */
     public String Description;
+
+    public SkillScore() {}
+    public SkillScore(String id) {
+        Id = id;
+    }
 }
