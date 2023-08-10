@@ -1550,7 +1550,7 @@ public class SovrenClient {
 
     /**
      * Get details for the given professions in the taxonomy.
-     * @param codeIds The profession code IDs to get details about from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a>.
+     * @param codeIds The profession code IDs to get details about from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a>.
      * @param outputLanguage The language to use for professions descriptions (default is en). Must be an allowed <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO code</a>. <br>Default is 'en'.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
@@ -1572,7 +1572,7 @@ public class SovrenClient {
 
     /**
      * Get details for the given professions in the taxonomy.
-     * @param codeIds The profession code IDs to get details about from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a>.
+     * @param codeIds The profession code IDs to get details about from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a>.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
@@ -1582,8 +1582,8 @@ public class SovrenClient {
 
     /**
      * Compare two professions based on the skills associated with each.
-     * @param profession1 A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare.
-     * @param profession2 A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare.
+     * @param profession1 A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare.
+     * @param profession2 A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
@@ -1605,7 +1605,7 @@ public class SovrenClient {
 
     /**
      * Compare a given set of skills to the skills related to a given profession.
-     * @param professionCodeId The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare the skill set to.
+     * @param professionCodeId The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare the skill set to.
      * @param skillIds The skill IDs which should be compared against the given profession. The list can contain up to 50 skills.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
@@ -1634,7 +1634,7 @@ public class SovrenClient {
     /**
      * Compare the skills of a candidate to the skills related to a job using the Ontology API.
      * @param resume The resume containing the skills of the candidate
-     * @param professionCodeId The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare the skill set to.
+     * @param professionCodeId The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare the skill set to.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */

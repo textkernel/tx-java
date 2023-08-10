@@ -11,6 +11,6 @@ import java.util.List;
 public class CompareSkillsToProfessionRequest {
     /** The skill IDs which should be compared against the given profession. The list can contain up to 50 skills.  */
     public List<String> SkillIds;
-    /** The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Sovren Professions Taxonomy</a> to compare the skill set to. */
+    /** The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare the skill set to. */
     public int ProfessionCodeId;
 }

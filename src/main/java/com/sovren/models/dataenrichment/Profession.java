@@ -1,7 +1,7 @@
 package com.sovren.models.dataenrichment;
 
 /**
- * A normalized profession from the Sovren Professions Taxonomy
+ * A normalized profession from the Professions Taxonomy
  */
 public class Profession extends BasicProfession {
         /**
