@@ -20,7 +20,7 @@ import com.sovren.models.api.dataenrichment.professions.response.GetProfessionsT
 import com.sovren.models.api.dataenrichment.ontology.request.CompareProfessionsRequest;
 import com.sovren.models.api.dataenrichment.ontology.request.CompareSkillsToProfessionRequest;
 import com.sovren.models.api.dataenrichment.ontology.request.SuggestProfessionsRequest;
-import com.sovren.models.api.dataenrichment.ontology.request.SuggestSkillsRequest;
+import com.sovren.models.api.dataenrichment.ontology.request.SuggestSkillsFromProfessionsRequest;
 import com.sovren.models.api.dataenrichment.ontology.response.CompareProfessionsResponse;
 import com.sovren.models.api.dataenrichment.ontology.response.CompareSkillsToProfessionResponse;
 import com.sovren.models.api.dataenrichment.ontology.response.SuggestProfessionsResponse;
@@ -1657,14 +1657,14 @@ public class SovrenClient {
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkills(List<Integer> professionCodeIds, int limit) throws SovrenException {
-        SuggestSkillsRequest request = new SuggestSkillsRequest();
+    public SuggestSkillsResponse suggestSkillsFromProfessions(List<Integer> professionCodeIds, int limit) throws SovrenException {
+        SuggestSkillsFromProfessionsRequest request = new SuggestSkillsFromProfessionsRequest();
         request.ProfessionCodeIds = professionCodeIds;
         request.Limit = limit;
 
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
-            .url(_endpoints.desOntologySuggestSkills())
+            .url(_endpoints.desOntologySuggestSkillsFromProfessions())
             .post(body)
             .build();
 
@@ -1678,8 +1678,8 @@ public class SovrenClient {
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkills(List<Integer> professionCodeIds) throws SovrenException {
-        return suggestSkills(professionCodeIds, 10);
+    public SuggestSkillsResponse suggestSkillsFromProfessions(List<Integer> professionCodeIds) throws SovrenException {
+        return suggestSkillsFromProfessions(professionCodeIds, 10);
     }
 
     /**
@@ -1689,7 +1689,7 @@ public class SovrenClient {
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkills(ParsedResume resume, int limit) throws SovrenException {
+    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedResume resume, int limit) throws SovrenException {
         if(resume != null && resume.EmploymentHistory != null && resume.EmploymentHistory.Positions != null){
             List<Integer> normalizedProfs = new ArrayList<Integer>();
             for(Position position: resume.EmploymentHistory.Positions){
@@ -1699,7 +1699,7 @@ public class SovrenClient {
             }
 
             if (normalizedProfs.size() > 0){
-                return suggestSkills(normalizedProfs,limit);
+                return suggestSkillsFromProfessions(normalizedProfs,limit);
             }
         }
         throw new IllegalArgumentException("No professions were found in the resume, or the resume was parsed without professions normalization enabled");
@@ -1711,8 +1711,8 @@ public class SovrenClient {
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkills(ParsedResume resume) throws SovrenException {
-        return suggestSkills(resume, 10);
+    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedResume resume) throws SovrenException {
+        return suggestSkillsFromProfessions(resume, 10);
     }
 
     /**
@@ -1722,12 +1722,12 @@ public class SovrenClient {
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkills(ParsedJob job, int limit) throws SovrenException {
+    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedJob job, int limit) throws SovrenException {
         if(job != null && job.JobTitles != null && job.JobTitles.NormalizedProfession != null && job.JobTitles.NormalizedProfession.Profession != null && job.JobTitles.NormalizedProfession.Profession.CodeId != null){
             List<Integer> ids = new ArrayList<Integer>();
             ids.add(job.JobTitles.NormalizedProfession.Profession.CodeId);
 
-            return suggestSkills(ids,limit);
+            return suggestSkillsFromProfessions(ids,limit);
         }
         throw new IllegalArgumentException("No professions were found in the job, or the job was parsed without professions normalization enabled");
     }
@@ -1738,8 +1738,8 @@ public class SovrenClient {
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkills(ParsedJob job) throws SovrenException {
-        return suggestSkills(job, 10);
+    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedJob job) throws SovrenException {
+        return suggestSkillsFromProfessions(job, 10);
     }
 
     /**

@@ -91,7 +91,7 @@ class ApiEndpoints {
     String desProfessionsNormalize() { return prefix(false) + "/professions/normalize"; }
     String desProfessionsLookup() { return prefix(false) + "/professions/lookup"; }
     String desProfessionsAutoComplete() { return prefix(false) + "/professions/autoComplete"; }
-    String desOntologySuggestSkills() { return prefix(false) + "/ontology/suggestSkills"; }
+    String desOntologySuggestSkillsFromProfessions() { return prefix(false) + "/ontology/suggestSkills"; }
     String desOntologyCompareProfessions() { return prefix(false) + "/ontology/compareProfessions"; }
     String desOntologySuggestProfessions() { return prefix(false) + "/ontology/suggestProfessions"; }
     String desOntologyCompareSkillsToProfession() { return prefix(false) + "/ontology/compareSkillsToProfession"; }

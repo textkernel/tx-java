@@ -121,11 +121,11 @@ public class DataEnrichmentServiceTests extends TestBase {
     }
 
     @Test
-    public void testSuggestSkills() {
+    public void testSuggestSkillsFromProfessions() {
         assertDoesNotThrow(() -> {
             ArrayList<Integer> professionCodeIds = new ArrayList<Integer>();
             professionCodeIds.add(696);
-            Client.suggestSkills(professionCodeIds, 10);
+            Client.suggestSkillsFromProfessions(professionCodeIds, 10);
         });
     }
 
