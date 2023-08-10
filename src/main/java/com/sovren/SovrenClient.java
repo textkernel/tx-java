@@ -25,6 +25,7 @@ import com.sovren.models.api.dataenrichment.ontology.response.CompareProfessions
 import com.sovren.models.api.dataenrichment.ontology.response.CompareSkillsToProfessionResponse;
 import com.sovren.models.api.dataenrichment.ontology.response.SuggestProfessionsResponse;
 import com.sovren.models.api.dataenrichment.ontology.response.SuggestSkillsResponse;
+import com.sovren.models.api.dataenrichment.ontology.response.SkillScore;
 import com.sovren.models.api.dataenrichment.professions.request.LookupProfessionCodesRequest;
 import com.sovren.models.api.dataenrichment.professions.request.NormalizeProfessionsRequest;
 import com.sovren.models.api.dataenrichment.professions.response.GetProfessionsTaxonomyResponse;
@@ -73,7 +74,10 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The SDK client to perform Sovren API calls.
@@ -1584,7 +1588,7 @@ public class SovrenClient {
      * Compare two professions based on the skills associated with each.
      * @param profession1 A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare.
      * @param profession2 A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare.
-     * @param outputLanguage The language to use for the returned descriptions.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
@@ -1607,20 +1611,22 @@ public class SovrenClient {
     /**
      * Compare a given set of skills to the skills related to a given profession.
      * @param professionCodeId The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare the skill set to.
-     * @param skillIds The skill IDs which should be compared against the given profession. The list can contain up to 50 skills.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO code</a>
+     * @param skills The skills which should be compared against the given profession. The list can contain up to 50 skills.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public CompareSkillsToProfessionResponse compareSkillsToProfessions(int professionCodeId, String... skillIds) throws SovrenException {
+    public CompareSkillsToProfessionResponse compareSkillsToProfessions(int professionCodeId, String outputLanguage, SkillScore... skills) throws SovrenException {
         CompareSkillsToProfessionRequest request = new CompareSkillsToProfessionRequest();
-        request.SkillIds = new ArrayList<String>();
-        List<String> newList = Arrays.asList(skillIds);
+        request.Skills = new ArrayList<SkillScore>();
+        List<SkillScore> newList = Arrays.asList(skills);
         int amountOfSkills = newList.size() > 50 ? 50 : newList.size();
 
         for(int i = 0; i < amountOfSkills; i++) {
-            request.SkillIds.add(newList.get(i));
+            request.Skills.add(newList.get(i));
         };
         request.ProfessionCodeId = professionCodeId;
+        request.OutputLanguage = outputLanguage;
 
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
@@ -1636,17 +1642,34 @@ public class SovrenClient {
      * Compare the skills of a candidate to the skills related to a job using the Ontology API.
      * @param resume The resume containing the skills of the candidate
      * @param professionCodeId The profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare the skill set to.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#skills-languages">ISO code</a>
+     * @param weightSkillsByExperience The language to use for the returned descriptions.
      * @return The API response body
      * @throws SovrenException Thrown when an API error occurs
      */
-    public CompareSkillsToProfessionResponse compareSkillsToProfessions(ParsedResume resume, int professionCodeId) throws SovrenException {
+    public CompareSkillsToProfessionResponse compareSkillsToProfessions(
+        ParsedResume resume,
+        int professionCodeId,
+        String outputLanguage,
+        boolean weightSkillsByExperience) throws SovrenException {
         if(resume != null && resume.Skills != null && resume.Skills.Normalized != null && resume.Skills.Normalized.size() > 0){
-            String[] skillIds = new String[resume.Skills.Normalized.size()];
+            SkillScore[] skills = new SkillScore[resume.Skills.Normalized.size()];
+
+            ResumeNormalizedSkill maxExperienceSkill = Collections.max(resume.Skills.Normalized, Comparator.comparing(s -> s.MonthsExperience != null ? s.MonthsExperience.Value : 0));
+            Integer maxExperience = Optional.ofNullable(maxExperienceSkill).map(s -> s.MonthsExperience).map(e -> e.Value).orElse(0);
+
             for(int i = 0; i < resume.Skills.Normalized.size(); i++) {
-                skillIds[i] = resume.Skills.Normalized.get(i).Id;
+                SkillScore curSkill = new SkillScore();
+                ResumeNormalizedSkill curSkillOrig = resume.Skills.Normalized.get(i);
+                curSkill.Id = curSkillOrig.Id;
+
+                int curMonthsExperience = Optional.ofNullable(curSkillOrig.MonthsExperience).map(e -> e.Value).orElse(0);
+                curSkill.Score = (weightSkillsByExperience && maxExperience > 0) ? curMonthsExperience / (float)maxExperience : 1; 
+
+                skills[i] = curSkill;
             }
 
-            return compareSkillsToProfessions(professionCodeId,skillIds);
+            return compareSkillsToProfessions(professionCodeId, outputLanguage, skills);
         }
         throw new IllegalArgumentException("The resume must be parsed with V2 skills selected, and with skills normalization enabled");
     }

@@ -7,6 +7,7 @@ package com.sovren.integration;
 
 import com.sovren.TestBase;
 import com.sovren.models.api.dataenrichment.TaxonomyFormat;
+import com.sovren.models.api.dataenrichment.ontology.response.SkillScore;
 
 import org.junit.jupiter.api.Test;
 
@@ -116,7 +117,13 @@ public class DataEnrichmentServiceTests extends TestBase {
     @Test
     public void testCompareSkillsToProfessions() {
         assertDoesNotThrow(() -> {
-            Client.compareSkillsToProfessions(696, "KS120076FGP5WGWYMP0F", "KS04UWLJBN9X1M3N0PZ4");
+            SkillScore s1 = new SkillScore();
+            SkillScore s2 = new SkillScore();
+
+            s1.Id = "KS120076FGP5WGWYMP0F";
+            s2.Id = "KS04UWLJBN9X1M3N0PZ4";
+
+            Client.compareSkillsToProfessions(696, "en", s1, s2);
         });
     }
 
