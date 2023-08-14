@@ -136,6 +136,17 @@ public class DataEnrichmentServiceTests extends TestBase {
     }
 
     @Test
+    public void testSuggestSkillsFromSkills() {
+        assertDoesNotThrow(() -> {
+            ArrayList<String> skillIds = new ArrayList<String>();
+            skillIds.add("KS120076FGP5WGWYMP0F");
+            skillIds.add("KS125HH5XDBPZT3RFGZZ");
+            skillIds.add("KS124PR62MV42B5C9S9F");
+            Client.suggestSkillsFromSkills(skillIds, null);
+        });
+    }
+
+    @Test
     public void testSuggestProfessions() {
         assertDoesNotThrow(() -> {
             ArrayList<String> skillIds = new ArrayList<String>();
@@ -143,6 +154,17 @@ public class DataEnrichmentServiceTests extends TestBase {
             skillIds.add("KS125HH5XDBPZT3RFGZZ");
             skillIds.add("KS124PR62MV42B5C9S9F");
             Client.suggestProfessionsFromSkills(skillIds, null);
+        });
+    }
+
+    @Test
+    public void testSkillsSimilarityScore() {
+        assertDoesNotThrow(() -> {
+            ArrayList<SkillScore> skillIds = new ArrayList<SkillScore>();
+            skillIds.add(new SkillScore("KS120076FGP5WGWYMP0F"));
+            skillIds.add(new SkillScore("KS125HH5XDBPZT3RFGZZ"));
+            skillIds.add(new SkillScore("KS124PR62MV42B5C9S9F"));
+            Client.skillsSimilarityScore(skillIds, skillIds);
         });
     }
 }
