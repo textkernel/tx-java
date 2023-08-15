@@ -7,12 +7,14 @@ package com.sovren.integration;
 
 import com.sovren.TestBase;
 import com.sovren.models.api.dataenrichment.TaxonomyFormat;
+import com.sovren.models.api.dataenrichment.ontology.response.SkillScore;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DataEnrichmentServiceTests extends TestBase {
     @Test
@@ -109,23 +111,38 @@ public class DataEnrichmentServiceTests extends TestBase {
     @Test
     public void testCompareProfessions() {
         assertDoesNotThrow(() -> {
-            Client.compareProfessions(696,3178);
+            Client.compareProfessions(696, 3178, "en");
         });
     }
 
     @Test
     public void testCompareSkillsToProfessions() {
         assertDoesNotThrow(() -> {
-            Client.compareSkillsToProfessions(696, "KS120076FGP5WGWYMP0F", "KS04UWLJBN9X1M3N0PZ4");
+            List<SkillScore> skills = new ArrayList<SkillScore>();
+            skills.add(new SkillScore("KS120076FGP5WGWYMP0F"));
+            skills.add(new SkillScore("KS04UWLJBN9X1M3N0PZ4"));
+
+            Client.compareSkillsToProfessions(696, "en", skills);
         });
     }
 
     @Test
-    public void testSuggestSkills() {
+    public void testSuggestSkillsFromProfessions() {
         assertDoesNotThrow(() -> {
             ArrayList<Integer> professionCodeIds = new ArrayList<Integer>();
             professionCodeIds.add(696);
-            Client.suggestSkills(professionCodeIds, 10);
+            Client.suggestSkillsFromProfessions(professionCodeIds, 10, null);
+        });
+    }
+
+    @Test
+    public void testSuggestSkillsFromSkills() {
+        assertDoesNotThrow(() -> {
+            ArrayList<String> skillIds = new ArrayList<String>();
+            skillIds.add("KS120076FGP5WGWYMP0F");
+            skillIds.add("KS125HH5XDBPZT3RFGZZ");
+            skillIds.add("KS124PR62MV42B5C9S9F");
+            Client.suggestSkillsFromSkills(skillIds, null);
         });
     }
 
@@ -136,7 +153,18 @@ public class DataEnrichmentServiceTests extends TestBase {
             skillIds.add("KS120076FGP5WGWYMP0F");
             skillIds.add("KS125HH5XDBPZT3RFGZZ");
             skillIds.add("KS124PR62MV42B5C9S9F");
-            Client.suggestProfessions((skillIds));
+            Client.suggestProfessionsFromSkills(skillIds, null);
+        });
+    }
+
+    @Test
+    public void testSkillsSimilarityScore() {
+        assertDoesNotThrow(() -> {
+            ArrayList<SkillScore> skillIds = new ArrayList<SkillScore>();
+            skillIds.add(new SkillScore("KS120076FGP5WGWYMP0F"));
+            skillIds.add(new SkillScore("KS125HH5XDBPZT3RFGZZ"));
+            skillIds.add(new SkillScore("KS124PR62MV42B5C9S9F"));
+            Client.skillsSimilarityScore(skillIds, skillIds);
         });
     }
 }

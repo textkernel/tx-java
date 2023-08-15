@@ -12,4 +12,6 @@ import java.util.List;
 public class SuggestProfessionsResponseValue {
     /** A list of professions most relevant to the given skills. */
     public List<SuggestedProfession> SuggestedProfessions;
+    /** Any warnings when attempting to suggest professions from the given skills. */
+    public SuggestedProfessionsWarnings Warnings;
 }
