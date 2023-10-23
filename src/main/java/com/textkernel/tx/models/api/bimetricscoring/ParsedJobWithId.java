@@ -8,7 +8,7 @@ package com.textkernel.tx.models.api.bimetricscoring;
 import com.textkernel.tx.models.job.ParsedJob;
 
 /**
-* A Sovren.Models.Job.ParsedJob and id pair for a bimetric score request
+* A ParsedJob and id pair for a bimetric score request
 */
 public class ParsedJobWithId implements IParsedDocWithId  {
     

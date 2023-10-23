@@ -20,9 +20,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:https://github.com/sovren/sovren-java.git</connection>
-        <developerConnection>scm:git:https://github.com:sovren/sovren-java.git</developerConnection>
-        <url>https://github.com/sovren/sovren-java</url>
+        <connection>scm:git:https://github.com/textkernel/tx-java.git</connection>
+        <developerConnection>scm:git:https://github.com:textkernel/tx-java.git</developerConnection>
+        <url>https://github.com/textkernel/tx-java</url>
     </scm>
 
     <developers>
