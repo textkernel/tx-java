@@ -11,7 +11,7 @@ package com.textkernel.tx.models.api;
 */
 public class ApiResponseInfo extends ApiResponseInfoLite {
 
-    /** The id for a specific API transaction. Use this when contacting <a href="mailto:support@sovren.com">support@sovren.com</a> about issues.*/
+    /** The id for a specific API transaction. Use this when contacting <a href="mailto:service@textkernel.com">service@textkernel.com</a> about issues.*/
     public String TransactionId;
 
     /** 

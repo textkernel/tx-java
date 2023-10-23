@@ -7,8 +7,8 @@
     <version>1.10.0</version>
 
     <packaging>jar</packaging>
-    <name>Sovren Java SDK</name>
-    <description>The official Java SDK for the Sovren v10 API.</description>
+    <name>Textkernel Tx Java SDK</name>
+    <description>The official Java SDK for the Textkernel Tx v10 API.</description>
     <url>https://developer.textkernel.com/Sovren/v10/overview/</url>
 
     <licenses>
@@ -28,9 +28,9 @@
     <developers>
         <developer>
             <name>JW Wesson</name>
-            <email>jw.wesson@sovren.com</email>
-            <organization>Sovren</organization>
-            <organizationUrl>https://www.sovren.com</organizationUrl>
+            <email>wesson@textkernel.nl</email>
+            <organization>Textkernel BV</organization>
+            <organizationUrl>https://www.textkernel.com</organizationUrl>
         </developer>
     </developers>
 
