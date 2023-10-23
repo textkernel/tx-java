@@ -159,7 +159,7 @@ public class TxClient {
                     okhttp3.Request.Builder builder = original.newBuilder();
                     builder.header("Sovren-AccountId", accountId);
                     builder.header("Sovren-ServiceKey", serviceKey);
-                    builder.header("User-Agent", "sovren-java-" + _sdkVersion);
+                    builder.header("User-Agent", "tx-java-" + _sdkVersion);
 
                     if (trackingTagsHeaderValue != null && !trackingTagsHeaderValue.isEmpty()){
                         builder.header("Sovren-TrackingTag", trackingTagsHeaderValue);
@@ -175,7 +175,7 @@ public class TxClient {
     @SuppressWarnings("deprecation")
     private RequestBody createJsonBody(Object body) {
         // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
-        // https://github.com/sovren/sovren-java/issues/36
+        // https://github.com/textkernel/tx-java/issues/36
         return RequestBody.create(JSON, TxJsonSerializer.serialize(body));
     }
     
@@ -1255,7 +1255,7 @@ public class TxClient {
     }
 
     /**
-     * Access methods for generating Matching UI sessions. For example: {@code sovClient.UI(options).search(...)}
+     * Access methods for generating Matching UI sessions. For example: {@code txClient.UI(options).search(...)}
      * @param uiOptions
      * Options/settings for the Matching UI.
      * <br>NOTE: if you do not provide a {@link UIOptions#Username} (in {@link MatchUISettings#UIOptions}),
