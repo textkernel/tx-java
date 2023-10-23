@@ -16,6 +16,6 @@ public class JobDegree {
     /** The type of the educational degree*/
     public String Type;
 
-    /** The normalized, local education level based on the job's country. Returns the Code ID based on the table found <a href="https://sovren.com/technical-specs/latest/rest-api/job-order-parser/api/?h=Value.JobData.Degrees[i].LocalEducationLevel">here</a>.*/
+    /** The normalized, local education level based on the job's country. Returns the Code ID based on the table found <a href="https://developer.textkernel.com/Sovren/v10/job-order-parser/api/?h=Value.JobData.Degrees[i].LocalEducationLevel">here</a>.*/
     public String LocalEducationLevel;
 }

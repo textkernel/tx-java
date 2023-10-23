@@ -77,14 +77,14 @@ public class UIOptions {
     public boolean ShowSavedSearches;
 
     /**
-    * Contains all the <a href="https://sovren.com/technical-specs/latest/rest-api/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
+    * Contains all the <a href="https://developer.textkernel.com/Sovren/v10/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
     * for the Match UI session. These are used to make a seamless integration between your system and the Sovren Matching UI.
     */
     public UserActionHookCollection Hooks;
 
     /**
     * Picklists shown in the UI for your users to filter on your user-defined tags.
-    * <br>See also: https://sovren.com/technical-specs/latest/rest-api/ai-matching/overview/user-defined-tags/
+    * <br>See also: https://developer.textkernel.com/Sovren/v10/ai-matching/overview/user-defined-tags/
     */
     public List<UserDefinedTagsPicklist> UserDefinedTagsPicklists;
 

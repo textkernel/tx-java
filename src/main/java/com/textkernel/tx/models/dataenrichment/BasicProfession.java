@@ -5,7 +5,7 @@ package com.textkernel.tx.models.dataenrichment;
  */
 public class BasicProfession {
     /**
-     * The unique code ID of the profession in the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a>.
+     * The unique code ID of the profession in the <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a>.
      */
     public Integer CodeId;
 

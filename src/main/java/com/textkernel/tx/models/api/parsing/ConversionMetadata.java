@@ -20,7 +20,7 @@ public class ConversionMetadata {
     
     /** 
      * The computed validity based on the source text. This will indicate whether a document 
-     * looks like a legitimate resume/job or not. See https://sovren.com/technical-specs/latest/rest-api/resume-parser/overview/document-conversion-code/
+     * looks like a legitimate resume/job or not. See https://developer.textkernel.com/Sovren/v10/resume-parser/overview/document-conversion-code/
     */
     public String OutputValidityCode;
     

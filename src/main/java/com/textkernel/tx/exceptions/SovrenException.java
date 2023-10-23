@@ -19,10 +19,10 @@ public class SovrenException extends Exception {
     /** The raw response from the API */
     public Response RestResponse;
     
-    /** The HTTP Status Code of the response. See https://sovren.com/technical-specs/latest/rest-api/overview/#http-status-codes*/
+    /** The HTTP Status Code of the response. See https://developer.textkernel.com/Sovren/v10/overview/#http-status-codes*/
     public int HttpStatusCode;
     
-    /**  The Info.Code of the response. This will indicate what type of error occurred. See https://sovren.com/technical-specs/latest/rest-api/overview/#http-status-codes*/
+    /**  The Info.Code of the response. This will indicate what type of error occurred. See https://developer.textkernel.com/Sovren/v10/overview/#http-status-codes*/
     public String SovrenErrorCode;
     
     /** The Id of the transaction, use this when reporting errors to Sovren Support*/

@@ -5,7 +5,7 @@ package com.textkernel.tx.models.dataenrichment;
  */
 public class LangDescription {
     /**
-     * The <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO code</a> for the language of the description.
+     * The <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO code</a> for the language of the description.
      */
     public String IsoCode;
     /**

@@ -7,9 +7,9 @@ package com.textkernel.tx.models.api.dataenrichment.ontology.request;
 
 /** Request body for a 'CompareProfessions' request */
 public class CompareProfessionsRequest {
-    /**  A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare. */
+    /**  A profession code ID from the <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare. */
     public int ProfessionACodeId;
-    /**  A profession code ID from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare. */
+    /**  A profession code ID from the <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare. */
     public int ProfessionBCodeId;
     /** The language to use for the returned descriptions. */
     public String OutputLanguage;

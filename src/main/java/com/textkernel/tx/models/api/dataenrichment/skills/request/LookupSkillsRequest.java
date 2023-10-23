@@ -11,6 +11,6 @@ import java.util.List;
 public class LookupSkillsRequest {
     /** The IDs of the skills to get details about. A maximum of 100 IDs can be requested. */
     public List<String> SkillIds;
-    /** The language to use for the output skill descriptions. If not provided, defaults to en. If specified, must be one of the supported <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO codes</a>. */
+    /** The language to use for the output skill descriptions. If not provided, defaults to en. If specified, must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO codes</a>. */
     public String OutputLanguage = "en";
 }

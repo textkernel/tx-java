@@ -9,8 +9,8 @@ import java.util.List;
 
 /** Request body for a 'LookupProfessions' request */
 public class LookupProfessionCodesRequest {
-    /** The profession code IDs to get details about from the <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a>. */
+    /** The profession code IDs to get details about from the <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a>. */
     public List<Integer> CodeIds;
-    /** The language to use for professions descriptions (default is en). Must be an allowed <a href="https://sovren.com/technical-specs/latest/rest-api/data-enrichment/overview/#professions-languages">ISO code</a>. */
+    /** The language to use for professions descriptions (default is en). Must be an allowed <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO code</a>. */
     public String OutputLanguage = "en";
 }

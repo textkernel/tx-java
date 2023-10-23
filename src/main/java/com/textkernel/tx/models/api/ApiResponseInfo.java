@@ -7,7 +7,7 @@ package com.textkernel.tx.models.api;
 
 /**
 * Information/metadata for an individual REST API call. 
-* See https://sovren.com/technical-specs/latest/rest-api/overview/#http-status-codes
+* See https://developer.textkernel.com/Sovren/v10/overview/#http-status-codes
 */
 public class ApiResponseInfo extends ApiResponseInfoLite {
 
