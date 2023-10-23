@@ -71,7 +71,7 @@ import com.textkernel.tx.models.api.parsing.ParseRequest;
 import com.textkernel.tx.models.api.parsing.ParseResumeResponse;
 import com.textkernel.tx.models.api.parsing.ParseJobResponse;
 import com.textkernel.tx.models.matching.IndexType;
-import com.textkernel.tx.utilities.SovrenJsonSerializer;
+import com.textkernel.tx.utilities.TxJsonSerializer;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -85,18 +85,18 @@ import java.util.stream.Collectors;
 /**
  * The SDK client to perform Sovren API calls.
  */
-public class SovrenClient {
+public class TxClient {
     private ApiEndpoints _endpoints;
     private OkHttpClient _client;
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     private static final String _sdkVersion;
     
     static {
-        _sdkVersion = SovrenClient.class.getPackage().getImplementationVersion();
+        _sdkVersion = TxClient.class.getPackage().getImplementationVersion();
     }
     
     /** 
-     * Set to {@code true} for debugging API errors. It will show the full JSON request body in {@link SovrenException#RequestBody}
+     * Set to {@code true} for debugging API errors. It will show the full JSON request body in {@link TxException#RequestBody}
      * <br><b>NOTE: do not set this to {@code true} in your production system, as it increases the memory footprint</b>
      */
     public boolean ShowFullRequestBodyInExceptions = false;
@@ -108,7 +108,7 @@ public class SovrenClient {
      * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US}, {@link DataCenter#EU}, or @link DataCenter#AU}
      * @throws IllegalArgumentException if the accountId, serviceKey, or dataCenter are null/empty
      */
-    public SovrenClient(String accountId, String serviceKey, DataCenter dataCenter) {
+    public TxClient(String accountId, String serviceKey, DataCenter dataCenter) {
         this(accountId, serviceKey, dataCenter, null);
     }
 
@@ -120,7 +120,7 @@ public class SovrenClient {
      * @param trackingTags - Optional tags to use to track API usage for your account
      * @throws IllegalArgumentException if the accountId, serviceKey, or dataCenter are null/empty
      */
-    public SovrenClient(String accountId, String serviceKey, DataCenter dataCenter, List<String> trackingTags) {
+    public TxClient(String accountId, String serviceKey, DataCenter dataCenter, List<String> trackingTags) {
         
         if (accountId == null || accountId.length() == 0) {
             throw new IllegalArgumentException("'accountId' must have a valid value");
@@ -176,10 +176,10 @@ public class SovrenClient {
     private RequestBody createJsonBody(Object body) {
         // Use OkHttp v3 signature to ensure binary compatibility between v3 and v4
         // https://github.com/sovren/sovren-java/issues/36
-        return RequestBody.create(JSON, SovrenJsonSerializer.serialize(body));
+        return RequestBody.create(JSON, TxJsonSerializer.serialize(body));
     }
     
-    private <T extends ApiResponse<?>> HttpResponse<T> executeRequest(Request apiRequest, Class<T> classOfT, String requestBody) throws SovrenException {
+    private <T extends ApiResponse<?>> HttpResponse<T> executeRequest(Request apiRequest, Class<T> classOfT, String requestBody) throws TxException {
         
         ApiResponseInfoLite errorInfo = new ApiResponseInfoLite();
         errorInfo.Code = "Error";
@@ -194,7 +194,7 @@ public class SovrenClient {
 
             if (rawResponse != null && rawResponse.code() == 413) {
                 errorInfo.Message = "Request body was too large.";
-                throw new SovrenException(requestBody, rawResponse, errorInfo, null);
+                throw new TxException(requestBody, rawResponse, errorInfo, null);
             }
             
             if (rawResponse != null && apiResponse.getData() == null && rawResponse.code() != 200) {
@@ -202,21 +202,21 @@ public class SovrenClient {
                 errorInfo.Message = rawResponse.code() + " - " + rawResponse.message();
             }
 
-            if (apiResponse == null || apiResponse.getData() == null) throw new SovrenException(requestBody, rawResponse, errorInfo, null);
+            if (apiResponse == null || apiResponse.getData() == null) throw new TxException(requestBody, rawResponse, errorInfo, null);
         }
         catch (IOException e) {
             errorInfo.Message = e.getMessage();
-            SovrenException newEx = new SovrenException(requestBody, rawResponse, errorInfo, null);
+            TxException newEx = new TxException(requestBody, rawResponse, errorInfo, null);
             newEx.InnerException = e;
             throw newEx;
         }
        
-        if (!rawResponse.isSuccessful()) throw new SovrenException(requestBody, rawResponse, apiResponse.getData().Info);
+        if (!rawResponse.isSuccessful()) throw new TxException(requestBody, rawResponse, apiResponse.getData().Info);
         
         return apiResponse;
     }
     
-    private GenerateUIResponse executeUIRequest(Request apiRequest, String requestBody) throws SovrenException {
+    private GenerateUIResponse executeUIRequest(Request apiRequest, String requestBody) throws TxException {
 
         ApiResponseInfoLite errorInfo = new ApiResponseInfoLite();
         errorInfo.Code = "Error";
@@ -231,17 +231,17 @@ public class SovrenClient {
 
             if (!rawResponse.isSuccessful()) {
                 errorInfo.Message = rawResponse.body().string();
-                throw new SovrenException(requestBody, rawResponse, errorInfo, transId);
+                throw new TxException(requestBody, rawResponse, errorInfo, transId);
             }
 
             String responseBodyStr = rawResponse.body().string();
-            apiResponse = SovrenJsonSerializer.deserialize(responseBodyStr, GenerateUIResponse.class);
+            apiResponse = TxJsonSerializer.deserialize(responseBodyStr, GenerateUIResponse.class);
 
-            if (apiResponse == null) throw new SovrenException(requestBody, rawResponse, errorInfo, transId);
+            if (apiResponse == null) throw new TxException(requestBody, rawResponse, errorInfo, transId);
         }
         catch (IOException e) {
             errorInfo.Message = e.getMessage();
-            SovrenException newEx = new SovrenException(requestBody, rawResponse, errorInfo, transId);
+            TxException newEx = new TxException(requestBody, rawResponse, errorInfo, transId);
             newEx.InnerException = e;
             throw newEx;
         }
@@ -269,9 +269,9 @@ public class SovrenClient {
     /**
      * Get the account info (remaining credits, max concurrency, etc).
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public GetAccountInfoResponse getAccountInfo() throws SovrenException {
+    public GetAccountInfoResponse getAccountInfo() throws TxException {
         Request apiRequest = new Request.Builder()
             .url(_endpoints.account())
             .build();
@@ -284,9 +284,9 @@ public class SovrenClient {
      * Parse a resume
      * @param request The request body
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public ParseResumeResponse parseResume(ParseRequest request) throws SovrenException {
+    public ParseResumeResponse parseResume(ParseRequest request) throws TxException {
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
             .url(_endpoints.parseResume())
@@ -296,15 +296,15 @@ public class SovrenClient {
         HttpResponse<ParseResumeResponse> response = executeRequest(apiRequest, ParseResumeResponse.class, getBodyIfDebug(apiRequest));
 
         if (response.getData().Value.ParsingResponse != null && !response.getData().Value.ParsingResponse.isSuccess()) {
-            throw new SovrenException(getBodyIfDebug(apiRequest), response.getResponse(), response.getData().Value.ParsingResponse, response.getData().Info.TransactionId);
+            throw new TxException(getBodyIfDebug(apiRequest), response.getResponse(), response.getData().Value.ParsingResponse, response.getData().Info.TransactionId);
         }
 
         if (response.getData().Value.GeocodeResponse != null && !response.getData().Value.GeocodeResponse.isSuccess()) {
-            throw new SovrenGeocodeResumeException(response.getResponse(), response.getData().Value.GeocodeResponse, response.getData().Info.TransactionId, response.getData());
+            throw new TxGeocodeResumeException(response.getResponse(), response.getData().Value.GeocodeResponse, response.getData().Info.TransactionId, response.getData());
         }
 
         if (response.getData().Value.IndexingResponse != null && !response.getData().Value.IndexingResponse.isSuccess()) {
-            throw new SovrenIndexResumeException(response.getResponse(), response.getData().Value.IndexingResponse, response.getData().Info.TransactionId, response.getData());
+            throw new TxIndexResumeException(response.getResponse(), response.getData().Value.IndexingResponse, response.getData().Info.TransactionId, response.getData());
         }
         
         return response.getData();
@@ -314,9 +314,9 @@ public class SovrenClient {
      * Parse a job
      * @param request The request body
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public ParseJobResponse parseJob(ParseRequest request) throws SovrenException {
+    public ParseJobResponse parseJob(ParseRequest request) throws TxException {
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
             .url(_endpoints.parseJob())
@@ -326,15 +326,15 @@ public class SovrenClient {
         HttpResponse<ParseJobResponse> response = executeRequest(apiRequest, ParseJobResponse.class, getBodyIfDebug(apiRequest));
 
         if (response.getData().Value.ParsingResponse != null && !response.getData().Value.ParsingResponse.isSuccess()) {
-            throw new SovrenException(getBodyIfDebug(apiRequest), response.getResponse(), response.getData().Value.ParsingResponse, response.getData().Info.TransactionId);
+            throw new TxException(getBodyIfDebug(apiRequest), response.getResponse(), response.getData().Value.ParsingResponse, response.getData().Info.TransactionId);
         }
 
         if (response.getData().Value.GeocodeResponse != null && !response.getData().Value.GeocodeResponse.isSuccess()) {
-            throw new SovrenGeocodeJobException(response.getResponse(), response.getData().Value.GeocodeResponse, response.getData().Info.TransactionId, response.getData());
+            throw new TxGeocodeJobException(response.getResponse(), response.getData().Value.GeocodeResponse, response.getData().Info.TransactionId, response.getData());
         }
 
         if (response.getData().Value.IndexingResponse != null && !response.getData().Value.IndexingResponse.isSuccess()) {
-            throw new SovrenIndexJobException(response.getResponse(), response.getData().Value.IndexingResponse, response.getData().Info.TransactionId, response.getData());
+            throw new TxIndexJobException(response.getResponse(), response.getData().Value.IndexingResponse, response.getData().Info.TransactionId, response.getData());
         }
         
         return response.getData();
@@ -347,9 +347,9 @@ public class SovrenClient {
      * The ID to assign to the new index. This is restricted to alphanumeric with dashes 
      * and underscores. All values will be converted to lower-case.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public CreateIndexResponse createIndex(IndexType type, String indexId) throws SovrenException {
+    public CreateIndexResponse createIndex(IndexType type, String indexId) throws TxException {
         CreateIndexRequest request = new CreateIndexRequest();
         request.IndexType = type;
         
@@ -366,9 +366,9 @@ public class SovrenClient {
     /**
      * Get all existing indexes
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public GetAllIndexesResponse getAllIndexes() throws SovrenException {
+    public GetAllIndexesResponse getAllIndexes() throws TxException {
         Request apiRequest = new Request.Builder()
             .url(_endpoints.allIndexes())
             .build();
@@ -382,9 +382,9 @@ public class SovrenClient {
      * All the documents in this index will be deleted.
      * @param indexId The index to delete (case-insensitive).
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public DeleteIndexResponse deleteIndex(String indexId) throws SovrenException {
+    public DeleteIndexResponse deleteIndex(String indexId) throws TxException {
         Request apiRequest = new Request.Builder()
             .url(_endpoints.index(indexId))
             .delete()
@@ -403,13 +403,13 @@ public class SovrenClient {
      * with dashes and underscores. All values will be converted to lower-case.
      * @param userDefinedTags The user-defined tags that the resume should have, or {@code null}
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public IndexDocumentResponse indexDocument(
             ParsedResume resume,
             String indexId,
             String documentId,
-            List<String> userDefinedTags) throws SovrenException {
+            List<String> userDefinedTags) throws TxException {
         IndexResumeRequest request = new IndexResumeRequest();
         request.ResumeData = resume;
         request.UserDefinedTags = userDefinedTags;
@@ -433,13 +433,13 @@ public class SovrenClient {
      * with dashes and underscores. All values will be converted to lower-case.
      * @param userDefinedTags The user-defined tags that the resume should have, or {@code null}
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public IndexDocumentResponse indexDocument(
             ParsedJob job,
             String indexId,
             String documentId,
-            List<String> userDefinedTags) throws SovrenException {
+            List<String> userDefinedTags) throws TxException {
         IndexJobRequest request = new IndexJobRequest();
         request.JobData = job;
         request.UserDefinedTags = userDefinedTags;
@@ -459,9 +459,9 @@ public class SovrenClient {
      * @param resumes The resumes generated by the Sovren Resume Parser paired with their DocumentIds
      * @param indexId The index the documents should be added into (case-insensitive).
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public IndexMultipleDocumentsResponse indexMultipleResumes(List<IndexResumeInfo> resumes, String indexId) throws SovrenException {
+    public IndexMultipleDocumentsResponse indexMultipleResumes(List<IndexResumeInfo> resumes, String indexId) throws TxException {
         IndexMultipleResumesRequest request = new IndexMultipleResumesRequest();
         request.Resumes = resumes;
 
@@ -480,9 +480,9 @@ public class SovrenClient {
      * @param jobs The jobs generated by the Sovren Job Parser paired with their DocumentIds
      * @param indexId The index the documents should be added into (case-insensitive).
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public IndexMultipleDocumentsResponse indexMultipleJobs(List<IndexJobInfo> jobs, String indexId) throws SovrenException {
+    public IndexMultipleDocumentsResponse indexMultipleJobs(List<IndexJobInfo> jobs, String indexId) throws TxException {
         IndexMultipleJobsRequest request = new IndexMultipleJobsRequest();
         request.Jobs = jobs;
 
@@ -501,9 +501,9 @@ public class SovrenClient {
      * @param indexId The index containing the document
      * @param documentId The ID of the document to delete
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public DeleteDocumentResponse deleteDocument(String indexId, String documentId) throws SovrenException {
+    public DeleteDocumentResponse deleteDocument(String indexId, String documentId) throws TxException {
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.document(indexId, documentId))
                 .delete()
@@ -518,9 +518,9 @@ public class SovrenClient {
      * @param indexId The index containing the documents
      * @param documentIds The IDs of the documents to delete
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public DeleteMultipleDocumentsResponse deleteMultipleDocuments(String indexId, List<String> documentIds) throws SovrenException {
+    public DeleteMultipleDocumentsResponse deleteMultipleDocuments(String indexId, List<String> documentIds) throws TxException {
         RequestBody requestBody = createJsonBody(documentIds);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.multipleDocuments(indexId))
@@ -536,9 +536,9 @@ public class SovrenClient {
      * @param indexId The index containing the resume
      * @param documentId The ID of the resume to retrieve
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public GetResumeResponse getResume(String indexId, String documentId) throws SovrenException {
+    public GetResumeResponse getResume(String indexId, String documentId) throws TxException {
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.resume(indexId, documentId))
                 .build();
@@ -552,9 +552,9 @@ public class SovrenClient {
      * @param indexId The index containing the job
      * @param documentId The ID of the job to retrieve
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public GetJobResponse getJob(String indexId, String documentId) throws SovrenException {
+    public GetJobResponse getJob(String indexId, String documentId) throws TxException {
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.job(indexId, documentId))
                 .build();
@@ -570,13 +570,13 @@ public class SovrenClient {
      * @param userDefinedTags The user-defined tags to add/delete/etc
      * @param method Which method to use for the specified user-defined tags
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public UpdateUserDefinedTagsResponse updateResumeUserDefinedTags(
             String indexId,
             String documentId,
             List<String> userDefinedTags,
-            UserDefinedTagsMethod method) throws SovrenException {
+            UserDefinedTagsMethod method) throws TxException {
         UpdateUserDefinedTagsRequest request = new UpdateUserDefinedTagsRequest();
         request.UserDefinedTags = userDefinedTags;
         request.Method = method;
@@ -598,13 +598,13 @@ public class SovrenClient {
      * @param userDefinedTags The user-defined tags to add/delete/etc
      * @param method Which method to use for the specified user-defined tags
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public UpdateUserDefinedTagsResponse updateJobUserDefinedTags(
             String indexId,
             String documentId,
             List<String> userDefinedTags,
-            UserDefinedTagsMethod method) throws SovrenException {
+            UserDefinedTagsMethod method) throws TxException {
         UpdateUserDefinedTagsRequest request = new UpdateUserDefinedTagsRequest();
         request.UserDefinedTags = userDefinedTags;
         request.Method = method;
@@ -630,7 +630,7 @@ public class SovrenClient {
      * @param settings The settings for this match request. Use {@code null} for defaults.
      * @param numResults The number of results to show. Use {@code 0} for the default.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public MatchResponse match(
             ParsedResume resume,
@@ -638,7 +638,7 @@ public class SovrenClient {
             CategoryWeights preferredWeights,
             FilterCriteria filters,
             SearchMatchSettings settings,
-            int numResults) throws SovrenException {
+            int numResults) throws TxException {
 
         MatchResumeRequest request = createRequest(resume, indexesToQuery, preferredWeights, filters, settings, numResults);
         RequestBody body = createJsonBody(request);
@@ -679,7 +679,7 @@ public class SovrenClient {
      * @param settings The settings for this match request. Use {@code null} for defaults.
      * @param numResults The number of results to show. Use {@code 0} for the default.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public MatchResponse match(
             ParsedJob job,
@@ -687,7 +687,7 @@ public class SovrenClient {
             CategoryWeights preferredWeights,
             FilterCriteria filters,
             SearchMatchSettings settings,
-            int numResults) throws SovrenException {
+            int numResults) throws TxException {
 
         MatchJobRequest request = createRequest(job, indexesToQuery, preferredWeights, filters, settings, numResults);
         RequestBody body = createJsonBody(request);
@@ -729,7 +729,7 @@ public class SovrenClient {
      * @param settings The settings for this match request. Use {@code null} for defaults.
      * @param numResults The number of results to show. Use {@code 0} for the default.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public MatchResponse match(
             String indexId,
@@ -738,7 +738,7 @@ public class SovrenClient {
             CategoryWeights preferredWeights,
             FilterCriteria filters,
             SearchMatchSettings settings,
-            int numResults) throws SovrenException {
+            int numResults) throws TxException {
 
         MatchByDocumentIdOptions request = createRequest(indexesToQuery, preferredWeights, filters, settings, numResults);
         RequestBody body = createJsonBody(request);
@@ -766,7 +766,7 @@ public class SovrenClient {
         return request;
     }
 
-    GenerateUIResponse uiMatch(String indexId, String documentId, UIMatchByDocumentIdOptions options) throws SovrenException {
+    GenerateUIResponse uiMatch(String indexId, String documentId, UIMatchByDocumentIdOptions options) throws TxException {
         RequestBody body = createJsonBody(options);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.matchDocId(indexId, documentId, true))
@@ -777,7 +777,7 @@ public class SovrenClient {
         return response;
     }
 
-    GenerateUIResponse uiMatch(UIMatchResumeRequest request) throws SovrenException {
+    GenerateUIResponse uiMatch(UIMatchResumeRequest request) throws TxException {
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.matchResume(true))
@@ -788,7 +788,7 @@ public class SovrenClient {
         return response;
     }
 
-    GenerateUIResponse uiMatch(UIMatchJobRequest request) throws SovrenException {
+    GenerateUIResponse uiMatch(UIMatchJobRequest request) throws TxException {
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.matchJob(true))
@@ -807,13 +807,13 @@ public class SovrenClient {
      * @param settings The settings for this search request. Use {@code null} for defaults.
      * @param pagination Pagination settings. Use {@code null} for defaults.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public SearchResponse search(
             List<String> indexesToQuery,
             FilterCriteria query,
             SearchMatchSettings settings,
-            PaginationSettings pagination) throws SovrenException {
+            PaginationSettings pagination) throws TxException {
         SearchRequest request = createRequest(indexesToQuery, query, settings, pagination);
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
@@ -834,7 +834,7 @@ public class SovrenClient {
         return request;
     }
 
-    GenerateUIResponse uiSearch(UISearchRequest request) throws SovrenException {
+    GenerateUIResponse uiSearch(UISearchRequest request) throws TxException {
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.search(true))
@@ -856,13 +856,13 @@ public class SovrenClient {
      * Sovren will determine the best values based on the source resume.
      * @param settings The settings for this search request. Use {@code null} for defaults.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public <TTarget extends IParsedDocWithId> BimetricScoreResponse bimetricScore(
             ParsedResumeWithId sourceResume,
             List<TTarget> targetDocuments,
             CategoryWeights preferredWeights,
-            SearchMatchSettings settings) throws SovrenException {
+            SearchMatchSettings settings) throws TxException {
         BimetricScoreResumeRequest request = createRequest(sourceResume, targetDocuments, preferredWeights, settings);
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
@@ -909,13 +909,13 @@ public class SovrenClient {
      * Sovren will determine the best values based on the source job.
      * @param settings The settings for this search request. Use {@code null} for defaults.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public <TTarget extends IParsedDocWithId> BimetricScoreResponse bimetricScore(
             ParsedJobWithId sourceJob,
             List<TTarget> targetDocuments,
             CategoryWeights preferredWeights,
-            SearchMatchSettings settings) throws SovrenException {
+            SearchMatchSettings settings) throws TxException {
         BimetricScoreJobRequest request = createRequest(sourceJob, targetDocuments, preferredWeights, settings);
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
@@ -952,7 +952,7 @@ public class SovrenClient {
         return request;
     }
 
-    GenerateUIResponse uiBimetricScore(UIBimetricScoreResumeRequest request) throws SovrenException {
+    GenerateUIResponse uiBimetricScore(UIBimetricScoreResumeRequest request) throws TxException {
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.bimetricScoreResume(true))
@@ -963,7 +963,7 @@ public class SovrenClient {
         return response;
     }
 
-    GenerateUIResponse uiBimetricScore(UIBimetricScoreJobRequest request) throws SovrenException {
+    GenerateUIResponse uiBimetricScore(UIBimetricScoreJobRequest request) throws TxException {
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.bimetricScoreJob(true))
@@ -974,7 +974,7 @@ public class SovrenClient {
         return response;
     }
 
-    private GeocodeResumeResponse internalGeocode(ParsedResume resume, GeocodeCredentials geocodeCredentials, Address address) throws SovrenException {
+    private GeocodeResumeResponse internalGeocode(ParsedResume resume, GeocodeCredentials geocodeCredentials, Address address) throws TxException {
         GeocodeResumeRequest request = new GeocodeResumeRequest();
         request.ResumeData = resume;
         request.Provider = geocodeCredentials != null ? geocodeCredentials.Provider : GeocodeProvider.Google;
@@ -991,7 +991,7 @@ public class SovrenClient {
         return response.getData();
     }
 
-    private GeocodeJobResponse internalGeocode(ParsedJob job, GeocodeCredentials geocodeCredentials, Address address) throws SovrenException {
+    private GeocodeJobResponse internalGeocode(ParsedJob job, GeocodeCredentials geocodeCredentials, Address address) throws TxException {
         GeocodeJobRequest request = new GeocodeJobRequest();
         request.JobData = job;
         request.Provider = geocodeCredentials != null ? geocodeCredentials.Provider : GeocodeProvider.Google;
@@ -1014,9 +1014,9 @@ public class SovrenClient {
      * @param resume The resume to insert the geocoordinates (from the address) into
      * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurred
+     * @throws TxException Thrown when an API error occurred
      */
-    public GeocodeResumeResponse geocode(ParsedResume resume, GeocodeCredentials geocodeCredentials) throws SovrenException {
+    public GeocodeResumeResponse geocode(ParsedResume resume, GeocodeCredentials geocodeCredentials) throws TxException {
         return internalGeocode(resume, geocodeCredentials, null);
     }
 
@@ -1027,9 +1027,9 @@ public class SovrenClient {
      * @param address The address to use to retrieve geocoordinates
      * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurred
+     * @throws TxException Thrown when an API error occurred
      */
-    public GeocodeResumeResponse geocode(ParsedResume resume, Address address, GeocodeCredentials geocodeCredentials) throws SovrenException {
+    public GeocodeResumeResponse geocode(ParsedResume resume, Address address, GeocodeCredentials geocodeCredentials) throws TxException {
         return internalGeocode(resume, geocodeCredentials, address);
     }
 
@@ -1039,9 +1039,9 @@ public class SovrenClient {
      * @param job The job to insert the geocoordinates (from the address) into
      * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurred
+     * @throws TxException Thrown when an API error occurred
      */
-    public GeocodeJobResponse geocode(ParsedJob job, GeocodeCredentials geocodeCredentials) throws SovrenException {
+    public GeocodeJobResponse geocode(ParsedJob job, GeocodeCredentials geocodeCredentials) throws TxException {
         return internalGeocode(job, geocodeCredentials, null);
     }
 
@@ -1052,9 +1052,9 @@ public class SovrenClient {
      * @param address The address to use to retrieve geocoordinates
      * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurred
+     * @throws TxException Thrown when an API error occurred
      */
-    public GeocodeJobResponse geocode(ParsedJob job, Address address, GeocodeCredentials geocodeCredentials) throws SovrenException {
+    public GeocodeJobResponse geocode(ParsedJob job, Address address, GeocodeCredentials geocodeCredentials) throws TxException {
         return internalGeocode(job, geocodeCredentials, address);
     }
 
@@ -1064,7 +1064,7 @@ public class SovrenClient {
             IndexSingleDocumentInfo indexingOptions,
             boolean indexIfGeocodeFails,
             Address address,
-            GeoCoordinates coordinates) throws SovrenException {
+            GeoCoordinates coordinates) throws TxException {
         GeocodeOptionsBase options = new GeocodeOptionsBase();
         options.Provider = geocodeCredentials != null ? geocodeCredentials.Provider : GeocodeProvider.Google;
         options.ProviderKey = geocodeCredentials != null ? geocodeCredentials.ProviderKey : null;
@@ -1087,11 +1087,11 @@ public class SovrenClient {
         GeocodeAndIndexResumeResponseValue responseVal = response.getData().Value;
 
         if (!indexIfGeocodeFails && responseVal.GeocodeResponse != null && !responseVal.GeocodeResponse.isSuccess()) {
-            throw new SovrenException(getBodyIfDebug(apiRequest), response.getResponse(), responseVal.GeocodeResponse, response.getData().getInfo().TransactionId);
+            throw new TxException(getBodyIfDebug(apiRequest), response.getResponse(), responseVal.GeocodeResponse, response.getData().getInfo().TransactionId);
         }
 
         if (responseVal.IndexingResponse != null && !responseVal.IndexingResponse.isSuccess()) {
-            throw new SovrenException(getBodyIfDebug(apiRequest), response.getResponse(), responseVal.IndexingResponse, response.getData().getInfo().TransactionId);
+            throw new TxException(getBodyIfDebug(apiRequest), response.getResponse(), responseVal.IndexingResponse, response.getData().getInfo().TransactionId);
         }
 
         return response.getData();
@@ -1103,7 +1103,7 @@ public class SovrenClient {
             IndexSingleDocumentInfo indexingOptions,
             boolean indexIfGeocodeFails,
             Address address,
-            GeoCoordinates coordinates) throws SovrenException {
+            GeoCoordinates coordinates) throws TxException {
         GeocodeOptionsBase options = new GeocodeOptionsBase();
         options.Provider = geocodeCredentials != null ? geocodeCredentials.Provider : GeocodeProvider.Google;
         options.ProviderKey = geocodeCredentials != null ? geocodeCredentials.ProviderKey : null;
@@ -1126,11 +1126,11 @@ public class SovrenClient {
         GeocodeAndIndexJobResponseValue responseVal = response.getData().Value;
 
         if (!indexIfGeocodeFails && responseVal.GeocodeResponse != null && !responseVal.GeocodeResponse.isSuccess()) {
-            throw new SovrenException(getBodyIfDebug(apiRequest), response.getResponse(), responseVal.GeocodeResponse, response.getData().getInfo().TransactionId);
+            throw new TxException(getBodyIfDebug(apiRequest), response.getResponse(), responseVal.GeocodeResponse, response.getData().getInfo().TransactionId);
         }
 
         if (responseVal.IndexingResponse != null && !responseVal.IndexingResponse.isSuccess()) {
-            throw new SovrenException(getBodyIfDebug(apiRequest), response.getResponse(), responseVal.IndexingResponse, response.getData().getInfo().TransactionId);
+            throw new TxException(getBodyIfDebug(apiRequest), response.getResponse(), responseVal.IndexingResponse, response.getData().getInfo().TransactionId);
         }
 
         return response.getData();
@@ -1144,13 +1144,13 @@ public class SovrenClient {
      * @param indexIfGeocodeFails Indicates whether or not the document should still be added to the index if the geocode request fails.
      * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurred
+     * @throws TxException Thrown when an API error occurred
      */
     public GeocodeAndIndexResumeResponse geocodeAndIndex(
             ParsedResume resume,
             IndexSingleDocumentInfo indexingOptions,
             boolean indexIfGeocodeFails,
-            GeocodeCredentials geocodeCredentials) throws SovrenException {
+            GeocodeCredentials geocodeCredentials) throws TxException {
         return internalGeocodeAndIndex(resume, geocodeCredentials, indexingOptions, indexIfGeocodeFails, null, null);
     }
 
@@ -1163,14 +1163,14 @@ public class SovrenClient {
      * @param indexIfGeocodeFails Indicates whether or not the document should still be added to the index if the geocode request fails.
      * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurred
+     * @throws TxException Thrown when an API error occurred
      */
     public GeocodeAndIndexResumeResponse geocodeAndIndex(
             ParsedResume resume,
             IndexSingleDocumentInfo indexingOptions,
             Address address,
             boolean indexIfGeocodeFails,
-            GeocodeCredentials geocodeCredentials) throws SovrenException {
+            GeocodeCredentials geocodeCredentials) throws TxException {
         return internalGeocodeAndIndex(resume, geocodeCredentials, indexingOptions, indexIfGeocodeFails, address, null);
     }
 
@@ -1184,14 +1184,14 @@ public class SovrenClient {
      * @param indexIfGeocodeFails Indicates whether or not the document should still be added to the index if the geocode request fails.
      * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurred
+     * @throws TxException Thrown when an API error occurred
      */
     public GeocodeAndIndexResumeResponse geocodeAndIndex(
             ParsedResume resume,
             IndexSingleDocumentInfo indexingOptions,
             GeoCoordinates coordinates,
             boolean indexIfGeocodeFails,
-            GeocodeCredentials geocodeCredentials) throws SovrenException {
+            GeocodeCredentials geocodeCredentials) throws TxException {
         return internalGeocodeAndIndex(resume, geocodeCredentials, indexingOptions, indexIfGeocodeFails, null, coordinates);
     }
 
@@ -1203,13 +1203,13 @@ public class SovrenClient {
      * @param indexIfGeocodeFails Indicates whether or not the document should still be added to the index if the geocode request fails.
      * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurred
+     * @throws TxException Thrown when an API error occurred
      */
     public GeocodeAndIndexJobResponse geocodeAndIndex(
             ParsedJob job,
             IndexSingleDocumentInfo indexingOptions,
             boolean indexIfGeocodeFails,
-            GeocodeCredentials geocodeCredentials) throws SovrenException {
+            GeocodeCredentials geocodeCredentials) throws TxException {
         return internalGeocodeAndIndex(job, geocodeCredentials, indexingOptions, indexIfGeocodeFails, null, null);
     }
 
@@ -1222,14 +1222,14 @@ public class SovrenClient {
      * @param indexIfGeocodeFails Indicates whether or not the document should still be added to the index if the geocode request fails.
      * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurred
+     * @throws TxException Thrown when an API error occurred
      */
     public GeocodeAndIndexJobResponse geocodeAndIndex(
             ParsedJob job,
             IndexSingleDocumentInfo indexingOptions,
             Address address,
             boolean indexIfGeocodeFails,
-            GeocodeCredentials geocodeCredentials) throws SovrenException {
+            GeocodeCredentials geocodeCredentials) throws TxException {
         return internalGeocodeAndIndex(job, geocodeCredentials, indexingOptions, indexIfGeocodeFails, address, null);
     }
 
@@ -1243,14 +1243,14 @@ public class SovrenClient {
      * @param indexIfGeocodeFails Indicates whether or not the document should still be added to the index if the geocode request fails.
      * @param geocodeCredentials - The credentials you want to use for geocoding (use {@code null} for Sovren credentials)
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurred
+     * @throws TxException Thrown when an API error occurred
      */
     public GeocodeAndIndexJobResponse geocodeAndIndex(
             ParsedJob job,
             IndexSingleDocumentInfo indexingOptions,
             GeoCoordinates coordinates,
             boolean indexIfGeocodeFails,
-            GeocodeCredentials geocodeCredentials) throws SovrenException {
+            GeocodeCredentials geocodeCredentials) throws TxException {
         return internalGeocodeAndIndex(job, geocodeCredentials, indexingOptions, indexIfGeocodeFails, null, coordinates);
     }
 
@@ -1262,17 +1262,17 @@ public class SovrenClient {
      * the user will be prompted to login as soon as the Matching UI session is loaded
      * @return The client for making Matching UI API calls
      */
-    public SovrenUIClient ui(MatchUISettings uiOptions) {
-        return new SovrenUIClient(uiOptions, this);
+    public TxUIClient ui(MatchUISettings uiOptions) {
+        return new TxUIClient(uiOptions, this);
     }
 
     /**
      * Get all skills in the taxonomy with associated IDs and descriptions in all supported languages.
      * @param format The format of the returned taxonomy. <br>NOTE: if you set this to {@link TaxonomyFormat#csv}, only the {@link GetSkillsTaxonomyResponseValue#CsvOutput} will be populated.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public GetSkillsTaxonomyResponse getSkillsTaxonomy(TaxonomyFormat format) throws SovrenException {
+    public GetSkillsTaxonomyResponse getSkillsTaxonomy(TaxonomyFormat format) throws TxException {
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.desSkillsGetTaxonomy(format))
                 .build();
@@ -1284,18 +1284,18 @@ public class SovrenClient {
     /**
      * Get all skills in the taxonomy with associated IDs and descriptions in all supported languages.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public GetSkillsTaxonomyResponse getSkillsTaxonomy() throws SovrenException {
+    public GetSkillsTaxonomyResponse getSkillsTaxonomy() throws TxException {
         return getSkillsTaxonomy(TaxonomyFormat.json);
     }
 
     /**
      * Get metadata about the skills taxonomy/service.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public GetMetadataResponse getSkillsTaxonomyMetadata() throws SovrenException {
+    public GetMetadataResponse getSkillsTaxonomyMetadata() throws TxException {
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.desSkillsGetMetadata())
                 .build();
@@ -1312,9 +1312,9 @@ public class SovrenClient {
      * @param types If specified, only these types of skills will be returned. The following values are acceptable: Professional, IT, Language, Soft, All.
      * @param limit The maximum number of returned skills. The default is 10 and the maximum is 100.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public AutoCompleteSkillsResponse autocompleteSkill(String prefix, List<String> languages, String outputLanguage, List<String> types, int limit) throws SovrenException {
+    public AutoCompleteSkillsResponse autocompleteSkill(String prefix, List<String> languages, String outputLanguage, List<String> types, int limit) throws TxException {
         SkillsAutoCompleteRequest request = new SkillsAutoCompleteRequest();
         request.Prefix = prefix;
         request.Limit = limit;
@@ -1336,9 +1336,9 @@ public class SovrenClient {
      * Returns normalized skills that begin with a given prefix, based on the chosen language(s). Each skill is associated with multiple descriptions. If any of the descriptions are a good completion of the given prefix, the skill is included in the results.
      * @param prefix The skill prefix to be completed. Must contain at least 1 character.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public AutoCompleteSkillsResponse autocompleteSkill(String prefix) throws SovrenException {
+    public AutoCompleteSkillsResponse autocompleteSkill(String prefix) throws TxException {
         return autocompleteSkill(prefix,null,null,null,10);
     }
 
@@ -1347,9 +1347,9 @@ public class SovrenClient {
      * @param skillIds The IDs of the skills to get details about. A maximum of 100 IDs can be requested.
      * @param outputLanguage The language to use for the output skill descriptions. If not provided, defaults to en. If specified, must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public LookupSkillCodesResponse lookupSkills(List<String> skillIds, String outputLanguage) throws SovrenException {
+    public LookupSkillCodesResponse lookupSkills(List<String> skillIds, String outputLanguage) throws TxException {
         LookupSkillsRequest request = new LookupSkillsRequest();
         request.SkillIds = skillIds;
         request.OutputLanguage = outputLanguage;
@@ -1368,9 +1368,9 @@ public class SovrenClient {
      * Get the details associated with given skills in the taxonomy.
      * @param skillIds The IDs of the skills to get details about. A maximum of 100 IDs can be requested.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public LookupSkillCodesResponse lookupSkills(List<String> skillIds) throws SovrenException {
+    public LookupSkillCodesResponse lookupSkills(List<String> skillIds) throws TxException {
         return lookupSkills(skillIds,null);
     }
 
@@ -1380,9 +1380,9 @@ public class SovrenClient {
      * @param language The language of the given skills. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.
      * @param outputLanguage The language to use for the output skill descriptions. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Defaults to whatever is used for the 'language' parameter.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public NormalizeSkillsResponse normalizeSkills(List<String> skills, String language, String outputLanguage) throws SovrenException {
+    public NormalizeSkillsResponse normalizeSkills(List<String> skills, String language, String outputLanguage) throws TxException {
         NormalizeSkillsRequest request = new NormalizeSkillsRequest();
         request.Skills = skills;
         request.Language = language;
@@ -1402,9 +1402,9 @@ public class SovrenClient {
      * Normalize the given skills to the most closely-related skills in the taxonomy.
      * @param skills The list of skills to normalize (up to 50 skills, each skill may not exceed 100 characters).
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public NormalizeSkillsResponse normalizeSkills(List<String> skills) throws SovrenException {
+    public NormalizeSkillsResponse normalizeSkills(List<String> skills) throws TxException {
         return normalizeSkills(skills,null,null);
     }
 
@@ -1415,9 +1415,9 @@ public class SovrenClient {
      * @param outputLanguage The language to use for the output skill descriptions. If not provided, defaults to the input language. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO codes</a>.
      * @param threshold A value from [0 - 1] for the minimum confidence threshold for extracted skills. Lower values will return more skills, but also increase the likelihood of ambiguity-related errors. The recommended and default value is 0.5.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public ExtractSkillsResponse extractSkills(String text, String language, String outputLanguage, float threshold) throws SovrenException {
+    public ExtractSkillsResponse extractSkills(String text, String language, String outputLanguage, float threshold) throws TxException {
         ExtractSkillsRequest request = new ExtractSkillsRequest();
         request.Text = text;
         request.Language = language;
@@ -1438,9 +1438,9 @@ public class SovrenClient {
      * Extracts known skills from the given text.
      * @param text The text to extract skills from. There is a 24,000 character limit.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public ExtractSkillsResponse extractSkills(String text) throws SovrenException {
+    public ExtractSkillsResponse extractSkills(String text) throws TxException {
         return extractSkills(text,null,null,0.5f);
     }
 
@@ -1449,9 +1449,9 @@ public class SovrenClient {
      * @param language The language parameter returns the taxonomy with descriptions only in that specified language. If not specified, descriptions in all languages are returned. Must be specified as one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO codes</a>.
      * @param format The format of the returned taxonomy. <br>NOTE: if you set this to {@link TaxonomyFormat#csv}, only the {@link GetProfessionsTaxonomyResponseValue#CsvOutput} will be populated.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public GetProfessionsTaxonomyResponse getProfessionsTaxonomy(String language, TaxonomyFormat format) throws SovrenException {
+    public GetProfessionsTaxonomyResponse getProfessionsTaxonomy(String language, TaxonomyFormat format) throws TxException {
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.desProfessionsGetTaxonomy(format,language))
                 .build();
@@ -1463,18 +1463,18 @@ public class SovrenClient {
     /**
      * Get all professions in the taxonomy with associated IDs and descriptions in all supported languages.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public GetProfessionsTaxonomyResponse getProfessionsTaxonomy() throws SovrenException {
+    public GetProfessionsTaxonomyResponse getProfessionsTaxonomy() throws TxException {
         return getProfessionsTaxonomy(null,TaxonomyFormat.json);
     }
 
     /**
      * Get metadata about the professions taxonomy/service.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public GetMetadataResponse getProfessionsTaxonomyMetadata() throws SovrenException {
+    public GetMetadataResponse getProfessionsTaxonomyMetadata() throws TxException {
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.desProfessionsGetMetadata())
                 .build();
@@ -1490,9 +1490,9 @@ public class SovrenClient {
      * @param outputLanguage The language to ouput the found professions in (default is 'en'). Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO codes</a>.
      * @param limit The maximum number of returned professions. The default is 10 and the maximum is 100.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public ProfessionsAutoCompleteResponse autocompleteProfession(String prefix, List<String> languages, String outputLanguage, int limit) throws SovrenException {
+    public ProfessionsAutoCompleteResponse autocompleteProfession(String prefix, List<String> languages, String outputLanguage, int limit) throws TxException {
         AutocompleteRequest request = new AutocompleteRequest();
         request.Prefix = prefix;
         request.Limit = limit;
@@ -1513,9 +1513,9 @@ public class SovrenClient {
      * Returns normalized professions that begin with a given prefix, based on the default language of english. Each profession is associated with multiple descriptions. If any of the descriptions are a good completion of the given prefix, the profession is included in the results.
      * @param prefix The job title prefix to be completed. Must contain at least 1 character.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public ProfessionsAutoCompleteResponse autocompleteProfession(String prefix) throws SovrenException {
+    public ProfessionsAutoCompleteResponse autocompleteProfession(String prefix) throws TxException {
         List<String> languages = new ArrayList<>();
         languages.add("en");
         return  autocompleteProfession(prefix,languages,"en",10);
@@ -1527,9 +1527,9 @@ public class SovrenClient {
      * @param language The language of the input job titles. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO codes</a>.<br>Default is 'en'.
      * @param outputLanguage The language to use for descriptions of the returned normalized professions. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO codes</a>.<br>Defaults to whatever is used for the 'language' parameter.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public NormalizeProfessionsResponse normalizeProfessions(List<String> jobTitles, String language, String outputLanguage) throws SovrenException {
+    public NormalizeProfessionsResponse normalizeProfessions(List<String> jobTitles, String language, String outputLanguage) throws TxException {
         NormalizeProfessionsRequest request = new NormalizeProfessionsRequest();
         request.JobTitles = jobTitles;
         request.Language = language;
@@ -1549,9 +1549,9 @@ public class SovrenClient {
      * Normalize the given job titles to the most closely-related professions in the taxonomy.
      * @param jobTitles The list of job titles to normalize (up to 10 job titles, each job title may not exceed 400 characters).
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public NormalizeProfessionsResponse normalizeProfessions(List<String> jobTitles) throws SovrenException {
+    public NormalizeProfessionsResponse normalizeProfessions(List<String> jobTitles) throws TxException {
         return normalizeProfessions(jobTitles,null,null);
     }
 
@@ -1560,9 +1560,9 @@ public class SovrenClient {
      * @param codeIds The profession code IDs to get details about from the <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a>.
      * @param outputLanguage The language to use for professions descriptions (default is en). Must be an allowed <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO code</a>. <br>Default is 'en'.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public LookupProfessionCodesResponse lookupProfessions(List<Integer> codeIds, String outputLanguage) throws SovrenException {
+    public LookupProfessionCodesResponse lookupProfessions(List<Integer> codeIds, String outputLanguage) throws TxException {
         LookupProfessionCodesRequest request = new LookupProfessionCodesRequest();
         request.CodeIds = codeIds;
         request.OutputLanguage = outputLanguage;
@@ -1581,9 +1581,9 @@ public class SovrenClient {
      * Get details for the given professions in the taxonomy.
      * @param codeIds The profession code IDs to get details about from the <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a>.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public LookupProfessionCodesResponse lookupProfessions(List<Integer> codeIds) throws SovrenException {
+    public LookupProfessionCodesResponse lookupProfessions(List<Integer> codeIds) throws TxException {
         return lookupProfessions(codeIds,null);
     }
 
@@ -1593,9 +1593,9 @@ public class SovrenClient {
      * @param profession2 A profession code ID from the <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare.
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public CompareProfessionsResponse compareProfessions(int profession1, int profession2, String outputLanguage) throws SovrenException {
+    public CompareProfessionsResponse compareProfessions(int profession1, int profession2, String outputLanguage) throws TxException {
         CompareProfessionsRequest request = new CompareProfessionsRequest();
         request.ProfessionACodeId = profession1;
         request.ProfessionBCodeId = profession2;
@@ -1617,9 +1617,9 @@ public class SovrenClient {
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO code</a>
      * @param skills The skills which should be compared against the given profession. The list can contain up to 50 skills.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public CompareSkillsToProfessionResponse compareSkillsToProfessions(int professionCodeId, String outputLanguage, List<SkillScore> skills) throws SovrenException {
+    public CompareSkillsToProfessionResponse compareSkillsToProfessions(int professionCodeId, String outputLanguage, List<SkillScore> skills) throws TxException {
         CompareSkillsToProfessionRequest request = new CompareSkillsToProfessionRequest();
         request.Skills = new ArrayList<SkillScore>();
         int amountOfSkills = skills.size() > 50 ? 50 : skills.size();
@@ -1647,13 +1647,13 @@ public class SovrenClient {
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO code</a>
      * @param weightSkillsByExperience Whether or not to give a higher weight to skills that the candidate has more experience with.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public CompareSkillsToProfessionResponse compareSkillsToProfessions(
         ParsedResume resume,
         int professionCodeId,
         String outputLanguage,
-        boolean weightSkillsByExperience) throws SovrenException {
+        boolean weightSkillsByExperience) throws TxException {
         if(resume != null && resume.Skills != null && resume.Skills.Normalized != null && resume.Skills.Normalized.size() > 0){
             return compareSkillsToProfessions(professionCodeId, outputLanguage, getNormalizedSkillsFromResume(resume, weightSkillsByExperience));
         }
@@ -1666,9 +1666,9 @@ public class SovrenClient {
      * @param limit The maximum amount of suggested skills returned. The maximum amount allowed is 10. If not sure what value should be, provide 10 as default limit.
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkillsFromProfessions(List<Integer> professionCodeIds, int limit, String outputLanguage) throws SovrenException {
+    public SuggestSkillsResponse suggestSkillsFromProfessions(List<Integer> professionCodeIds, int limit, String outputLanguage) throws TxException {
         SuggestSkillsFromProfessionsRequest request = new SuggestSkillsFromProfessionsRequest();
         request.ProfessionCodeIds = professionCodeIds;
         request.Limit = limit;
@@ -1689,9 +1689,9 @@ public class SovrenClient {
      * @param professionCodeIds  The code IDs of the professions to suggest skills for.
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkillsFromProfessions(List<Integer> professionCodeIds, String outputLanguage) throws SovrenException {
+    public SuggestSkillsResponse suggestSkillsFromProfessions(List<Integer> professionCodeIds, String outputLanguage) throws TxException {
         return suggestSkillsFromProfessions(professionCodeIds, 10, outputLanguage);
     }
 
@@ -1700,9 +1700,9 @@ public class SovrenClient {
      * @param resume The resume to suggest skills for (based on the professions in the resume).
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedResume resume, String outputLanguage) throws SovrenException {
+    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedResume resume, String outputLanguage) throws TxException {
         if(resume != null && resume.EmploymentHistory != null && resume.EmploymentHistory.Positions != null){
             List<Integer> normalizedProfs = new ArrayList<Integer>();
             for(Position position: resume.EmploymentHistory.Positions){
@@ -1722,9 +1722,9 @@ public class SovrenClient {
      * Suggests skills related to a resume based on the recent professions in the resume.
      * @param resume The resume to suggest skills for (based on the professions in the resume).
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedResume resume) throws SovrenException {
+    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedResume resume) throws TxException {
         return suggestSkillsFromProfessions(resume, null);
     }
 
@@ -1733,9 +1733,9 @@ public class SovrenClient {
      * @param job The resume to suggest skills for (based on the professions in the resume).
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedJob job, String outputLanguage) throws SovrenException {
+    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedJob job, String outputLanguage) throws TxException {
         if(job != null && job.JobTitles != null && job.JobTitles.NormalizedProfession != null && job.JobTitles.NormalizedProfession.Profession != null && job.JobTitles.NormalizedProfession.Profession.CodeId != null){
             List<Integer> ids = new ArrayList<Integer>();
             ids.add(job.JobTitles.NormalizedProfession.Profession.CodeId);
@@ -1749,9 +1749,9 @@ public class SovrenClient {
      * Suggests skills related to a job based on the profession title in the job.
      * @param job The resume to suggest skills for (based on the professions in the resume).
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedJob job) throws SovrenException {
+    public SuggestSkillsResponse suggestSkillsFromProfessions(ParsedJob job) throws TxException {
         return suggestSkillsFromProfessions(job, null);
     }
 
@@ -1784,14 +1784,14 @@ public class SovrenClient {
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO code</a>
      * @param weightSkillsByExperience Whether or not to give a higher weight to skills that the candidate has more experience with.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public SuggestProfessionsResponse suggestProfessionsFromSkills(
         ParsedResume resume,
         int limit,
         boolean returnMissingSkills,
         String outputLanguage,
-        boolean weightSkillsByExperience) throws SovrenException {
+        boolean weightSkillsByExperience) throws TxException {
         if(resume != null && resume.Skills != null && resume.Skills.Normalized != null && resume.Skills.Normalized.size() > 0){
             return suggestProfessionsFromSkills(getNormalizedSkillsFromResume(resume, weightSkillsByExperience), limit, returnMissingSkills, outputLanguage);
         }
@@ -1803,9 +1803,9 @@ public class SovrenClient {
      * @param resume The professions are suggested based on the <b>skills</b> within this resume. Defaults limit returned to 10 and does not return missing skills. Use another overload to specify these parameters.
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO code</a>
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SuggestProfessionsResponse suggestProfessionsFromSkills(ParsedResume resume, String outputLanguage) throws SovrenException {
+    public SuggestProfessionsResponse suggestProfessionsFromSkills(ParsedResume resume, String outputLanguage) throws TxException {
         return suggestProfessionsFromSkills(resume, 10, false, outputLanguage, true);
     }
 
@@ -1813,9 +1813,9 @@ public class SovrenClient {
      * Suggest professions based on the <b>skills</b> within a given resume.
      * @param resume The professions are suggested based on the <b>skills</b> within this resume. Defaults limit returned to 10 and does not return missing skills. Use another overload to specify these parameters.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SuggestProfessionsResponse suggestProfessionsFromSkills(ParsedResume resume) throws SovrenException {
+    public SuggestProfessionsResponse suggestProfessionsFromSkills(ParsedResume resume) throws TxException {
         return suggestProfessionsFromSkills(resume, null);
     }
 
@@ -1826,9 +1826,9 @@ public class SovrenClient {
      * @param returnMissingSkills Flag to enable returning a list of missing skills per suggested profession.
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO code</a>
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SuggestProfessionsResponse suggestProfessionsFromSkills(ParsedJob job, int limit, boolean returnMissingSkills, String outputLanguage) throws SovrenException {
+    public SuggestProfessionsResponse suggestProfessionsFromSkills(ParsedJob job, int limit, boolean returnMissingSkills, String outputLanguage) throws TxException {
         if(job != null && job.Skills != null && job.Skills.Normalized != null && job.Skills.Normalized.size() > 0){
             List<SkillScore> skills = new ArrayList<SkillScore>();
             int amountOfSkills = job.Skills.Normalized.size() > 50 ? 50 : job.Skills.Normalized.size();
@@ -1846,9 +1846,9 @@ public class SovrenClient {
      * @param job The professions are suggested based on the <b>skills</b> within this job. Defaults limit returned to 10 and does not return missing skills. Use another overload to specify these parameters.
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO code</a>
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SuggestProfessionsResponse suggestProfessionsFromSkills(ParsedJob job, String outputLanguage) throws SovrenException {
+    public SuggestProfessionsResponse suggestProfessionsFromSkills(ParsedJob job, String outputLanguage) throws TxException {
         return suggestProfessionsFromSkills(job, 10, false, outputLanguage);
     }
 
@@ -1856,9 +1856,9 @@ public class SovrenClient {
      * Suggest professions based on the <b>skills</b> within a given job.
      * @param job The professions are suggested based on the <b>skills</b> within this job. Defaults limit returned to 10 and does not return missing skills. Use another overload to specify these parameters.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SuggestProfessionsResponse suggestProfessionsFromSkills(ParsedJob job) throws SovrenException {
+    public SuggestProfessionsResponse suggestProfessionsFromSkills(ParsedJob job) throws TxException {
         return suggestProfessionsFromSkills(job, null);
     }
 
@@ -1869,13 +1869,13 @@ public class SovrenClient {
      * @param returnMissingSkills Flag to enable returning a list of missing skills per suggested profession.
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO code</a>
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public SuggestProfessionsResponse suggestProfessionsFromSkills(
         List<SkillScore> skills,
         int limit,
         boolean returnMissingSkills,
-        String outputLanguage) throws SovrenException {
+        String outputLanguage) throws TxException {
         SuggestProfessionsRequest request = new SuggestProfessionsRequest();
         request.Skills = skills;
         request.Limit = limit;
@@ -1897,9 +1897,9 @@ public class SovrenClient {
      * @param skillIds The skill IDs used to return the most relevant professions. The list can contain up to 50 skill IDs. Defaults limit returned to 10 and does not return missing skills. Use another overload to specify these parameters.
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO code</a>
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SuggestProfessionsResponse suggestProfessionsFromSkills(List<String> skillIds, String outputLanguage) throws SovrenException {
+    public SuggestProfessionsResponse suggestProfessionsFromSkills(List<String> skillIds, String outputLanguage) throws TxException {
         List<SkillScore> skills = skillIds.stream()
             .map(s -> new SkillScore(s))
             .collect(Collectors.toList());
@@ -1914,12 +1914,12 @@ public class SovrenClient {
      * @param limit The maximum amount of suggested skills returned. The maximum is 25.
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public SuggestSkillsResponse suggestSkillsFromSkills(
         List<SkillScore> skills,
         int limit,
-        String outputLanguage) throws SovrenException {
+        String outputLanguage) throws TxException {
         SuggestSkillsFromSkillsRequest request = new SuggestSkillsFromSkillsRequest();
         request.Skills = skills;
         request.Limit = limit;
@@ -1942,9 +1942,9 @@ public class SovrenClient {
      * @param skillIds The skill IDs for which the service should return related skills. The list can contain up to 50 skills.
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkillsFromSkills(List<String> skillIds, String outputLanguage) throws SovrenException {
+    public SuggestSkillsResponse suggestSkillsFromSkills(List<String> skillIds, String outputLanguage) throws TxException {
         return suggestSkillsFromSkills(skillIds.stream().map(s -> new SkillScore(s)).collect(Collectors.toList()), 25, outputLanguage);
     }
 
@@ -1956,12 +1956,12 @@ public class SovrenClient {
      * @param limit The maximum amount of suggested skills returned. The maximum is 25.
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public SuggestSkillsResponse suggestSkillsFromSkills(
         ParsedJob job,
         int limit,
-        String outputLanguage) throws SovrenException {
+        String outputLanguage) throws TxException {
         if(job != null && job.Skills != null && job.Skills.Normalized != null && job.Skills.Normalized.size() > 0){
             List<SkillScore> skills = new ArrayList<SkillScore>();
             int amountOfSkills = job.Skills.Normalized.size() > 50 ? 50 : job.Skills.Normalized.size();
@@ -1981,9 +1981,9 @@ public class SovrenClient {
      * @param job The job to suggest skills for (based on the skills in the job).
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkillsFromSkills(ParsedJob job, String outputLanguage) throws SovrenException {
+    public SuggestSkillsResponse suggestSkillsFromSkills(ParsedJob job, String outputLanguage) throws TxException {
         return suggestSkillsFromSkills(job, 25, outputLanguage);
     }
 
@@ -1996,13 +1996,13 @@ public class SovrenClient {
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO code</a>
      * @param weightSkillsByExperience Whether or not to give a higher weight to skills that the candidate has more experience with.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public SuggestSkillsResponse suggestSkillsFromSkills(
         ParsedResume resume,
         int limit,
         String outputLanguage,
-        boolean weightSkillsByExperience) throws SovrenException {
+        boolean weightSkillsByExperience) throws TxException {
         return suggestSkillsFromSkills(getNormalizedSkillsFromResume(resume, weightSkillsByExperience), limit, outputLanguage);
     }
 
@@ -2013,9 +2013,9 @@ public class SovrenClient {
      * @param resume The resume to suggest skills for (based on the skills in the resume).
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SuggestSkillsResponse suggestSkillsFromSkills(ParsedResume resume, String outputLanguage) throws SovrenException {
+    public SuggestSkillsResponse suggestSkillsFromSkills(ParsedResume resume, String outputLanguage) throws TxException {
         return suggestSkillsFromSkills(resume, 25, outputLanguage, true);
     }
 
@@ -2026,9 +2026,9 @@ public class SovrenClient {
      * @param skillSetA A set of skills (and optionally, scores) to score against the other set of skills. The list can contain up to 50 skills.
      * @param skillSetB A set of skills (and optionally, scores) to score against the other set of skills. The list can contain up to 50 skills.
      * @return The API response body
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
-    public SkillsSimilarityScoreResponse skillsSimilarityScore(List<SkillScore> skillSetA, List<SkillScore> skillSetB) throws SovrenException {
+    public SkillsSimilarityScoreResponse skillsSimilarityScore(List<SkillScore> skillSetA, List<SkillScore> skillSetB) throws TxException {
         SkillsSimilarityScoreRequest request = new SkillsSimilarityScoreRequest();
         request.SkillsA = skillSetA;
         request.SkillsB = skillSetB;

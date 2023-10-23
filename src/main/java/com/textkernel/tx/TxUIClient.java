@@ -5,7 +5,7 @@
 
 package com.textkernel.tx;
 
-import com.textkernel.tx.exceptions.SovrenException;
+import com.textkernel.tx.exceptions.TxException;
 import com.textkernel.tx.models.api.bimetricscoring.*;
 import com.textkernel.tx.models.api.matching.*;
 import com.textkernel.tx.models.api.matching.request.FilterCriteria;
@@ -19,13 +19,13 @@ import com.textkernel.tx.models.resume.ParsedResume;
 
 import java.util.List;
 
-/** Extension methods to generate the Sovren Matching UI. Access with {@link SovrenClient#ui(MatchUISettings)}*/
-public class SovrenUIClient {
+/** Extension methods to generate the Sovren Matching UI. Access with {@link TxClient#ui(MatchUISettings)}*/
+public class TxUIClient {
 
     private final MatchUISettings _uiSessionOptions;
-    private final SovrenClient _client;
+    private final TxClient _client;
 
-    SovrenUIClient(MatchUISettings uiOptions, SovrenClient client) {
+    TxUIClient(MatchUISettings uiOptions, TxClient client) {
         _uiSessionOptions = uiOptions;
         _client = client;
     }
@@ -41,7 +41,7 @@ public class SovrenUIClient {
      * @param settings The settings for this match request. Use {@code null} for defaults.
      * @param numResults The number of results to show. Use {@code 0} for the default.
      * @return The response containing a URL for the Matching UI session
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public GenerateUIResponse match(
             ParsedResume resume,
@@ -49,7 +49,7 @@ public class SovrenUIClient {
             CategoryWeights preferredWeights,
             FilterCriteria filters,
             SearchMatchSettings settings,
-            int numResults) throws SovrenException {
+            int numResults) throws TxException {
 
         MatchResumeRequest request = _client.createRequest(resume, indexesToQuery, preferredWeights, filters, settings, numResults);
         UIMatchResumeRequest uiRequest = new UIMatchResumeRequest(request, _uiSessionOptions);
@@ -67,7 +67,7 @@ public class SovrenUIClient {
      * @param settings The settings for this match request. Use {@code null} for defaults.
      * @param numResults The number of results to show. Use {@code 0} for the default.
      * @return The response containing a URL for the Matching UI session
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public GenerateUIResponse match(
             ParsedJob job,
@@ -75,7 +75,7 @@ public class SovrenUIClient {
             CategoryWeights preferredWeights,
             FilterCriteria filters,
             SearchMatchSettings settings,
-            int numResults) throws SovrenException {
+            int numResults) throws TxException {
 
         MatchJobRequest request = _client.createRequest(job, indexesToQuery, preferredWeights, filters, settings, numResults);
         UIMatchJobRequest uiRequest = new UIMatchJobRequest(request, _uiSessionOptions);
@@ -94,7 +94,7 @@ public class SovrenUIClient {
      * @param settings The settings for this match request. Use {@code null} for defaults.
      * @param numResults The number of results to show. Use {@code 0} for the default.
      * @return The response containing a URL for the Matching UI session
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public GenerateUIResponse match(
             String indexId,
@@ -103,7 +103,7 @@ public class SovrenUIClient {
             CategoryWeights preferredWeights,
             FilterCriteria filters,
             SearchMatchSettings settings,
-            int numResults) throws SovrenException {
+            int numResults) throws TxException {
 
         MatchByDocumentIdOptions request = _client.createRequest(indexesToQuery, preferredWeights, filters, settings, numResults);
         UIMatchByDocumentIdOptions uiRequest = new UIMatchByDocumentIdOptions(request, _uiSessionOptions);
@@ -117,13 +117,13 @@ public class SovrenUIClient {
      * @param settings The settings for this search request. Use {@code null} for defaults.
      * @param pagination Pagination settings. Use {@code null} for defaults.
      * @return The response containing a URL for the Matching UI session
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public GenerateUIResponse search(
             List<String> indexesToQuery,
             FilterCriteria query,
             SearchMatchSettings settings,
-            PaginationSettings pagination) throws SovrenException {
+            PaginationSettings pagination) throws TxException {
 
         SearchRequest request = _client.createRequest(indexesToQuery, query, settings, pagination);
         UISearchRequest uiRequest = new UISearchRequest(request, _uiSessionOptions);
@@ -140,13 +140,13 @@ public class SovrenUIClient {
      * Sovren will determine the best values based on the source resume.
      * @param settings The settings for this search request. Use {@code null} for defaults.
      * @return The response containing a URL for the Matching UI session
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public <TTarget extends IParsedDocWithId> GenerateUIResponse bimetricScore(
             ParsedResumeWithId sourceResume,
             List<TTarget> targetDocuments,
             CategoryWeights preferredWeights,
-            SearchMatchSettings settings) throws SovrenException {
+            SearchMatchSettings settings) throws TxException {
         BimetricScoreResumeRequest request = _client.createRequest(sourceResume, targetDocuments, preferredWeights, settings);
         UIBimetricScoreResumeRequest uiRequest = new UIBimetricScoreResumeRequest(request, _uiSessionOptions);
         return _client.uiBimetricScore(uiRequest);
@@ -162,13 +162,13 @@ public class SovrenUIClient {
      * Sovren will determine the best values based on the source job.
      * @param settings The settings for this search request. Use {@code null} for defaults.
      * @return The response containing a URL for the Matching UI session
-     * @throws SovrenException Thrown when an API error occurs
+     * @throws TxException Thrown when an API error occurs
      */
     public <TTarget extends IParsedDocWithId> GenerateUIResponse bimetricScore(
             ParsedJobWithId sourceJob,
             List<TTarget> targetDocuments,
             CategoryWeights preferredWeights,
-            SearchMatchSettings settings) throws SovrenException {
+            SearchMatchSettings settings) throws TxException {
         BimetricScoreJobRequest request = _client.createRequest(sourceJob, targetDocuments, preferredWeights, settings);
         UIBimetricScoreJobRequest uiRequest = new UIBimetricScoreJobRequest(request, _uiSessionOptions);
         return _client.uiBimetricScore(uiRequest);

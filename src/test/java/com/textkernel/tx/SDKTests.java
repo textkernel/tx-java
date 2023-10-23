@@ -5,7 +5,7 @@
 
 package com.textkernel.tx;
 
-import com.textkernel.tx.exceptions.SovrenException;
+import com.textkernel.tx.exceptions.TxException;
 import com.textkernel.tx.models.api.matching.request.FilterCriteria;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,12 +16,12 @@ public class SDKTests extends TestBase {
     @Test
     public void test404Message(){
         DataCenter fakeDC = new DataCenter("https://rest.resumeparsing.com/v9/fake");
-        SovrenClient client = new SovrenClient("1234", "1234", fakeDC);
+        TxClient client = new TxClient("1234", "1234", fakeDC);
         
         try {
             client.getAccountInfo();
         }
-        catch (SovrenException e){
+        catch (TxException e){
             assertEquals(404, e.HttpStatusCode);
         }
     }
@@ -29,12 +29,12 @@ public class SDKTests extends TestBase {
     @Test
     public void test500Message(){
         DataCenter fakeDC = new DataCenter("https://thisisnotarealurlatall-akmeaoiaefoij.com/");
-        SovrenClient client = new SovrenClient("1234", "1234", fakeDC);
+        TxClient client = new TxClient("1234", "1234", fakeDC);
         
         try {
             client.getAccountInfo();
         }
-        catch (SovrenException e){
+        catch (TxException e){
             assertEquals(500, e.HttpStatusCode);
             //this message is very dependent upon test environment, so simply do not check it
         }
@@ -52,7 +52,7 @@ public class SDKTests extends TestBase {
     @Test
     public void testDebugRequestBody(){
         DataCenter fakeDC = new DataCenter("https://thisisnotarealurlatall-akmeaoiaefoij.com/");
-        SovrenClient client = new SovrenClient("1234", "1234", fakeDC);
+        TxClient client = new TxClient("1234", "1234", fakeDC);
         client.ShowFullRequestBodyInExceptions = true;
         
         try {
@@ -60,7 +60,7 @@ public class SDKTests extends TestBase {
             index.add("testIndex");
             client.search(index, new FilterCriteria(), null, null);
         }
-        catch (SovrenException e){
+        catch (TxException e){
             String expectedRequest = "{\"IndexIdsToSearchInto\":[\"testIndex\"],\"FilterCriteria\":{\"UserDefinedTagsMustAllExist\":false,\"HasPatents\":false,\"HasSecurityCredentials\":false,\"IsAuthor\":false,\"IsPublicSpeaker\":false,\"IsMilitary\":false,\"EmployersMustAllBeCurrentEmployer\":false,\"SkillsMustAllExist\":false,\"IsTopStudent\":false,\"IsCurrentStudent\":false,\"IsRecentGraduate\":false,\"LanguagesKnownMustAllExist\":false}}";
             assertEquals(expectedRequest, e.RequestBody);
         }

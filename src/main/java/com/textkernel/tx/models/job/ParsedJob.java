@@ -15,10 +15,10 @@ import java.util.List;
 import com.google.gson.JsonParseException;
 import com.textkernel.tx.models.Location;
 import com.textkernel.tx.models.ParsedDocument;
-import com.textkernel.tx.models.SovrenPrimitive;
+import com.textkernel.tx.models.TxPrimitive;
 import com.textkernel.tx.models.job.skills.JobTaxonomyRoot;
 import com.textkernel.tx.models.job.skills.JobV2Skills;
-import com.textkernel.tx.utilities.SovrenJsonSerializer;
+import com.textkernel.tx.utilities.TxJsonSerializer;
 import com.textkernel.tx.models.api.parsing.SkillsSettings;
 
 /**
@@ -30,7 +30,7 @@ public class ParsedJob extends ParsedDocument {
     public boolean CurrentJobIsManagement;
     
     /** The management score. Used by Sovren for AI Matching*/
-    public SovrenPrimitive<Integer> HighestManagementScore;
+    public TxPrimitive<Integer> HighestManagementScore;
     
     /** The management level. Used by Sovren for AI Matching*/
     public String ManagementLevel;
@@ -39,25 +39,25 @@ public class ParsedJob extends ParsedDocument {
     public String ExecutiveType;
     
     /** The minimum years experience for the job, if listed. Used by Sovren for AI Matching*/
-    public SovrenPrimitive<Integer> MinimumYears;
+    public TxPrimitive<Integer> MinimumYears;
     
     /** The maximum years experience for the job, if listed. Used by Sovren for AI Matching*/
-    public SovrenPrimitive<Integer> MaximumYears;
+    public TxPrimitive<Integer> MaximumYears;
     
     /** The minimum years of management experience, if listed. Used by Sovren for AI Matching*/
-    public SovrenPrimitive<Integer> MinimumYearsManagement;
+    public TxPrimitive<Integer> MinimumYearsManagement;
     
     /** The maximum years of management experience, if listed. Used by Sovren for AI Matching*/
-    public SovrenPrimitive<Integer> MaximumYearsManagement;
+    public TxPrimitive<Integer> MaximumYearsManagement;
     
     /** The required educational degree, if listed. Used by Sovren for AI Matching*/
     public String RequiredDegree;
     
     /** The start date of the job.*/
-    public SovrenPrimitive<LocalDate> StartDate;
+    public TxPrimitive<LocalDate> StartDate;
     
     /** The end date for the job, if listed.*/
-    public SovrenPrimitive<LocalDate> EndDate;
+    public TxPrimitive<LocalDate> EndDate;
     
     /** Section containing information about the job. Job description strictly includes duties, tasks, and responsibilities for the role with as little irrelevant text as possible.*/
     public String JobDescription;
@@ -108,10 +108,10 @@ public class ParsedJob extends ParsedDocument {
     public PayRange Salary;
 
     /** The minimum number of working hours per week*/
-    public SovrenPrimitive<Integer> MinimumWorkingHours;
+    public TxPrimitive<Integer> MinimumWorkingHours;
 
     /** The maximum number of working hours per week*/
-    public SovrenPrimitive<Integer> MaximumWorkingHours;
+    public TxPrimitive<Integer> MaximumWorkingHours;
 
     /**
     * The type of working hours. One of:
@@ -212,7 +212,7 @@ public class ParsedJob extends ParsedDocument {
      * @throws JsonParseException If you try to parse an invalid ParsedResume JSON string
      */
     public static ParsedJob fromJson(String utf8json) throws JsonParseException {
-        ParsedJob newJob = SovrenJsonSerializer.deserialize(utf8json, ParsedJob.class);
+        ParsedJob newJob = TxJsonSerializer.deserialize(utf8json, ParsedJob.class);
 
         if (newJob.JobMetadata == null) {
             //this should never happen, it was bad json

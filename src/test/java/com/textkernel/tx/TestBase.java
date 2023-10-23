@@ -8,7 +8,7 @@ package com.textkernel.tx;
 import com.google.gson.Gson;
 import com.textkernel.tx.models.Document;
 import com.textkernel.tx.models.Location;
-import com.textkernel.tx.models.SovrenDate;
+import com.textkernel.tx.models.TxDate;
 import com.textkernel.tx.models.api.geocoding.GeocodeCredentials;
 import com.textkernel.tx.models.api.geocoding.GeocodeProvider;
 import com.textkernel.tx.models.api.parsing.ParseJobResponseValue;
@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class TestBase {
-    protected static SovrenClient Client;
+    protected static TxClient Client;
     protected static GeocodeCredentials GeocodeCredentials;
 
     protected static ParsedResume TestParsedResume;
@@ -63,7 +63,7 @@ public abstract class TestBase {
             GeocodeCredentials.Provider = GeocodeProvider.Google;
             GeocodeCredentials.ProviderKey = data.GeocodeProviderKey;
 
-            Client = new SovrenClient(data.AccountId, data.ServiceKey, TestDataCenter.Local);
+            Client = new TxClient(data.AccountId, data.ServiceKey, TestDataCenter.Local);
 
             ParseResumeResponseValue parseResumeResponseValue = Client.parseResume(new ParseRequest(TestData.Resume, null)).Value;
             TestParsedResume = parseResumeResponseValue.ResumeData;
@@ -111,7 +111,7 @@ public abstract class TestBase {
         catch (Exception e) { }
     }
     
-    public void assertDateNotNull(SovrenDate date) {
+    public void assertDateNotNull(TxDate date) {
         assertNotNull(date);
         assertNotNull(date.Date);
     }

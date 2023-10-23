@@ -8,8 +8,8 @@ package com.textkernel.tx.models.resume.education;
 import java.util.List;
 import com.textkernel.tx.models.resume.NormalizedString;
 import com.textkernel.tx.models.Location;
-import com.textkernel.tx.models.SovrenDate;
-import com.textkernel.tx.models.SovrenPrimitive;
+import com.textkernel.tx.models.TxDate;
+import com.textkernel.tx.models.TxPrimitive;
 
 /**
 * An education entry on a resume
@@ -60,14 +60,14 @@ public class EducationDetails {
     /** The date graduated or education ended
      * @deprecated use {@link #EndDate} instead
     */
-    public SovrenDate LastEducationDate;
+    public TxDate LastEducationDate;
 
     /** The date education started*/
-    public SovrenDate StartDate;
+    public TxDate StartDate;
 
     /** The date graduated or education ended*/
-    public SovrenDate EndDate;
+    public TxDate EndDate;
     
     /** Whether or not the candidate graduated*/
-    public SovrenPrimitive<Boolean> Graduated;
+    public TxPrimitive<Boolean> Graduated;
 }

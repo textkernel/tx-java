@@ -5,9 +5,9 @@
 
 package com.textkernel.tx.integration;
 
-import com.textkernel.tx.SovrenErrorCodes;
+import com.textkernel.tx.TxErrorCodes;
 import com.textkernel.tx.TestBase;
-import com.textkernel.tx.exceptions.SovrenException;
+import com.textkernel.tx.exceptions.TxException;
 import com.textkernel.tx.models.api.indexes.UserDefinedTagsMethod;
 import com.textkernel.tx.models.api.matching.SearchResponseValue;
 import com.textkernel.tx.models.api.matching.request.FilterCriteria;
@@ -39,7 +39,7 @@ public class IndexTests extends TestBase {
         try {
             indexes = Client.getAllIndexes().Value;
         }
-        catch (SovrenException e) {
+        catch (TxException e) {
             return false;
         }
 
@@ -93,11 +93,11 @@ public class IndexTests extends TestBase {
             delayForIndexSync();
 
             // create index already exists
-            SovrenException sovrenException = assertThrows(SovrenException.class, () -> {
+            TxException sovrenException = assertThrows(TxException.class, () -> {
                 Client.createIndex(indexType, indexName);
             });
 
-            assertEquals(SovrenErrorCodes.DuplicateAsset, sovrenException.SovrenErrorCode);
+            assertEquals(TxErrorCodes.DuplicateAsset, sovrenException.SovrenErrorCode);
 
             // verify index created
             assertTrue(doesIndexExist(indexName));
@@ -113,11 +113,11 @@ public class IndexTests extends TestBase {
             assertFalse(doesIndexExist(indexName));
 
             // try to delete an index that doesn't exist
-            sovrenException = assertThrows(SovrenException.class, () -> {
+            sovrenException = assertThrows(TxException.class, () -> {
                 Client.deleteIndex(indexName);
             });
-            assertEquals(SovrenErrorCodes.DataNotFound, sovrenException.SovrenErrorCode);
-        } catch (SovrenException e) {
+            assertEquals(TxErrorCodes.DataNotFound, sovrenException.SovrenErrorCode);
+        } catch (TxException e) {
         } finally {
             // clean up assets in case the test failed someone before the delete calls were executed
             cleanUpIndex(indexName);
@@ -126,31 +126,31 @@ public class IndexTests extends TestBase {
     }
 
     @Test
-    public void testResumeLifeCycle() throws SovrenException {
+    public void testResumeLifeCycle() throws TxException {
         final String documentId = "1";
         try {
             // verify can't retrieve a document that doesn't exist
-            SovrenException sovrenException = assertThrows(SovrenException.class, () -> {
+            TxException sovrenException = assertThrows(TxException.class, () -> {
                 Client.getResume(resumeIndexId, documentId);
             });
 
-            assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);
+            assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
             // verify can't add document to an index that doesn't exist
-            sovrenException = assertThrows(SovrenException.class, () -> {
+            sovrenException = assertThrows(TxException.class, () -> {
                 Client.indexDocument(TestParsedResume, resumeIndexId, documentId, null);
             });
-            assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);
+            assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
             // create the index
             Client.createIndex(IndexType.Resume, resumeIndexId);
             delayForIndexSync();
 
             // verify document still doesn't exist
-            sovrenException = assertThrows(SovrenException.class, () -> {
+            sovrenException = assertThrows(TxException.class, () -> {
                     Client.getResume(resumeIndexId, documentId);
             });
-            assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);
+            assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
             // add resume to index
             Client.indexDocument(TestParsedResume, resumeIndexId, documentId, null);
@@ -204,25 +204,25 @@ public class IndexTests extends TestBase {
             delayForIndexSync();
 
             // verify can't retrieve a document that doesn't exist
-            sovrenException = assertThrows(SovrenException.class, () -> {
+            sovrenException = assertThrows(TxException.class, () -> {
                     Client.getResume(resumeIndexId, documentId);
             });
-            assertEquals(SovrenErrorCodes.DataNotFound, sovrenException.SovrenErrorCode);
+            assertEquals(TxErrorCodes.DataNotFound, sovrenException.SovrenErrorCode);
 
-            sovrenException = assertThrows(SovrenException.class, () -> {
+            sovrenException = assertThrows(TxException.class, () -> {
                     Client.deleteDocument(resumeIndexId, documentId);
             });
-            assertEquals(SovrenErrorCodes.DataNotFound, sovrenException.SovrenErrorCode);
+            assertEquals(TxErrorCodes.DataNotFound, sovrenException.SovrenErrorCode);
 
             Client.deleteIndex(resumeIndexId);
             delayForIndexSync();
 
-            sovrenException = assertThrows(SovrenException.class, () -> {
+            sovrenException = assertThrows(TxException.class, () -> {
                     Client.deleteDocument(resumeIndexId, documentId);
             });
-            assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);
+            assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
         }
-        catch(SovrenException e) { throw e; }
+        catch(TxException e) { throw e; }
         finally {
             cleanUpIndex(resumeIndexId);
         }
@@ -233,26 +233,26 @@ public class IndexTests extends TestBase {
         final String documentId = "1";
         try {
             // verify can't retrieve a document that doesn't exist
-            assertThrows(SovrenException.class, () -> {
+            assertThrows(TxException.class, () -> {
                     Client.getJob(jobIndexId, documentId);
             });
-            assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);
+            assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
             // verify can't add document to an index that doesn't exist
-            assertThrows(SovrenException.class, () -> {
+            assertThrows(TxException.class, () -> {
                     Client.indexDocument(TestParsedJob, jobIndexId, documentId, null);
             });
-            assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);
+            assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
             // create the index
             Client.createIndex(IndexType.Job, jobIndexId);
             delayForIndexSync();
 
             // verify document still doesn't exist
-            assertThrows(SovrenException.class, () -> {
+            assertThrows(TxException.class, () -> {
                     Client.getJob(jobIndexId, documentId);
             });
-            assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);
+            assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
             // add resume to index
             Client.indexDocument(TestParsedJob, jobIndexId, documentId, null);
@@ -299,25 +299,25 @@ public class IndexTests extends TestBase {
             delayForIndexSync();
 
             // verify can't retrieve a document that doesn't exist
-            assertThrows(SovrenException.class, () -> {
+            assertThrows(TxException.class, () -> {
                     Client.getJob(jobIndexId, documentId);
             });
-            assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);
+            assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
-            assertThrows(SovrenException.class, () -> {
+            assertThrows(TxException.class, () -> {
                     Client.deleteDocument(jobIndexId, documentId);
             });
-            assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);
+            assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
             Client.deleteIndex(jobIndexId);
             delayForIndexSync();
 
-            assertThrows(SovrenException.class, () -> {
+            assertThrows(TxException.class, () -> {
                     Client.deleteDocument(jobIndexId, documentId);
             });
-            assertEquals(SovrenErrorCodes.DataNotFound, SovrenErrorCodes.DataNotFound);
+            assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
         }
-        catch (SovrenException e) {}
+        catch (TxException e) {}
         finally {
             cleanUpIndex(jobIndexId);
         }

@@ -6,14 +6,14 @@
 package com.textkernel.tx.exceptions;
 
 import com.textkernel.tx.models.api.ApiResponseInfoLite;
-import com.textkernel.tx.models.api.parsing.ParseJobResponse;
+import com.textkernel.tx.models.api.parsing.ParseResumeResponse;
 import okhttp3.Response;
 
 /**
- * This exception is thrown when an error happens during indexing, but the service was still able to produce a usable Job object (see the {@link Response} property)
+ * This exception is thrown when an error happens during indexing, but the service was still able to produce a usable Resume object (see the {@link Response} property)
  */
-public class SovrenProfessionNormalizationJobException extends SovrenUsableJobException {
-    public SovrenProfessionNormalizationJobException(Response response, ApiResponseInfoLite errorInfo, String transactionId, ParseJobResponse parseResponse) {
+public class TxIndexResumeException extends TxUsableResumeException {
+    public TxIndexResumeException(Response response, ApiResponseInfoLite errorInfo, String transactionId, ParseResumeResponse parseResponse) {
         super(response, errorInfo, transactionId, parseResponse);
     }
 }

@@ -6,7 +6,7 @@
 package com.textkernel.tx.integration;
 
 import com.textkernel.tx.TestBase;
-import com.textkernel.tx.exceptions.SovrenException;
+import com.textkernel.tx.exceptions.TxException;
 import com.textkernel.tx.models.api.bimetricscoring.ParsedJobWithId;
 import com.textkernel.tx.models.api.bimetricscoring.ParsedResumeWithId;
 import org.junit.jupiter.api.Test;
@@ -32,15 +32,15 @@ public class BimetricScoringTests extends TestBase {
 
     @Test
     public void testBimetricScoringResume() {
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.bimetricScore(new ParsedResumeWithId(), new ArrayList<ParsedResumeWithId>(), null, null);
         });
 
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.bimetricScore(TestParsedResumeWithId, new ArrayList<ParsedResumeWithId>(), null, null);
         });
 
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             List<ParsedResumeWithId> list = new ArrayList<>();
             list.add(TestParsedResumeWithId);
             Client.bimetricScore(new ParsedResumeWithId(), list, null, null);
@@ -55,15 +55,15 @@ public class BimetricScoringTests extends TestBase {
 
     @Test
     public void testBimetricScoringJob() {
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.bimetricScore(new ParsedJobWithId(), new ArrayList<ParsedJobWithId>(), null, null);
         });
 
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.bimetricScore(TestParsedJobWithId, new ArrayList<ParsedJobWithId>(), null, null);
         });
 
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             List<ParsedJobWithId> list = new ArrayList<>();
             list.add(TestParsedJobWithId);
             Client.bimetricScore(new ParsedJobWithId(), list, null, null);

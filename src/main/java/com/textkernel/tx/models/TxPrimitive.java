@@ -8,7 +8,7 @@ package com.textkernel.tx.models;
 /**
 * Represents a native type (int, boolean, etc) that can have a value or be null
 */
-public class SovrenPrimitive<T> {
+public class TxPrimitive<T> {
     /**
      * The value for this object
      */

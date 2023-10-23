@@ -6,7 +6,7 @@
 package com.textkernel.tx.models.api.parsing;
 
 import com.textkernel.tx.models.api.ApiResponseInfo;
-import com.textkernel.tx.models.SovrenPrimitive;
+import com.textkernel.tx.models.TxPrimitive;
 
 /**
 * Metadata about a parsing transaction
@@ -26,7 +26,7 @@ public class ParsingMetadata {
     public boolean TimedOut;
     
     /** If {@link #TimedOut} is {@code true}, this is how much time was spent parsing before the timeout occurred */
-    public SovrenPrimitive<Integer> TimedOutAtMilliseconds;
+    public TxPrimitive<Integer> TimedOutAtMilliseconds;
 
     /** For self-hosted customers only. The serial number of the current license being used for parsing. */
     public String LicenseSerialNumber;

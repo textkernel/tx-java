@@ -6,7 +6,7 @@
 package com.textkernel.tx.exceptions;
 
 import okhttp3.Response;
-import com.textkernel.tx.SovrenClient;
+import com.textkernel.tx.TxClient;
 import com.textkernel.tx.models.api.ApiResponseInfo;
 import com.textkernel.tx.models.api.ApiResponseInfoLite;
 import java.util.Optional;
@@ -14,7 +14,7 @@ import java.util.Optional;
 /**
  * The most generic exception thrown by the SDK as a result of an error response from the API
  */
-public class SovrenException extends Exception {
+public class TxException extends Exception {
     
     /** The raw response from the API */
     public Response RestResponse;
@@ -28,13 +28,13 @@ public class SovrenException extends Exception {
     /** The Id of the transaction, use this when reporting errors to Sovren Support*/
     public String TransactionId;
     
-    /** The JSON request body, will only have a value if {@link SovrenClient#ShowFullRequestBodyInExceptions} is {@code true}*/
+    /** The JSON request body, will only have a value if {@link TxClient#ShowFullRequestBodyInExceptions} is {@code true}*/
     public String RequestBody;
     
     /** If this exception was caused by another exception, the root cause will be here.*/
     public Exception InnerException;
     
-    public SovrenException(String requestBody, Response response, ApiResponseInfoLite errorInfo, String transactionId) {
+    public TxException(String requestBody, Response response, ApiResponseInfoLite errorInfo, String transactionId) {
         super(Optional.ofNullable(errorInfo).map(e -> e.Message).orElse("Invalid response object from API"));
         
         RestResponse = response;
@@ -44,7 +44,7 @@ public class SovrenException extends Exception {
         RequestBody = requestBody;
     }
     
-    public SovrenException(String requestBody, Response response, ApiResponseInfo errorInfo) {
+    public TxException(String requestBody, Response response, ApiResponseInfo errorInfo) {
         this(requestBody, response, errorInfo, errorInfo.TransactionId);
     }
 }

@@ -63,7 +63,7 @@ public class ParsingTests extends TestBase {
 
     @Test
     public void testLargeDocumentParse() {
-        SovrenException e = assertThrows(SovrenException.class, () -> {
+        TxException e = assertThrows(TxException.class, () -> {
                 Client.parseResume(new ParseRequest(new Document(new byte[20_000_000], LocalDate.now()), null));
             });
 
@@ -124,8 +124,8 @@ public class ParsingTests extends TestBase {
     @Test
     public void verifyParseResumeGeocodeError() throws Exception
     {
-        SovrenGeocodeResumeException e = 
-                assertThrows(SovrenGeocodeResumeException.class, () -> {
+        TxGeocodeResumeException e = 
+                assertThrows(TxGeocodeResumeException.class, () -> {
                     ParseOptions opts = new ParseOptions();
                     opts.GeocodeOptions = new GeocodeOptions();
                     opts.GeocodeOptions.IncludeGeocoding = true;
@@ -171,7 +171,7 @@ public class ParsingTests extends TestBase {
     }
     
     @Test
-    public void testParseResumeGeocodeIndex() throws SovrenException {
+    public void testParseResumeGeocodeIndex() throws TxException {
         String indexId = "SDK-testParseResumeGeocodeIndex";
         String documentId = "1";
     
@@ -182,7 +182,7 @@ public class ParsingTests extends TestBase {
         indexingOptions.IndexId = indexId;
     
         // since there isn't an address this will throw an exception
-        assertThrows(SovrenGeocodeResumeException.class, () -> {
+        assertThrows(TxGeocodeResumeException.class, () -> {
             ParseRequest request = new ParseRequest(TestData.Resume, null);
             request.GeocodeOptions = geocodeOptions;
             request.IndexingOptions = indexingOptions;
@@ -191,7 +191,7 @@ public class ParsingTests extends TestBase {
     
     
         // confirm you can geocode but indexing fails
-        assertThrows(SovrenIndexResumeException.class, () -> {
+        assertThrows(TxIndexResumeException.class, () -> {
             ParseRequest request = new ParseRequest(TestData.ResumeWithAddress, null);
             request.GeocodeOptions = geocodeOptions;
             request.IndexingOptions = indexingOptions;
@@ -216,7 +216,7 @@ public class ParsingTests extends TestBase {
             delayForIndexSync();
             Client.getResume(indexId, documentId);
         }
-        catch (SovrenException e) { throw e; }
+        catch (TxException e) { throw e; }
         finally {
             cleanUpIndex(indexId);
         }
@@ -305,7 +305,7 @@ public class ParsingTests extends TestBase {
     }
 
     @Test
-    public void testParseJobGeocodeIndex() throws SovrenException {
+    public void testParseJobGeocodeIndex() throws TxException {
         String indexId = "SDK-testparseJobGeocodeIndex";
         String documentId = "1";
 
@@ -316,7 +316,7 @@ public class ParsingTests extends TestBase {
         indexingOptions.IndexId = indexId;
     
         // since there isn't an address this will throw an exception
-        assertThrows(SovrenGeocodeJobException.class, () -> {
+        assertThrows(TxGeocodeJobException.class, () -> {
             ParseRequest request = new ParseRequest(TestData.JobOrder, null);
             request.GeocodeOptions = geocodeOptions;
             request.IndexingOptions = indexingOptions;
@@ -324,7 +324,7 @@ public class ParsingTests extends TestBase {
         });
     
         // confirm you can geocode but indexing fails
-        assertThrows(SovrenIndexJobException.class, () -> {
+        assertThrows(TxIndexJobException.class, () -> {
             ParseRequest request = new ParseRequest(TestData.JobOrderWithAddress, null);
             request.GeocodeOptions = geocodeOptions;
             request.IndexingOptions = indexingOptions;
@@ -349,14 +349,14 @@ public class ParsingTests extends TestBase {
             delayForIndexSync();
             Client.getJob(indexId, documentId);
         }
-        catch (SovrenException e) { throw e; }
+        catch (TxException e) { throw e; }
         finally {
             cleanUpIndex(indexId);
         }
     }
 
     @Test
-    public void testSkillsData() throws SovrenException {
+    public void testSkillsData() throws TxException {
         ParseResumeResponseValue response = Client.parseResume(new ParseRequest(TestData.Resume, null)).Value;
     
         assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(0).MonthsExperience.Value, 12);
@@ -366,7 +366,7 @@ public class ParsingTests extends TestBase {
     }
 
     @Test
-    public void testPersonalInfo() throws SovrenException {
+    public void testPersonalInfo() throws TxException {
         ParseResumeResponseValue response = Client.parseResume(new ParseRequest(TestData.ResumePersonalInformation, null)).Value;
     
         assertNotNull(response.ResumeData.PersonalAttributes.Birthplace);
@@ -382,7 +382,7 @@ public class ParsingTests extends TestBase {
     }
 
     @Test
-    public void testResumeQuality() throws SovrenException, IOException {
+    public void testResumeQuality() throws TxException, IOException {
         Document document = getTestFileAsDocument("resume.docx");
         ParseResumeResponseValue response = Client.parseResume(new ParseRequest(document, null)).Value;
     

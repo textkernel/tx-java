@@ -6,7 +6,7 @@
 package com.textkernel.tx.models.job;
 
 import java.time.LocalDate;
-import com.textkernel.tx.models.SovrenPrimitive;
+import com.textkernel.tx.models.TxPrimitive;
 
 /**
 * An object containing details about the application process
@@ -29,10 +29,10 @@ public class ApplicationDetails {
     public String Website;
     
     /** Deadline to apply for the job*/
-    public SovrenPrimitive<LocalDate> ApplicationDeadline;
+    public TxPrimitive<LocalDate> ApplicationDeadline;
 
     /** Date the job was posted*/
-    public SovrenPrimitive<LocalDate> PostedDate;
+    public TxPrimitive<LocalDate> PostedDate;
 
     /** Any reference number found for the job application*/
     public String ReferenceNumber;

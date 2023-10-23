@@ -5,7 +5,7 @@
 
 package com.textkernel.tx;
 
-public class SovrenErrorCodes {
+public class TxErrorCodes {
     public static final String InvalidParameter = "InvalidParameter";
     public static final String MissingParameter = "MissingParameter";
     public static final String DuplicateAsset = "DuplicateAsset";

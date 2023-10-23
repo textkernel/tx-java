@@ -5,7 +5,7 @@
 
 package com.textkernel.tx.models.job;
 
-import com.textkernel.tx.models.SovrenPrimitive;
+import com.textkernel.tx.models.TxPrimitive;
 
 /**
 * An object containing details about a job position's pay.
@@ -13,10 +13,10 @@ import com.textkernel.tx.models.SovrenPrimitive;
 public class PayRange {
     
     /** The normalized minimum yearly salary*/
-    public SovrenPrimitive<Integer> Minimum;
+    public TxPrimitive<Integer> Minimum;
 
     /** The normalized maximum yearly salary*/
-    public SovrenPrimitive<Integer> Maximum;
+    public TxPrimitive<Integer> Maximum;
 
     /** The raw, un-normalized, minimum value. This is returned as is in the text, so there is no guarantee that it will evaluate to a valid number and not a string.*/
     public String RawMinimum;

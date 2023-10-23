@@ -21,7 +21,7 @@ import com.textkernel.tx.models.resume.skills.ResumeV2Skills;
 import com.textkernel.tx.models.resume.military.MilitaryDetails;
 import com.textkernel.tx.models.resume.military.SecurityCredential;
 import com.textkernel.tx.models.resume.metadata.ResumeMetadata;
-import com.textkernel.tx.utilities.SovrenJsonSerializer;
+import com.textkernel.tx.utilities.TxJsonSerializer;
 import com.textkernel.tx.models.api.parsing.SkillsSettings;
 
 /**
@@ -142,7 +142,7 @@ public class ParsedResume extends ParsedDocument {
      * @throws JsonParseException If you try to parse an invalid ParsedResume JSON string
      */
     public static ParsedResume fromJson(String utf8json) throws JsonParseException {
-        ParsedResume newResume = SovrenJsonSerializer.deserialize(utf8json, ParsedResume.class);
+        ParsedResume newResume = TxJsonSerializer.deserialize(utf8json, ParsedResume.class);
 
         if (newResume.ResumeMetadata == null) {
             //this should never happen, it was bad json

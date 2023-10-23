@@ -17,7 +17,7 @@ import com.google.gson.JsonSerializationContext;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 
-public class SovrenJsonSerializer {
+public class TxJsonSerializer {
 
     private static final Gson _prettyGson;
     private static final Gson _compactGson;

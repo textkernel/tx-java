@@ -6,7 +6,7 @@
 package com.textkernel.tx.models.resume;
 
 import java.util.List;
-import com.textkernel.tx.models.SovrenDate;
+import com.textkernel.tx.models.TxDate;
 
 /**
 * A training history found on a resume
@@ -25,8 +25,8 @@ public class TrainingDetails {
     public List<String> Qualifications;
 
     /** The date the training started*/
-    public SovrenDate StartDate;
+    public TxDate StartDate;
 
     /** The date the training ended*/
-    public SovrenDate EndDate;
+    public TxDate EndDate;
 }

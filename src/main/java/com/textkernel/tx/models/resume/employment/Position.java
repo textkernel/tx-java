@@ -6,8 +6,8 @@
 package com.textkernel.tx.models.resume.employment;
 
 import java.util.List;
-import com.textkernel.tx.models.SovrenDate;
-import com.textkernel.tx.models.SovrenPrimitive;
+import com.textkernel.tx.models.TxDate;
+import com.textkernel.tx.models.TxPrimitive;
 
 /**
 * A position/job on a resume
@@ -36,13 +36,13 @@ public class Position {
     public JobTitle JobTitle;
     
     /** The start date listed for this position*/
-    public SovrenDate StartDate;
+    public TxDate StartDate;
     
     /** The end date listed for this position*/
-    public SovrenDate EndDate;
+    public TxDate EndDate;
     
     /** How many employees were supervised in this position/job*/
-    public SovrenPrimitive<Integer> NumberEmployeesSupervised;
+    public TxPrimitive<Integer> NumberEmployeesSupervised;
     
     /**
      * The type of job. One of:

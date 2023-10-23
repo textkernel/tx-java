@@ -6,7 +6,7 @@
 package com.textkernel.tx.models.resume;
 
 import java.util.List;
-import com.textkernel.tx.models.SovrenDate;
+import com.textkernel.tx.models.TxDate;
 
 /**
 * Personal attributes found on a resume
@@ -26,7 +26,7 @@ public class PersonalAttributes {
     public Salary CurrentSalary;
 
     /** The date of birth given on the resume*/
-    public SovrenDate DateOfBirth;
+    public TxDate DateOfBirth;
 
     /** A driving license listed on the resume*/
     public String DrivingLicense;

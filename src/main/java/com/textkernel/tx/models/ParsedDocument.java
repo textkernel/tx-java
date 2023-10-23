@@ -5,7 +5,7 @@
 
 package com.textkernel.tx.models;
 
-import com.textkernel.tx.utilities.SovrenJsonSerializer;
+import com.textkernel.tx.utilities.TxJsonSerializer;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -24,7 +24,7 @@ public abstract class ParsedDocument {
      * <br><b>NOTE: be sure to save with UTF-8 encoding!</b>
      */
     public String toJson(boolean formatted) {
-        return SovrenJsonSerializer.serialize(this, formatted);
+        return TxJsonSerializer.serialize(this, formatted);
     }
 
     /**

@@ -6,7 +6,7 @@
 package com.textkernel.tx.models.api;
 
 /** The response body from a Sovren API call*/
-public class ApiResponse<T> implements ISovrenResponse {
+public class ApiResponse<T> implements ITxResponse {
 
     /** Contains information about the response and the customer*/
     public ApiResponseInfo Info;

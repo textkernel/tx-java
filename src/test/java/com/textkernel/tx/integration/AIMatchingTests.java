@@ -7,7 +7,7 @@ package com.textkernel.tx.integration;
 
 import com.textkernel.tx.TestBase;
 
-import com.textkernel.tx.exceptions.SovrenException;
+import com.textkernel.tx.exceptions.TxException;
 import com.textkernel.tx.models.api.matching.MatchResponseValue;
 import com.textkernel.tx.models.api.matching.SearchResponseValue;
 import com.textkernel.tx.models.api.matching.request.FilterCriteria;
@@ -45,7 +45,7 @@ public class AIMatchingTests extends TestBase {
     }
 
     @BeforeAll
-    static void setup() throws SovrenException {
+    static void setup() throws TxException {
         // create indexes
         Client.createIndex(IndexType.Job, _jobIndexId);
         Client.createIndex(IndexType.Resume, _resumeIndexId);
@@ -73,28 +73,28 @@ public class AIMatchingTests extends TestBase {
     @ParameterizedTest
     @MethodSource("provideSearchTerms")
     public void testSearch(String indexId, String validSearchTerm) {
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.search(null, null, null, null);
         });
 
         List<String> indexesToQuery = new ArrayList<>();
         indexesToQuery.add(indexId);
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.search(indexesToQuery, null, null, null);
         });
 
         FilterCriteria filterCritera = new FilterCriteria();
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.search(null, filterCritera, null, null);
         });
 
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             List<String> indexes = new ArrayList<>();
             indexes.add("fake-index-id");
             Client.search(indexes, filterCritera, null, null);
         });
 
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.search(indexesToQuery, filterCritera, null, null);
         });
 
@@ -118,7 +118,7 @@ public class AIMatchingTests extends TestBase {
     @Test
     public void testMatchJob()
     {
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.match(TestParsedJobTech, null, null, null, null, 0);
         });
 
@@ -139,7 +139,7 @@ public class AIMatchingTests extends TestBase {
 
     @Test
     public void testMatchResume() {
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.match(TestParsedResume, null, null, null, null, 0);
         });
 
@@ -188,11 +188,11 @@ public class AIMatchingTests extends TestBase {
             Client.match(_resumeIndexId, " ", _resumesIndexes, null, null, null, 0); ;
         });
 
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.match(_resumeIndexId, _documentId, null, null, null, null, 0); ;
         });
 
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.match(_resumeIndexId, _documentId, new ArrayList<String>(), null, null, null, 0); ;
         });
 
@@ -229,11 +229,11 @@ public class AIMatchingTests extends TestBase {
     public void TestMatchUISearch() {
         AtomicReference<GenerateUIResponse> uiResponse = new AtomicReference<>();
 
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.ui(null).search(null, null, null, null);
         });
 
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.ui(null).search(new ArrayList<String>(), null, null, null);
         });
 
@@ -248,7 +248,7 @@ public class AIMatchingTests extends TestBase {
     public void testMatchUIMatchJob() {
         AtomicReference<GenerateUIResponse> uiResponse = new AtomicReference<>();
 
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.ui(null).match(TestParsedJobTech, null, null, null, null, 0);
         });
 
@@ -269,7 +269,7 @@ public class AIMatchingTests extends TestBase {
     public void testMatchUIMatchResume() {
         AtomicReference<GenerateUIResponse> uiResponse = new AtomicReference<>();
 
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.ui(null).match(TestParsedResume, null, null, null, null, 0);
         });
 
@@ -314,11 +314,11 @@ public class AIMatchingTests extends TestBase {
             Client.ui(null).match(_resumeIndexId, " ", _resumesIndexes, null, null, null, 0); ;
         });
 
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.ui(null).match(_resumeIndexId, _documentId, null, null, null, null, 0); ;
         });
 
-        assertThrows(SovrenException.class, () -> {
+        assertThrows(TxException.class, () -> {
             Client.ui(null).match(_resumeIndexId, _documentId, new ArrayList<String>(), null, null, null, 0); ;
         });
 

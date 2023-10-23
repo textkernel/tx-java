@@ -5,7 +5,7 @@
 
 package com.textkernel.tx.models.resume.military;
 
-import com.textkernel.tx.models.SovrenDate;
+import com.textkernel.tx.models.TxDate;
 
 /**
 * Information about military post/job listed on a resume
@@ -19,10 +19,10 @@ public class MilitaryDetails {
     public MilitaryService Service;
 
     /** The start date for this post/job*/
-    public SovrenDate StartDate;
+    public TxDate StartDate;
 
     /** The end date for this post/job*/
-    public SovrenDate EndDate;
+    public TxDate EndDate;
 
     /** The full text where Sovren found this military post/job in the resume*/
     public String FoundInContext;

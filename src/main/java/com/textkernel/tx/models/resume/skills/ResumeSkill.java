@@ -8,7 +8,7 @@ package com.textkernel.tx.models.resume.skills;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.textkernel.tx.models.SovrenPrimitive;
+import com.textkernel.tx.models.TxPrimitive;
 
 /**
 * A skill listed in a resume or job
@@ -19,8 +19,8 @@ public class ResumeSkill extends ResumeSkillVariation {
     public List<ResumeSkillVariation> Variations;
 
     /** If this skill has any variations, this describes the total months experience of those variations*/
-    public SovrenPrimitive<Integer> ChildrenMonthsExperience;
+    public TxPrimitive<Integer> ChildrenMonthsExperience;
 
     /** If this skill has any variations, this describes the most recent date any of the variations were used*/
-    public SovrenPrimitive<LocalDate> ChildrenLastUsed;
+    public TxPrimitive<LocalDate> ChildrenLastUsed;
 }

@@ -6,7 +6,7 @@
 package com.textkernel.tx.http;
 
 import com.textkernel.tx.models.api.ApiResponse;
-import com.textkernel.tx.utilities.SovrenJsonSerializer;
+import com.textkernel.tx.utilities.TxJsonSerializer;
 import java.io.IOException;
 import okhttp3.Response;
 
@@ -21,7 +21,7 @@ public class HttpResponse<T extends ApiResponse<?>> {
         _response = response;
 
         try {
-            _data = SovrenJsonSerializer.deserialize(response.body().string(), type);
+            _data = TxJsonSerializer.deserialize(response.body().string(), type);
         }
         catch (Exception e) {
             if (_response != null && _response.code() == 200) {
