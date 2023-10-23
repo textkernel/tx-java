@@ -3,10 +3,10 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.parsing;
+package com.textkernel.tx.models.api.parsing;
 
-import com.sovren.models.api.dataenrichment.professions.ProfessionNormalizationVersions;
-import com.sovren.models.api.matching.request.SearchMatchSettings;
+import com.textkernel.tx.models.api.dataenrichment.professions.ProfessionNormalizationVersions;
+import com.textkernel.tx.models.api.matching.request.SearchMatchSettings;
 
 /**
  * Enable normalization of job titles using our proprietary taxonomy and international standards.

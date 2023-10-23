@@ -1,8 +1,8 @@
-package com.sovren.models.resume.skills;
+package com.textkernel.tx.models.resume.skills;
 
 import java.util.List;
-import com.sovren.models.skills.ProfessionClass;
-import com.sovren.models.api.parsing.SkillsSettings;
+import com.textkernel.tx.models.skills.ProfessionClass;
+import com.textkernel.tx.models.api.parsing.SkillsSettings;
 
 /** Skills output when version 2 of the taxonomy is utilized. */
 public class ResumeV2Skills {

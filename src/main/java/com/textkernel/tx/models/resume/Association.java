@@ -3,7 +3,7 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume;
+package com.textkernel.tx.models.resume;
 
 /**
 * An association/organization found on a resume

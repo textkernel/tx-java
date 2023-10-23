@@ -1,4 +1,4 @@
-package com.sovren.models.dataenrichment;
+package com.textkernel.tx.models.dataenrichment;
 
 /**
  * The description in thed particular language.

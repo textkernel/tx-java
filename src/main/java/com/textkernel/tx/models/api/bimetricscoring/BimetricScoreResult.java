@@ -3,11 +3,11 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.bimetricscoring;
+package com.textkernel.tx.models.api.bimetricscoring;
 
-import com.sovren.models.api.matching.BaseScoredResponseValue;
-import com.sovren.models.api.matching.response.CategoryScoreData;
-import com.sovren.models.api.matching.response.EnrichedScoreData;
+import com.textkernel.tx.models.api.matching.BaseScoredResponseValue;
+import com.textkernel.tx.models.api.matching.response.CategoryScoreData;
+import com.textkernel.tx.models.api.matching.response.EnrichedScoreData;
 
 /**
 * And individual result (representing a single document) for a 'BimetricScore' request

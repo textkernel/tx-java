@@ -3,19 +3,19 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren;
+package com.textkernel.tx;
 
-import com.sovren.exceptions.SovrenException;
-import com.sovren.models.api.bimetricscoring.*;
-import com.sovren.models.api.matching.*;
-import com.sovren.models.api.matching.request.FilterCriteria;
-import com.sovren.models.api.matching.request.MatchByDocumentIdOptions;
-import com.sovren.models.api.matching.request.PaginationSettings;
-import com.sovren.models.api.matching.request.SearchMatchSettings;
-import com.sovren.models.api.matching.ui.GenerateUIResponse;
-import com.sovren.models.api.matching.ui.request.*;
-import com.sovren.models.job.ParsedJob;
-import com.sovren.models.resume.ParsedResume;
+import com.textkernel.tx.exceptions.SovrenException;
+import com.textkernel.tx.models.api.bimetricscoring.*;
+import com.textkernel.tx.models.api.matching.*;
+import com.textkernel.tx.models.api.matching.request.FilterCriteria;
+import com.textkernel.tx.models.api.matching.request.MatchByDocumentIdOptions;
+import com.textkernel.tx.models.api.matching.request.PaginationSettings;
+import com.textkernel.tx.models.api.matching.request.SearchMatchSettings;
+import com.textkernel.tx.models.api.matching.ui.GenerateUIResponse;
+import com.textkernel.tx.models.api.matching.ui.request.*;
+import com.textkernel.tx.models.job.ParsedJob;
+import com.textkernel.tx.models.resume.ParsedResume;
 
 import java.util.List;
 

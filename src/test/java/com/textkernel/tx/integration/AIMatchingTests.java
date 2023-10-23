@@ -3,17 +3,17 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.integration;
+package com.textkernel.tx.integration;
 
-import com.sovren.TestBase;
+import com.textkernel.tx.TestBase;
 
-import com.sovren.exceptions.SovrenException;
-import com.sovren.models.api.matching.MatchResponseValue;
-import com.sovren.models.api.matching.SearchResponseValue;
-import com.sovren.models.api.matching.request.FilterCriteria;
-import com.sovren.models.api.matching.request.PaginationSettings;
-import com.sovren.models.api.matching.ui.GenerateUIResponse;
-import com.sovren.models.matching.IndexType;
+import com.textkernel.tx.exceptions.SovrenException;
+import com.textkernel.tx.models.api.matching.MatchResponseValue;
+import com.textkernel.tx.models.api.matching.SearchResponseValue;
+import com.textkernel.tx.models.api.matching.request.FilterCriteria;
+import com.textkernel.tx.models.api.matching.request.PaginationSettings;
+import com.textkernel.tx.models.api.matching.ui.GenerateUIResponse;
+import com.textkernel.tx.models.matching.IndexType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.junit.jupiter.api.AfterAll;

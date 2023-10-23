@@ -1,6 +1,6 @@
-package com.sovren.models.job.skills;
+package com.textkernel.tx.models.job.skills;
 
-import com.sovren.models.skills.NormalizedSkill;
+import com.textkernel.tx.models.skills.NormalizedSkill;
 
 /** Normalized skill concept representing one or more raw skills that were extracted. */
 public class JobNormalizedSkill extends NormalizedSkill {

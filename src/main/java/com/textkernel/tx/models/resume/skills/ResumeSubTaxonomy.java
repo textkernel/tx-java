@@ -3,10 +3,10 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume.skills;
+package com.textkernel.tx.models.resume.skills;
 
 import java.util.List;
-import com.sovren.models.skills.FoundSubTaxonomy;
+import com.textkernel.tx.models.skills.FoundSubTaxonomy;
 
 /**
 * A subtaxonomy to group similar skills

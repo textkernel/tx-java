@@ -3,18 +3,18 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.integration;
+package com.textkernel.tx.integration;
 
-import com.sovren.SovrenErrorCodes;
-import com.sovren.TestBase;
-import com.sovren.exceptions.SovrenException;
-import com.sovren.models.api.indexes.UserDefinedTagsMethod;
-import com.sovren.models.api.matching.SearchResponseValue;
-import com.sovren.models.api.matching.request.FilterCriteria;
-import com.sovren.models.job.ParsedJob;
-import com.sovren.models.matching.Index;
-import com.sovren.models.matching.IndexType;
-import com.sovren.models.resume.ParsedResume;
+import com.textkernel.tx.SovrenErrorCodes;
+import com.textkernel.tx.TestBase;
+import com.textkernel.tx.exceptions.SovrenException;
+import com.textkernel.tx.models.api.indexes.UserDefinedTagsMethod;
+import com.textkernel.tx.models.api.matching.SearchResponseValue;
+import com.textkernel.tx.models.api.matching.request.FilterCriteria;
+import com.textkernel.tx.models.job.ParsedJob;
+import com.textkernel.tx.models.matching.Index;
+import com.textkernel.tx.models.matching.IndexType;
+import com.textkernel.tx.models.resume.ParsedResume;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;

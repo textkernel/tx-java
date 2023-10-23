@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.geocoding;
+package com.textkernel.tx.models.api.geocoding;
 
-import com.sovren.models.job.ParsedJob;
+import com.textkernel.tx.models.job.ParsedJob;
 
 /**
 * Options for geocoding a job (specifying some location on Earth)

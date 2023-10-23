@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.matching.ui;
+package com.textkernel.tx.models.api.matching.ui;
 
-import com.sovren.models.api.matching.ui.hooks.UserActionHookCollection;
+import com.textkernel.tx.models.api.matching.ui.hooks.UserActionHookCollection;
 
 import java.util.List;
 

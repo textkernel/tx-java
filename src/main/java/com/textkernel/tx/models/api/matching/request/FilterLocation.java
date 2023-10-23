@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.matching.request;
+package com.textkernel.tx.models.api.matching.request;
 
-import com.sovren.models.GeoCoordinates;
+import com.textkernel.tx.models.GeoCoordinates;
 
 /**
 * A location used for filtering results by exact location or radius searching

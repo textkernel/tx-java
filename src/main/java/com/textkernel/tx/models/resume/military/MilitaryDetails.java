@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume.military;
+package com.textkernel.tx.models.resume.military;
 
-import com.sovren.models.SovrenDate;
+import com.textkernel.tx.models.SovrenDate;
 
 /**
 * Information about military post/job listed on a resume

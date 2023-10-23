@@ -3,7 +3,7 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.job;
+package com.textkernel.tx.models.job;
 
 import java.util.List;
 
@@ -19,5 +19,5 @@ public class JobTitles {
     public List<String> JobTitle;
 
     /** Normalized profession for the main job title.*/
-    public com.sovren.models.resume.employment.ParsingNormalizedProfession NormalizedProfession;
+    public com.textkernel.tx.models.resume.employment.ParsingNormalizedProfession NormalizedProfession;
 }

@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.geocoding;
+package com.textkernel.tx.models.api.geocoding;
 
-import com.sovren.models.api.ApiResponse;
+import com.textkernel.tx.models.api.ApiResponse;
 
 /** The response body from a GeocodeJob API call*/
 public class GeocodeJobResponse extends ApiResponse<GeocodeJobResponseValue> {

@@ -1,7 +1,7 @@
-# sovren-java
-![GitHub](https://img.shields.io/github/license/sovren/sovren-java?color=0575aa)
-![Maven Central](https://img.shields.io/maven-central/v/com.sovren/sovren-java?color=0575aa)
-[![build](https://github.com/sovren/sovren-java/actions/workflows/build.yml/badge.svg)](https://github.com/sovren/sovren-java/actions/workflows/build.yml)
+# tx-java
+![GitHub](https://img.shields.io/github/license/textkernel/tx-java?color=0575aa)
+![Maven Central](https://img.shields.io/maven-central/v/com.textkernel/tx-java?color=0575aa)
+[![build](https://github.com/textkernel/tx-java/actions/workflows/build.yml/badge.svg)](https://github.com/textkernel/tx-java/actions/workflows/build.yml)
 
 The official Java SDK for the Sovren v10 API for resume/CV and job parsing, searching, and matching. Supports Java 1.8+.
 
@@ -13,22 +13,22 @@ The official Java SDK for the Sovren v10 API for resume/CV and job parsing, sear
 ### Gradle Users
 Add this dependency to your project's build file:
 ```
-implementation "com.sovren:sovren-java:1.10.0"
+implementation "com.textkernel:tx-java:1.10.0"
 ```
 
 ### Maven Users
 Add this dependency to your project's POM:
 ```xml
 <dependency>
-  <groupId>com.sovren</groupId>
-  <artifactId>sovren-java</artifactId>
+  <groupId>com.textkernel</groupId>
+  <artifactId>tx-java</artifactId>
   <version>1.10.0</version>
 </dependency>
 ```
 
 ### Others
 You'll need to manually install the following JARs:
-- The Sovren JAR from https://repo1.maven.org/maven2/com/sovren/sovren-java/1.10.0/sovren-java-1.10.0.jar
+- The Textkernel Tx JAR from https://repo1.maven.org/maven2/com/textkernel/tx-java/1.10.0/tx-java-1.10.0.jar
 - [Google Gson][gson_url] from https://repo1.maven.org/maven2/com/google/code/gson/gson/2.9.0/gson-2.9.0.jar
 - [Square OkHttp][okhttp_url] from https://repo1.maven.org/maven2/com/squareup/okhttp3/okhttp/4.9.3/okhttp-4.9.3.jar
 

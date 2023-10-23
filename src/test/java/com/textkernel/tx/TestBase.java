@@ -3,23 +3,23 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren;
+package com.textkernel.tx;
 
 import com.google.gson.Gson;
-import com.sovren.models.Document;
-import com.sovren.models.Location;
-import com.sovren.models.SovrenDate;
-import com.sovren.models.api.geocoding.GeocodeCredentials;
-import com.sovren.models.api.geocoding.GeocodeProvider;
-import com.sovren.models.api.parsing.ParseJobResponseValue;
-import com.sovren.models.api.parsing.ParseOptions;
-import com.sovren.models.api.parsing.ParseRequest;
-import com.sovren.models.api.parsing.ParseResumeResponseValue;
-import com.sovren.models.api.parsing.ProfessionsSettings;
-import com.sovren.models.api.parsing.SkillsSettings;
-import com.sovren.models.job.ParsedJob;
-import com.sovren.models.resume.ParsedResume;
-import com.sovren.models.resume.education.Degree;
+import com.textkernel.tx.models.Document;
+import com.textkernel.tx.models.Location;
+import com.textkernel.tx.models.SovrenDate;
+import com.textkernel.tx.models.api.geocoding.GeocodeCredentials;
+import com.textkernel.tx.models.api.geocoding.GeocodeProvider;
+import com.textkernel.tx.models.api.parsing.ParseJobResponseValue;
+import com.textkernel.tx.models.api.parsing.ParseOptions;
+import com.textkernel.tx.models.api.parsing.ParseRequest;
+import com.textkernel.tx.models.api.parsing.ParseResumeResponseValue;
+import com.textkernel.tx.models.api.parsing.ProfessionsSettings;
+import com.textkernel.tx.models.api.parsing.SkillsSettings;
+import com.textkernel.tx.models.job.ParsedJob;
+import com.textkernel.tx.models.resume.ParsedResume;
+import com.textkernel.tx.models.resume.education.Degree;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

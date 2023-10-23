@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren;
+package com.textkernel.tx;
 
-import com.sovren.models.Document;
+import com.textkernel.tx.models.Document;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 

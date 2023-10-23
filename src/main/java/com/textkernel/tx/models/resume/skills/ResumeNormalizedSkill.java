@@ -1,11 +1,11 @@
-package com.sovren.models.resume.skills;
+package com.textkernel.tx.models.resume.skills;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import com.sovren.models.SovrenPrimitive;
-import com.sovren.models.resume.SectionIdentifier;
-import com.sovren.models.skills.NormalizedSkill;
+import com.textkernel.tx.models.SovrenPrimitive;
+import com.textkernel.tx.models.resume.SectionIdentifier;
+import com.textkernel.tx.models.skills.NormalizedSkill;
 
 /** Normalized skill concept representing one or more raw skills that were extracted. */
 public class ResumeNormalizedSkill extends NormalizedSkill {

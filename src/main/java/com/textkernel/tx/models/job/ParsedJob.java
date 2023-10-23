@@ -3,7 +3,7 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.job;
+package com.textkernel.tx.models.job;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -13,13 +13,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.google.gson.JsonParseException;
-import com.sovren.models.Location;
-import com.sovren.models.ParsedDocument;
-import com.sovren.models.SovrenPrimitive;
-import com.sovren.models.job.skills.JobTaxonomyRoot;
-import com.sovren.models.job.skills.JobV2Skills;
-import com.sovren.utilities.SovrenJsonSerializer;
-import com.sovren.models.api.parsing.SkillsSettings;
+import com.textkernel.tx.models.Location;
+import com.textkernel.tx.models.ParsedDocument;
+import com.textkernel.tx.models.SovrenPrimitive;
+import com.textkernel.tx.models.job.skills.JobTaxonomyRoot;
+import com.textkernel.tx.models.job.skills.JobV2Skills;
+import com.textkernel.tx.utilities.SovrenJsonSerializer;
+import com.textkernel.tx.models.api.parsing.SkillsSettings;
 
 /**
 * All of the information extracted while parsing a job

@@ -3,7 +3,7 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume.employment;
+package com.textkernel.tx.models.resume.employment;
 
 /**
  * A single entry in a bullet-point list in a position/job description on a resume

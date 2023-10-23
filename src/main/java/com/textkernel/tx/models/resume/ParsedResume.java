@@ -3,7 +3,7 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume;
+package com.textkernel.tx.models.resume;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -12,17 +12,17 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import com.google.gson.JsonParseException;
-import com.sovren.models.ParsedDocument;
-import com.sovren.models.resume.contactinfo.ContactInformation;
-import com.sovren.models.resume.education.EducationHistory;
-import com.sovren.models.resume.employment.EmploymentHistory;
-import com.sovren.models.resume.skills.ResumeTaxonomyRoot;
-import com.sovren.models.resume.skills.ResumeV2Skills;
-import com.sovren.models.resume.military.MilitaryDetails;
-import com.sovren.models.resume.military.SecurityCredential;
-import com.sovren.models.resume.metadata.ResumeMetadata;
-import com.sovren.utilities.SovrenJsonSerializer;
-import com.sovren.models.api.parsing.SkillsSettings;
+import com.textkernel.tx.models.ParsedDocument;
+import com.textkernel.tx.models.resume.contactinfo.ContactInformation;
+import com.textkernel.tx.models.resume.education.EducationHistory;
+import com.textkernel.tx.models.resume.employment.EmploymentHistory;
+import com.textkernel.tx.models.resume.skills.ResumeTaxonomyRoot;
+import com.textkernel.tx.models.resume.skills.ResumeV2Skills;
+import com.textkernel.tx.models.resume.military.MilitaryDetails;
+import com.textkernel.tx.models.resume.military.SecurityCredential;
+import com.textkernel.tx.models.resume.metadata.ResumeMetadata;
+import com.textkernel.tx.utilities.SovrenJsonSerializer;
+import com.textkernel.tx.models.api.parsing.SkillsSettings;
 
 /**
 * All of the information extracted while parsing a resume

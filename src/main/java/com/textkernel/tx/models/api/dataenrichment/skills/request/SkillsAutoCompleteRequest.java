@@ -3,11 +3,11 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.dataenrichment.skills.request;
+package com.textkernel.tx.models.api.dataenrichment.skills.request;
 
 import java.util.List;
 
-import com.sovren.models.api.dataenrichment.AutocompleteRequest;
+import com.textkernel.tx.models.api.dataenrichment.AutocompleteRequest;
 
 /** Request body for a 'SkillsAutocomplete' request */
 public class SkillsAutoCompleteRequest extends AutocompleteRequest {

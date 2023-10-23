@@ -3,10 +3,10 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.indexes;
+package com.textkernel.tx.models.api.indexes;
 
-import com.sovren.models.api.ApiResponse;
-import com.sovren.models.resume.ParsedResume;
+import com.textkernel.tx.models.api.ApiResponse;
+import com.textkernel.tx.models.resume.ParsedResume;
 
 /** The response body from a GetResume API call*/
 public class GetResumeResponse extends ApiResponse<ParsedResume> {

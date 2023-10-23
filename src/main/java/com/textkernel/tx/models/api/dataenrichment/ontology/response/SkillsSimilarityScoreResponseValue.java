@@ -3,8 +3,8 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.dataenrichment.ontology.response;
-import com.sovren.models.api.ApiResponse;
+package com.textkernel.tx.models.api.dataenrichment.ontology.response;
+import com.textkernel.tx.models.api.ApiResponse;
 
 /** One entry in the {@link ApiResponse#Value} from a 'skills Similarity Score' response */
 public class SkillsSimilarityScoreResponseValue {

@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.account;
+package com.textkernel.tx.models.api.account;
 
-import com.sovren.models.api.ApiResponse;
+import com.textkernel.tx.models.api.ApiResponse;
 
 /** The response body from a GetAccount API call*/
 public class GetAccountInfoResponse extends ApiResponse<Object> {

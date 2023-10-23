@@ -1,4 +1,4 @@
-package com.sovren.models.resume.employment;
+package com.textkernel.tx.models.resume.employment;
 
 /** Normalized profession related to a specific job title. */
 public class ParsingNormalizedProfession {

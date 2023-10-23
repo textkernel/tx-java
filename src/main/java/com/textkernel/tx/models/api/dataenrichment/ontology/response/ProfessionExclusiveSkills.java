@@ -1,4 +1,4 @@
-package com.sovren.models.api.dataenrichment.ontology.response;
+package com.textkernel.tx.models.api.dataenrichment.ontology.response;
 
 import java.util.List;
 

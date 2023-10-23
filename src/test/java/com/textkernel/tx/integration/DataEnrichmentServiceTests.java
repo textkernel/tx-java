@@ -3,11 +3,11 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.integration;
+package com.textkernel.tx.integration;
 
-import com.sovren.TestBase;
-import com.sovren.models.api.dataenrichment.TaxonomyFormat;
-import com.sovren.models.api.dataenrichment.ontology.response.SkillScore;
+import com.textkernel.tx.TestBase;
+import com.textkernel.tx.models.api.dataenrichment.TaxonomyFormat;
+import com.textkernel.tx.models.api.dataenrichment.ontology.response.SkillScore;
 
 import org.junit.jupiter.api.Test;
 

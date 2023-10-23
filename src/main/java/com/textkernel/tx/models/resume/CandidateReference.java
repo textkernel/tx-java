@@ -3,12 +3,12 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume;
+package com.textkernel.tx.models.resume;
 
 import java.util.List;
-import com.sovren.models.Location;
-import com.sovren.models.resume.contactinfo.WebAddress;
-import com.sovren.models.resume.contactinfo.PersonName;
+import com.textkernel.tx.models.Location;
+import com.textkernel.tx.models.resume.contactinfo.WebAddress;
+import com.textkernel.tx.models.resume.contactinfo.PersonName;
 
 /**
 * A reference found on a resume

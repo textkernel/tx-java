@@ -1,5 +1,5 @@
-package com.sovren.models.dataenrichment;
-import com.sovren.models.api.dataenrichment.TaxonomyFormat;
+package com.textkernel.tx.models.dataenrichment;
+import com.textkernel.tx.models.api.dataenrichment.TaxonomyFormat;
 
 /**
 *  Base class for Skills and Professions taxonomies

@@ -1,4 +1,4 @@
-package com.sovren.models.skills;
+package com.textkernel.tx.models.skills;
 
 /** Skill exactly as it was found in the plain text of the document. */
 public class RawSkill {

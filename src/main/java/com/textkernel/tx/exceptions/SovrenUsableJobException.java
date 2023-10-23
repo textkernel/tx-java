@@ -3,10 +3,10 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.exceptions;
+package com.textkernel.tx.exceptions;
 
-import com.sovren.models.api.ApiResponseInfoLite;
-import com.sovren.models.api.parsing.ParseJobResponse;
+import com.textkernel.tx.models.api.ApiResponseInfoLite;
+import com.textkernel.tx.models.api.parsing.ParseJobResponse;
 import okhttp3.Response;
 
 /**

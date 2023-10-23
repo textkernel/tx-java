@@ -3,8 +3,8 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.dataenrichment.ontology.response;
-import com.sovren.models.api.ApiResponse;
+package com.textkernel.tx.models.api.dataenrichment.ontology.response;
+import com.textkernel.tx.models.api.ApiResponse;
 
 import java.util.List;
 

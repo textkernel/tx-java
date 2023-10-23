@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.job;
+package com.textkernel.tx.models.job;
 
-import com.sovren.models.ParsedDocumentMetadata;
+import com.textkernel.tx.models.ParsedDocumentMetadata;
 
 /**
 * Metadata about a parsed job

@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.bimetricscoring;
+package com.textkernel.tx.models.api.bimetricscoring;
 
-import com.sovren.models.resume.ParsedResume;
+import com.textkernel.tx.models.resume.ParsedResume;
 
 /**
 * A Sovren.Models.Resume.ParsedResume and id pair for a bimetric score request

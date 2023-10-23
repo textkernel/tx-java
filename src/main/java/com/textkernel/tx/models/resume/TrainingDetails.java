@@ -3,10 +3,10 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume;
+package com.textkernel.tx.models.resume;
 
 import java.util.List;
-import com.sovren.models.SovrenDate;
+import com.textkernel.tx.models.SovrenDate;
 
 /**
 * A training history found on a resume

@@ -3,7 +3,7 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.matching.ui.hooks;
+package com.textkernel.tx.models.api.matching.ui.hooks;
 
 /** A hook that does some server-side action (performs an HTTP POST to your server)*/
 public class ServerSideHook extends UserActionHook {

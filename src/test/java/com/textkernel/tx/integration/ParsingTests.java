@@ -3,28 +3,28 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.integration;
+package com.textkernel.tx.integration;
 
 import com.google.gson.JsonParseException;
-import com.sovren.TestBase;
-import com.sovren.TestData;
-import com.sovren.exceptions.*;
-import com.sovren.models.Document;
-import com.sovren.models.api.dataenrichment.professions.ONETVersion;
-import com.sovren.models.api.dataenrichment.professions.ProfessionNormalizationVersions;
-import com.sovren.models.api.geocoding.GeocodeOptions;
-import com.sovren.models.api.geocoding.GeocodeProvider;
-import com.sovren.models.api.indexes.IndexSingleDocumentInfo;
-import com.sovren.models.api.parsing.*;
-import com.sovren.models.api.parsing.SkillsSettings;
-import com.sovren.models.api.parsing.ParseJobResponseValue;
+import com.textkernel.tx.TestBase;
+import com.textkernel.tx.TestData;
+import com.textkernel.tx.exceptions.*;
+import com.textkernel.tx.models.Document;
+import com.textkernel.tx.models.api.dataenrichment.professions.ONETVersion;
+import com.textkernel.tx.models.api.dataenrichment.professions.ProfessionNormalizationVersions;
+import com.textkernel.tx.models.api.geocoding.GeocodeOptions;
+import com.textkernel.tx.models.api.geocoding.GeocodeProvider;
+import com.textkernel.tx.models.api.indexes.IndexSingleDocumentInfo;
+import com.textkernel.tx.models.api.parsing.*;
+import com.textkernel.tx.models.api.parsing.SkillsSettings;
+import com.textkernel.tx.models.api.parsing.ParseJobResponseValue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.sovren.models.job.ParsedJob;
-import com.sovren.models.matching.IndexType;
-import com.sovren.models.resume.ParsedResume;
-import com.sovren.models.resume.metadata.ResumeQualityLevel;
+import com.textkernel.tx.models.job.ParsedJob;
+import com.textkernel.tx.models.matching.IndexType;
+import com.textkernel.tx.models.resume.ParsedResume;
+import com.textkernel.tx.models.resume.metadata.ResumeQualityLevel;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

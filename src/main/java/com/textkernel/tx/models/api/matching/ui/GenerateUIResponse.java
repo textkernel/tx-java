@@ -3,7 +3,7 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.matching.ui;
+package com.textkernel.tx.models.api.matching.ui;
 
 /** The response body from a request to generate the Matching UI*/
 public class GenerateUIResponse {

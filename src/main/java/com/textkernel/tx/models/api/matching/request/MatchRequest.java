@@ -3,10 +3,10 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.matching.request;
+package com.textkernel.tx.models.api.matching.request;
 
-import com.sovren.models.api.matching.CategoryWeights;
-import com.sovren.models.api.matching.BaseScoredResponseValue;
+import com.textkernel.tx.models.api.matching.CategoryWeights;
+import com.textkernel.tx.models.api.matching.BaseScoredResponseValue;
 
 /**
 * Request body for a Match request

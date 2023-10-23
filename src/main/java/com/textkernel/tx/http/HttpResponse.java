@@ -3,10 +3,10 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.http;
+package com.textkernel.tx.http;
 
-import com.sovren.models.api.ApiResponse;
-import com.sovren.utilities.SovrenJsonSerializer;
+import com.textkernel.tx.models.api.ApiResponse;
+import com.textkernel.tx.utilities.SovrenJsonSerializer;
 import java.io.IOException;
 import okhttp3.Response;
 

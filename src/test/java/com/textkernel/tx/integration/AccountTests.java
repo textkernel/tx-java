@@ -3,10 +3,10 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.integration;
+package com.textkernel.tx.integration;
 
-import com.sovren.TestBase;
-import com.sovren.models.api.account.GetAccountInfoResponse;
+import com.textkernel.tx.TestBase;
+import com.textkernel.tx.models.api.account.GetAccountInfoResponse;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.AtomicReference;

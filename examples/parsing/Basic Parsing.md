@@ -1,21 +1,21 @@
 # Basic Resume Parsing Example
 
 ```java
-import com.sovren.*;
-import com.sovren.exceptions.SovrenException;
-import com.sovren.models.Document;
-import com.sovren.models.SovrenDate;
-import com.sovren.models.api.parsing.ParseOptions;
-import com.sovren.models.api.parsing.ParseRequest;
-import com.sovren.models.api.parsing.ParseResumeResponse;
-import com.sovren.models.resume.PersonalAttributes;
-import com.sovren.models.resume.contactinfo.ContactInformation;
-import com.sovren.models.resume.contactinfo.WebAddress;
-import com.sovren.models.resume.contactinfo.WebAddressType;
-import com.sovren.models.resume.education.EducationDetails;
-import com.sovren.models.resume.education.EducationHistory;
-import com.sovren.models.resume.employment.EmploymentHistory;
-import com.sovren.models.resume.employment.Position;
+import com.textkernel.tx.*;
+import com.textkernel.tx.exceptions.SovrenException;
+import com.textkernel.tx.models.Document;
+import com.textkernel.tx.models.SovrenDate;
+import com.textkernel.tx.models.api.parsing.ParseOptions;
+import com.textkernel.tx.models.api.parsing.ParseRequest;
+import com.textkernel.tx.models.api.parsing.ParseResumeResponse;
+import com.textkernel.tx.models.resume.PersonalAttributes;
+import com.textkernel.tx.models.resume.contactinfo.ContactInformation;
+import com.textkernel.tx.models.resume.contactinfo.WebAddress;
+import com.textkernel.tx.models.resume.contactinfo.WebAddressType;
+import com.textkernel.tx.models.resume.education.EducationDetails;
+import com.textkernel.tx.models.resume.education.EducationHistory;
+import com.textkernel.tx.models.resume.employment.EmploymentHistory;
+import com.textkernel.tx.models.resume.employment.Position;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 

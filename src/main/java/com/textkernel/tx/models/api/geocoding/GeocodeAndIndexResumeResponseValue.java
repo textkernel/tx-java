@@ -3,10 +3,10 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.geocoding;
+package com.textkernel.tx.models.api.geocoding;
 
-import com.sovren.models.api.ApiResponse;
-import com.sovren.models.resume.ParsedResume;
+import com.textkernel.tx.models.api.ApiResponse;
+import com.textkernel.tx.models.resume.ParsedResume;
 
 /** The {@link ApiResponse#Value} from a 'geocode and index' response */
 public class GeocodeAndIndexResumeResponseValue extends GeocodeAndIndexResponseValue {

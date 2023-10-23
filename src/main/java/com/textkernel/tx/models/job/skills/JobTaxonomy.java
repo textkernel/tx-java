@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.job.skills;
+package com.textkernel.tx.models.job.skills;
 
-import com.sovren.models.skills.FoundTaxonomy;
+import com.textkernel.tx.models.skills.FoundTaxonomy;
 
 /** A container to group similar skills subtaxonomies (see {@link JobSubTaxonomy})*/
 public class JobTaxonomy extends FoundTaxonomy<JobSubTaxonomy> {

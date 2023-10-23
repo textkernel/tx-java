@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.indexes;
+package com.textkernel.tx.models.api.indexes;
 
-import com.sovren.models.api.ApiResponse;
+import com.textkernel.tx.models.api.ApiResponse;
 
 /** The response body from a UpdateUserDefinedTags API call*/
 public class UpdateUserDefinedTagsResponse extends ApiResponse<Object> {

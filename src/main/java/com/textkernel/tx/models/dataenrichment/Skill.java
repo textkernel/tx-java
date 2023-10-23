@@ -1,4 +1,4 @@
-package com.sovren.models.dataenrichment;
+package com.textkernel.tx.models.dataenrichment;
 
 /** A skill from the Skills Taxonomy */
 public class Skill {

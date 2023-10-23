@@ -3,10 +3,10 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.bimetricscoring;
+package com.textkernel.tx.models.api.bimetricscoring;
 
-import com.sovren.models.api.ApiResponse;
-import com.sovren.models.api.matching.BaseScoredResponseValue;
+import com.textkernel.tx.models.api.ApiResponse;
+import com.textkernel.tx.models.api.matching.BaseScoredResponseValue;
 
 /**
 * The {@link ApiResponse#Value} from a 'BimetricScore' response

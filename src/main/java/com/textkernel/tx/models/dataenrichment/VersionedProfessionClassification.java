@@ -1,4 +1,4 @@
-package com.sovren.models.dataenrichment;
+package com.textkernel.tx.models.dataenrichment;
 
 /**
  * Object representing a profession concept with taxonomy version

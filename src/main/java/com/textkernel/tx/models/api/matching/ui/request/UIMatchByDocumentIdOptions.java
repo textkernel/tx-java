@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.matching.ui.request;
+package com.textkernel.tx.models.api.matching.ui.request;
 
-import com.sovren.models.api.matching.request.MatchByDocumentIdOptions;
+import com.textkernel.tx.models.api.matching.request.MatchByDocumentIdOptions;
 
 /**
  * The request body for generating a Sovren Matching UI session

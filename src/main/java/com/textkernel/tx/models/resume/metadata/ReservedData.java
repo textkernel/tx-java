@@ -3,7 +3,7 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume.metadata;
+package com.textkernel.tx.models.resume.metadata;
 
 import java.util.List;
 

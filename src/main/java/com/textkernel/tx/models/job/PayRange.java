@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.job;
+package com.textkernel.tx.models.job;
 
-import com.sovren.models.SovrenPrimitive;
+import com.textkernel.tx.models.SovrenPrimitive;
 
 /**
 * An object containing details about a job position's pay.

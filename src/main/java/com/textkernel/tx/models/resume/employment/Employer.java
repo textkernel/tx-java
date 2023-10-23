@@ -3,10 +3,10 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume.employment;
+package com.textkernel.tx.models.resume.employment;
 
-import com.sovren.models.resume.NormalizedString;
-import com.sovren.models.Location;
+import com.textkernel.tx.models.resume.NormalizedString;
+import com.textkernel.tx.models.Location;
 
 /**
 * A name/location for a company/employer

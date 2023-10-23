@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.indexes;
+package com.textkernel.tx.models.api.indexes;
 
-import com.sovren.models.matching.IndexType;
+import com.textkernel.tx.models.matching.IndexType;
 
 /**
 * Request body to create an index

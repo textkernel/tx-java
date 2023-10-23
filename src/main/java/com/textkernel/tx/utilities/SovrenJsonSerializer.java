@@ -3,7 +3,7 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.utilities;
+package com.textkernel.tx.utilities;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

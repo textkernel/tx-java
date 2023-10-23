@@ -3,13 +3,13 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.integration;
+package com.textkernel.tx.integration;
 
-import com.sovren.TestBase;
-import com.sovren.exceptions.SovrenException;
-import com.sovren.models.api.geocoding.Address;
-import com.sovren.models.api.indexes.IndexSingleDocumentInfo;
-import com.sovren.models.matching.IndexType;
+import com.textkernel.tx.TestBase;
+import com.textkernel.tx.exceptions.SovrenException;
+import com.textkernel.tx.models.api.geocoding.Address;
+import com.textkernel.tx.models.api.indexes.IndexSingleDocumentInfo;
+import com.textkernel.tx.models.matching.IndexType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

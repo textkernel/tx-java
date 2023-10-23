@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.job.skills;
+package com.textkernel.tx.models.job.skills;
 
-import com.sovren.models.skills.Skill;
+import com.textkernel.tx.models.skills.Skill;
 
 /**
 * A skill listed in a job

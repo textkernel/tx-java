@@ -1,4 +1,4 @@
-package com.sovren.models.resume.employment;
+package com.textkernel.tx.models.resume.employment;
 
 /** Object representing a profession concept with taxonomy version */
 public class VersionedNormalizedProfessionClassification<T> extends ProfessionClassification<T> {

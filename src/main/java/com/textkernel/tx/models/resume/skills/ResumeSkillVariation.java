@@ -3,11 +3,11 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume.skills;
+package com.textkernel.tx.models.resume.skills;
 
-import com.sovren.models.resume.SectionIdentifier;
-import com.sovren.models.skills.Skill;
-import com.sovren.models.SovrenPrimitive;
+import com.textkernel.tx.models.resume.SectionIdentifier;
+import com.textkernel.tx.models.skills.Skill;
+import com.textkernel.tx.models.SovrenPrimitive;
 
 import java.time.LocalDate;
 import java.util.List;

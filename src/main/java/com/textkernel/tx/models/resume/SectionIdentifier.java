@@ -3,10 +3,10 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume;
+package com.textkernel.tx.models.resume;
 
-import com.sovren.models.resume.education.EducationDetails;
-import com.sovren.models.resume.employment.Position;
+import com.textkernel.tx.models.resume.education.EducationDetails;
+import com.textkernel.tx.models.resume.employment.Position;
 
 /** Information about a particular section of a resume*/
 public class SectionIdentifier {

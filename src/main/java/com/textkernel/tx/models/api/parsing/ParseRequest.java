@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.parsing;
+package com.textkernel.tx.models.api.parsing;
 
-import com.sovren.models.Document;
+import com.textkernel.tx.models.Document;
 
 /**
  * The request body for a Parse request

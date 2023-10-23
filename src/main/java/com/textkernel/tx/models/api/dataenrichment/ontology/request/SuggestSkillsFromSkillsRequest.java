@@ -3,11 +3,11 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.dataenrichment.ontology.request;
+package com.textkernel.tx.models.api.dataenrichment.ontology.request;
 
 import java.util.List;
 
-import com.sovren.models.api.dataenrichment.ontology.response.SkillScore;
+import com.textkernel.tx.models.api.dataenrichment.ontology.response.SkillScore;
 
 /** Request body for a 'SuggestProfessions' request  */
 public class SuggestSkillsFromSkillsRequest {

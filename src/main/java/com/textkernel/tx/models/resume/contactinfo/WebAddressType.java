@@ -3,7 +3,7 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume.contactinfo;
+package com.textkernel.tx.models.resume.contactinfo;
 
 /** A type of {@link WebAddress}. These are useful instead of magic strings.*/
 public class WebAddressType {

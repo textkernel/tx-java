@@ -3,7 +3,7 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.dataenrichment.professions;
+package com.textkernel.tx.models.api.dataenrichment.professions;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,7 +1,7 @@
-package com.sovren.models.api.parsing;
+package com.textkernel.tx.models.api.parsing;
 
-import com.sovren.models.resume.skills.ResumeV2Skills;
-import com.sovren.models.job.skills.JobV2Skills;
+import com.textkernel.tx.models.resume.skills.ResumeV2Skills;
+import com.textkernel.tx.models.job.skills.JobV2Skills;
 
 /**
  * Enable skills normalization and enhanced candidate summarization, and specify the version of the skills taxonomy for this parsing transaction.

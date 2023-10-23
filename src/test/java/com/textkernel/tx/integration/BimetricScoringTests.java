@@ -3,12 +3,12 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.integration;
+package com.textkernel.tx.integration;
 
-import com.sovren.TestBase;
-import com.sovren.exceptions.SovrenException;
-import com.sovren.models.api.bimetricscoring.ParsedJobWithId;
-import com.sovren.models.api.bimetricscoring.ParsedResumeWithId;
+import com.textkernel.tx.TestBase;
+import com.textkernel.tx.exceptions.SovrenException;
+import com.textkernel.tx.models.api.bimetricscoring.ParsedJobWithId;
+import com.textkernel.tx.models.api.bimetricscoring.ParsedResumeWithId;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

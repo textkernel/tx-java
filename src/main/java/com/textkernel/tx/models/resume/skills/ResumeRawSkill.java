@@ -1,10 +1,10 @@
-package com.sovren.models.resume.skills;
+package com.textkernel.tx.models.resume.skills;
 
 import java.time.LocalDate;
 import java.util.List;
-import com.sovren.models.SovrenPrimitive;
-import com.sovren.models.resume.SectionIdentifier;
-import com.sovren.models.skills.RawSkill;
+import com.textkernel.tx.models.SovrenPrimitive;
+import com.textkernel.tx.models.resume.SectionIdentifier;
+import com.textkernel.tx.models.skills.RawSkill;
 
 /** Skill exactly as it was found in the plain text of the document. */
 public class ResumeRawSkill extends RawSkill {

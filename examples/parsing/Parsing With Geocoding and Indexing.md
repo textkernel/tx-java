@@ -1,16 +1,16 @@
 # Parsing with Geocoding and Indexing Example
 
 ```java
-import com.sovren.*;
-import com.sovren.exceptions.SovrenException;
-import com.sovren.exceptions.SovrenUsableResumeException;
-import com.sovren.models.Document;
-import com.sovren.models.api.geocoding.GeocodeOptions;
-import com.sovren.models.api.geocoding.GeocodeProvider;
-import com.sovren.models.api.indexes.IndexSingleDocumentInfo;
-import com.sovren.models.api.parsing.ParseOptions;
-import com.sovren.models.api.parsing.ParseRequest;
-import com.sovren.models.api.parsing.ParseResumeResponse;
+import com.textkernel.tx.*;
+import com.textkernel.tx.exceptions.SovrenException;
+import com.textkernel.tx.exceptions.SovrenUsableResumeException;
+import com.textkernel.tx.models.Document;
+import com.textkernel.tx.models.api.geocoding.GeocodeOptions;
+import com.textkernel.tx.models.api.geocoding.GeocodeProvider;
+import com.textkernel.tx.models.api.indexes.IndexSingleDocumentInfo;
+import com.textkernel.tx.models.api.parsing.ParseOptions;
+import com.textkernel.tx.models.api.parsing.ParseRequest;
+import com.textkernel.tx.models.api.parsing.ParseResumeResponse;
 import java.io.IOException;
 
 public class ParsingExample {

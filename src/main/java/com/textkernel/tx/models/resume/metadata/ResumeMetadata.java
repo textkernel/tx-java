@@ -3,11 +3,11 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume.metadata;
+package com.textkernel.tx.models.resume.metadata;
 
 import java.util.List;
-import com.sovren.models.ParsedDocumentMetadata;
-import com.sovren.models.api.parsing.ParseResumeResponseValue;
+import com.textkernel.tx.models.ParsedDocumentMetadata;
+import com.textkernel.tx.models.api.parsing.ParseResumeResponseValue;
 
 /**
 * Metadata about a parsed resume

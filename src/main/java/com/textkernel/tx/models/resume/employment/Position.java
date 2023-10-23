@@ -3,11 +3,11 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume.employment;
+package com.textkernel.tx.models.resume.employment;
 
 import java.util.List;
-import com.sovren.models.SovrenDate;
-import com.sovren.models.SovrenPrimitive;
+import com.textkernel.tx.models.SovrenDate;
+import com.textkernel.tx.models.SovrenPrimitive;
 
 /**
 * A position/job on a resume

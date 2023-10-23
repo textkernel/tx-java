@@ -1,4 +1,4 @@
-package com.sovren.models.skills;
+package com.textkernel.tx.models.skills;
 
 import java.util.List;
 

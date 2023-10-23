@@ -3,12 +3,12 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.bimetricscoring;
+package com.textkernel.tx.models.api.bimetricscoring;
 
 import java.util.List;
-import com.sovren.models.api.matching.request.SearchMatchSettings;
-import com.sovren.models.api.matching.BaseScoredResponseValue;
-import com.sovren.models.api.matching.CategoryWeights;
+import com.textkernel.tx.models.api.matching.request.SearchMatchSettings;
+import com.textkernel.tx.models.api.matching.BaseScoredResponseValue;
+import com.textkernel.tx.models.api.matching.CategoryWeights;
 
 /**
 * Request body for a 'BimetricScore' request

@@ -3,11 +3,11 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.matching.ui.request;
+package com.textkernel.tx.models.api.matching.ui.request;
 
-import com.sovren.models.api.geocoding.GeocodeOptions;
-import com.sovren.models.api.matching.ui.UIOptions;
-import com.sovren.models.api.parsing.BasicParseOptions;
+import com.textkernel.tx.models.api.geocoding.GeocodeOptions;
+import com.textkernel.tx.models.api.matching.ui.UIOptions;
+import com.textkernel.tx.models.api.parsing.BasicParseOptions;
 
 /** Settings for generating a Matching UI session*/
 public class MatchUISettings {

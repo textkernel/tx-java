@@ -3,7 +3,7 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api;
+package com.textkernel.tx.models.api;
 
 /** The response body from a Sovren API call*/
 public interface ISovrenResponse {

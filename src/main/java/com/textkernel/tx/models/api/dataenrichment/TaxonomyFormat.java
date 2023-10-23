@@ -1,5 +1,5 @@
-package com.sovren.models.api.dataenrichment;
-import com.sovren.models.dataenrichment.Taxonomy;
+package com.textkernel.tx.models.api.dataenrichment;
+import com.textkernel.tx.models.dataenrichment.Taxonomy;
 
 /**
 *  The format used to retrieve the DES skills or professions taxonomy

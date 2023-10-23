@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.matching.response;
+package com.textkernel.tx.models.api.matching.response;
 
-import com.sovren.models.api.matching.BaseScoredResponseValue;
+import com.textkernel.tx.models.api.matching.BaseScoredResponseValue;
 
 /**
 * A single result containing information about the bimetric score between a target and source document

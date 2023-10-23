@@ -3,10 +3,10 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren;
+package com.textkernel.tx;
 
-import com.sovren.exceptions.SovrenException;
-import com.sovren.models.api.matching.request.FilterCriteria;
+import com.textkernel.tx.exceptions.SovrenException;
+import com.textkernel.tx.models.api.matching.request.FilterCriteria;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;

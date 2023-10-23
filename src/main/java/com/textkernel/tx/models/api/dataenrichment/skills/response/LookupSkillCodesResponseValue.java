@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.dataenrichment.skills.response;
-import com.sovren.models.api.ApiResponse;
-import com.sovren.models.dataenrichment.Skill;
+package com.textkernel.tx.models.api.dataenrichment.skills.response;
+import com.textkernel.tx.models.api.ApiResponse;
+import com.textkernel.tx.models.dataenrichment.Skill;
 
 import java.util.List;
 

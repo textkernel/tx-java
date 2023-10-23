@@ -1,10 +1,10 @@
 # Create an index and add a document
 
 ```java
-import com.sovren.*;
-import com.sovren.exceptions.SovrenException;
-import com.sovren.models.matching.IndexType;
-import com.sovren.models.resume.ParsedResume;
+import com.textkernel.tx.*;
+import com.textkernel.tx.exceptions.SovrenException;
+import com.textkernel.tx.models.matching.IndexType;
+import com.textkernel.tx.models.resume.ParsedResume;
 
 public class ParsingExample {
     public static void main(String[] args) {

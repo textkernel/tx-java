@@ -3,13 +3,13 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume.education;
+package com.textkernel.tx.models.resume.education;
 
 import java.util.List;
-import com.sovren.models.resume.NormalizedString;
-import com.sovren.models.Location;
-import com.sovren.models.SovrenDate;
-import com.sovren.models.SovrenPrimitive;
+import com.textkernel.tx.models.resume.NormalizedString;
+import com.textkernel.tx.models.Location;
+import com.textkernel.tx.models.SovrenDate;
+import com.textkernel.tx.models.SovrenPrimitive;
 
 /**
 * An education entry on a resume

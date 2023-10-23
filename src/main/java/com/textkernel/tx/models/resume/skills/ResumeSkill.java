@@ -3,12 +3,12 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.resume.skills;
+package com.textkernel.tx.models.resume.skills;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import com.sovren.models.SovrenPrimitive;
+import com.textkernel.tx.models.SovrenPrimitive;
 
 /**
 * A skill listed in a resume or job

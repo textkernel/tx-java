@@ -3,9 +3,9 @@
 // within the terms of their license of Sovren products or Sovren customers
 // within the Terms of Service pertaining to the Sovren SaaS products.
 
-package com.sovren.models.api.geocoding;
+package com.textkernel.tx.models.api.geocoding;
 
-import com.sovren.models.resume.ParsedResume;
+import com.textkernel.tx.models.resume.ParsedResume;
 
 /** Request body for geocoding a resume and then adding into an index */
 public class GeocodeAndIndexResumeRequest extends GeocodeAndIndexRequest {
