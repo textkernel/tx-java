@@ -1,6 +1,6 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx.integration;
@@ -97,7 +97,7 @@ public class IndexTests extends TestBase {
                 Client.createIndex(indexType, indexName);
             });
 
-            assertEquals(TxErrorCodes.DuplicateAsset, sovrenException.SovrenErrorCode);
+            assertEquals(TxErrorCodes.DuplicateAsset, sovrenException.TxErrorCode);
 
             // verify index created
             assertTrue(doesIndexExist(indexName));
@@ -116,7 +116,7 @@ public class IndexTests extends TestBase {
             sovrenException = assertThrows(TxException.class, () -> {
                 Client.deleteIndex(indexName);
             });
-            assertEquals(TxErrorCodes.DataNotFound, sovrenException.SovrenErrorCode);
+            assertEquals(TxErrorCodes.DataNotFound, sovrenException.TxErrorCode);
         } catch (TxException e) {
         } finally {
             // clean up assets in case the test failed someone before the delete calls were executed
@@ -207,12 +207,12 @@ public class IndexTests extends TestBase {
             sovrenException = assertThrows(TxException.class, () -> {
                     Client.getResume(resumeIndexId, documentId);
             });
-            assertEquals(TxErrorCodes.DataNotFound, sovrenException.SovrenErrorCode);
+            assertEquals(TxErrorCodes.DataNotFound, sovrenException.TxErrorCode);
 
             sovrenException = assertThrows(TxException.class, () -> {
                     Client.deleteDocument(resumeIndexId, documentId);
             });
-            assertEquals(TxErrorCodes.DataNotFound, sovrenException.SovrenErrorCode);
+            assertEquals(TxErrorCodes.DataNotFound, sovrenException.TxErrorCode);
 
             Client.deleteIndex(resumeIndexId);
             delayForIndexSync();

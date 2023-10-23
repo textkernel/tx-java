@@ -1,6 +1,6 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx.models;
@@ -19,7 +19,7 @@ import java.util.Base64;
 public class Document {
     protected String _asBase64;
 
-    /** @return The base-64 encoded byte[] for this file. This is what is sent over HTTPS to Sovren's API*/
+    /** @return The base-64 encoded byte[] for this file. This is what is sent over HTTPS to the API*/
     public String getAsBase64() {
         return _asBase64;
     }

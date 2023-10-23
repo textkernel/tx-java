@@ -1,6 +1,6 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx.models.api.parsing;
@@ -20,7 +20,7 @@ public class ProfessionsSettings {
      * <p>
      * The following languages are supported: English, Chinese (Simplified), Dutch, French, German, Italian, Polish, Portuguese, and Spanish. For documents in other languages, no normalized values will be returned.
      * <p>
-     * For Sovren AI Matching, normalized professions are automatically indexed and used if enabled. To also leverage profession 
+     * For AI Matching, normalized professions are automatically indexed and used if enabled. To also leverage profession 
      * normalization for user-created searches, enable {@link SearchMatchSettings#NormalizeJobTitles}.
      * <p>
      * The profession taxonomy and the mappings are compatible with the taxonomies used in Textkernel's <a href="https://www.textkernel.com/solution/data-enrichment-apis/">Data Enrichment APIs</a> and <a href="https://www.jobfeed.com/">Jobfeed</a>, 

@@ -1,6 +1,6 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx.models.job;
@@ -26,31 +26,31 @@ import com.textkernel.tx.models.api.parsing.SkillsSettings;
 */
 public class ParsedJob extends ParsedDocument {
     
-    /** Whether or not the job is a management position. Used by Sovren for AI Matching*/
+    /** Whether or not the job is a management position. Used for AI Matching*/
     public boolean CurrentJobIsManagement;
     
-    /** The management score. Used by Sovren for AI Matching*/
+    /** The management score. Used for AI Matching*/
     public TxPrimitive<Integer> HighestManagementScore;
     
-    /** The management level. Used by Sovren for AI Matching*/
+    /** The management level. Used for AI Matching*/
     public String ManagementLevel;
     
-    /** What kind of executive position the job is, if any. Used by Sovren for AI Matching*/
+    /** What kind of executive position the job is, if any. Used for AI Matching*/
     public String ExecutiveType;
     
-    /** The minimum years experience for the job, if listed. Used by Sovren for AI Matching*/
+    /** The minimum years experience for the job, if listed. Used for AI Matching*/
     public TxPrimitive<Integer> MinimumYears;
     
-    /** The maximum years experience for the job, if listed. Used by Sovren for AI Matching*/
+    /** The maximum years experience for the job, if listed. Used for AI Matching*/
     public TxPrimitive<Integer> MaximumYears;
     
-    /** The minimum years of management experience, if listed. Used by Sovren for AI Matching*/
+    /** The minimum years of management experience, if listed. Used for AI Matching*/
     public TxPrimitive<Integer> MinimumYearsManagement;
     
-    /** The maximum years of management experience, if listed. Used by Sovren for AI Matching*/
+    /** The maximum years of management experience, if listed. Used for AI Matching*/
     public TxPrimitive<Integer> MaximumYearsManagement;
     
-    /** The required educational degree, if listed. Used by Sovren for AI Matching*/
+    /** The required educational degree, if listed. Used for AI Matching*/
     public String RequiredDegree;
     
     /** The start date of the job.*/
@@ -71,22 +71,22 @@ public class ParsedJob extends ParsedDocument {
     /** Full text of any employer description listed by the job.*/
     public String EmployerDescription;
     
-    /** The job titles found in the job. Used by Sovren for AI Matching*/
+    /** The job titles found in the job. Used for AI Matching*/
     public JobTitles JobTitles;
     
     /** The employer names found in the job.*/
     public EmployerNames EmployerNames;
     
-    /** The educational degrees found listed in the job. Used by Sovren for AI Matching*/
+    /** The educational degrees found listed in the job. Used for AI Matching*/
     public List<JobDegree> Degrees;
     
     /** Any school names listed in the job*/
     public List<String> SchoolNames;
     
-    /** Any certifications/licenses listed in the job. Used by Sovren for AI Matching*/
+    /** Any certifications/licenses listed in the job. Used for AI Matching*/
     public List<String> CertificationsAndLicenses;
     
-    /** Any languages listed in the job. Used by Sovren for AI Matching*/
+    /** Any languages listed in the job. Used for AI Matching*/
     public List<String> LanguageCodes;
     
     /** The location of the job, if listed. If no job location is found, this is the location of the company, if listed.*/
@@ -185,8 +185,8 @@ public class ParsedJob extends ParsedDocument {
     public List<String> UserDefinedTags;
 
     /** 
-     * @deprecated You should never create one of these. Instead, these are output by the Sovren Job Parser.
-     * Sovren does not support manually-created jobs to be used in the AI Matching engine.
+     * @deprecated You should never create one of these. Instead, these are output by the Job Parser.
+     * The API does not support manually-created jobs to be used in the AI Matching engine.
      */
     @Deprecated
     public ParsedJob() {
@@ -216,7 +216,7 @@ public class ParsedJob extends ParsedDocument {
 
         if (newJob.JobMetadata == null) {
             //this should never happen, it was bad json
-            throw new JsonParseException("The provided JSON is not a valid ParsedJob created by the Sovren Job Parser");
+            throw new JsonParseException("The provided JSON is not a valid ParsedJob created by the Job Parser");
         }
 
         return newJob;

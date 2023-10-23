@@ -1,6 +1,6 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx.models.resume.metadata;
@@ -18,7 +18,7 @@ public class ResumeMetadata extends ParsedDocumentMetadata {
     public List<ResumeSection> FoundSections;
         
     /**
-     * This is an advanced level feature. Please ignore the data in the Resume Quality output unless/until you have discussed its proper use with Sovren, and been approved to use it.<br><br>
+     * This is an advanced level feature. Please ignore the data in the Resume Quality output unless/until you have discussed its proper use with Textkernel, and been approved to use it.<br><br>
      * The Resume Quality section output should NEVER IN ANY SENSE WHATSOEVER be used as an indication that the Parser has failed or performed poorly. 
      * The sole purpose of the Resume Quality section is to help you, the integrator, to understand substandard aspects of the candidate's resume. 
      * The majority of resumes will have at least one entry in this section. AGAIN, that does not mean that parsing "failed" or that the Parser needs fixing.<br><br>
@@ -35,6 +35,6 @@ public class ResumeMetadata extends ParsedDocumentMetadata {
     */
     public List<ResumeQualityAssessment> ResumeQuality;
         
-    /** Used by Sovren to redact PII. See {@link ParseResumeResponseValue#RedactedResumeData} */
+    /** Used to redact PII. See {@link ParseResumeResponseValue#RedactedResumeData} */
     public ReservedData ReservedData;
 }

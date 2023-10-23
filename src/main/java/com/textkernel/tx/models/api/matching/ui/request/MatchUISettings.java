@@ -1,6 +1,6 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx.models.api.matching.ui.request;
@@ -17,7 +17,7 @@ public class MatchUISettings {
 
     /**
      * Options for parsing documents from external sources such as job boards
-     * and Sovren custom web sourcing. You only need to use this if you are using Sovren Sourcing
+     * and custom web sourcing. You only need to use this if you are using Sourcing
     */
     public BasicParseOptions ParseOptions;
 

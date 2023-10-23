@@ -1,6 +1,6 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx.models.api.matching.ui;
@@ -61,13 +61,13 @@ public class UIOptions {
     public boolean ShowFindSimilar = true;
 
     /**
-    * {@code true} to include Sovren custom web sourcing in search/match results. Cannot be used for bimetric scoring (default = {@code false}).
+    * {@code true} to include custom web sourcing in search/match results. Cannot be used for bimetric scoring (default = {@code false}).
     */
     public boolean ShowWebSourcing;
 
     /**
     * {@code true} to include job boards in search/match results. Cannot be used for bimetric scoring (default = {@code true}).
-    * Must add credentials in the <a href="https://portal.sovren.com">Sovren Portal</a>
+    * Must add credentials in the <a href="https://portal.sovren.com">Portal</a>
     */
     public boolean ShowJobBoards = true;
 
@@ -78,7 +78,7 @@ public class UIOptions {
 
     /**
     * Contains all the <a href="https://developer.textkernel.com/Sovren/v10/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
-    * for the Match UI session. These are used to make a seamless integration between your system and the Sovren Matching UI.
+    * for the Match UI session. These are used to make a seamless integration between your system and the Matching UI.
     */
     public UserActionHookCollection Hooks;
 
@@ -89,7 +89,7 @@ public class UIOptions {
     public List<UserDefinedTagsPicklist> UserDefinedTagsPicklists;
 
     /**
-    * If you are using custom skills, provide your custom skills list names here. The builtin Sovren skills lists are always included.
+    * If you are using custom skills, provide your custom skills list names here. The builtin skills lists are always included.
     */
     public List<String> SkillsAutoCompleteCustomSkillsList;
 }

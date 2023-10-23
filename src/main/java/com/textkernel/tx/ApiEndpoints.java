@@ -1,6 +1,6 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx;
@@ -21,7 +21,7 @@ class ApiEndpoints {
     }
 
     private String prefix(boolean isMatchUI) {
-        if (isMatchUI && !_dataCenter.IsSovrenSaaS) {
+        if (isMatchUI && !_dataCenter.IsSaaS) {
             //throw new IllegalAccessException("Cannot call Matching UI on a self-hosted installation.");
             //do not throw this for now, it will just be a 404
         }

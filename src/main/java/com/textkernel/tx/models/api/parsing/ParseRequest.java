@@ -1,6 +1,6 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx.models.api.parsing;
@@ -27,7 +27,7 @@ public class ParseRequest extends ParseOptions {
      * with a DocumentLastModified of "2019-01-05"; if, however, it was modified on May 7, 2019, the DocumentLastModified should be 
      * passed as "2019-05-07". Failing to pass a DocumentLastModified, or passing DocumentLastModified that are clearly improbable, may 
      * result in rejection of data and/or additional charges, and will utterly decimate the usefulness of AI Matching and 
-     * any Sovren generated metadata. 
+     * any generated metadata. 
      * <p>Use of the DocumentLastModified field is subject to the <a href="https://sovren.com/policies-and-agreements/acceptable-use-policy/?h=revision-date">Acceptable Use Policy</a>.
     */
     public String DocumentLastModified;

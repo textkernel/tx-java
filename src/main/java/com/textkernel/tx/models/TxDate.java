@@ -1,13 +1,13 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx.models;
 
 import java.time.LocalDate;
 /**
-* Sovren's custom Date type that represents dates found in resumes/jobs. The following are common examples: 
+* the custom Date type that represents dates found in resumes/jobs. The following are common examples: 
 *  <p>- Current, as in "July 2018 - current". See {@link TxDate#IsCurrentDate}
 *  <p>- Year only, as in "2018 - 2020". {@link TxDate#FoundYear} will be true, {@link TxDate#FoundMonth} and {@link TxDate#FoundDay} will be false 
 *  <p>- Year and month, as in "2018/06 - 2020/07". {@link TxDate#FoundYear} and {@link TxDate#FoundMonth} will be true, {@link TxDate#FoundDay} will be false 

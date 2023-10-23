@@ -1,12 +1,11 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx.models;
 
 import java.time.LocalDate;
-import java.util.List;
 
 /**
 * Metadata about a parsed document
@@ -42,10 +41,4 @@ public class ParsedDocumentMetadata {
      * This was used to calculate all of the important metrics about skills and jobs.
      */
     public LocalDate DocumentLastModified;
-
-    /** 
-     * A digital signature used to ensure there is no tampering between parsing and indexing. This
-     * prevents Sovren from storing any PII in the AI Matching engine.
-     */
-    public List<String> SovrenSignature;
 }

@@ -1,6 +1,6 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx.models.api.matching.ui.hooks;
@@ -27,8 +27,8 @@ public class UserActionHookCollection {
     /**
     * The server-side (HTTP POST)
     * <a href="https://developer.textkernel.com/Sovren/v10/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
-    * for 'Sovren Sourcing' results during a Matching UI session. These can be used to do some server-side action (performs an HTTP POST to your server) 
-    * when a user clicks a button on a particular 'Sovren Sourcing' result.
+    * for 'Sourcing' results during a Matching UI session. These can be used to do some server-side action (performs an HTTP POST to your server) 
+    * when a user clicks a button on a particular 'Sourcing' result.
     */
     public List<SourcingHook> Sourcing;
 }

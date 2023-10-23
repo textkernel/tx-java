@@ -1,6 +1,6 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx.models.resume;
@@ -116,8 +116,8 @@ public class ParsedResume extends ParsedDocument {
     public List<String> UserDefinedTags;
 
     /** 
-     * @deprecated You should never create one of these. Instead, these are output by the Sovren Resume Parser.
-     * Sovren does not support manually-created resumes to be used in the AI Matching engine.
+     * @deprecated You should never create one of these. Instead, these are output by the Resume Parser.
+     * The API does not support manually-created resumes to be used in the AI Matching engine.
      */
     @Deprecated
     public ParsedResume() {
@@ -146,7 +146,7 @@ public class ParsedResume extends ParsedDocument {
 
         if (newResume.ResumeMetadata == null) {
             //this should never happen, it was bad json
-            throw new JsonParseException("The provided JSON is not a valid ParsedResume created by the Sovren Resume Parser");
+            throw new JsonParseException("The provided JSON is not a valid ParsedResume created by the Resume Parser");
         }
 
         return newResume;

@@ -2,16 +2,16 @@
 
 ```java
 import com.textkernel.tx.*;
-import com.textkernel.tx.exceptions.SovrenException;
+import com.textkernel.tx.exceptions.TxException;
 import com.textkernel.tx.models.matching.IndexType;
 import com.textkernel.tx.models.resume.ParsedResume;
 
 public class ParsingExample {
     public static void main(String[] args) {
-        SovrenClient client = new SovrenClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US);
+        TxClient client = new TxClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US);
         
-        ParsedResume parsedResume1 = ...;//output from Sovren Resume Parser
-        ParsedResume parsedResume2 = ...;//output from Sovren Resume Parser
+        ParsedResume parsedResume1 = ...;//output from Resume Parser
+        ParsedResume parsedResume2 = ...;//output from Resume Parser
         
         String indexId = "myResumes";
     
@@ -23,9 +23,9 @@ public class ParsingExample {
             //if we get here, it was 200-OK and all operations succeeded
             System.out.println("Success!");
         }
-        catch (SovrenException e) {
-            //this was an outright failure, always try/catch for SovrenExceptions when using SovrenClient
-            System.out.println("Error: " + e.SovrenErrorCode + ", Message: " + e.getMessage());
+        catch (TxException e) {
+            //this was an outright failure, always try/catch for TxExceptions when using TxClient
+            System.out.println("Error: " + e.TxErrorCode + ", Message: " + e.getMessage());
         }
     }
 }

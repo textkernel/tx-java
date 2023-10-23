@@ -1,6 +1,6 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx.models.api.matching;
@@ -14,7 +14,7 @@ import com.textkernel.tx.models.api.matching.request.MatchRequest;
 public class BaseScoredResponseValue<T> extends BaseSearchMatchResponseValue<T> {
 
     /**
-     * The weights suggested by Sovren based solely on the data in the source document.
+     * The weights suggested based solely on the data in the source document.
      * <p>NOTE: these should only be used as a fallback or initial value. Your system/users
      * should have the ability to adjust/override these (in the PreferredCategoryWeights in the request)
      * 

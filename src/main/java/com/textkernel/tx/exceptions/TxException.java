@@ -1,6 +1,6 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx.exceptions;
@@ -23,9 +23,9 @@ public class TxException extends Exception {
     public int HttpStatusCode;
     
     /**  The Info.Code of the response. This will indicate what type of error occurred. See https://developer.textkernel.com/Sovren/v10/overview/#http-status-codes*/
-    public String SovrenErrorCode;
+    public String TxErrorCode;
     
-    /** The Id of the transaction, use this when reporting errors to Sovren Support*/
+    /** The Id of the transaction, use this when reporting errors to Support*/
     public String TransactionId;
     
     /** The JSON request body, will only have a value if {@link TxClient#ShowFullRequestBodyInExceptions} is {@code true}*/
@@ -39,7 +39,7 @@ public class TxException extends Exception {
         
         RestResponse = response;
         HttpStatusCode = Optional.ofNullable(response).map(r -> r.code()).orElse(500);
-        SovrenErrorCode = Optional.ofNullable(errorInfo).map(e -> e.Code).orElse("Unknown Error");
+        TxErrorCode = Optional.ofNullable(errorInfo).map(e -> e.Code).orElse("Unknown Error");
         TransactionId = transactionId;
         RequestBody = requestBody;
     }

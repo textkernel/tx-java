@@ -1,6 +1,6 @@
 // Copyright © 2023 Textkernel BV. All rights reserved.
 // This file is provided for use by, or on behalf of, Textkernel licensees
-// within the terms of their license of Sovren products or Textkernel customers
+// within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
 package com.textkernel.tx;
@@ -10,11 +10,11 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
 public class TestData {
-    private static String _resumeText = "John Wesson\n\nWork History\nSr. Software Developer at Sovren Inc.   07/2017 - 07/2018\n- used Visual Basic and VB6 to make a web app";
+    private static String _resumeText = "John Wesson\n\nWork History\nSr. Software Developer at Inc.   07/2017 - 07/2018\n- used Visual Basic and VB6 to make a web app";
 
     public static Document Resume = new Document(_resumeText.getBytes(StandardCharsets.UTF_8), LocalDate.now());
 
-    private static String _resumeTextWithAddress = "John Wesson\n\n4544 McKinney Ave \nDallas, TX 75205\n\nWork History\nSr. Software Developer at Sovren Inc.   07/2017 - 07/2018\n- used Javascript and ReactJS to make a web app";
+    private static String _resumeTextWithAddress = "John Wesson\n\n4544 McKinney Ave \nDallas, TX 75205\n\nWork History\nSr. Software Developer at Inc.   07/2017 - 07/2018\n- used Javascript and ReactJS to make a web app";
 
     public static Document ResumeWithAddress = new Document(_resumeTextWithAddress.getBytes(StandardCharsets.UTF_8), LocalDate.now());
 
