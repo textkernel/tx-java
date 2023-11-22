@@ -12,7 +12,7 @@ public class JobTitleFilter {
 
     /**
      * The name of the Job Title. Supports (*, ?) wildcard characters after the third character
-     * in the term as defined in https://developer.textkernel.com/Sovren/v10/ai-matching/overview/querying/#ai-filtering-special-operators
+     * in the term as defined in https://developer.textkernel.com/tx-platform/v10/ai-matching/overview/querying/#ai-filtering-special-operators
     */
     public String Title;
 

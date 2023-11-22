@@ -16,7 +16,7 @@ public class ResumeQualityFinding {
         
     /**
      * A unique 3-digit code to identify what type of issue was found.
-     * See all possibilities at our docs site <a href="https://developer.textkernel.com/Sovren/v10/resume-parser/overview/parser-output/">here</a>.
+     * See all possibilities at our docs site <a href="https://developer.textkernel.com/tx-platform/v10/resume-parser/overview/parser-output/">here</a>.
     */
     public String QualityCode;
         

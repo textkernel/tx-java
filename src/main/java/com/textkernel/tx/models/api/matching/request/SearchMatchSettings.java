@@ -17,7 +17,7 @@ public class SearchMatchSettings {
 
     /**
     * Normalize the first three job titles specified in {@link FilterCriteria#JobTitles} and automatically include them in the query
-    * (<a href="https://developer.textkernel.com/Sovren/v10/overview/#transaction-cost">additional charges apply</a>).
+    * (<a href="https://developer.textkernel.com/tx-platform/v10/overview/#transaction-cost">additional charges apply</a>).
     * <p>
     * You will only benefit from using this parameter if the data in your index was parsed with {@link ProfessionsSettings#Normalize} enabled.
     * <p>

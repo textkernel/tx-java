@@ -44,7 +44,7 @@ For full code examples, see [here][examples].
 ## Usage
 
 ### Creating a `TxClient`
-This is the object that you will use to perform API calls. You create it with your account credentials and the `TxClient` makes the raw API calls for you. These credentials can be found in the [Textkernel Portal][portal]. Be sure to select the correct `DataCenter` for your account.
+This is the object that you will use to perform API calls. You create it with your account credentials and the `TxClient` makes the raw API calls for you. These credentials can be found in the [Tx Console][portal]. Be sure to select the correct `DataCenter` for your account.
 ```java
 TxClient client = new TxClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US);
 ```
@@ -77,5 +77,5 @@ For every relevant method in the `TxClient`, you can create a Matching UI sessio
 [gson_url]: https://github.com/google/gson
 [okhttp_url]: https://github.com/square/okhttp
 [examples]: https://github.com/textkernel/tx-java/tree/master/examples
-[portal]: https://portal.sovren.com
-[api-docs]: https://developer.textkernel.com/Sovren/v10/overview/
+[portal]: https://cloud.textkernel.com/tx/console
+[api-docs]: https://developer.textkernel.com/tx-platform/v10/overview/

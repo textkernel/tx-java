@@ -11,8 +11,8 @@ import java.util.List;
 public class NormalizeSkillsRequest {
     /** The list of skills to normalize (up to 50 skills, each skill may not exceed 100 characters). */
     public List<String> Skills;
-    /** The language of the given skills. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO codes</a>. */
+    /** The language of the given skills. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#professions-languages">ISO codes</a>. */
     public String Language;
-    /** The language to use for the output skill descriptions. If not provided, defaults to the input language. Must be one of the supported <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-languages">ISO codes</a>. */
+    /** The language to use for the output skill descriptions. If not provided, defaults to the input language. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#professions-languages">ISO codes</a>. */
     public String OutputLanguage;
 }

@@ -12,7 +12,7 @@ import com.textkernel.tx.models.api.dataenrichment.ontology.response.SkillScore;
 public class CompareSkillsToProfessionRequest {
     /** The skills which should be compared against the given profession. The list can contain up to 50 skills.  */
     public List<SkillScore> Skills;
-    /** The profession code ID from the <a href="https://developer.textkernel.com/Sovren/v10/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare the skill set to. */
+    /** The profession code ID from the <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> to compare the skill set to. */
     public int ProfessionCodeId;
     /** The language to use for the returned descriptions. */
     public String OutputLanguage;

@@ -15,7 +15,7 @@ public class Taxonomy extends ITaxonomy<SubTaxonomy> {
 
     /** 
      * @return A list of all the default taxonomy/subtaxonomy. This list can also be found here:
-     * <a href="https://rest.resumeparsing.com/ui/v9/scripts/lib/taxonomies.js">https://rest.resumeparsing.com/ui/v9/scripts/lib/taxonomies.js</a>
+     * <a href="https://api.us.textkernel.com/tx/ui/v9/scripts/lib/taxonomies.js">https://api.us.textkernel.com/tx/ui/v9/scripts/lib/taxonomies.js</a>
     */
     public static List<Taxonomy> getDefaults() {
         if (_defaults == null) {

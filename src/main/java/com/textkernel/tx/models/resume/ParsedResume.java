@@ -109,7 +109,7 @@ public class ParsedResume extends ParsedDocument {
     public ResumeMetadata ResumeMetadata;
 
     /**
-     * A list of <a href="https://developer.textkernel.com/Sovren/v10/ai-matching/overview/user-defined-tags/">User-Defined Tags</a> 
+     * A list of <a href="https://developer.textkernel.com/tx-platform/v10/ai-matching/overview/user-defined-tags/">User-Defined Tags</a> 
      * that are assigned to this resume. These are used to filter search/match queries in the AI Matching Engine.
      * <p><b>NOTE: you may add/remove these prior to indexing. This is the only property you may modify prior to indexing.</b>
     */

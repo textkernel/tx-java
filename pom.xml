@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
     <name>Textkernel Tx Java SDK</name>
     <description>The official Java SDK for the Textkernel Tx v10 API.</description>
-    <url>https://developer.textkernel.com/Sovren/v10/overview/</url>
+    <url>https://developer.textkernel.com/tx-platform/v10/overview/</url>
 
     <licenses>
         <license>

@@ -13,7 +13,7 @@ public class SkillsSettings {
      * <ul>
      *     <li>Raw skills will be normalized. These will be output under {@link ResumeV2Skills#Normalized} or {@link JobV2Skills#Normalized}.
      *     <li>An enhanced candidate summary is generated, leveraging the taxonomy structure to relate skills with profession groups.</li>
-     *     <li>When {@link #TaxonomyVersion} is set to (or defaults to) {@code V2}, <a href="https://developer.textkernel.com/Sovren/v10/overview/#transaction-cost">additional charges apply</a></li>
+     *     <li>When {@link #TaxonomyVersion} is set to (or defaults to) {@code V2}, <a href="https://developer.textkernel.com/tx-platform/v10/overview/#transaction-cost">additional charges apply</a></li>
      * </ul>
      * <p>
      * <b>This setting has no effect when {@link #TaxonomyVersion} is set to (or defaults to) {@code V1}.</b>

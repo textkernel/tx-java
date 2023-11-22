@@ -10,7 +10,7 @@ import java.util.List;
 /** A collection of Matching UI User Action Hooks*/
 public class UserActionHookCollection {
     /**
-    * The client-side <a href="https://developer.textkernel.com/Sovren/v10/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
+    * The client-side <a href="https://developer.textkernel.com/tx-platform/v10/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
     * for a Matching UI session. These can be used to do some client-side action (opening a tab/window, running some javascript)
     * when a user clicks a button on a particular match result.
     */
@@ -18,7 +18,7 @@ public class UserActionHookCollection {
 
     /**
     * The server-side (HTTP POST)
-    * <a href="https://developer.textkernel.com/Sovren/v10/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
+    * <a href="https://developer.textkernel.com/tx-platform/v10/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
     * for a Matching UI session. These can be used to do some server-side action (performs an HTTP POST to your server) 
     * when a user clicks a button on a particular match result.
     */
@@ -26,7 +26,7 @@ public class UserActionHookCollection {
 
     /**
     * The server-side (HTTP POST)
-    * <a href="https://developer.textkernel.com/Sovren/v10/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
+    * <a href="https://developer.textkernel.com/tx-platform/v10/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
     * for 'Sourcing' results during a Matching UI session. These can be used to do some server-side action (performs an HTTP POST to your server) 
     * when a user clicks a button on a particular 'Sourcing' result.
     */

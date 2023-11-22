@@ -13,7 +13,7 @@ public class UserActionHook {
     /**
      * Set to {@code true} to allow users to select multiple documents and perform this action on all of them at once.
      * <br>NOTE: this can only be set to {@code true} when you use a {@link JsAction}. {@link UrlAction}s are not supported.
-     * <br>See https://developer.textkernel.com/Sovren/v10/matching-ui/overview/#ui-match-hooks for more info.
+     * <br>See https://developer.textkernel.com/tx-platform/v10/matching-ui/overview/#ui-match-hooks for more info.
      * <br>This value is not supported for Sourcing hooks, yet
     */
     public boolean IsBulk;

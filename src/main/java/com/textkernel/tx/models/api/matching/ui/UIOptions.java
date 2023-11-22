@@ -67,7 +67,7 @@ public class UIOptions {
 
     /**
     * {@code true} to include job boards in search/match results. Cannot be used for bimetric scoring (default = {@code true}).
-    * Must add credentials in the <a href="https://portal.sovren.com">Portal</a>
+    * Must add credentials in the <a href="https://cloud.textkernel.com/tx/console">Tx Console</a>
     */
     public boolean ShowJobBoards = true;
 
@@ -77,14 +77,14 @@ public class UIOptions {
     public boolean ShowSavedSearches;
 
     /**
-    * Contains all the <a href="https://developer.textkernel.com/Sovren/v10/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
+    * Contains all the <a href="https://developer.textkernel.com/tx-platform/v10/matching-ui/overview/#ui-match-hooks">User Action Hooks</a>
     * for the Match UI session. These are used to make a seamless integration between your system and the Matching UI.
     */
     public UserActionHookCollection Hooks;
 
     /**
     * Picklists shown in the UI for your users to filter on your user-defined tags.
-    * <br>See also: https://developer.textkernel.com/Sovren/v10/ai-matching/overview/user-defined-tags/
+    * <br>See also: https://developer.textkernel.com/tx-platform/v10/ai-matching/overview/user-defined-tags/
     */
     public List<UserDefinedTagsPicklist> UserDefinedTagsPicklists;
 

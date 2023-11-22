@@ -16,7 +16,7 @@ public class ProfessionsSettings {
     /**
      * When true, the most recent 3 job titles will be normalized. This includes a proprietary value from our profession taxonomy, plus ONET and ISCO mappings. <a href="https://www.textkernel.com/professions-data-enrichment-api/">Read more</a> about the benefits of using a professions taxonomy.
      * <p>
-     * When enabling professions normalization, <a href="https://developer.textkernel.com/Sovren/v10/overview/#transaction-cost">additional charges apply</a>.
+     * When enabling professions normalization, <a href="https://developer.textkernel.com/tx-platform/v10/overview/#transaction-cost">additional charges apply</a>.
      * <p>
      * The following languages are supported: English, Chinese (Simplified), Dutch, French, German, Italian, Polish, Portuguese, and Spanish. For documents in other languages, no normalized values will be returned.
      * <p>

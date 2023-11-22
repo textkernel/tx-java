@@ -15,7 +15,7 @@ public class BasicParseOptions {
     //********************************
 
     /**
-     * The configuration settings to use during parsing. See https://developer.textkernel.com/Sovren/v10/resume-parser/overview/configuration/#config.
+     * The configuration settings to use during parsing. See https://developer.textkernel.com/tx-platform/v10/resume-parser/overview/configuration/#config.
      * <p>NOTE: leaving this null/empty will use the default parsing settings which is recommended in most cases.
      */
     public String Configuration;

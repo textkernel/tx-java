@@ -7,11 +7,11 @@ package com.textkernel.tx.models.api;
 
 /**
 * Information/metadata for an individual REST API call. 
-* See https://developer.textkernel.com/Sovren/v10/overview/#http-status-codes
+* See https://developer.textkernel.com/tx-platform/v10/overview/#http-status-codes
 */
 public class ApiResponseInfoLite {
     
-    /** See https://developer.textkernel.com/Sovren/v10/overview/#http-status-codes*/
+    /** See https://developer.textkernel.com/tx-platform/v10/overview/#http-status-codes*/
     public String Code;
 
     /** A short human-readable description explaining the {@link #Code} value*/

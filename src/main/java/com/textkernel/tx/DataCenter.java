@@ -8,14 +8,14 @@ package com.textkernel.tx;
 /** Use either {@link DataCenter#US} or {@link DataCenter#EU}*/
 public class DataCenter {
     
-    /** Represents the US datacenter. You can find out which datacenter your account is in at https://portal.sovren.com*/
-    public static DataCenter US = new DataCenter("https://rest.resumeparsing.com", "v10", true);
+    /** Represents the US datacenter. You can find out which datacenter your account is in at https://cloud.textkernel.com/tx/console*/
+    public static DataCenter US = new DataCenter("https://api.us.textkernel.com/tx", "v10", true);
 
-    /** Represents the EU datacenter. You can find out which datacenter your account is in at https://portal.sovren.com*/
-    public static DataCenter EU = new DataCenter("https://eu-rest.resumeparsing.com", "v10", true);
+    /** Represents the EU datacenter. You can find out which datacenter your account is in at https://cloud.textkernel.com/tx/console*/
+    public static DataCenter EU = new DataCenter("https://api.eu.textkernel.com/tx", "v10", true);
 	
-	/** Represents the AU datacenter. You can find out which datacenter your account is in at https://portal.sovren.com*/
-    public static DataCenter AU = new DataCenter("https://au-rest.resumeparsing.com", "v10", true);
+	/** Represents the AU datacenter. You can find out which datacenter your account is in at https://cloud.textkernel.com/tx/console*/
+    public static DataCenter AU = new DataCenter("https://api.au.textkernel.com/tx", "v10", true);
 
     String Root;
     String Version;

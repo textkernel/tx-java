@@ -48,7 +48,7 @@ public abstract class TestBase {
     }
 
     private static class TestDataCenter extends DataCenter {
-        public static TestDataCenter Local = new TestDataCenter("https://staging-rest.resumeparsing.com", "v10");
+        public static TestDataCenter Local = new TestDataCenter("https://api-acc.us.textkernel.com/tx", "v10");
         protected TestDataCenter(String root, String version) {
             super(root, version, true);
         }
