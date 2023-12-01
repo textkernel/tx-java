@@ -1,21 +1,21 @@
 # Parsing with Geocoding and Indexing Example
 
 ```java
-import com.sovren.*;
-import com.sovren.exceptions.SovrenException;
-import com.sovren.exceptions.SovrenUsableResumeException;
-import com.sovren.models.Document;
-import com.sovren.models.api.geocoding.GeocodeOptions;
-import com.sovren.models.api.geocoding.GeocodeProvider;
-import com.sovren.models.api.indexes.IndexSingleDocumentInfo;
-import com.sovren.models.api.parsing.ParseOptions;
-import com.sovren.models.api.parsing.ParseRequest;
-import com.sovren.models.api.parsing.ParseResumeResponse;
+import com.textkernel.tx.*;
+import com.textkernel.tx.exceptions.TxException;
+import com.textkernel.tx.exceptions.TxUsableResumeException;
+import com.textkernel.tx.models.Document;
+import com.textkernel.tx.models.api.geocoding.GeocodeOptions;
+import com.textkernel.tx.models.api.geocoding.GeocodeProvider;
+import com.textkernel.tx.models.api.indexes.IndexSingleDocumentInfo;
+import com.textkernel.tx.models.api.parsing.ParseOptions;
+import com.textkernel.tx.models.api.parsing.ParseRequest;
+import com.textkernel.tx.models.api.parsing.ParseResumeResponse;
 import java.io.IOException;
 
 public class ParsingExample {
     public static void main(String[] args) throws IOException {
-        SovrenClient client = new SovrenClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US);
+        TxClient client = new TxClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US);
         
         //A Document is an unparsed File (PDF, Word Doc, etc)
         Document doc = new Document("resume.docx");
@@ -37,15 +37,15 @@ public class ParsingExample {
     
             System.out.println("Success!");
         }
-        catch (SovrenUsableResumeException e) {
+        catch (TxUsableResumeException e) {
             //this indicates an error occurred when geocoding or indexing, but the
             //parsed resume may still be usable
         
             //do something with e.Response.Value.ResumeData if it has good data
         }
-        catch (SovrenException e) {
-            //this was an outright failure, always try/catch for SovrenExceptions when using SovrenClient
-            System.out.println("Error: " + e.SovrenErrorCode + ", Message: " + e.getMessage());
+        catch (TxException e) {
+            //this was an outright failure, always try/catch for TxExceptions when using TxClient
+            System.out.println("Error: " + e.TxErrorCode + ", Message: " + e.getMessage());
         }
     }
 }

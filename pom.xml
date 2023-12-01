@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.sovren</groupId>
-    <artifactId>sovren-java</artifactId>
+    <groupId>com.textkernel</groupId>
+    <artifactId>tx-java</artifactId>
 
-    <version>1.10.0</version>
+    <version>2.0.0</version>
 
     <packaging>jar</packaging>
-    <name>Sovren Java SDK</name>
-    <description>The official Java SDK for the Sovren v10 API.</description>
-    <url>https://sovren.com/technical-specs/latest/rest-api/overview/</url>
+    <name>Textkernel Tx Java SDK</name>
+    <description>The official Java SDK for the Textkernel Tx v10 API.</description>
+    <url>https://developer.textkernel.com/tx-platform/v10/overview/</url>
 
     <licenses>
         <license>
@@ -20,17 +20,17 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:https://github.com/sovren/sovren-java.git</connection>
-        <developerConnection>scm:git:https://github.com:sovren/sovren-java.git</developerConnection>
-        <url>https://github.com/sovren/sovren-java</url>
+        <connection>scm:git:https://github.com/textkernel/tx-java.git</connection>
+        <developerConnection>scm:git:https://github.com:textkernel/tx-java.git</developerConnection>
+        <url>https://github.com/textkernel/tx-java</url>
     </scm>
 
     <developers>
         <developer>
             <name>JW Wesson</name>
-            <email>jw.wesson@sovren.com</email>
-            <organization>Sovren</organization>
-            <organizationUrl>https://www.sovren.com</organizationUrl>
+            <email>wesson@textkernel.nl</email>
+            <organization>Textkernel BV</organization>
+            <organizationUrl>https://www.textkernel.com</organizationUrl>
         </developer>
     </developers>
 
@@ -68,11 +68,11 @@
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
             <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
 
@@ -179,7 +179,7 @@
                 </executions>
                 <configuration>
                     <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                     <stagingProgressTimeoutMinutes>15</stagingProgressTimeoutMinutes>
                     <keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>

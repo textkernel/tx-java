@@ -1,45 +1,45 @@
 # Basic Resume Parsing Example
 
 ```java
-import com.sovren.*;
-import com.sovren.exceptions.SovrenException;
-import com.sovren.models.Document;
-import com.sovren.models.SovrenDate;
-import com.sovren.models.api.parsing.ParseOptions;
-import com.sovren.models.api.parsing.ParseRequest;
-import com.sovren.models.api.parsing.ParseResumeResponse;
-import com.sovren.models.resume.PersonalAttributes;
-import com.sovren.models.resume.contactinfo.ContactInformation;
-import com.sovren.models.resume.contactinfo.WebAddress;
-import com.sovren.models.resume.contactinfo.WebAddressType;
-import com.sovren.models.resume.education.EducationDetails;
-import com.sovren.models.resume.education.EducationHistory;
-import com.sovren.models.resume.employment.EmploymentHistory;
-import com.sovren.models.resume.employment.Position;
+import com.textkernel.tx.*;
+import com.textkernel.tx.exceptions.TxException;
+import com.textkernel.tx.models.Document;
+import com.textkernel.tx.models.TxDate;
+import com.textkernel.tx.models.api.parsing.ParseOptions;
+import com.textkernel.tx.models.api.parsing.ParseRequest;
+import com.textkernel.tx.models.api.parsing.ParseResumeResponse;
+import com.textkernel.tx.models.resume.PersonalAttributes;
+import com.textkernel.tx.models.resume.contactinfo.ContactInformation;
+import com.textkernel.tx.models.resume.contactinfo.WebAddress;
+import com.textkernel.tx.models.resume.contactinfo.WebAddressType;
+import com.textkernel.tx.models.resume.education.EducationDetails;
+import com.textkernel.tx.models.resume.education.EducationHistory;
+import com.textkernel.tx.models.resume.employment.EmploymentHistory;
+import com.textkernel.tx.models.resume.employment.Position;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 public class ParsingExample {
     public static void main(String[] args) throws IOException {
-        SovrenClient client = new SovrenClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US);
+        TxClient client = new TxClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US);
         
         //A Document is an unparsed File (PDF, Word Doc, etc)
         Document doc = new Document("resume.docx");
     
         //when you create a ParseRequest, you can specify many configuration settings
-        //in the ParseOptions. See https://sovren.com/technical-specs/latest/rest-api/resume-parser/api/
+        //in the ParseOptions. See https://developer.textkernel.com/tx-platform/v10/resume-parser/api/
         ParseRequest request = new ParseRequest(doc, new ParseOptions());
     
         try {
             ParseResumeResponse response = client.parseResume(request);
             //if we get here, it was 200-OK and all operations succeeded
     
-            //now we can use the response from Sovren to output some of the data from the resume
+            //now we can use the response to output some of the data from the resume
             printBasicResumeInfo(response);
         }
-        catch (SovrenException e) {
-            //the document could not be parsed, always try/catch for SovrenExceptions when using SovrenClient
-            System.out.println("Code: " + e.HttpStatusCode + ", Error: " + e.SovrenErrorCode + ", Message: " + e.getMessage());
+        catch (TxException e) {
+            //the document could not be parsed, always try/catch for TxExceptions when using TxClient
+            System.out.println("Code: " + e.HttpStatusCode + ", Error: " + e.TxErrorCode + ", Message: " + e.getMessage());
         }
     }
     
@@ -90,7 +90,7 @@ public class ParsingExample {
             printHeader("PERSONAL INFORMATION");
             
             if (personalInfo.DateOfBirth != null)
-                System.out.println("Date of Birth: " + getSovrenDateAsString(personalInfo.DateOfBirth));
+                System.out.println("Date of Birth: " + getTxDateAsString(personalInfo.DateOfBirth));
             if (personalInfo.DrivingLicense != null)
                 System.out.println("Driving License: " + personalInfo.DrivingLicense);
             if (personalInfo.Nationality != null)
@@ -117,7 +117,7 @@ public class ParsingExample {
                     System.out.println("Employer: " + position.Employer.Name.Normalized);
                 if (position.JobTitle != null)
                     System.out.println("Title: " + position.JobTitle.Normalized);
-                System.out.println("Date Range: " + getSovrenDateAsString(position.StartDate) + " - " + getSovrenDateAsString(position.EndDate));
+                System.out.println("Date Range: " + getTxDateAsString(position.StartDate) + " - " + getTxDateAsString(position.EndDate));
             }
         }
     }
@@ -142,13 +142,13 @@ public class ParsingExample {
                 if (edu.GPA != null)
                     System.out.println("GPA: " + edu.GPA.NormalizedScore + "/1.0 (" + edu.GPA.Score + "/" + edu.GPA.MaxScore + ")");
                 String endDateRepresents = edu.Graduated != null && edu.Graduated.Value ? "Graduated" : "Last Attended";
-                System.out.println(endDateRepresents + ": " + getSovrenDateAsString(edu.EndDate));
+                System.out.println(endDateRepresents + ": " + getTxDateAsString(edu.EndDate));
             }
         }
     }
     
-    static String getSovrenDateAsString(SovrenDate date) {
-        //a SovrenDate represents a date found on a resume, so it can either be 
+    static String getTxDateAsString(TxDate date) {
+        //a TxDate represents a date found on a resume, so it can either be 
         //'current', as in "July 2018 - current"
         //a year, as in "2018 - 2020"
         //a year and month, as in "2018/06 - 2020/07"
