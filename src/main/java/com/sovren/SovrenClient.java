@@ -102,17 +102,22 @@ public class SovrenClient {
     public boolean ShowFullRequestBodyInExceptions = false;
 
     /**
+     * @deprecated This package is now legacy. Please upgrade to the com.textkernel/tx-java package.
+     * 
      * Create an SDK client to perform Sovren API calls with the account information found at https://portal.sovren.com
      * @param accountId - The account id for your account
      * @param serviceKey - The service key for your account
      * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US}, {@link DataCenter#EU}, or @link DataCenter#AU}
      * @throws IllegalArgumentException if the accountId, serviceKey, or dataCenter are null/empty
      */
+    @Deprecated
     public SovrenClient(String accountId, String serviceKey, DataCenter dataCenter) {
         this(accountId, serviceKey, dataCenter, null);
     }
 
     /**
+     * @deprecated This package is now legacy. Please upgrade to the com.textkernel/tx-java package.
+     * 
      * Create an SDK client to perform Sovren API calls with the account information found at https://portal.sovren.com
      * @param accountId - The account id for your account
      * @param serviceKey - The service key for your account
@@ -120,6 +125,7 @@ public class SovrenClient {
      * @param trackingTags - Optional tags to use to track API usage for your account
      * @throws IllegalArgumentException if the accountId, serviceKey, or dataCenter are null/empty
      */
+    @Deprecated
     public SovrenClient(String accountId, String serviceKey, DataCenter dataCenter, List<String> trackingTags) {
         
         if (accountId == null || accountId.length() == 0) {

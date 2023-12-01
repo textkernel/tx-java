@@ -4,11 +4,11 @@
     <groupId>com.sovren</groupId>
     <artifactId>sovren-java</artifactId>
 
-    <version>1.10.0</version>
+    <version>1.10.1</version>
 
     <packaging>jar</packaging>
     <name>Sovren Java SDK</name>
-    <description>The official Java SDK for the Sovren v10 API.</description>
+    <description>This package has been deprecated as it is legacy and is no longer maintained. Use com.textkernel/tx-java instead. The official Java SDK for the Sovren v10 API.</description>
     <url>https://sovren.com/technical-specs/latest/rest-api/overview/</url>
 
     <licenses>
