@@ -5,6 +5,8 @@
 
 package com.textkernel.tx.models.api.parsing;
 
+import java.util.List;
+
 import com.textkernel.tx.models.api.geocoding.GeocodeOptions;
 import com.textkernel.tx.models.api.indexes.IndexSingleDocumentInfo;
 
@@ -40,6 +42,20 @@ public class ParseOptions extends BasicParseOptions {
      * This means you only need to send the document to our API once instead of twice for parsing+indexing.
     */
     public IndexSingleDocumentInfo IndexingOptions;
+
+    /**
+     * Only used for resumes. When {@code true}, and the document is English, the LLM Parser will be used. 
+     * See the <a href="https://developer.textkernel.com/tx-platform/v10/resume-parser/overview/llm-parser/#overview">overview documentation</a> for more information.
+     * <a href="https://developer.textkernel.com/tx-platform/v10/overview/#transaction-cost">Additional charges</a> will apply.
+    */
+    public boolean UseLLMParser;
+
+    /**
+     * Only used for resumes. Custom requests to ask during parsing. 
+     * See the <a href="https://developer.textkernel.com/tx-platform/v10/resume-parser/overview/llm-parser/#flex-requests">overview documentation</a> for more information.
+     * <a href="https://developer.textkernel.com/tx-platform/v10/overview/#transaction-cost">Additional charges</a> will apply.
+    */
+    public List<FlexRequest> FlexRequests;
 
     //********************************
     //IF YOU ADD ANY PARAMS HERE BE SURE TO ADD THEM IN THE DEEP COPY INSIDE ParseRequest.ctor() !!

@@ -22,4 +22,9 @@ public class ParseResumeResponseValue extends BaseParseResponseValue {
      * this property will contain no {@link ParsedResume#ContactInformation}.
     */
     public ParsedResume RedactedResumeData;
+
+    /**
+     * Information about the FlexRequests transaction, if any were provided.
+    */
+    public FlexResponse FlexResponse;
 }

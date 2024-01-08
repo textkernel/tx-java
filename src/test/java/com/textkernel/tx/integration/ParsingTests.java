@@ -16,8 +16,6 @@ import com.textkernel.tx.models.api.geocoding.GeocodeOptions;
 import com.textkernel.tx.models.api.geocoding.GeocodeProvider;
 import com.textkernel.tx.models.api.indexes.IndexSingleDocumentInfo;
 import com.textkernel.tx.models.api.parsing.*;
-import com.textkernel.tx.models.api.parsing.SkillsSettings;
-import com.textkernel.tx.models.api.parsing.ParseJobResponseValue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,6 +33,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
@@ -718,5 +717,37 @@ public class ParsingTests extends TestBase {
         assertNotNull(response.Value.JobData.JobTitles.NormalizedProfession.ISCO);
         assertNotNull(response.Value.JobData.JobTitles.NormalizedProfession.ONET);
         assertNotEquals(0, response.Value.JobData.JobTitles.NormalizedProfession.Confidence);
+    }
+    
+    @Test
+    public void TestLLMParse() throws Exception {
+        Document document = getTestFileAsDocument("resume.docx");
+        ParseOptions options = new ParseOptions();
+        options.UseLLMParser = true;
+        ParseResumeResponse response = Client.parseResume(new ParseRequest(document, options));
+
+        assertTrue(response.Info.isSuccess());
+        assertNotNull(response.Value.ResumeData.ContactInformation.CandidateName.GivenName);
+        assertNull(response.Value.ResumeData.Patents); // Patents is not parsed during LLM Parsing
+    }
+
+    @Test
+    public void TestFlexRequests() throws Exception {
+        Document document = getTestFileAsDocument("resume.docx");
+        ParseOptions options = new ParseOptions();
+        options.FlexRequests = new ArrayList<FlexRequest>();
+        FlexRequest prompt = new FlexRequest();
+        prompt.Prompt = "How many years has this person spent in a leadership position?";
+        prompt.DataType = FlexRequestDataType.Text;
+        prompt.Identifier = "YearsLeadership";
+        options.FlexRequests.add(prompt);
+        ParseResumeResponse response = Client.parseResume(new ParseRequest(document, options));
+
+        assertTrue(response.Info.isSuccess());
+        assertNotNull(response.Value.FlexResponse);
+        assertTrue(response.Value.FlexResponse.isSuccess());
+        assertNotNull(response.Value.FlexResponse.Responses);
+        assertEquals("YearsLeadership", response.Value.FlexResponse.Responses.get(0).Identifier);
+        assertNotNull(response.Value.FlexResponse.Responses.get(0).Reply);
     }
 }
