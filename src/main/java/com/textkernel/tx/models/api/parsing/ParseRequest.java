@@ -57,6 +57,8 @@ public class ParseRequest extends ParseOptions {
             this.SkillsData = optionsToUse.SkillsData;
             this.SkillsSettings = optionsToUse.SkillsSettings;
             this.ProfessionsSettings = optionsToUse.ProfessionsSettings;
+            this.UseLLMParser = optionsToUse.UseLLMParser;
+            this.FlexRequests = optionsToUse.FlexRequests;
         }
     }
 }
