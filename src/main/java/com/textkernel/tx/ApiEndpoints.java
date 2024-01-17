@@ -95,4 +95,7 @@ class ApiEndpoints {
     String desOntologySuggestProfessions() { return prefix(false) + "/ontology/suggest-professions"; }
     String desOntologyCompareSkillsToProfession() { return prefix(false) + "/ontology/compare-skills-to-profession"; }
     String desOntologySkillsSimilarityScore() { return prefix(false) + "/ontology/skills-similarity-score"; }
+
+    String assistantsJobDescriptionGenerate() { return prefix(false) + "/assistant/job-description/generate"; }
+    String assistantsJobDescriptionSuggestSkills() { return prefix(false) + "/assistant/job-description/suggest-skills"; }
 }

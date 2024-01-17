@@ -11,6 +11,10 @@ import com.textkernel.tx.models.GeoCoordinates;
 import com.textkernel.tx.models.api.ApiResponse;
 import com.textkernel.tx.models.api.ApiResponseInfoLite;
 import com.textkernel.tx.models.api.account.GetAccountInfoResponse;
+import com.textkernel.tx.models.api.assistants.jobdescription.GenerateJobRequest;
+import com.textkernel.tx.models.api.assistants.jobdescription.GenerateJobResponse;
+import com.textkernel.tx.models.api.assistants.jobdescription.SuggestSkillsFromJobTitleRequest;
+import com.textkernel.tx.models.api.assistants.jobdescription.SuggestSkillsFromJobTitleResponse;
 import com.textkernel.tx.models.api.bimetricscoring.*;
 import com.textkernel.tx.models.api.dataenrichment.AutocompleteRequest;
 import com.textkernel.tx.models.api.dataenrichment.GetMetadataResponse;
@@ -2041,5 +2045,56 @@ public class TxClient {
 
         HttpResponse<SkillsSimilarityScoreResponse> response = executeRequest(apiRequest, SkillsSimilarityScoreResponse.class, getBodyIfDebug(apiRequest));
         return response.getData();
+    }
+
+    /**
+     * Generates a job description based on specified parameters.
+     * @param request The request body
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public GenerateJobResponse generateJobDescription(GenerateJobRequest request) throws TxException {
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.assistantsJobDescriptionGenerate())
+            .post(body)
+            .build();
+
+        HttpResponse<GenerateJobResponse> response = executeRequest(apiRequest, GenerateJobResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Takes a job title and suggests relevant skills.
+     * @param jobTitle The title of the job for which skills are being suggested.
+     * @param language Language of the suggested skills in ISO 639-1 code format.
+     * @param limit Maximum number of skills to suggest. If not specified this parameter defaults to 10. This value cannot exceed 50.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestSkillsFromJobTitleResponse suggestSkillsFromJobTitle(String jobTitle, String language, Integer limit) throws TxException {
+        SuggestSkillsFromJobTitleRequest request = new SuggestSkillsFromJobTitleRequest();
+        request.JobTitle = jobTitle;
+        request.Language = language;
+        request.Limit = limit;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.assistantsJobDescriptionSuggestSkills())
+            .post(body)
+            .build();
+
+        HttpResponse<SuggestSkillsFromJobTitleResponse> response = executeRequest(apiRequest, SuggestSkillsFromJobTitleResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Takes a job title and suggests relevant skills.
+     * @param jobTitle The title of the job for which skills are being suggested.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestSkillsFromJobTitleResponse suggestSkillsFromJobTitle(String jobTitle) throws TxException {
+        return suggestSkillsFromJobTitle(jobTitle, "en", null);
     }
 }
