@@ -3,10 +3,18 @@
 // within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
-package com.textkernel.tx.models.api.assistants.jobdescription;
+package com.textkernel.tx.models.api.jobdescription;
 
-import com.textkernel.tx.models.api.ApiResponse;
+/**
+* Priority of skills for generating job descriptions
+*/
+public enum SkillPriority {
 
-/*Response body for a 'Generate Job' response */
-public class GenerateJobResponse extends ApiResponse<GenerateJobResponseValue> { 
+    /** Skill is not required*/
+    NiceToHave,
+
+    /** Skill is required*/
+    MustHave
 }
+
+

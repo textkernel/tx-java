@@ -11,10 +11,6 @@ import com.textkernel.tx.models.GeoCoordinates;
 import com.textkernel.tx.models.api.ApiResponse;
 import com.textkernel.tx.models.api.ApiResponseInfoLite;
 import com.textkernel.tx.models.api.account.GetAccountInfoResponse;
-import com.textkernel.tx.models.api.assistants.jobdescription.GenerateJobRequest;
-import com.textkernel.tx.models.api.assistants.jobdescription.GenerateJobResponse;
-import com.textkernel.tx.models.api.assistants.jobdescription.SuggestSkillsFromJobTitleRequest;
-import com.textkernel.tx.models.api.assistants.jobdescription.SuggestSkillsFromJobTitleResponse;
 import com.textkernel.tx.models.api.bimetricscoring.*;
 import com.textkernel.tx.models.api.dataenrichment.AutocompleteRequest;
 import com.textkernel.tx.models.api.dataenrichment.GetMetadataResponse;
@@ -50,6 +46,10 @@ import com.textkernel.tx.models.api.dataenrichment.skills.response.LookupSkillCo
 import com.textkernel.tx.models.api.dataenrichment.skills.response.NormalizeSkillsResponse;
 import com.textkernel.tx.models.api.geocoding.*;
 import com.textkernel.tx.models.api.indexes.*;
+import com.textkernel.tx.models.api.jobdescription.GenerateJobRequest;
+import com.textkernel.tx.models.api.jobdescription.GenerateJobResponse;
+import com.textkernel.tx.models.api.jobdescription.SuggestSkillsFromJobTitleRequest;
+import com.textkernel.tx.models.api.jobdescription.SuggestSkillsFromJobTitleResponse;
 import com.textkernel.tx.models.api.matching.*;
 import com.textkernel.tx.models.api.matching.request.FilterCriteria;
 import com.textkernel.tx.models.api.matching.request.MatchByDocumentIdOptions;
@@ -2056,7 +2056,7 @@ public class TxClient {
     public GenerateJobResponse generateJobDescription(GenerateJobRequest request) throws TxException {
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
-            .url(_endpoints.assistantsJobDescriptionGenerate())
+            .url(_endpoints.jobDescriptionGenerate())
             .post(body)
             .build();
 
@@ -2080,7 +2080,7 @@ public class TxClient {
 
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
-            .url(_endpoints.assistantsJobDescriptionSuggestSkills())
+            .url(_endpoints.jobDescriptionSuggestSkills())
             .post(body)
             .build();
 

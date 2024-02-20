@@ -3,16 +3,15 @@
 // within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
-package com.textkernel.tx.models.api.assistants.jobdescription;
+package com.textkernel.tx.models.api.jobdescription;
 
+import java.util.List;
 import com.textkernel.tx.models.api.ApiResponse;
 
 /**
-* The {@link ApiResponse#Value} from a 'Generate Job' response
+* The {@link ApiResponse#Value} from a 'Suggest Skills from Job Title' response
 */
-public class GenerateJobResponseValue { 
-
-    /** The generated job description */
-    public String JobDescription;
-    
+public class SuggestSkillsFromJobTitleResponseValue {
+    /** List of skills suggested for the job title. */
+    public List<String> SuggestedSkills;
 }

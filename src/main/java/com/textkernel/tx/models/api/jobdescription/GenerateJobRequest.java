@@ -3,7 +3,7 @@
 // within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
-package com.textkernel.tx.models.api.assistants.jobdescription;
+package com.textkernel.tx.models.api.jobdescription;
 
 import java.util.List;
 

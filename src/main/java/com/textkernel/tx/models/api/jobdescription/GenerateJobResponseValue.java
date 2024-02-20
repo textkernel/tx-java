@@ -3,21 +3,16 @@
 // within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
-package com.textkernel.tx.models.api.assistants.jobdescription;
+package com.textkernel.tx.models.api.jobdescription;
+
+import com.textkernel.tx.models.api.ApiResponse;
 
 /**
-* Tone to use when generating job descriptions
+* The {@link ApiResponse#Value} from a 'Generate Job' response
 */
-public enum JobTone {
+public class GenerateJobResponseValue { 
 
-    /** A professional tone (typical)*/
-    Professional,
-
-    /** A casual tone*/
-    Casual,
-
-    /** A funny tone*/
-    Funny
+    /** The generated job description */
+    public String JobDescription;
+    
 }
-
-

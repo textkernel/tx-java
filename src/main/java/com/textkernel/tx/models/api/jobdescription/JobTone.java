@@ -3,13 +3,21 @@
 // within the terms of their license of Textkernel products or Textkernel customers
 // within the Terms of Service pertaining to the Textkernel SaaS products.
 
-package com.textkernel.tx.models.api.assistants.jobdescription;
+package com.textkernel.tx.models.api.jobdescription;
 
-/*A skill used when generating a job via assistants*/
-public class GenerateJobSkill {
-    /** The name of the skill */
-    public String Name;
-    /** Priority of the skill */
-    public SkillPriority Priority;
-    
+/**
+* Tone to use when generating job descriptions
+*/
+public enum JobTone {
+
+    /** A professional tone (typical)*/
+    Professional,
+
+    /** A casual tone*/
+    Casual,
+
+    /** A funny tone*/
+    Funny
 }
+
+
