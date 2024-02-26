@@ -16,6 +16,8 @@ public class Degree {
     public NormalizedString Name;
     
     /**
+     * <b>Deprecated - use {@link #NormalizedLocal} and {@link #NormalizedInternational} instead.</b>
+     * <br><br>
      * These values are not very global-friendly, but the Parser does normalize all degrees
      * to one of these pre-defined types. This list is sorted, as well as possible, by increasing
      * level of education, although there are certainly ambiguities from one discipline to
@@ -47,5 +49,12 @@ public class Degree {
      * <li>postdoctorate</li>
      * </ul>
     */
+    @Deprecated
     public String Type;
+
+    /** The normalized code/description of the degree based on the CV locale. */
+    public NormalizedDegree NormalizedLocal;
+
+    /** The normalized code/description of the degree based on an international standard. */
+    public NormalizedDegree NormalizedInternational;
 }

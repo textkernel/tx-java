@@ -16,6 +16,9 @@ public class JobDegree {
     /** The type of the educational degree*/
     public String Type;
 
-    /** The normalized, local education level based on the job's country. Returns the Code ID based on the table found <a href="https://developer.textkernel.com/tx-platform/v10/job-order-parser/api/?h=Value.JobData.Degrees[i].LocalEducationLevel">here</a>.*/
+    /** The normalized education level based on the job's country. See <a href="https://developer.textkernel.com/tx-platform/v10/resume-parser/overview/normalized-education-codes/#local-education-level">here</a>.*/
     public String LocalEducationLevel;
+
+    /** The normalized education level based on an international standard. See <a href="https://developer.textkernel.com/tx-platform/v10/resume-parser/overview/normalized-education-codes/#international-education-level">here</a>.*/
+    public String InternationalEducationLevel;
 }
