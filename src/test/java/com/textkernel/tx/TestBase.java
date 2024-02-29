@@ -123,6 +123,10 @@ public abstract class TestBase {
         assertNotNull(degree.Name.Normalized);
         assertNotNull(degree.Type);
         assertNotNull(degree.Type);
+        assertNotNull(degree.NormalizedLocal);
+        assertNotNull(degree.NormalizedInternational);
+        assertNotNull(degree.NormalizedInternational.Code);
+        assertNotNull(degree.NormalizedInternational.Description);
     }
 
     public void assertLocationNotNull(Location loc, boolean checkStreetLevel, boolean checkGeo) {
