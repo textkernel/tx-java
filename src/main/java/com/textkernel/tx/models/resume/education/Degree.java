@@ -5,6 +5,7 @@
 
 package com.textkernel.tx.models.resume.education;
 
+import com.textkernel.tx.models.api.parsing.ParseResumeResponseValue;
 import com.textkernel.tx.models.resume.NormalizedString;
 
 /**
@@ -52,9 +53,21 @@ public class Degree {
     @Deprecated
     public String Type;
 
-    /** The normalized code/description of the degree based on the CV locale. */
+    /** The normalized code/description of the degree based on the CV locale. 
+     * <br><b>
+     * NOTE: if you require this value, be sure to check the
+     * {@link ParseResumeResponseValue#EducationNormalizationResponse}
+     * on each response as some languages/locales are not supported
+     * </b>
+    */
     public NormalizedDegree NormalizedLocal;
 
-    /** The normalized code/description of the degree based on an international standard. */
+    /** The normalized code/description of the degree based on an international standard. 
+     * <br><b>
+     * NOTE: if you require this value, be sure to check the
+     * {@link ParseResumeResponseValue#EducationNormalizationResponse}
+     * on each response as some languages/locales are not supported
+     * </b>
+    */
     public NormalizedDegree NormalizedInternational;
 }
