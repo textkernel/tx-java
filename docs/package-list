@@ -15,6 +15,7 @@ com.textkernel.tx.models.api.dataenrichment.skills.request
 com.textkernel.tx.models.api.dataenrichment.skills.response
 com.textkernel.tx.models.api.geocoding
 com.textkernel.tx.models.api.indexes
+com.textkernel.tx.models.api.jobdescription
 com.textkernel.tx.models.api.matching
 com.textkernel.tx.models.api.matching.request
 com.textkernel.tx.models.api.matching.response

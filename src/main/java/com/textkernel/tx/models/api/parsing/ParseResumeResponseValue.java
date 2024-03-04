@@ -6,6 +6,7 @@
 package com.textkernel.tx.models.api.parsing;
 
 import com.textkernel.tx.models.api.ApiResponse;
+import com.textkernel.tx.models.api.ApiResponseInfoLite;
 import com.textkernel.tx.models.resume.ParsedResume;
 
 /**
@@ -27,4 +28,7 @@ public class ParseResumeResponseValue extends BaseParseResponseValue {
      * Information about the FlexRequests transaction, if any were provided.
     */
     public FlexResponse FlexResponse;
+
+    /** Information about the status of education normalization during the parse */
+    public ApiResponseInfoLite EducationNormalizationResponse; 
 }

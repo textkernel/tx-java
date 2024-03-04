@@ -5,6 +5,7 @@
 
 package com.textkernel.tx.models.resume.education;
 
+import com.textkernel.tx.models.api.parsing.ParseResumeResponseValue;
 import com.textkernel.tx.models.resume.NormalizedString;
 
 /**
@@ -16,6 +17,8 @@ public class Degree {
     public NormalizedString Name;
     
     /**
+     * <b>Deprecated - use {@link #NormalizedLocal} and {@link #NormalizedInternational} instead.</b>
+     * <br><br>
      * These values are not very global-friendly, but the Parser does normalize all degrees
      * to one of these pre-defined types. This list is sorted, as well as possible, by increasing
      * level of education, although there are certainly ambiguities from one discipline to
@@ -47,5 +50,24 @@ public class Degree {
      * <li>postdoctorate</li>
      * </ul>
     */
+    @Deprecated
     public String Type;
+
+    /** The normalized code/description of the degree based on the CV locale. 
+     * <br><b>
+     * NOTE: if you require this value, be sure to check the
+     * {@link ParseResumeResponseValue#EducationNormalizationResponse}
+     * on each response as some languages/locales are not supported
+     * </b>
+    */
+    public NormalizedDegree NormalizedLocal;
+
+    /** The normalized code/description of the degree based on an international standard. 
+     * <br><b>
+     * NOTE: if you require this value, be sure to check the
+     * {@link ParseResumeResponseValue#EducationNormalizationResponse}
+     * on each response as some languages/locales are not supported
+     * </b>
+    */
+    public NormalizedDegree NormalizedInternational;
 }
