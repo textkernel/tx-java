@@ -52,7 +52,7 @@ public class ParseOptions extends BasicParseOptions {
 
     /**
      * Only used for resumes. Custom requests to ask during parsing. 
-     * See the <a href="https://developer.textkernel.com/tx-platform/v10/resume-parser/overview/llm-parser/#flex-requests">overview documentation</a> for more information.
+     * See the <a href="https://developer.textkernel.com/tx-platform/v10/resume-parser/overview/flexrequests">overview documentation</a> for more information.
      * <a href="https://developer.textkernel.com/tx-platform/v10/overview/#transaction-cost">Additional charges</a> will apply.
     */
     public List<FlexRequest> FlexRequests;
