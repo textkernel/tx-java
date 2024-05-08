@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Custom requests to ask during parsing. 
- * See the <a href="https://developer.textkernel.com/tx-platform/v10/resume-parser/overview/llm-parser/#flex-requests">overview documentation</a> for more details.
+ * See the <a href="https://developer.textkernel.com/tx-platform/v10/resume-parser/overview/flexrequests">overview documentation</a> for more details.
  * <a href="https://developer.textkernel.com/tx-platform/v10/overview/#transaction-cost">Additional charges</a> will apply.
  */
 public class FlexRequest {
