@@ -11,7 +11,7 @@ import java.util.List;
 public class SuggestSkillsFromProfessionsRequest {
     /** The profession code IDs from the <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#professions-taxonomies">Professions Taxonomy</a> for which the service should return related skills. The list can contain up to 10 profession codes. */
     public List<Integer> ProfessionCodeIds;
-    /** The maximum amount of suggested skills returned. If not specified this parameter defaults to 10. This limit cannot exceed 10. */
+    /** The maximum amount of suggested skills returned. If not specified this parameter defaults to 10. */
     public int Limit = 10;
     /** The language to use for the returned descriptions. */
     public String OutputLanguage;

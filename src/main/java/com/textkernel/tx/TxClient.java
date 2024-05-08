@@ -1667,7 +1667,7 @@ public class TxClient {
     /**
      * Suggests skills related to given professions. The service returns salient skills that are strongly associated with the professions.
      * @param professionCodeIds  The code IDs of the professions to suggest skills for.
-     * @param limit The maximum amount of suggested skills returned. The maximum amount allowed is 10. If not sure what value should be, provide 10 as default limit.
+     * @param limit The maximum amount of suggested skills returned. If not sure what value should be, provide 10 as default limit.
      * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO code</a>
      * @return The API response body
      * @throws TxException Thrown when an API error occurs
