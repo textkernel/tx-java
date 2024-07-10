@@ -44,6 +44,7 @@ import com.textkernel.tx.models.api.dataenrichment.skills.response.ExtractSkills
 import com.textkernel.tx.models.api.dataenrichment.skills.response.GetSkillsTaxonomyResponse;
 import com.textkernel.tx.models.api.dataenrichment.skills.response.LookupSkillCodesResponse;
 import com.textkernel.tx.models.api.dataenrichment.skills.response.NormalizeSkillsResponse;
+import com.textkernel.tx.models.api.formatter.FormatResumeRequest;
 import com.textkernel.tx.models.api.geocoding.*;
 import com.textkernel.tx.models.api.indexes.*;
 import com.textkernel.tx.models.api.jobdescription.GenerateJobRequest;
@@ -285,6 +286,17 @@ public class TxClient {
             .build();
 
         HttpResponse<GetAccountInfoResponse> response = executeRequest(apiRequest, GetAccountInfoResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    public FormatResumeResponse formatResume(FormatResumeRequest request) throws TxException {
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.formatResume())
+            .post(body)
+            .build();
+
+        HttpResponse<FormatResumeResponse> response = executeRequest(apiRequest, FormatResumeResponse.class, getBodyIfDebug(apiRequest));
         return response.getData();
     }
     
