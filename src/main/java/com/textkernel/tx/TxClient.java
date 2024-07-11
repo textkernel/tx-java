@@ -44,6 +44,8 @@ import com.textkernel.tx.models.api.dataenrichment.skills.response.ExtractSkills
 import com.textkernel.tx.models.api.dataenrichment.skills.response.GetSkillsTaxonomyResponse;
 import com.textkernel.tx.models.api.dataenrichment.skills.response.LookupSkillCodesResponse;
 import com.textkernel.tx.models.api.dataenrichment.skills.response.NormalizeSkillsResponse;
+import com.textkernel.tx.models.api.formatter.FormatResumeRequest;
+import com.textkernel.tx.models.api.formatter.FormatResumeResponse;
 import com.textkernel.tx.models.api.geocoding.*;
 import com.textkernel.tx.models.api.indexes.*;
 import com.textkernel.tx.models.api.jobdescription.GenerateJobRequest;
@@ -285,6 +287,23 @@ public class TxClient {
             .build();
 
         HttpResponse<GetAccountInfoResponse> response = executeRequest(apiRequest, GetAccountInfoResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Format a resume into a standardized template that you provide
+     * @param request The request body
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public FormatResumeResponse formatResume(FormatResumeRequest request) throws TxException {
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.formatResume())
+            .post(body)
+            .build();
+
+        HttpResponse<FormatResumeResponse> response = executeRequest(apiRequest, FormatResumeResponse.class, getBodyIfDebug(apiRequest));
         return response.getData();
     }
     

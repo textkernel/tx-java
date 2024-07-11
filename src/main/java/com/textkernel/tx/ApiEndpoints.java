@@ -98,4 +98,6 @@ class ApiEndpoints {
 
     String jobDescriptionGenerate() { return prefix(false) + "/job-description/generate"; }
     String jobDescriptionSuggestSkills() { return prefix(false) + "/job-description/suggest-skills"; }
+
+    String formatResume() { return prefix() + "/formatter/resume/template"; }
 }
