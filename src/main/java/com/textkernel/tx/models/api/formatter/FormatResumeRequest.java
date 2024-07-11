@@ -21,7 +21,7 @@ public class FormatResumeRequest {
     /** 
      * A base64-encoded string of the DOCX template document file bytes. This should use the standard 'base64'
      * encoding as defined in RFC 4648 Section 4 (not the 'base64url' variant).
-     * <p>Java users can use {@link java.util.Base64#getEncoder()} and then {@link java.util.Base64.Encoder#encodeToString(byte[])}
+     * <p>Java users can use {@link java.util.Base64.Encoder#encodeToString(byte[])}
      * <p>For more information on creating custom templates, see
      * <a href="https://developer.textkernel.com/tx-platform/v10/resume-formatter/creating-custom-templates/">here</a>
      */

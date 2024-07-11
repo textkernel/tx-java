@@ -13,8 +13,8 @@ import com.textkernel.tx.models.api.ApiResponse;
 public class FormatResumeResponseValue {
     /**
      * The formatted resume document (either PDF or DOCX).
-     * This is a byte[] as a Base64-encoded string. You can use
-     * {@link java.util.Base64.Decoder#decode(String)} to get a byte[] to save to disk.
+     * This is a {@code byte[]} as a Base64-encoded string. You can use
+     * {@link java.util.Base64.Decoder#decode(String)} to get a {@code byte[]} to save to disk.
      */
     public String DocumentAsBase64String;
 }

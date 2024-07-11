@@ -45,6 +45,7 @@ import com.textkernel.tx.models.api.dataenrichment.skills.response.GetSkillsTaxo
 import com.textkernel.tx.models.api.dataenrichment.skills.response.LookupSkillCodesResponse;
 import com.textkernel.tx.models.api.dataenrichment.skills.response.NormalizeSkillsResponse;
 import com.textkernel.tx.models.api.formatter.FormatResumeRequest;
+import com.textkernel.tx.models.api.formatter.FormatResumeResponse;
 import com.textkernel.tx.models.api.geocoding.*;
 import com.textkernel.tx.models.api.indexes.*;
 import com.textkernel.tx.models.api.jobdescription.GenerateJobRequest;
@@ -289,6 +290,12 @@ public class TxClient {
         return response.getData();
     }
 
+    /**
+     * Format a resume into a standardized template that you provide
+     * @param request The request body
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
     public FormatResumeResponse formatResume(FormatResumeRequest request) throws TxException {
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
