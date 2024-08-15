@@ -95,16 +95,7 @@ public class ParsedJob extends ParsedDocument {
     /** Information about the application process.*/
     public ApplicationDetails ApplicationDetails;
 
-    /**
-     * The salary found for the position
-     * If no lexical cues are available from the vacancy, the time scale is guessed based on predefined salary ranges. Here are some rough salary ranges (note: country-specific conditions may apply):
-     * <ul>
-     *  <li>1 or 2 digits salary (9, 12): hourly</li>
-     *  <li>3 or 4 digits salary (3800, 5000): monthly</li>
-     *  <li>5 digit salary (38000, 50000): yearly</li>
-     * </ul>
-     * If a monthly salary is extracted, to get the annual salary it is multiplied by 14 (if country = AT) or 12 (all other countries).
-     */
+    /** The salary found for the position. */
     public PayRange Salary;
 
     /** The minimum number of working hours per week*/
