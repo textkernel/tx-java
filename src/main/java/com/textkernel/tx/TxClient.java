@@ -168,6 +168,12 @@ public class TxClient {
                     builder.header("Tx-ServiceKey", serviceKey);
                     builder.header("User-Agent", "tx-java-" + _sdkVersion);
 
+                    if (!dataCenter.IsSaaS) {
+                        //for backward compatibility in on-prem use cases
+                        builder.header("Sovren-AccountId", accountId);
+                        builder.header("Sovren-ServiceKey", serviceKey);
+                    }
+
                     if (trackingTagsHeaderValue != null && !trackingTagsHeaderValue.isEmpty()){
                         builder.header("Tx-TrackingTag", trackingTagsHeaderValue);
                     }
