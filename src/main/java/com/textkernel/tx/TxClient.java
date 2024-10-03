@@ -112,7 +112,7 @@ public class TxClient {
      * Create an SDK client to perform Tx API calls with the account information found at https://cloud.textkernel.com/tx/console
      * @param accountId - The account id for your account
      * @param serviceKey - The service key for your account
-     * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US}, {@link DataCenter#EU}, or @link DataCenter#AU}
+     * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US}, {@link DataCenter#EU}, or {@link DataCenter#AU}
      * @throws IllegalArgumentException if the accountId, serviceKey, or dataCenter are null/empty
      */
     public TxClient(String accountId, String serviceKey, DataCenter dataCenter) {
@@ -123,7 +123,7 @@ public class TxClient {
      * Create an SDK client to perform Tx API calls with the account information found at https://cloud.textkernel.com/tx/console
      * @param accountId - The account id for your account
      * @param serviceKey - The service key for your account
-     * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US}, {@link DataCenter#EU}, or @link DataCenter#AU}
+     * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US}, {@link DataCenter#EU}, or {@link DataCenter#AU}
      * @param trackingTags - Optional tags to use to track API usage for your account
      * @throws IllegalArgumentException if the accountId, serviceKey, or dataCenter are null/empty
      */
@@ -135,7 +135,7 @@ public class TxClient {
      * Create an SDK client to perform Tx API calls with the account information found at https://cloud.textkernel.com/tx/console
      * @param accountId - The account id for your account
      * @param serviceKey - The service key for your account
-     * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US}, {@link DataCenter#EU} or {@link DataCenter#AU}
+     * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US}, {@link DataCenter#EU}, or {@link DataCenter#AU}
      * @param trackingTags - Optional tags to use to track API usage for your account
      * @param httpTimeoutSecs - Optional override for the OkHttp client read timeout (write and connect are 10 seconds, read is 30 seconds by default)
      * @throws IllegalArgumentException if the accountId, serviceKey, or dataCenter are null/empty
