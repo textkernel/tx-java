@@ -123,11 +123,24 @@ public class TxClient {
      * Create an SDK client to perform Tx API calls with the account information found at https://cloud.textkernel.com/tx/console
      * @param accountId - The account id for your account
      * @param serviceKey - The service key for your account
-     * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US}, {@link DataCenter#EU} or {@link DataCenter#AU}
+     * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US}, {@link DataCenter#EU}, or @link DataCenter#AU}
      * @param trackingTags - Optional tags to use to track API usage for your account
      * @throws IllegalArgumentException if the accountId, serviceKey, or dataCenter are null/empty
      */
     public TxClient(String accountId, String serviceKey, DataCenter dataCenter, List<String> trackingTags) {
+        this(accountId, serviceKey, dataCenter, trackingTags, 30);
+    }
+
+    /**
+     * Create an SDK client to perform Tx API calls with the account information found at https://cloud.textkernel.com/tx/console
+     * @param accountId - The account id for your account
+     * @param serviceKey - The service key for your account
+     * @param dataCenter - The Data Center for your account. Either {@link DataCenter#US}, {@link DataCenter#EU} or {@link DataCenter#AU}
+     * @param trackingTags - Optional tags to use to track API usage for your account
+     * @param httpTimeoutSecs - Optional override for the OkHttp client read timeout (write and connect are 10 seconds, read is 30 seconds by default)
+     * @throws IllegalArgumentException if the accountId, serviceKey, or dataCenter are null/empty
+     */
+    public TxClient(String accountId, String serviceKey, DataCenter dataCenter, List<String> trackingTags, long httpTimeoutSecs) {
         
         if (accountId == null || accountId.length() == 0) {
             throw new IllegalArgumentException("'accountId' must have a valid value");
@@ -139,6 +152,10 @@ public class TxClient {
 
         if (dataCenter == null) {
             throw new IllegalArgumentException("'dataCenter' must not be null");
+        }
+
+        if (httpTimeoutSecs <= 0) {
+            throw new IllegalArgumentException("'httpTimeoutSecs' must be greater than 0");
         }
 
         _endpoints = new ApiEndpoints(dataCenter);
@@ -184,7 +201,7 @@ public class TxClient {
             })
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(httpTimeoutSecs, TimeUnit.SECONDS)
             .build();
     }
 
