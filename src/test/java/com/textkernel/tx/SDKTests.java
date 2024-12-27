@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 public class SDKTests extends TestBase {
     
     @Test
-    public void test404Message(){
+    public void test401Error(){
         DataCenter fakeDC = new DataCenter("https://api.us.textkernel.com/tx/v9/fake");
         TxClient client = new TxClient("1234", "1234", fakeDC);
         
@@ -22,7 +22,7 @@ public class SDKTests extends TestBase {
             client.getAccountInfo();
         }
         catch (TxException e){
-            assertEquals(404, e.HttpStatusCode);
+            assertEquals(401, e.HttpStatusCode);
         }
     }
     

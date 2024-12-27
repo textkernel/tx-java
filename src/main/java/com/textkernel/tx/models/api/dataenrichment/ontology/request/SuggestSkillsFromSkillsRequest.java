@@ -17,4 +17,6 @@ public class SuggestSkillsFromSkillsRequest {
     public int Limit = 25;
     /** The language to use for the returned descriptions. */
     public String OutputLanguage;
+    /** If specified, only these types of skills will be returned. The following values are acceptable: Professional, IT, Language, Soft, Certification, All. Only applicable in v2 endpoints. */
+    public List<String> Types;
 }

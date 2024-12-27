@@ -11,6 +11,8 @@ import com.textkernel.tx.models.api.dataenrichment.AutocompleteRequest;
 
 /** Request body for a 'SkillsAutocomplete' request */
 public class SkillsAutoCompleteRequest extends AutocompleteRequest {
-    /** If specified, only these types of skills will be returned. The following values are acceptable: Professional, IT, Language, Soft, All. */
+    /** If specified, only these types of skills will be returned. The following 
+     * values are acceptable: Professional, IT, Language, Soft, Certification (only when using v2 endpoints), All. 
+     * */
     public List<String> Types;
 }

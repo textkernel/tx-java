@@ -84,6 +84,12 @@ class ApiEndpoints {
     String desSkillsExtract() { return prefix(false) + "/skills/extract"; }
     String desSkillsLookup() { return prefix(false) + "/skills/lookup"; }
     String desSkillsAutoComplete() { return prefix(false) + "/skills/autoComplete"; }
+    String desSkillsGetTaxonomyV2(TaxonomyFormat format) { return prefix(false) + "/skills/v2/taxonomy?format="+ format; }
+    String desSkillsGetMetadataV2() { return prefix(false) + "/skills/v2/metadata"; }
+    String desSkillsNormalizeV2() { return prefix(false) + "/skills/v2/normalize"; }
+    String desSkillsExtractV2() { return prefix(false) + "/skills/v2/extract"; }
+    String desSkillsLookupV2() { return prefix(false) + "/skills/v2/lookup"; }
+    String desSkillsAutoCompleteV2() { return prefix(false) + "/skills/v2/autoComplete"; }
     String desProfessionsGetTaxonomy(TaxonomyFormat format, String language) { return prefix(false) + "/professions/taxonomy?format="+ format +"&language="+ language; }
     String desProfessionsGetMetadata() { return prefix(false) + "/professions/metadata"; }
     String desProfessionsNormalize() { return prefix(false) + "/professions/normalize"; }
@@ -95,6 +101,12 @@ class ApiEndpoints {
     String desOntologySuggestProfessions() { return prefix(false) + "/ontology/suggest-professions"; }
     String desOntologyCompareSkillsToProfession() { return prefix(false) + "/ontology/compare-skills-to-profession"; }
     String desOntologySkillsSimilarityScore() { return prefix(false) + "/ontology/skills-similarity-score"; }
+    String desOntologySuggestSkillsFromProfessionsV2() { return prefix(false) + "/ontology/v2/suggest-skills-from-professions"; }
+    String desOntologySuggestSkillsFromSkillsV2() { return prefix(false) + "/ontology/v2/suggest-skills-from-skills"; }
+    String desOntologyCompareProfessionsV2() { return prefix(false) + "/ontology/v2/compare-professions"; }
+    String desOntologySuggestProfessionsV2() { return prefix(false) + "/ontology/v2/suggest-professions"; }
+    String desOntologyCompareSkillsToProfessionV2() { return prefix(false) + "/ontology/v2/compare-skills-to-profession"; }
+    String desOntologySkillsSimilarityScoreV2() { return prefix(false) + "/ontology/v2/skills-similarity-score"; }
 
     String jobDescriptionGenerate() { return prefix(false) + "/job-description/generate"; }
     String jobDescriptionSuggestSkills() { return prefix(false) + "/job-description/suggest-skills"; }
