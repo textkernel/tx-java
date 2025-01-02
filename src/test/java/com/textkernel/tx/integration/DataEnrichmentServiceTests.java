@@ -8,10 +8,13 @@ package com.textkernel.tx.integration;
 import com.textkernel.tx.TestBase;
 import com.textkernel.tx.models.api.dataenrichment.TaxonomyFormat;
 import com.textkernel.tx.models.api.dataenrichment.ontology.response.SkillScore;
+import com.textkernel.tx.models.api.dataenrichment.skills.response.AutoCompleteSkillsResponse;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,23 @@ public class DataEnrichmentServiceTests extends TestBase {
             types.add("all");
             Client.autocompleteSkill("soft", languages, "en", types, 10);
         });
+    }
+
+    @Test
+    public void testSkillAutoCompleteV2() {
+        AutoCompleteSkillsResponse[] wrapper = { null};
+
+        assertDoesNotThrow(() -> {
+            ArrayList<String> languages = new ArrayList<String>();
+            languages.add("en");
+            ArrayList<String> types = new ArrayList<String>();
+            types.add("certification");
+            wrapper[0] = Client.autocompleteSkillV2("soft", languages, "en", types, 10);
+        });
+
+        assertNotNull(wrapper[0].Value);
+        assertHasItems(wrapper[0].Value.Skills);
+        assertEquals("Certification", wrapper[0].Value.Skills.get(0).Type);
     }
 
     @Test

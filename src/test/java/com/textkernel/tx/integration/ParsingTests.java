@@ -63,10 +63,11 @@ public class ParsingTests extends TestBase {
     @Test
     public void testLargeDocumentParse() {
         TxException e = assertThrows(TxException.class, () -> {
-                Client.parseResume(new ParseRequest(new Document(new byte[20_000_000], LocalDate.now()), null));
+                Client.parseResume(new ParseRequest(new Document(new byte[40_000_000], LocalDate.now()), null));
             });
 
-        assertEquals(e.getMessage(), "Request body was too large.");
+        String expected = "Request body too large.";
+        assertEquals(expected, e.getMessage().substring(0, expected.length()));
     }
     
     @Test

@@ -1495,6 +1495,184 @@ public class TxClient {
     }
 
     /**
+     * Get all skills in the taxonomy with associated IDs and descriptions in all supported languages.
+     * @param format The format of the returned taxonomy. <br>NOTE: if you set this to {@link TaxonomyFormat#csv}, only the {@link GetSkillsTaxonomyResponseValue#CsvOutput} will be populated.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public GetSkillsTaxonomyResponse getSkillsTaxonomyV2(TaxonomyFormat format) throws TxException {
+        Request apiRequest = new Request.Builder()
+                .url(_endpoints.desSkillsGetTaxonomyV2(format))
+                .build();
+
+        HttpResponse<GetSkillsTaxonomyResponse> response = executeRequest(apiRequest, GetSkillsTaxonomyResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Get all skills in the taxonomy with associated IDs and descriptions in all supported languages.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public GetSkillsTaxonomyResponse getSkillsTaxonomyV2() throws TxException {
+        return getSkillsTaxonomyV2(TaxonomyFormat.json);
+    }
+
+    /**
+     * Get metadata about the skills taxonomy/service.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public GetMetadataResponse getSkillsTaxonomyMetadataV2() throws TxException {
+        Request apiRequest = new Request.Builder()
+                .url(_endpoints.desSkillsGetMetadataV2())
+                .build();
+
+        HttpResponse<GetMetadataResponse> response = executeRequest(apiRequest, GetMetadataResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Returns normalized skills that begin with a given prefix, based on the chosen language(s). Each skill is associated with multiple descriptions. If any of the descriptions are a good completion of the given prefix, the skill is included in the results.
+     * @param prefix The skill prefix to be completed. Must contain at least 1 character.
+     * @param languages The language(s) used to search for matching skills (the language of the provided Prefix). A maximum of 5 languages can be provided. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Default is 'en' only.
+     * @param outputLanguage The language to ouput the found skill descriptions in (default is 'en'). Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO codes</a>.
+     * @param types If specified, only these types of skills will be returned. The following values are acceptable: Professional, IT, Language, Soft, Certification, All.
+     * @param limit The maximum number of returned skills. The default is 10 and the maximum is 100.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public AutoCompleteSkillsResponse autocompleteSkillV2(String prefix, List<String> languages, String outputLanguage, List<String> types, int limit) throws TxException {
+        SkillsAutoCompleteRequest request = new SkillsAutoCompleteRequest();
+        request.Prefix = prefix;
+        request.Limit = limit;
+        request.Types = types;
+        request.Languages = languages;
+        request.OutputLanguage = outputLanguage;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desSkillsAutoCompleteV2())
+            .post(body)
+            .build();
+
+        HttpResponse<AutoCompleteSkillsResponse> response = executeRequest(apiRequest, AutoCompleteSkillsResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Returns normalized skills that begin with a given prefix, based on the chosen language(s). Each skill is associated with multiple descriptions. If any of the descriptions are a good completion of the given prefix, the skill is included in the results.
+     * @param prefix The skill prefix to be completed. Must contain at least 1 character.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public AutoCompleteSkillsResponse autocompleteSkillV2(String prefix) throws TxException {
+        return autocompleteSkillV2(prefix,null,null,null,10);
+    }
+
+    /**
+     * Get the details associated with given skills in the taxonomy.
+     * @param skillIds The IDs of the skills to get details about. A maximum of 100 IDs can be requested.
+     * @param outputLanguage The language to use for the output skill descriptions. If not provided, defaults to en. If specified, must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public LookupSkillCodesResponse lookupSkillsV2(List<String> skillIds, String outputLanguage) throws TxException {
+        LookupSkillsRequest request = new LookupSkillsRequest();
+        request.SkillIds = skillIds;
+        request.OutputLanguage = outputLanguage;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desSkillsLookupV2())
+            .post(body)
+            .build();
+
+        HttpResponse<LookupSkillCodesResponse> response = executeRequest(apiRequest, LookupSkillCodesResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Get the details associated with given skills in the taxonomy.
+     * @param skillIds The IDs of the skills to get details about. A maximum of 100 IDs can be requested.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public LookupSkillCodesResponse lookupSkillsV2(List<String> skillIds) throws TxException {
+        return lookupSkillsV2(skillIds,null);
+    }
+
+    /**
+     * Normalize the given skills to the most closely-related skills in the taxonomy.
+     * @param skills The list of skills to normalize (up to 50 skills, each skill may not exceed 100 characters).
+     * @param language The language of the given skills. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.
+     * @param outputLanguage The language to use for the output skill descriptions. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Defaults to whatever is used for the 'language' parameter.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public NormalizeSkillsResponse normalizeSkillsV2(List<String> skills, String language, String outputLanguage) throws TxException {
+        NormalizeSkillsRequest request = new NormalizeSkillsRequest();
+        request.Skills = skills;
+        request.Language = language;
+        request.OutputLanguage = outputLanguage;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desSkillsNormalizeV2())
+            .post(body)
+            .build();
+
+        HttpResponse<NormalizeSkillsResponse> response = executeRequest(apiRequest, NormalizeSkillsResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Normalize the given skills to the most closely-related skills in the taxonomy.
+     * @param skills The list of skills to normalize (up to 50 skills, each skill may not exceed 100 characters).
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public NormalizeSkillsResponse normalizeSkillsV2(List<String> skills) throws TxException {
+        return normalizeSkillsV2(skills,null,null);
+    }
+
+    /**
+     * Extracts known skills from the given text.
+     * @param text The text to extract skills from. There is a 24,000 character limit.
+     * @param language The language of the input text. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO codes</a>.<br>Default is 'en'.
+     * @param outputLanguage The language to use for the output skill descriptions. If not provided, defaults to the input language. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO codes</a>.
+     * @param threshold A value from [0 - 1] for the minimum confidence threshold for extracted skills. Lower values will return more skills, but also increase the likelihood of ambiguity-related errors. The recommended and default value is 0.5.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public ExtractSkillsResponse extractSkillsV2(String text, String language, String outputLanguage, float threshold) throws TxException {
+        ExtractSkillsRequest request = new ExtractSkillsRequest();
+        request.Text = text;
+        request.Language = language;
+        request.OutputLanguage = outputLanguage;
+        request.Threshold = threshold;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desSkillsExtractV2())
+            .post(body)
+            .build();
+
+        HttpResponse<ExtractSkillsResponse> response = executeRequest(apiRequest, ExtractSkillsResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Extracts known skills from the given text.
+     * @param text The text to extract skills from. There is a 24,000 character limit.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public ExtractSkillsResponse extractSkillsV2(String text) throws TxException {
+        return extractSkillsV2(text,null,null,0.5f);
+    }
+
+    /**
      * Get all professions in the taxonomy with associated IDs and descriptions in all supported languages.
      * @param language The language parameter returns the taxonomy with descriptions only in that specified language. If not specified, descriptions in all languages are returned. Must be specified as one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#professions-languages">ISO codes</a>.
      * @param format The format of the returned taxonomy. <br>NOTE: if you set this to {@link TaxonomyFormat#csv}, only the {@link GetProfessionsTaxonomyResponseValue#CsvOutput} will be populated.
@@ -2092,6 +2270,374 @@ public class TxClient {
         HttpResponse<SkillsSimilarityScoreResponse> response = executeRequest(apiRequest, SkillsSimilarityScoreResponse.class, getBodyIfDebug(apiRequest));
         return response.getData();
     }
+
+    /**
+     * Suggests skills related to given professions. The service returns salient skills that are strongly associated with the professions.
+     * @param professionCodeIds  The code IDs of the professions to suggest skills for.
+     * @param limit The maximum amount of suggested skills returned. If not sure what value should be, provide 10 as default limit.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO code</a>
+     * @param types If specified, only these types of skills will be returned. The following values are acceptable: Professional, IT, Language, Soft, Certfication, All.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestSkillsResponse suggestSkillsFromProfessionsV2(List<Integer> professionCodeIds, int limit, String outputLanguage, List<String> types) throws TxException {
+        SuggestSkillsFromProfessionsRequest request = new SuggestSkillsFromProfessionsRequest();
+        request.ProfessionCodeIds = professionCodeIds;
+        request.Limit = limit;
+        request.OutputLanguage = outputLanguage;
+        request.Types = types;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desOntologySuggestSkillsFromProfessionsV2())
+            .post(body)
+            .build();
+
+        HttpResponse<SuggestSkillsResponse> response = executeRequest(apiRequest, SuggestSkillsResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Suggests skills related to given professions. The service returns salient skills that are strongly associated with the professions.
+     * @param professionCodeIds  The code IDs of the professions to suggest skills for.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO code</a>
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestSkillsResponse suggestSkillsFromProfessionsV2(List<Integer> professionCodeIds, String outputLanguage) throws TxException {
+        return suggestSkillsFromProfessionsV2(professionCodeIds, 10, outputLanguage, null);
+    }
+
+    /**
+     * Suggests skills related to a resume based on the recent professions in the resume.
+     * @param resume The resume to suggest skills for (based on the professions in the resume).
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO code</a>
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestSkillsResponse suggestSkillsFromProfessionsV2(ParsedResume resume, String outputLanguage) throws TxException {
+        if(resume != null && resume.EmploymentHistory != null && resume.EmploymentHistory.Positions != null){
+            List<Integer> normalizedProfs = new ArrayList<Integer>();
+            for(Position position: resume.EmploymentHistory.Positions){
+                if (position != null && position.NormalizedProfession != null && position.NormalizedProfession.Profession != null && position.NormalizedProfession.Profession.CodeId != null){
+                    normalizedProfs.add(position.NormalizedProfession.Profession.CodeId);
+                }
+            }
+
+            if (normalizedProfs.size() > 0){
+                return suggestSkillsFromProfessionsV2(normalizedProfs, outputLanguage);
+            }
+        }
+        throw new IllegalArgumentException("No professions were found in the resume, or the resume was parsed without professions normalization enabled");
+    }
+
+    /**
+     * Suggests skills related to a resume based on the recent professions in the resume.
+     * @param resume The resume to suggest skills for (based on the professions in the resume).
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestSkillsResponse suggestSkillsFromProfessionsV2(ParsedResume resume) throws TxException {
+        return suggestSkillsFromProfessionsV2(resume, null);
+    }
+
+    /**
+     * Suggests skills related to a job based on the profession title in the job.
+     * @param job The resume to suggest skills for (based on the professions in the resume).
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO code</a>
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestSkillsResponse suggestSkillsFromProfessionsV2(ParsedJob job, String outputLanguage) throws TxException {
+        if(job != null && job.JobTitles != null && job.JobTitles.NormalizedProfession != null && job.JobTitles.NormalizedProfession.Profession != null && job.JobTitles.NormalizedProfession.Profession.CodeId != null){
+            List<Integer> ids = new ArrayList<Integer>();
+            ids.add(job.JobTitles.NormalizedProfession.Profession.CodeId);
+
+            return suggestSkillsFromProfessionsV2(ids, outputLanguage);
+        }
+        throw new IllegalArgumentException("No professions were found in the job, or the job was parsed without professions normalization enabled");
+    }
+
+    /**
+     * Suggests skills related to a job based on the profession title in the job.
+     * @param job The resume to suggest skills for (based on the professions in the resume).
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestSkillsResponse suggestSkillsFromProfessionsV2(ParsedJob job) throws TxException {
+        return suggestSkillsFromProfessionsV2(job, null);
+    }
+
+    /**
+     * Suggest professions based on the <b>skills</b> within a given resume.
+     * @param resume The professions are suggested based on the <b>skills</b> within this resume.
+     * @param limit The maximum amount of professions returned. If not sure what value should be, provide 10 as default limit.
+     * @param returnMissingSkills Flag to enable returning a list of missing skills per suggested profession.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#professions-languages">ISO code</a>
+     * @param weightSkillsByExperience Whether or not to give a higher weight to skills that the candidate has more experience with.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestProfessionsResponse suggestProfessionsFromSkillsV2(
+        ParsedResume resume,
+        int limit,
+        boolean returnMissingSkills,
+        String outputLanguage,
+        boolean weightSkillsByExperience) throws TxException {
+        if(resume != null && resume.Skills != null && resume.Skills.Normalized != null && resume.Skills.Normalized.size() > 0){
+            return suggestProfessionsFromSkillsV2(getNormalizedSkillsFromResume(resume, weightSkillsByExperience), limit, returnMissingSkills, outputLanguage);
+        }
+        throw new IllegalArgumentException("The resume must be parsed with V2 skills selected, and with skills normalization enabled.");
+    }
+
+    /**
+     * Suggest professions based on the <b>skills</b> within a given resume.
+     * @param resume The professions are suggested based on the <b>skills</b> within this resume. Defaults limit returned to 10 and does not return missing skills. Use another overload to specify these parameters.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#professions-languages">ISO code</a>
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestProfessionsResponse suggestProfessionsFromSkillsV2(ParsedResume resume, String outputLanguage) throws TxException {
+        return suggestProfessionsFromSkillsV2(resume, 10, false, outputLanguage, true);
+    }
+
+    /**
+     * Suggest professions based on the <b>skills</b> within a given resume.
+     * @param resume The professions are suggested based on the <b>skills</b> within this resume. Defaults limit returned to 10 and does not return missing skills. Use another overload to specify these parameters.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestProfessionsResponse suggestProfessionsFromSkillsV2(ParsedResume resume) throws TxException {
+        return suggestProfessionsFromSkillsV2(resume, null);
+    }
+
+    /**
+     * Suggest professions based on the <b>skills</b> within a given job.
+     * @param job The professions are suggested based on the <b>skills</b> within this job.
+     * @param limit The maximum amount of professions returned. If not sure what value should be, provide 10 as default limit.
+     * @param returnMissingSkills Flag to enable returning a list of missing skills per suggested profession.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#professions-languages">ISO code</a>
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestProfessionsResponse suggestProfessionsFromSkillsV2(ParsedJob job, int limit, boolean returnMissingSkills, String outputLanguage) throws TxException {
+        if(job != null && job.Skills != null && job.Skills.Normalized != null && job.Skills.Normalized.size() > 0){
+            List<SkillScore> skills = new ArrayList<SkillScore>();
+            int amountOfSkills = job.Skills.Normalized.size() > 50 ? 50 : job.Skills.Normalized.size();
+            for(int i = 0; i < amountOfSkills; i++) {
+                skills.add(new SkillScore(job.Skills.Normalized.get(i).Id));
+            }
+
+            return suggestProfessionsFromSkillsV2(skills, limit, returnMissingSkills, outputLanguage);
+        }
+        throw new IllegalArgumentException("The job must be parsed with V2 skills selected, and with skills normalization enabled");
+    }
+
+    /**
+     * Suggest professions based on the <b>skills</b> within a given job.
+     * @param job The professions are suggested based on the <b>skills</b> within this job. Defaults limit returned to 10 and does not return missing skills. Use another overload to specify these parameters.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#professions-languages">ISO code</a>
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestProfessionsResponse suggestProfessionsFromSkillsV2(ParsedJob job, String outputLanguage) throws TxException {
+        return suggestProfessionsFromSkillsV2(job, 10, false, outputLanguage);
+    }
+
+    /**
+     * Suggest professions based on the <b>skills</b> within a given job.
+     * @param job The professions are suggested based on the <b>skills</b> within this job. Defaults limit returned to 10 and does not return missing skills. Use another overload to specify these parameters.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestProfessionsResponse suggestProfessionsFromSkillsV2(ParsedJob job) throws TxException {
+        return suggestProfessionsFromSkillsV2(job, null);
+    }
+
+    /**
+     * Suggest professions based on a given set of skills.
+     * @param skills The skills used to return the most relevant professions. The list can contain up to 50 skills.
+     * @param limit The maximum amount of professions returned. If not sure what value should be, provide 10 as default limit.
+     * @param returnMissingSkills Flag to enable returning a list of missing skills per suggested profession.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#professions-languages">ISO code</a>
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestProfessionsResponse suggestProfessionsFromSkillsV2(
+        List<SkillScore> skills,
+        int limit,
+        boolean returnMissingSkills,
+        String outputLanguage) throws TxException {
+        SuggestProfessionsRequest request = new SuggestProfessionsRequest();
+        request.Skills = skills;
+        request.Limit = limit;
+        request.ReturnMissingSkills = returnMissingSkills;
+        request.OutputLanguage = outputLanguage;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desOntologySuggestProfessionsV2())
+            .post(body)
+            .build();
+
+        HttpResponse<SuggestProfessionsResponse> response = executeRequest(apiRequest, SuggestProfessionsResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Suggest professions based on a given set of skill IDs.
+     * @param skillIds The skill IDs used to return the most relevant professions. The list can contain up to 50 skill IDs. Defaults limit returned to 10 and does not return missing skills. Use another overload to specify these parameters.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#professions-languages">ISO code</a>
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestProfessionsResponse suggestProfessionsFromSkillsV2(List<String> skillIds, String outputLanguage) throws TxException {
+        List<SkillScore> skills = skillIds.stream()
+            .map(s -> new SkillScore(s))
+            .collect(Collectors.toList());
+        return suggestProfessionsFromSkillsV2(skills, 10, false, outputLanguage);
+    }
+
+    /**
+     * Returns skills related to a given skill or set of skills. The service returns closely related skills in a sense that
+     * knowing the provided skills either implies knowledge about the returned related skills, or should make it considerably
+     * easier to acquire knowledge about them.
+     * @param skills The skills (and optionally, scores) for which the service should return related skills. The list can contain up to 50 skills.
+     * @param limit The maximum amount of suggested skills returned. The maximum is 25.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO code</a>
+     * @param types If specified, only these types of skills will be returned. The following values are acceptable: Professional, IT, Language, Soft, Certfication, All.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestSkillsResponse suggestSkillsFromSkillsV2(
+        List<SkillScore> skills,
+        int limit,
+        String outputLanguage,
+        List<String> types) throws TxException {
+        SuggestSkillsFromSkillsRequest request = new SuggestSkillsFromSkillsRequest();
+        request.Skills = skills;
+        request.Limit = limit;
+        request.OutputLanguage = outputLanguage;
+        request.Types = types;
+
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desOntologySuggestSkillsFromSkillsV2())
+            .post(body)
+            .build();
+
+        HttpResponse<SuggestSkillsResponse> response = executeRequest(apiRequest, SuggestSkillsResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
+    /**
+     * Returns skills related to a given skill or set of skills. The service returns closely related skills in a sense that
+     * knowing the provided skills either implies knowledge about the returned related skills, or should make it considerably
+     * easier to acquire knowledge about them.
+     * @param skillIds The skill IDs for which the service should return related skills. The list can contain up to 50 skills.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO code</a>
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestSkillsResponse suggestSkillsFromSkillsV2(List<String> skillIds, String outputLanguage) throws TxException {
+        return suggestSkillsFromSkillsV2(skillIds.stream().map(s -> new SkillScore(s)).collect(Collectors.toList()), 25, outputLanguage, null);
+    }
+
+    /**
+     * Suggests skills related to a job (but not in the job) based on the skills in the job. The service returns closely related skills in a sense that
+     * knowing the provided skills either implies knowledge about the returned related skills, or should make it considerably
+     * easier to acquire knowledge about them.
+     * @param job The job to suggest skills for (based on the skills in the job).
+     * @param limit The maximum amount of suggested skills returned. The maximum is 25.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO code</a>
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestSkillsResponse suggestSkillsFromSkillsV2(
+        ParsedJob job,
+        int limit,
+        String outputLanguage) throws TxException {
+        if(job != null && job.Skills != null && job.Skills.Normalized != null && job.Skills.Normalized.size() > 0){
+            List<SkillScore> skills = new ArrayList<SkillScore>();
+            int amountOfSkills = job.Skills.Normalized.size() > 50 ? 50 : job.Skills.Normalized.size();
+            for(int i = 0; i < amountOfSkills; i++) {
+                skills.add(new SkillScore(job.Skills.Normalized.get(i).Id));
+            }
+
+            return suggestSkillsFromSkillsV2(skills, limit, outputLanguage, null);
+        }
+        throw new IllegalArgumentException("The job must be parsed with V2 skills selected, and with skills normalization enabled");
+    }
+
+    /**
+     * Suggests skills related to a job (but not in the job) based on the skills in the job. The service returns closely related skills in a sense that
+     * knowing the provided skills either implies knowledge about the returned related skills, or should make it considerably
+     * easier to acquire knowledge about them.
+     * @param job The job to suggest skills for (based on the skills in the job).
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO code</a>
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestSkillsResponse suggestSkillsFromSkillsV2(ParsedJob job, String outputLanguage) throws TxException {
+        return suggestSkillsFromSkillsV2(job, 25, outputLanguage);
+    }
+
+    /**
+     * Suggests skills related to a resume (but not in the resume) based on the skills in the resume. The service returns closely related skills in a sense that
+     * knowing the provided skills either implies knowledge about the returned related skills, or should make it considerably
+     * easier to acquire knowledge about them.
+     * @param resume The resume to suggest skills for (based on the skills in the resume).
+     * @param limit The maximum amount of suggested skills returned. The maximum is 25.
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO code</a>
+     * @param weightSkillsByExperience Whether or not to give a higher weight to skills that the candidate has more experience with.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestSkillsResponse suggestSkillsFromSkillsV2(
+        ParsedResume resume,
+        int limit,
+        String outputLanguage,
+        boolean weightSkillsByExperience) throws TxException {
+        return suggestSkillsFromSkillsV2(getNormalizedSkillsFromResume(resume, weightSkillsByExperience), limit, outputLanguage, null);
+    }
+
+    /**
+     * Suggests skills related to a resume (but not in the resume) based on the skills in the resume. The service returns closely related skills in a sense that
+     * knowing the provided skills either implies knowledge about the returned related skills, or should make it considerably
+     * easier to acquire knowledge about them.
+     * @param resume The resume to suggest skills for (based on the skills in the resume).
+     * @param outputLanguage The language to use for the returned descriptions. If not provided, no descriptions are returned. Must be one of the supported <a href="https://developer.textkernel.com/tx-platform/v10/data-enrichment/overview/#skills-languages">ISO code</a>
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SuggestSkillsResponse suggestSkillsFromSkillsV2(ParsedResume resume, String outputLanguage) throws TxException {
+        return suggestSkillsFromSkillsV2(resume, 25, outputLanguage, true);
+    }
+
+    /**
+     * Determines how closely related one set of skills is to another. The service defines closely related skills
+     * such that knowing a skill either implies knowledge about another skill, or should make it considerably
+     * easier to acquire knowledge about that skill.
+     * @param skillSetA A set of skills (and optionally, scores) to score against the other set of skills. The list can contain up to 50 skills.
+     * @param skillSetB A set of skills (and optionally, scores) to score against the other set of skills. The list can contain up to 50 skills.
+     * @return The API response body
+     * @throws TxException Thrown when an API error occurs
+     */
+    public SkillsSimilarityScoreResponse skillsSimilarityScoreV2(List<SkillScore> skillSetA, List<SkillScore> skillSetB) throws TxException {
+        SkillsSimilarityScoreRequest request = new SkillsSimilarityScoreRequest();
+        request.SkillsA = skillSetA;
+        request.SkillsB = skillSetB;
+        
+        RequestBody body = createJsonBody(request);
+        Request apiRequest = new Request.Builder()
+            .url(_endpoints.desOntologySkillsSimilarityScoreV2())
+            .post(body)
+            .build();
+
+        HttpResponse<SkillsSimilarityScoreResponse> response = executeRequest(apiRequest, SkillsSimilarityScoreResponse.class, getBodyIfDebug(apiRequest));
+        return response.getData();
+    }
+
 
     /**
      * Generates a job description based on specified parameters.
