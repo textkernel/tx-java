@@ -20,8 +20,7 @@ jobs:
       uses: mavrosxristoforos/get-xml-info@2.0
       with:
         xml-file: pom.xml
-        xpath: '//project/version'
-        namespaces: '{"x": "http://maven.apache.org/POM/4.0.0"}'
+        xpath: '/project/version'
     outputs:
       version_tag: v${{ steps.package_version.outputs.info }}
   check-tag-exists:
