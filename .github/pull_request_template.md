@@ -1,0 +1,5 @@
+- **This description will be used to generate release notes when the PR is merged**
+    - add the label `ignore-for-release` to prevent this PR from being linked to a release
+- Please fill out the description of what was changed/added/fixed in this PR
+- Be sure to link any issues
+- Increment the version in the pom.xml and README.md if you want a release & maven publish to happen upon merge

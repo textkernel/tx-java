@@ -571,7 +571,9 @@ public class TxClient {
      * @throws TxException Thrown when an API error occurs
      */
     public DeleteMultipleDocumentsResponse deleteMultipleDocuments(String indexId, List<String> documentIds) throws TxException {
-        RequestBody requestBody = createJsonBody(documentIds);
+        DeleteMultipleDocumentsRequest request = new DeleteMultipleDocumentsRequest();
+        request.DocumentIds = documentIds;
+        RequestBody requestBody = createJsonBody(request);
         Request apiRequest = new Request.Builder()
                 .url(_endpoints.multipleDocuments(indexId))
                 .delete(requestBody)

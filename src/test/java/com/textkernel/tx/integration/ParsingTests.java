@@ -66,7 +66,7 @@ public class ParsingTests extends TestBase {
                 Client.parseResume(new ParseRequest(new Document(new byte[40_000_000], LocalDate.now()), null));
             });
 
-        String expected = "Request body too large.";
+        String expected = "Request body was too large";
         assertEquals(expected, e.getMessage().substring(0, expected.length()));
     }
     
@@ -614,7 +614,7 @@ public class ParsingTests extends TestBase {
         assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.ISCO);
         assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.ONET);
         assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.ONET.Version);
-        assertEquals("2010", response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.ONET.Version);
+        assertEquals("2019", response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.ONET.Version);
         assertNotEquals(0, response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession.Confidence);
 
         assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(1).NormalizedProfession);
