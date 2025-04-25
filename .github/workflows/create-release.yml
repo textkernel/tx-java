@@ -20,7 +20,7 @@ jobs:
       uses: mavrosxristoforos/get-xml-info@2.0
       with:
         xml-file: pom.xml
-        xpath: '/project/version/text()'
+        xpath: "/*[local-name()='project']/*[local-name()='version']"
     outputs:
       version_tag: v${{ steps.package_version.outputs.info }}
   check-tag-exists:
