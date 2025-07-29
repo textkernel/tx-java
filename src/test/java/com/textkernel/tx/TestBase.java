@@ -76,7 +76,7 @@ public abstract class TestBase {
             settingsV2.ServiceKey = data.ServiceKey;
             settingsV2.DataCenter = TestDataCenter.Local;
             settingsV2.SkillsIntelligenceIncludeCertifications = true;
-            settingsV2.MatchV2Environment = MatchV2Environment.PROD;
+            settingsV2.MatchV2Environment = MatchV2Environment.ACC;
             ClientDESv2 = new TxClient(settingsV2);
 
             ParseResumeResponseValue parseResumeResponseValue = Client.parser().parseResume(new ParseRequest(TestData.Resume, null)).Value;
