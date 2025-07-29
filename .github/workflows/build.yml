@@ -18,6 +18,9 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B compile --file pom.xml
+    # generate the javadocs into the target/site/apidocs folder (default)
+    - name: Generate javadocs with Maven
+      run: mvn javadoc:javadoc
       
   unit-tests:
     runs-on: ubuntu-latest

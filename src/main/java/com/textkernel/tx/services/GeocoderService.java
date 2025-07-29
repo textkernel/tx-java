@@ -35,7 +35,11 @@ import okhttp3.RequestBody;
 /** See {@link TxClient#geocoder()} */
 public class GeocoderService extends ServiceBase {
 
-    /** See {@link TxClient#geocoder()} */
+    /**
+     * Do not use this. See {@link TxClient#geocoder()}
+     * @param httpClient The http client for API calls
+     * @param settings environment settings
+     */
     public GeocoderService(OkHttpClient httpClient, EnvironmentSettings settings) {
         super(httpClient, settings);
     }

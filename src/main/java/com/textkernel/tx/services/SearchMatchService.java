@@ -58,7 +58,11 @@ import okhttp3.RequestBody;
 /** See {@link TxClient#searchMatchV1()} */
 public class SearchMatchService extends ServiceBase {
 
-    /** See {@link TxClient#searchMatchV1()} */
+    /**
+     * Do not use this. See {@link TxClient#searchMatchV1()}
+     * @param httpClient The http client for API calls
+     * @param settings environment settings
+     */
     public SearchMatchService(OkHttpClient httpClient, EnvironmentSettings settings) {
         super(httpClient, settings);
     }

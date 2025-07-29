@@ -24,7 +24,11 @@ import okhttp3.RequestBody;
 /** See {@link TxClient#parser()} */
 public class ParserService extends ServiceBase {
 
-    /** See {@link TxClient#parser()} */
+    /**
+     * Do not use this. See {@link TxClient#parser()}
+     * @param httpClient The http client for API calls
+     * @param settings environment settings
+     */
     public ParserService(OkHttpClient httpClient, EnvironmentSettings settings) {
         super(httpClient, settings);
     }

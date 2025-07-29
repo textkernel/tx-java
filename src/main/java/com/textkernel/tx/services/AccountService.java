@@ -17,7 +17,11 @@ import okhttp3.Request;
 /** See {@link TxClient#account()} */
 public class AccountService extends ServiceBase {
 
-    /** See {@link TxClient#account()} */
+    /**
+     * Do not use this. See {@link TxClient#account()}
+     * @param httpClient The http client for API calls
+     * @param settings environment settings
+     */
     public AccountService(OkHttpClient httpClient, EnvironmentSettings settings) {
         super(httpClient, settings);
     }
