@@ -33,46 +33,46 @@ public class BimetricScoringTests extends TestBase {
     @Test
     public void testBimetricScoringResume() {
         assertThrows(TxException.class, () -> {
-            Client.bimetricScore(new ParsedResumeWithId(), new ArrayList<ParsedResumeWithId>(), null, null);
+            Client.searchMatchV1().bimetricScore(new ParsedResumeWithId(), new ArrayList<ParsedResumeWithId>(), null, null);
         });
 
         assertThrows(TxException.class, () -> {
-            Client.bimetricScore(TestParsedResumeWithId, new ArrayList<ParsedResumeWithId>(), null, null);
+            Client.searchMatchV1().bimetricScore(TestParsedResumeWithId, new ArrayList<ParsedResumeWithId>(), null, null);
         });
 
         assertThrows(TxException.class, () -> {
             List<ParsedResumeWithId> list = new ArrayList<>();
             list.add(TestParsedResumeWithId);
-            Client.bimetricScore(new ParsedResumeWithId(), list, null, null);
+            Client.searchMatchV1().bimetricScore(new ParsedResumeWithId(), list, null, null);
             });
 
         assertDoesNotThrow(() -> {
             List<ParsedResumeWithId> list = new ArrayList<>();
             list.add(TestParsedResumeWithId);
-            Client.bimetricScore(TestParsedResumeWithId, list, null, null);
+            Client.searchMatchV1().bimetricScore(TestParsedResumeWithId, list, null, null);
         });
     }
 
     @Test
     public void testBimetricScoringJob() {
         assertThrows(TxException.class, () -> {
-            Client.bimetricScore(new ParsedJobWithId(), new ArrayList<ParsedJobWithId>(), null, null);
+            Client.searchMatchV1().bimetricScore(new ParsedJobWithId(), new ArrayList<ParsedJobWithId>(), null, null);
         });
 
         assertThrows(TxException.class, () -> {
-            Client.bimetricScore(TestParsedJobWithId, new ArrayList<ParsedJobWithId>(), null, null);
+            Client.searchMatchV1().bimetricScore(TestParsedJobWithId, new ArrayList<ParsedJobWithId>(), null, null);
         });
 
         assertThrows(TxException.class, () -> {
             List<ParsedJobWithId> list = new ArrayList<>();
             list.add(TestParsedJobWithId);
-            Client.bimetricScore(new ParsedJobWithId(), list, null, null);
+            Client.searchMatchV1().bimetricScore(new ParsedJobWithId(), list, null, null);
         });
 
         assertDoesNotThrow(() -> {
             List<ParsedJobWithId> list = new ArrayList<>();
             list.add(TestParsedJobWithId);
-            Client.bimetricScore(TestParsedJobWithId, list, null, null);
+            Client.searchMatchV1().bimetricScore(TestParsedJobWithId, list, null, null);
         });
     }
 }

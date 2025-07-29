@@ -5,7 +5,7 @@
 
 package com.textkernel.tx.models.api.geocoding;
 
-import com.textkernel.tx.models.api.indexes.IndexSingleDocumentInfo;
+import com.textkernel.tx.models.api.indexes.IndexingOptionsGeneric;
 
 /** Request body for geocoding a document and then adding into an index */
 public class GeocodeAndIndexRequest {
@@ -17,5 +17,5 @@ public class GeocodeAndIndexRequest {
     public GeocodeOptionsBase GeocodeOptions;
 
     /** Where to index the resume */
-    public IndexSingleDocumentInfo IndexingOptions;
+    public IndexingOptionsGeneric IndexingOptions;
 }

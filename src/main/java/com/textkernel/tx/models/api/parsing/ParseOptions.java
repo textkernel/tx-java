@@ -7,8 +7,10 @@ package com.textkernel.tx.models.api.parsing;
 
 import java.util.List;
 
+import com.textkernel.tx.exceptions.TxUsableJobException;
+import com.textkernel.tx.exceptions.TxUsableResumeException;
 import com.textkernel.tx.models.api.geocoding.GeocodeOptions;
-import com.textkernel.tx.models.api.indexes.IndexSingleDocumentInfo;
+import com.textkernel.tx.models.api.indexes.IndexingOptionsGeneric;
 
 /** Options for parsing */
 public class ParseOptions extends BasicParseOptions {
@@ -38,10 +40,13 @@ public class ParseOptions extends BasicParseOptions {
     public GeocodeOptions GeocodeOptions;
     
     /**
-     * If you are using AI Matching, use this property to also index the document after it is parsed/geocoded.
-     * This means you only need to send the document to our API once instead of twice for parsing+indexing.
+     * If you are using Search &amp; Match, use this property to also index/upload the document after it is parsed/geocoded.
+     * <p>
+     * <strong>NOTE: if you set this while parsing, you should try/catch for {@link TxUsableResumeException} or {@link TxUsableJobException}
+     * that are thrown when parsing was successful but an error occured during indexing</strong>
+     * </p>
     */
-    public IndexSingleDocumentInfo IndexingOptions;
+    public IndexingOptionsGeneric IndexingOptions;
 
     /**
      * Only used for resumes. When {@code true}, and the document is English, the LLM Parser will be used. 

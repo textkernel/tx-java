@@ -9,29 +9,24 @@ package com.textkernel.tx;
 public class DataCenter {
     
     /** Represents the US datacenter. You can find out which datacenter your account is in at https://cloud.textkernel.com/tx/console*/
-    public static DataCenter US = new DataCenter("https://api.us.textkernel.com/tx", "v10", true);
+    public static DataCenter US = new DataCenter("https://api.us.textkernel.com/tx/v10");
 
     /** Represents the EU datacenter. You can find out which datacenter your account is in at https://cloud.textkernel.com/tx/console*/
-    public static DataCenter EU = new DataCenter("https://api.eu.textkernel.com/tx", "v10", true);
+    public static DataCenter EU = new DataCenter("https://api.eu.textkernel.com/tx/v10");
 	
 	/** Represents the AU datacenter. You can find out which datacenter your account is in at https://cloud.textkernel.com/tx/console*/
-    public static DataCenter AU = new DataCenter("https://api.au.textkernel.com/tx", "v10", true);
+    public static DataCenter AU = new DataCenter("https://api.au.textkernel.com/tx/v10");
 
-    String Root;
-    String Version;
-    boolean IsSaaS;
-
-    protected DataCenter(String root, String version, boolean isSaaS) {
-        Root = root;
-        Version = version;
-        IsSaaS = isSaaS;
-    }
+    public String Url;
 
     /**
      * Create a DataCenter for a self-hosted instance
-     * @param endpoint The URL of your self-hosted instance
+     * @param url The URL of your self-hosted instance
      */
-    public DataCenter(String endpoint) {
-        this(endpoint, null, false);
+    public DataCenter(String url) {
+        if (url == null || url == "") {
+            throw new IllegalArgumentException("Url cannot be null/empty");
+        }
+        Url = url;
     }
 }

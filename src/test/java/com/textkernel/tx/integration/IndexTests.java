@@ -37,7 +37,7 @@ public class IndexTests extends TestBase {
         List<Index> indexes = null;
 
         try {
-            indexes = Client.getAllIndexes().Value;
+            indexes = Client.searchMatchV1().getAllIndexes().Value;
         }
         catch (TxException e) {
             return false;
@@ -58,11 +58,11 @@ public class IndexTests extends TestBase {
     @MethodSource("provideBadIndexNames")
     public void testCreateIndexBadInput(String indexName) {
         assertThrows(IllegalArgumentException.class, () -> {
-            Client.createIndex(IndexType.Job, indexName);
+            Client.searchMatchV1().createIndex(IndexType.Job, indexName);
         });
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Client.createIndex(IndexType.Resume, indexName);
+            Client.searchMatchV1().createIndex(IndexType.Resume, indexName);
         });
     }
 
@@ -71,7 +71,7 @@ public class IndexTests extends TestBase {
     @MethodSource("provideBadIndexNames")
     public void testdeleteIndexBadInput(String indexName) {
         assertThrows(IllegalArgumentException.class, () -> {
-            Client.deleteIndex(indexName);
+            Client.searchMatchV1().deleteIndex(indexName);
         });
     }
 
@@ -82,19 +82,19 @@ public class IndexTests extends TestBase {
 
         try {
             // verify index doesn't exist
-            Client.getAllIndexes();
+            Client.searchMatchV1().getAllIndexes();
             assertFalse(doesIndexExist(indexName));
 
             // create index
             assertDoesNotThrow(() -> {
-                Client.createIndex(indexType, indexName);
+                Client.searchMatchV1().createIndex(indexType, indexName);
             });
 
             delayForIndexSync();
 
             // create index already exists
             TxException txException = assertThrows(TxException.class, () -> {
-                Client.createIndex(indexType, indexName);
+                Client.searchMatchV1().createIndex(indexType, indexName);
             });
 
             assertEquals(TxErrorCodes.DuplicateAsset, txException.TxErrorCode);
@@ -104,7 +104,7 @@ public class IndexTests extends TestBase {
 
             // delete the index
             assertDoesNotThrow(() -> {
-                Client.deleteIndex(indexName);
+                Client.searchMatchV1().deleteIndex(indexName);
             });
 
             delayForIndexSync();
@@ -114,7 +114,7 @@ public class IndexTests extends TestBase {
 
             // try to delete an index that doesn't exist
             txException = assertThrows(TxException.class, () -> {
-                Client.deleteIndex(indexName);
+                Client.searchMatchV1().deleteIndex(indexName);
             });
             assertEquals(TxErrorCodes.DataNotFound, txException.TxErrorCode);
         } catch (TxException e) {
@@ -131,40 +131,40 @@ public class IndexTests extends TestBase {
         try {
             // verify can't retrieve a document that doesn't exist
             TxException txException = assertThrows(TxException.class, () -> {
-                Client.getResume(resumeIndexId, documentId);
+                Client.searchMatchV1().getResume(resumeIndexId, documentId);
             });
 
             assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
             // verify can't add document to an index that doesn't exist
             txException = assertThrows(TxException.class, () -> {
-                Client.indexDocument(TestParsedResume, resumeIndexId, documentId, null);
+                Client.searchMatchV1().indexDocument(TestParsedResume, resumeIndexId, documentId, null);
             });
             assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
             // create the index
-            Client.createIndex(IndexType.Resume, resumeIndexId);
+            Client.searchMatchV1().createIndex(IndexType.Resume, resumeIndexId);
             delayForIndexSync();
 
             // verify document still doesn't exist
             txException = assertThrows(TxException.class, () -> {
-                    Client.getResume(resumeIndexId, documentId);
+                    Client.searchMatchV1().getResume(resumeIndexId, documentId);
             });
             assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
             // add resume to index
-            Client.indexDocument(TestParsedResume, resumeIndexId, documentId, null);
+            Client.searchMatchV1().indexDocument(TestParsedResume, resumeIndexId, documentId, null);
             delayForIndexSync();
 
             // confirm you can now retrieve the resume
-            Client.getResume(resumeIndexId, documentId);
+            Client.searchMatchV1().getResume(resumeIndexId, documentId);
 
             // add v2 skills resume to index
-            Client.indexDocument(TestParsedResumeV2, resumeIndexId, documentId, null);
+            Client.searchMatchV1().indexDocument(TestParsedResumeV2, resumeIndexId, documentId, null);
             delayForIndexSync();
 
             // confirm you can now retrieve the resume
-            Client.getResume(resumeIndexId, documentId);
+            Client.searchMatchV1().getResume(resumeIndexId, documentId);
 
             // confirm the resume shows up in searches
             List<String> indexesToQuery = new ArrayList<>();
@@ -174,7 +174,7 @@ public class IndexTests extends TestBase {
             filterCriteria.DocumentIds = new ArrayList<>();
             filterCriteria.DocumentIds.add(documentId);
 
-            SearchResponseValue searchResponse = Client.search(indexesToQuery, filterCriteria, null, null).Value;
+            SearchResponseValue searchResponse = Client.searchMatchV1().search(indexesToQuery, filterCriteria, null, null).Value;
             assertEquals(1, searchResponse.TotalCount);
             assertEquals(1, searchResponse.CurrentCount);
             assertEquals(documentId, searchResponse.Matches.get(0).Id);
@@ -182,43 +182,43 @@ public class IndexTests extends TestBase {
             // update the resume
             List<String> userDefinedTags = new ArrayList<>();
             userDefinedTags.add("userDefinedTag1");
-            Client.updateResumeUserDefinedTags(resumeIndexId, documentId,
+            Client.searchMatchV1().updateResumeUserDefinedTags(resumeIndexId, documentId,
                 userDefinedTags, UserDefinedTagsMethod.Overwrite);
 
             delayForIndexSync();
 
             // verify those updates have taken effect
             filterCriteria.UserDefinedTags = userDefinedTags;
-            searchResponse = Client.search(indexesToQuery, filterCriteria, null, null).Value;
+            searchResponse = Client.searchMatchV1().search(indexesToQuery, filterCriteria, null, null).Value;
             assertEquals(1, searchResponse.TotalCount);
             assertEquals(1, searchResponse.CurrentCount);
             assertEquals(documentId, searchResponse.Matches.get(0).Id);
 
             // confirm you can retrieve the tags
-            ParsedResume resume = Client.getResume(resumeIndexId, documentId).Value;
+            ParsedResume resume = Client.searchMatchV1().getResume(resumeIndexId, documentId).Value;
             assertEquals(1, resume.UserDefinedTags.size());
             assertEquals(userDefinedTags.get(0), resume.UserDefinedTags.get(0));
 
             // delete the document
-            Client.deleteDocument(resumeIndexId, documentId);
+            Client.searchMatchV1().deleteDocument(resumeIndexId, documentId);
             delayForIndexSync();
 
             // verify can't retrieve a document that doesn't exist
             txException = assertThrows(TxException.class, () -> {
-                    Client.getResume(resumeIndexId, documentId);
+                    Client.searchMatchV1().getResume(resumeIndexId, documentId);
             });
             assertEquals(TxErrorCodes.DataNotFound, txException.TxErrorCode);
 
             txException = assertThrows(TxException.class, () -> {
-                    Client.deleteDocument(resumeIndexId, documentId);
+                    Client.searchMatchV1().deleteDocument(resumeIndexId, documentId);
             });
             assertEquals(TxErrorCodes.DataNotFound, txException.TxErrorCode);
 
-            Client.deleteIndex(resumeIndexId);
+            Client.searchMatchV1().deleteIndex(resumeIndexId);
             delayForIndexSync();
 
             txException = assertThrows(TxException.class, () -> {
-                    Client.deleteDocument(resumeIndexId, documentId);
+                    Client.searchMatchV1().deleteDocument(resumeIndexId, documentId);
             });
             assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
         }
@@ -234,32 +234,32 @@ public class IndexTests extends TestBase {
         try {
             // verify can't retrieve a document that doesn't exist
             assertThrows(TxException.class, () -> {
-                    Client.getJob(jobIndexId, documentId);
+                    Client.searchMatchV1().getJob(jobIndexId, documentId);
             });
             assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
             // verify can't add document to an index that doesn't exist
             assertThrows(TxException.class, () -> {
-                    Client.indexDocument(TestParsedJob, jobIndexId, documentId, null);
+                    Client.searchMatchV1().indexDocument(TestParsedJob, jobIndexId, documentId, null);
             });
             assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
             // create the index
-            Client.createIndex(IndexType.Job, jobIndexId);
+            Client.searchMatchV1().createIndex(IndexType.Job, jobIndexId);
             delayForIndexSync();
 
             // verify document still doesn't exist
             assertThrows(TxException.class, () -> {
-                    Client.getJob(jobIndexId, documentId);
+                    Client.searchMatchV1().getJob(jobIndexId, documentId);
             });
             assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
             // add resume to index
-            Client.indexDocument(TestParsedJob, jobIndexId, documentId, null);
+            Client.searchMatchV1().indexDocument(TestParsedJob, jobIndexId, documentId, null);
             delayForIndexSync();
 
             // confirm you can now retrieve the resume
-            Client.getJob(jobIndexId, documentId);
+            Client.searchMatchV1().getJob(jobIndexId, documentId);
 
             // confirm the resume shows up in searches
             List<String> indexesToQuery = new ArrayList<>();
@@ -269,7 +269,7 @@ public class IndexTests extends TestBase {
             filterCriteria.DocumentIds = new ArrayList<>();
             filterCriteria.DocumentIds.add(documentId);
 
-            SearchResponseValue searchResponse = Client.search(indexesToQuery, filterCriteria, null, null).Value;
+            SearchResponseValue searchResponse = Client.searchMatchV1().search(indexesToQuery, filterCriteria, null, null).Value;
             assertEquals(1, searchResponse.TotalCount);
             assertEquals(1, searchResponse.CurrentCount);
             assertEquals(documentId, searchResponse.Matches.get(0).Id);
@@ -277,43 +277,43 @@ public class IndexTests extends TestBase {
             // update the resume
             List<String> userDefinedTags = new ArrayList<>();
             userDefinedTags.add("userDefinedTag1");
-            Client.updateJobUserDefinedTags(jobIndexId, documentId,
+            Client.searchMatchV1().updateJobUserDefinedTags(jobIndexId, documentId,
                 userDefinedTags, UserDefinedTagsMethod.Overwrite);
 
             delayForIndexSync();
 
             // verify those updates have taken effect
             filterCriteria.UserDefinedTags = userDefinedTags;
-            searchResponse = Client.search(indexesToQuery, filterCriteria, null, null).Value;
+            searchResponse = Client.searchMatchV1().search(indexesToQuery, filterCriteria, null, null).Value;
             assertEquals(1, searchResponse.TotalCount);
             assertEquals(1, searchResponse.CurrentCount);
             assertEquals(documentId, searchResponse.Matches.get(0).Id);
 
             // confirm you can retrieve the tags
-            ParsedJob job = Client.getJob(jobIndexId, documentId).Value;
+            ParsedJob job = Client.searchMatchV1().getJob(jobIndexId, documentId).Value;
             assertEquals(1, job.UserDefinedTags.size());
             assertEquals(userDefinedTags.get(0), job.UserDefinedTags.get(0));
 
             // delete the document
-            Client.deleteDocument(jobIndexId, documentId);
+            Client.searchMatchV1().deleteDocument(jobIndexId, documentId);
             delayForIndexSync();
 
             // verify can't retrieve a document that doesn't exist
             assertThrows(TxException.class, () -> {
-                    Client.getJob(jobIndexId, documentId);
+                    Client.searchMatchV1().getJob(jobIndexId, documentId);
             });
             assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
             assertThrows(TxException.class, () -> {
-                    Client.deleteDocument(jobIndexId, documentId);
+                    Client.searchMatchV1().deleteDocument(jobIndexId, documentId);
             });
             assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
 
-            Client.deleteIndex(jobIndexId);
+            Client.searchMatchV1().deleteIndex(jobIndexId);
             delayForIndexSync();
 
             assertThrows(TxException.class, () -> {
-                    Client.deleteDocument(jobIndexId, documentId);
+                    Client.searchMatchV1().deleteDocument(jobIndexId, documentId);
             });
             assertEquals(TxErrorCodes.DataNotFound, TxErrorCodes.DataNotFound);
         }

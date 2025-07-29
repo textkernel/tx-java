@@ -7,6 +7,7 @@ package com.textkernel.tx;
 
 import com.textkernel.tx.exceptions.TxException;
 import com.textkernel.tx.models.api.matching.request.FilterCriteria;
+
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -16,10 +17,14 @@ public class SDKTests extends TestBase {
     @Test
     public void test401Error(){
         DataCenter fakeDC = new DataCenter("https://api.us.textkernel.com/tx/v9/fake");
-        TxClient client = new TxClient("1234", "1234", fakeDC);
+        TxClientSettings settings = new TxClientSettings();
+        settings.AccountId = "1234";
+        settings.ServiceKey = "1234";
+        settings.DataCenter = fakeDC;
+        TxClient client = new TxClient(settings);
         
         try {
-            client.getAccountInfo();
+            client.account().getAccountInfo();
         }
         catch (TxException e){
             assertEquals(401, e.HttpStatusCode);
@@ -29,10 +34,14 @@ public class SDKTests extends TestBase {
     @Test
     public void test500Message(){
         DataCenter fakeDC = new DataCenter("https://thisisnotarealurlatall-akmeaoiaefoij.com/");
-        TxClient client = new TxClient("1234", "1234", fakeDC);
+        TxClientSettings settings = new TxClientSettings();
+        settings.AccountId = "1234";
+        settings.ServiceKey = "1234";
+        settings.DataCenter = fakeDC;
+        TxClient client = new TxClient(settings);
         
         try {
-            client.getAccountInfo();
+            client.account().getAccountInfo();
         }
         catch (TxException e){
             assertEquals(500, e.HttpStatusCode);
@@ -41,24 +50,19 @@ public class SDKTests extends TestBase {
     }
     
     @Test
-    public void testSelfHostedDataCenter(){
-        String url = "https://selfhosted.customer.com";
-        DataCenter fakeDC = new DataCenter(url);
-        ApiEndpoints endpoints = new ApiEndpoints(fakeDC);
-        
-        assertEquals(url + "/account", endpoints.account());
-    }
-    
-    @Test
     public void testDebugRequestBody(){
         DataCenter fakeDC = new DataCenter("https://thisisnotarealurlatall-akmeaoiaefoij.com/");
-        TxClient client = new TxClient("1234", "1234", fakeDC);
-        client.ShowFullRequestBodyInExceptions = true;
+        TxClientSettings settings = new TxClientSettings();
+        settings.AccountId = "1234";
+        settings.ServiceKey = "1234";
+        settings.DataCenter = fakeDC;
+        TxClient client = new TxClient(settings);
+        TxClient.ShowFullRequestBodyInExceptions = true;
         
         try {
             ArrayList<String> index = new ArrayList<>();
             index.add("testIndex");
-            client.search(index, new FilterCriteria(), null, null);
+            client.searchMatchV1().search(index, new FilterCriteria(), null, null);
         }
         catch (TxException e){
             String expectedRequest = "{\"IndexIdsToSearchInto\":[\"testIndex\"],\"FilterCriteria\":{\"UserDefinedTagsMustAllExist\":false,\"HasPatents\":false,\"HasSecurityCredentials\":false,\"IsAuthor\":false,\"IsPublicSpeaker\":false,\"IsMilitary\":false,\"EmployersMustAllBeCurrentEmployer\":false,\"SkillsMustAllExist\":false,\"IsTopStudent\":false,\"IsCurrentStudent\":false,\"IsRecentGraduate\":false,\"LanguagesKnownMustAllExist\":false}}";

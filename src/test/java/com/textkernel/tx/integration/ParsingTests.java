@@ -14,7 +14,7 @@ import com.textkernel.tx.models.api.dataenrichment.professions.ONETVersion;
 import com.textkernel.tx.models.api.dataenrichment.professions.ProfessionNormalizationVersions;
 import com.textkernel.tx.models.api.geocoding.GeocodeOptions;
 import com.textkernel.tx.models.api.geocoding.GeocodeProvider;
-import com.textkernel.tx.models.api.indexes.IndexSingleDocumentInfo;
+import com.textkernel.tx.models.api.indexes.IndexingOptionsGeneric;
 import com.textkernel.tx.models.api.parsing.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,19 +51,19 @@ public class ParsingTests extends TestBase {
     public <T extends Exception> void testParseBadInput(Document doc, Class<T> classOfExpectedException) {
         assertThrows(classOfExpectedException, () -> {
             ParseRequest request = new ParseRequest(doc, null);
-            Client.parseResume(request);
+            Client.parser().parseResume(request);
         });
 
         assertThrows(classOfExpectedException, () -> {
             ParseRequest request = new ParseRequest(doc, null);
-            Client.parseJob(request);
+            Client.parser().parseJob(request);
         });
     }
 
     @Test
     public void testLargeDocumentParse() {
         TxException e = assertThrows(TxException.class, () -> {
-                Client.parseResume(new ParseRequest(new Document(new byte[40_000_000], LocalDate.now()), null));
+                Client.parser().parseResume(new ParseRequest(new Document(new byte[40_000_000], LocalDate.now()), null));
             });
 
         String expected = "Request body was too large";
@@ -78,7 +78,7 @@ public class ParsingTests extends TestBase {
         assertDoesNotThrow(() -> {
             ParseOptions opts = new ParseOptions();
             opts.Configuration = "OutputFormat.CreateBullets = true";
-            responseAtomic.set(Client.parseResume(new ParseRequest(TestData.Resume, opts)).Value);
+            responseAtomic.set(Client.parser().parseResume(new ParseRequest(TestData.Resume, opts)).Value);
         });
 
         ParseResumeResponseValue response = responseAtomic.get();
@@ -105,7 +105,7 @@ public class ParsingTests extends TestBase {
             opts.OutputHtml = true;
             opts.OutputPdf = true;
             opts.OutputRtf = true;
-            responseAtomic.set(Client.parseResume(new ParseRequest(TestData.Resume, opts)).Value);
+            responseAtomic.set(Client.parser().parseResume(new ParseRequest(TestData.Resume, opts)).Value);
         });
 
         ParseResumeResponseValue response = responseAtomic.get();
@@ -131,7 +131,7 @@ public class ParsingTests extends TestBase {
                     opts.GeocodeOptions.IncludeGeocoding = true;
                     opts.GeocodeOptions.Provider= GeocodeProvider.Google;
                     
-                    Client.parseResume(new ParseRequest(TestData.Resume, opts));
+                    Client.parser().parseResume(new ParseRequest(TestData.Resume, opts));
                 });
         
         assertTrue(!e.Response.Value.GeocodeResponse.isSuccess());
@@ -154,7 +154,7 @@ public class ParsingTests extends TestBase {
             opts.OutputHtml = true;
             opts.OutputPdf = true;
             opts.OutputRtf = true;
-            responseAtomic.set(Client.parseJob(new ParseRequest(TestData.JobOrder, opts)).Value);
+            responseAtomic.set(Client.parser().parseJob(new ParseRequest(TestData.JobOrder, opts)).Value);
         });
 
         ParseJobResponseValue response = responseAtomic.get();
@@ -178,15 +178,14 @@ public class ParsingTests extends TestBase {
         GeocodeOptions geocodeOptions = new GeocodeOptions();
         geocodeOptions.IncludeGeocoding = true;
     
-        IndexSingleDocumentInfo indexingOptions = new IndexSingleDocumentInfo();
-        indexingOptions.IndexId = indexId;
+        IndexingOptionsGeneric indexingOptions = new IndexingOptionsGeneric(documentId, indexId, null);
     
         // since there isn't an address this will throw an exception
         assertThrows(TxGeocodeResumeException.class, () -> {
             ParseRequest request = new ParseRequest(TestData.Resume, null);
             request.GeocodeOptions = geocodeOptions;
             request.IndexingOptions = indexingOptions;
-            Client.parseResume(request);
+            Client.parser().parseResume(request);
         });
     
     
@@ -195,13 +194,13 @@ public class ParsingTests extends TestBase {
             ParseRequest request = new ParseRequest(TestData.ResumeWithAddress, null);
             request.GeocodeOptions = geocodeOptions;
             request.IndexingOptions = indexingOptions;
-            Client.parseResume(request);
+            Client.parser().parseResume(request);
         });
     
         try {
             // set the document id and create the index
             indexingOptions.DocumentId = documentId;
-            Client.createIndex(IndexType.Resume, indexId);
+            Client.searchMatchV1().createIndex(IndexType.Resume, indexId);
             delayForIndexSync();
     
             // confirm you can parse/geocode/index
@@ -209,12 +208,12 @@ public class ParsingTests extends TestBase {
                 ParseRequest request = new ParseRequest(TestData.ResumeWithAddress, null);
                 request.GeocodeOptions = geocodeOptions;
                 request.IndexingOptions = indexingOptions;
-                Client.parseResume(request);
+                Client.parser().parseResume(request);
             });
     
             // verify the resume exists in the index
             delayForIndexSync();
-            Client.getResume(indexId, documentId);
+            Client.searchMatchV1().getResume(indexId, documentId);
         }
         catch (TxException e) { throw e; }
         finally {
@@ -228,7 +227,7 @@ public class ParsingTests extends TestBase {
         String tempFile2 = UUID.randomUUID().toString();
 
         try {
-            ParseResumeResponse response = Client.parseResume(new ParseRequest(TestData.Resume, null));
+            ParseResumeResponse response = Client.parser().parseResume(new ParseRequest(TestData.Resume, null));
 
             String unformatted = response.Value.ResumeData.toJson(false);
             String formatted = response.Value.ResumeData.toJson(true);
@@ -269,7 +268,7 @@ public class ParsingTests extends TestBase {
         String tempFile2 = UUID.randomUUID().toString();
 
         try {
-            ParseJobResponse response = Client.parseJob(new ParseRequest(TestData.JobOrder, null));
+            ParseJobResponse response = Client.parser().parseJob(new ParseRequest(TestData.JobOrder, null));
 
             String unformatted = response.Value.JobData.toJson(false);
             String formatted = response.Value.JobData.toJson(true);
@@ -312,15 +311,14 @@ public class ParsingTests extends TestBase {
         GeocodeOptions geocodeOptions = new GeocodeOptions();
         geocodeOptions.IncludeGeocoding = true;
 
-        IndexSingleDocumentInfo indexingOptions = new IndexSingleDocumentInfo();
-        indexingOptions.IndexId = indexId;
-    
+        IndexingOptionsGeneric indexingOptions = new IndexingOptionsGeneric(documentId, indexId, null);
+
         // since there isn't an address this will throw an exception
         assertThrows(TxGeocodeJobException.class, () -> {
             ParseRequest request = new ParseRequest(TestData.JobOrder, null);
             request.GeocodeOptions = geocodeOptions;
             request.IndexingOptions = indexingOptions;
-            Client.parseJob(request);
+            Client.parser().parseJob(request);
         });
     
         // confirm you can geocode but indexing fails
@@ -328,13 +326,13 @@ public class ParsingTests extends TestBase {
             ParseRequest request = new ParseRequest(TestData.JobOrderWithAddress, null);
             request.GeocodeOptions = geocodeOptions;
             request.IndexingOptions = indexingOptions;
-            Client.parseJob(request);
+            Client.parser().parseJob(request);
         });
     
         try {
             // set the document id and create the index
             indexingOptions.DocumentId = documentId;
-            Client.createIndex(IndexType.Job, indexId);
+            Client.searchMatchV1().createIndex(IndexType.Job, indexId);
             delayForIndexSync();
     
             // confirm you can parse/geocode/index
@@ -342,12 +340,12 @@ public class ParsingTests extends TestBase {
                 ParseRequest request = new ParseRequest(TestData.JobOrderWithAddress, null);
                 request.GeocodeOptions = geocodeOptions;
                 request.IndexingOptions = indexingOptions;
-                Client.parseJob(request);
+                Client.parser().parseJob(request);
             });
     
             // verify the resume exists in the index
             delayForIndexSync();
-            Client.getJob(indexId, documentId);
+            Client.searchMatchV1().getJob(indexId, documentId);
         }
         catch (TxException e) { throw e; }
         finally {
@@ -357,7 +355,7 @@ public class ParsingTests extends TestBase {
 
     @Test
     public void testSkillsData() throws TxException {
-        ParseResumeResponseValue response = Client.parseResume(new ParseRequest(TestData.Resume, null)).Value;
+        ParseResumeResponseValue response = Client.parser().parseResume(new ParseRequest(TestData.Resume, null)).Value;
     
         assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(0).MonthsExperience.Value, 12);
         assertEquals(response.ResumeData.SkillsData.get(0).Taxonomies.get(0).SubTaxonomies.get(0).Skills.get(0).LastUsed.Value.toString(), "2018-07-01");
@@ -367,7 +365,7 @@ public class ParsingTests extends TestBase {
 
     @Test
     public void testPersonalInfo() throws TxException {
-        ParseResumeResponseValue response = Client.parseResume(new ParseRequest(TestData.ResumePersonalInformation, null)).Value;
+        ParseResumeResponseValue response = Client.parser().parseResume(new ParseRequest(TestData.ResumePersonalInformation, null)).Value;
     
         assertNotNull(response.ResumeData.PersonalAttributes.Birthplace);
         assertNotNull(response.ResumeData.PersonalAttributes.DateOfBirth);
@@ -384,7 +382,7 @@ public class ParsingTests extends TestBase {
     @Test
     public void testResumeQuality() throws TxException, IOException {
         Document document = getTestFileAsDocument("resume.docx");
-        ParseResumeResponseValue response = Client.parseResume(new ParseRequest(document, null)).Value;
+        ParseResumeResponseValue response = Client.parser().parseResume(new ParseRequest(document, null)).Value;
     
         assertHasItems(response.ResumeData.ResumeMetadata.ResumeQuality);
         assertNotNull(response.ResumeData.ResumeMetadata.ResumeQuality.get(0).Level);
@@ -402,7 +400,7 @@ public class ParsingTests extends TestBase {
     @Test
     public void testGeneralOutput() throws Exception {
         Document document = getTestFileAsDocument("resume.docx");
-        ParseResumeResponse response = Client.parseResume(new ParseRequest(document, null));
+        ParseResumeResponse response = Client.parser().parseResume(new ParseRequest(document, null));
 
         assertTrue(response.Info.isSuccess());
 
@@ -554,7 +552,7 @@ public class ParsingTests extends TestBase {
         ParseOptions options = new ParseOptions();
         options.SkillsSettings = new SkillsSettings();
         options.SkillsSettings.TaxonomyVersion = "v2";
-        ParseResumeResponse response = Client.parseResume(new ParseRequest(document, options));
+        ParseResumeResponse response = Client.parser().parseResume(new ParseRequest(document, options));
 
         assertTrue(response.Info.isSuccess());
         assertNotNull(response.Value.ResumeData.Skills.Raw);
@@ -571,7 +569,7 @@ public class ParsingTests extends TestBase {
         options.SkillsSettings = new SkillsSettings();
         options.SkillsSettings.TaxonomyVersion = "v2";
         options.SkillsSettings.Normalize = true;
-        ParseResumeResponse response = Client.parseResume(new ParseRequest(document, options));
+        ParseResumeResponse response = Client.parser().parseResume(new ParseRequest(document, options));
 
         
         assertTrue(response.Info.isSuccess());
@@ -597,13 +595,13 @@ public class ParsingTests extends TestBase {
         ParseOptions options = new ParseOptions();
         options.ProfessionsSettings = new ProfessionsSettings();
         options.ProfessionsSettings.Normalize = true;
-        ParseResumeResponse response = Client.parseResume(new ParseRequest(document, options));
+        ParseResumeResponse response = Client.parser().parseResume(new ParseRequest(document, options));
 
         assertTrue(response.Info.isSuccess());
         assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession);
 
         options.ProfessionsSettings.Normalize = true;
-        response = Client.parseResume(new ParseRequest(document, options));
+        response = Client.parser().parseResume(new ParseRequest(document, options));
 
         assertTrue(response.Info.isSuccess());
         assertTrue(response.Value.ProfessionNormalizationResponse.isSuccess());
@@ -628,7 +626,7 @@ public class ParsingTests extends TestBase {
         ParseOptions options = new ParseOptions();
         options.ProfessionsSettings = new ProfessionsSettings();
         options.ProfessionsSettings.Normalize = true;
-        ParseResumeResponse response = Client.parseResume(new ParseRequest(document, options));
+        ParseResumeResponse response = Client.parser().parseResume(new ParseRequest(document, options));
 
         assertTrue(response.Info.isSuccess());
         assertNotNull(response.Value.ResumeData.EmploymentHistory.Positions.get(0).NormalizedProfession);
@@ -637,7 +635,7 @@ public class ParsingTests extends TestBase {
         options.ProfessionsSettings.Version = new ProfessionNormalizationVersions();
         options.ProfessionsSettings.Version.ONET = ONETVersion.ONET2019;
 
-        response = Client.parseResume(new ParseRequest(document, options));
+        response = Client.parser().parseResume(new ParseRequest(document, options));
 
         assertTrue(response.Info.isSuccess());
         assertTrue(response.Value.ProfessionNormalizationResponse.isSuccess());
@@ -662,7 +660,7 @@ public class ParsingTests extends TestBase {
         ParseOptions options = new ParseOptions();
         options.SkillsSettings = new SkillsSettings();
         options.SkillsSettings.TaxonomyVersion = "v2";
-        ParseJobResponse response = Client.parseJob(new ParseRequest(TestData.JobOrder, options));
+        ParseJobResponse response = Client.parser().parseJob(new ParseRequest(TestData.JobOrder, options));
 
         assertTrue(response.Info.isSuccess());
         assertNotNull(response.Value.JobData.Skills.Raw);
@@ -678,7 +676,7 @@ public class ParsingTests extends TestBase {
         options.SkillsSettings.TaxonomyVersion = "v2";
         options.SkillsSettings.Normalize = true;
         
-        ParseJobResponse response = Client.parseJob(new ParseRequest(TestData.JobOrder, options));
+        ParseJobResponse response = Client.parser().parseJob(new ParseRequest(TestData.JobOrder, options));
 
         assertTrue(response.Info.isSuccess());
         assertNotNull(response.Value.JobData.Skills.Raw);
@@ -701,13 +699,13 @@ public class ParsingTests extends TestBase {
         ParseOptions options = new ParseOptions();
         options.ProfessionsSettings = new ProfessionsSettings();
         options.ProfessionsSettings.Normalize = false;
-        ParseJobResponse response = Client.parseJob(new ParseRequest(TestData.JobOrder, options));
+        ParseJobResponse response = Client.parser().parseJob(new ParseRequest(TestData.JobOrder, options));
 
         assertTrue(response.Info.isSuccess());
         assertNull(response.Value.JobData.JobTitles.NormalizedProfession);
 
         options.ProfessionsSettings.Normalize = true;
-        response = Client.parseJob(new ParseRequest(TestData.JobOrder, options));
+        response = Client.parser().parseJob(new ParseRequest(TestData.JobOrder, options));
 
         assertTrue(response.Info.isSuccess());
         assertTrue(response.Value.ProfessionNormalizationResponse.isSuccess());
@@ -725,7 +723,7 @@ public class ParsingTests extends TestBase {
         Document document = getTestFileAsDocument("resume.docx");
         ParseOptions options = new ParseOptions();
         options.UseLLMParser = true;
-        ParseResumeResponse response = Client.parseResume(new ParseRequest(document, options));
+        ParseResumeResponse response = Client.parser().parseResume(new ParseRequest(document, options));
 
         assertTrue(response.Info.isSuccess());
         assertNotNull(response.Value.ResumeData.ContactInformation.CandidateName.GivenName);
@@ -742,7 +740,7 @@ public class ParsingTests extends TestBase {
         prompt.DataType = FlexRequestDataType.Text;
         prompt.Identifier = "YearsLeadership";
         options.FlexRequests.add(prompt);
-        ParseResumeResponse response = Client.parseResume(new ParseRequest(document, options));
+        ParseResumeResponse response = Client.parser().parseResume(new ParseRequest(document, options));
 
         assertTrue(response.Info.isSuccess());
         assertNotNull(response.Value.FlexResponse);

@@ -23,7 +23,7 @@ public class FormatterTests extends TestBase {
             byte[] templateBytes = java.util.Base64.getDecoder().decode(templateStr);
 
             FormatResumeRequest request = new FormatResumeRequest(TestParsedResume, templateBytes, OutputDocumentFormat.DOCX);
-            FormatResumeResponse response = Client.formatResume(request);
+            FormatResumeResponse response = Client.formatter().formatResume(request);
 
             assertNotNull(response.Value.DocumentAsBase64String);
         });

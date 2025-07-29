@@ -21,7 +21,7 @@ public class AccountTests extends TestBase
         AtomicReference<GetAccountInfoResponse> accountInfo = new AtomicReference<>();
         
         assertDoesNotThrow(() -> {
-            accountInfo.set(Client.getAccountInfo());
+            accountInfo.set(Client.account().getAccountInfo());
         });
 
         assertNotNull(accountInfo.get().Info.CustomerDetails.AccountId);
