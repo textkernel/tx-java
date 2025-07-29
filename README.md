@@ -13,7 +13,7 @@ The official Java SDK for the Textkernel Tx v10 API for resume/CV and job parsin
 ### Gradle Users
 Add this dependency to your project's build file:
 ```
-implementation "com.textkernel:tx-java:3.0.1"
+implementation "com.textkernel:tx-java:3.0.2"
 ```
 
 ### Maven Users
@@ -22,13 +22,13 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.textkernel</groupId>
   <artifactId>tx-java</artifactId>
-  <version>3.0.1</version>
+  <version>3.0.2</version>
 </dependency>
 ```
 
 ### Others
 You'll need to manually install the following JARs:
-- The Textkernel Tx JAR from https://repo1.maven.org/maven2/com/textkernel/tx-java/3.0.1/tx-java-3.0.1.jar
+- The Textkernel Tx JAR from https://repo1.maven.org/maven2/com/textkernel/tx-java/3.0.2/tx-java-3.0.2.jar
 - [Google Gson][gson_url] from https://repo1.maven.org/maven2/com/google/code/gson/gson/2.9.0/gson-2.9.0.jar
 - [Square OkHttp][okhttp_url] from https://repo1.maven.org/maven2/com/squareup/okhttp3/okhttp/4.12.0/okhttp-4.12.0.jar
 
