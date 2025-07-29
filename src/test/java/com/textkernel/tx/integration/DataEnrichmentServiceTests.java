@@ -23,14 +23,14 @@ public class DataEnrichmentServiceTests extends TestBase {
     @Test
     public void testSkillsTaxonomy() {
         assertDoesNotThrow(() -> {
-            Client.getSkillsTaxonomy(TaxonomyFormat.json);
+            Client.skillsIntelligence().getSkillsTaxonomy(TaxonomyFormat.json);
         });
     }
 
     @Test
     public void testSkillsMetadata() {
         assertDoesNotThrow(() -> {
-            Client.getSkillsTaxonomyMetadata();
+            Client.skillsIntelligence().getSkillsTaxonomyMetadata();
         });
     }
 
@@ -41,7 +41,7 @@ public class DataEnrichmentServiceTests extends TestBase {
             languages.add("en");
             ArrayList<String> types = new ArrayList<String>();
             types.add("all");
-            Client.autocompleteSkill("soft", languages, "en", types, 10);
+            Client.skillsIntelligence().autocompleteSkill("soft", languages, "en", types, 10);
         });
     }
 
@@ -54,7 +54,7 @@ public class DataEnrichmentServiceTests extends TestBase {
             languages.add("en");
             ArrayList<String> types = new ArrayList<String>();
             types.add("certification");
-            wrapper[0] = Client.autocompleteSkillV2("soft", languages, "en", types, 10);
+            wrapper[0] = ClientDESv2.skillsIntelligence().autocompleteSkill("soft", languages, "en", types, 10);
         });
 
         assertNotNull(wrapper[0].Value);
@@ -67,7 +67,7 @@ public class DataEnrichmentServiceTests extends TestBase {
         assertDoesNotThrow(() -> {
             ArrayList<String> skillIds = new ArrayList<String>();
             skillIds.add("KS120B874P2P6BK1MQ0T");
-            Client.lookupSkills(skillIds, "en");
+            Client.skillsIntelligence().lookupSkills(skillIds, "en");
         });
     }
 
@@ -76,28 +76,28 @@ public class DataEnrichmentServiceTests extends TestBase {
         assertDoesNotThrow(() -> {
             ArrayList<String> skills = new ArrayList<String>();
             skills.add("Microsoft excel");
-            Client.normalizeSkills(skills, "en", "en");
+            Client.skillsIntelligence().normalizeSkills(skills, "en", "en");
         });
     }
 
     @Test
     public void testSkillsExtract() {
         assertDoesNotThrow(() -> {
-            Client.extractSkills("Microsoft, developer python, software, clerical office assistant, excel", "en", "en", 0.5f);
+            Client.skillsIntelligence().extractSkills("Microsoft, developer python, software, clerical office assistant, excel", "en", "en", 0.5f);
         });
     }
 
     @Test
     public void testProfessionsTaxonomy() {
         assertDoesNotThrow(() -> {
-            Client.getProfessionsTaxonomy("en",TaxonomyFormat.json);
+            Client.skillsIntelligence().getProfessionsTaxonomy("en",TaxonomyFormat.json);
         });
     }
 
     @Test
     public void testProfessionsMetadata() {
         assertDoesNotThrow(() -> {
-            Client.getProfessionsTaxonomyMetadata();
+            Client.skillsIntelligence().getProfessionsTaxonomyMetadata();
         });
     }
 
@@ -106,7 +106,7 @@ public class DataEnrichmentServiceTests extends TestBase {
         assertDoesNotThrow(() -> {
             ArrayList<String> languages = new ArrayList<String>();
             languages.add("en");
-            Client.autocompleteProfession("soft",languages , "en", 10 );
+            Client.skillsIntelligence().autocompleteProfession("soft",languages , "en", 10 );
         });
     }
 
@@ -115,7 +115,7 @@ public class DataEnrichmentServiceTests extends TestBase {
         assertDoesNotThrow(() -> {
             ArrayList<String> jobTitles = new ArrayList<String>();
             jobTitles.add("Software Engineer");
-            Client.normalizeProfessions(jobTitles, "en", "en");
+            Client.skillsIntelligence().normalizeProfessions(jobTitles, "en", "en");
         });
     }
 
@@ -124,14 +124,14 @@ public class DataEnrichmentServiceTests extends TestBase {
         assertDoesNotThrow(() -> {
             ArrayList<Integer> codeIds = new ArrayList<Integer>();
             codeIds.add(2000);
-            Client.lookupProfessions(codeIds, "en");
+            Client.skillsIntelligence().lookupProfessions(codeIds, "en");
         });
     }
 
     @Test
     public void testCompareProfessions() {
         assertDoesNotThrow(() -> {
-            Client.compareProfessions(696, 3178, "en");
+            Client.skillsIntelligence().compareProfessions(696, 3178, "en");
         });
     }
 
@@ -142,7 +142,7 @@ public class DataEnrichmentServiceTests extends TestBase {
             skills.add(new SkillScore("KS120076FGP5WGWYMP0F"));
             skills.add(new SkillScore("KS04UWLJBN9X1M3N0PZ4"));
 
-            Client.compareSkillsToProfessions(696, "en", skills);
+            Client.skillsIntelligence().compareSkillsToProfessions(696, "en", skills);
         });
     }
 
@@ -151,7 +151,7 @@ public class DataEnrichmentServiceTests extends TestBase {
         assertDoesNotThrow(() -> {
             ArrayList<Integer> professionCodeIds = new ArrayList<Integer>();
             professionCodeIds.add(696);
-            Client.suggestSkillsFromProfessions(professionCodeIds, 10, null);
+            Client.skillsIntelligence().suggestSkillsFromProfessions(professionCodeIds, 10, null);
         });
     }
 
@@ -162,7 +162,7 @@ public class DataEnrichmentServiceTests extends TestBase {
             skillIds.add("KS120076FGP5WGWYMP0F");
             skillIds.add("KS125HH5XDBPZT3RFGZZ");
             skillIds.add("KS124PR62MV42B5C9S9F");
-            Client.suggestSkillsFromSkills(skillIds, null);
+            Client.skillsIntelligence().suggestSkillsFromSkills(skillIds, null);
         });
     }
 
@@ -173,7 +173,7 @@ public class DataEnrichmentServiceTests extends TestBase {
             skillIds.add("KS120076FGP5WGWYMP0F");
             skillIds.add("KS125HH5XDBPZT3RFGZZ");
             skillIds.add("KS124PR62MV42B5C9S9F");
-            Client.suggestProfessionsFromSkills(skillIds, null);
+            Client.skillsIntelligence().suggestProfessionsFromSkills(skillIds, null);
         });
     }
 
@@ -184,7 +184,7 @@ public class DataEnrichmentServiceTests extends TestBase {
             skillIds.add(new SkillScore("KS120076FGP5WGWYMP0F"));
             skillIds.add(new SkillScore("KS125HH5XDBPZT3RFGZZ"));
             skillIds.add(new SkillScore("KS124PR62MV42B5C9S9F"));
-            Client.skillsSimilarityScore(skillIds, skillIds);
+            Client.skillsIntelligence().skillsSimilarityScore(skillIds, skillIds);
         });
     }
 }

@@ -8,7 +8,7 @@ package com.textkernel.tx.integration;
 import com.textkernel.tx.TestBase;
 import com.textkernel.tx.exceptions.TxException;
 import com.textkernel.tx.models.api.geocoding.Address;
-import com.textkernel.tx.models.api.indexes.IndexSingleDocumentInfo;
+import com.textkernel.tx.models.api.indexes.IndexingOptionsGeneric;
 import com.textkernel.tx.models.matching.IndexType;
 import org.junit.jupiter.api.Test;
 
@@ -19,21 +19,21 @@ public class GeocodingTests extends TestBase {
     @Test
     public void testResumeNoAddress() {
         assertThrows(TxException.class, () -> {
-            Client.geocode(TestParsedResume, GeocodeCredentials);
+            Client.geocoder().geocode(TestParsedResume, GeocodeCredentials);
             });
 
         assertThrows(TxException.class, () -> {
-            Client.geocode(TestParsedResume, null);
+            Client.geocoder().geocode(TestParsedResume, null);
             });
 
         assertThrows(TxException.class, () -> {
-            Client.geocode(TestParsedResume, new Address(), GeocodeCredentials);
+            Client.geocoder().geocode(TestParsedResume, new Address(), GeocodeCredentials);
             });
 
         assertThrows(TxException.class, () -> {
             Address addr = new Address();
             addr.CountryCode = "US";
-            Client.geocode(TestParsedResume, addr, GeocodeCredentials);
+            Client.geocoder().geocode(TestParsedResume, addr, GeocodeCredentials);
         });
 
         assertDoesNotThrow(() -> {
@@ -41,32 +41,32 @@ public class GeocodingTests extends TestBase {
             addr.CountryCode = "US";
             addr.Municipality = "Dallas";
             addr.Region = "TX";
-            Client.geocode(TestParsedResume, addr, GeocodeCredentials);
+            Client.geocoder().geocode(TestParsedResume, addr, GeocodeCredentials);
         });
 
         assertDoesNotThrow(() -> {
-            Client.geocode(TestParsedResumeWithAddress, GeocodeCredentials);
+            Client.geocoder().geocode(TestParsedResumeWithAddress, GeocodeCredentials);
         });
     }
 
     @Test
     public void testJobNoAddress() {
         assertThrows(TxException.class, () -> {
-            Client.geocode(TestParsedJob, GeocodeCredentials);
+            Client.geocoder().geocode(TestParsedJob, GeocodeCredentials);
             });
 
         assertThrows(TxException.class, () -> {
-            Client.geocode(TestParsedJob, null, GeocodeCredentials);
+            Client.geocoder().geocode(TestParsedJob, null, GeocodeCredentials);
             });
 
         assertThrows(TxException.class, () -> {
-            Client.geocode(TestParsedJob, new Address(), GeocodeCredentials);
+            Client.geocoder().geocode(TestParsedJob, new Address(), GeocodeCredentials);
             });
 
         assertThrows(TxException.class, () -> {
             Address addr = new Address();
             addr.CountryCode = "US";
-            Client.geocode(TestParsedJob, addr, GeocodeCredentials);
+            Client.geocoder().geocode(TestParsedJob, addr, GeocodeCredentials);
         });
 
         assertDoesNotThrow(() -> {
@@ -74,11 +74,11 @@ public class GeocodingTests extends TestBase {
             addr.CountryCode = "US";
             addr.Municipality = "Dallas";
             addr.Region = "TX";
-            Client.geocode(TestParsedJob, addr, GeocodeCredentials);
+            Client.geocoder().geocode(TestParsedJob, addr, GeocodeCredentials);
         });
 
         assertDoesNotThrow(() -> {
-            Client.geocode(TestParsedJobWithAddress, GeocodeCredentials);
+            Client.geocoder().geocode(TestParsedJobWithAddress, GeocodeCredentials);
         });
     }
 
@@ -88,38 +88,38 @@ public class GeocodingTests extends TestBase {
         String documentId = "1";
 
         try {
-            Client.createIndex(IndexType.Resume, indexId);
+            Client.searchMatchV1().createIndex(IndexType.Resume, indexId);
 
             // missing indexing options
             assertThrows(TxException.class, () -> {
-                Client.geocodeAndIndex(TestParsedResumeWithAddress, null, false, GeocodeCredentials);
+                Client.geocoder().geocodeAndIndex(TestParsedResumeWithAddress, null, false, GeocodeCredentials);
             });
 
             // empty indexing options
-            IndexSingleDocumentInfo indexingOptions = new IndexSingleDocumentInfo();
+            IndexingOptionsGeneric indexingOptions = new IndexingOptionsGeneric("", "", null);
             assertThrows(TxException.class, () -> {
-                Client.geocodeAndIndex(TestParsedResumeWithAddress, indexingOptions, false, GeocodeCredentials);
+                Client.geocoder().geocodeAndIndex(TestParsedResumeWithAddress, indexingOptions, false, GeocodeCredentials);
             });
 
             // missing documentid
             indexingOptions.IndexId = indexId;
             assertThrows(TxException.class, () -> {
-                Client.geocodeAndIndex(TestParsedResumeWithAddress, indexingOptions, false, GeocodeCredentials);
+                Client.geocoder().geocodeAndIndex(TestParsedResumeWithAddress, indexingOptions, false, GeocodeCredentials);
             });
 
             indexingOptions.DocumentId = documentId;
 
             // not enough data points to index
             assertThrows(TxException.class, () -> {
-                Client.geocodeAndIndex(TestParsedResume, indexingOptions, false, GeocodeCredentials);
+                Client.geocoder().geocodeAndIndex(TestParsedResume, indexingOptions, false, GeocodeCredentials);
             });
 
             assertDoesNotThrow(() -> {
-                Client.geocodeAndIndex(TestParsedResumeWithAddress, indexingOptions, false, GeocodeCredentials);
+                Client.geocoder().geocodeAndIndex(TestParsedResumeWithAddress, indexingOptions, false, GeocodeCredentials);
             });
 
             assertDoesNotThrow(() -> {
-                Client.getResume(indexId, documentId);
+                Client.searchMatchV1().getResume(indexId, documentId);
             });
         }
         finally {
@@ -133,38 +133,38 @@ public class GeocodingTests extends TestBase {
         String documentId = "1";
 
         try {
-            Client.createIndex(IndexType.Job, indexId);
+            Client.searchMatchV1().createIndex(IndexType.Job, indexId);
 
             // missing indexing options
             assertThrows(TxException.class, () -> {
-                Client.geocodeAndIndex(TestParsedJobWithAddress, null, false, GeocodeCredentials);
+                Client.geocoder().geocodeAndIndex(TestParsedJobWithAddress, null, false, GeocodeCredentials);
             });
 
             // empty indexing options
-            IndexSingleDocumentInfo indexingOptions = new IndexSingleDocumentInfo();
+            IndexingOptionsGeneric indexingOptions = new IndexingOptionsGeneric("", "", null);
             assertThrows(TxException.class, () -> {
-                Client.geocodeAndIndex(TestParsedJobWithAddress, indexingOptions, false, GeocodeCredentials);
+                Client.geocoder().geocodeAndIndex(TestParsedJobWithAddress, indexingOptions, false, GeocodeCredentials);
             });
 
             // missing documentid
             indexingOptions.IndexId = indexId;
             assertThrows(TxException.class, () -> {
-                Client.geocodeAndIndex(TestParsedJobWithAddress, indexingOptions, false, GeocodeCredentials);
+                Client.geocoder().geocodeAndIndex(TestParsedJobWithAddress, indexingOptions, false, GeocodeCredentials);
             });
 
             indexingOptions.DocumentId = documentId;
 
             // not enough data points to index
             assertThrows(TxException.class, () -> {
-                Client.geocodeAndIndex(TestParsedJob, indexingOptions, false, GeocodeCredentials);
+                Client.geocoder().geocodeAndIndex(TestParsedJob, indexingOptions, false, GeocodeCredentials);
             });
 
             assertDoesNotThrow(() -> {
-                Client.geocodeAndIndex(TestParsedJobWithAddress, indexingOptions, false, GeocodeCredentials);
+                Client.geocoder().geocodeAndIndex(TestParsedJobWithAddress, indexingOptions, false, GeocodeCredentials);
             });
 
             assertDoesNotThrow(() -> {
-                Client.getJob(indexId, documentId);
+                Client.searchMatchV1().getJob(indexId, documentId);
             });
         }
         finally {

@@ -21,7 +21,11 @@ import java.time.format.DateTimeFormatter;
 
 public class ParsingExample {
     public static void main(String[] args) throws IOException {
-        TxClient client = new TxClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US);
+        TxClientSettings settings = new TxClientSettings();
+        settings.AccountId = "12345678";
+        settings.ServiceKey = "abcdefghijklmnopqrstuvwxyz";
+        settings.DataCenter = DataCenter.US;
+        TxClient client = new TxClient(settings);
         
         //A Document is an unparsed File (PDF, Word Doc, etc)
         Document doc = new Document("resume.docx");
@@ -31,7 +35,7 @@ public class ParsingExample {
         ParseRequest request = new ParseRequest(doc, new ParseOptions());
     
         try {
-            ParseResumeResponse response = client.parseResume(request);
+            ParseResumeResponse response = client.parser().parseResume(request);
             //if we get here, it was 200-OK and all operations succeeded
     
             //now we can use the response to output some of the data from the resume

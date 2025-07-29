@@ -10,7 +10,7 @@ import com.textkernel.tx.models.job.ParsedJob;
 /**
  * Information for adding a single job to an index as part of a 'batch upload'
  */
-public class IndexJobInfo extends IndexMultipleDocumentInfo {
+public class IndexJobInfo extends IndexingOptionsGeneric {
     
     /**  A job to index */
     public ParsedJob JobData;

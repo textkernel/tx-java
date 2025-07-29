@@ -11,6 +11,7 @@ import com.textkernel.tx.models.Location;
 import com.textkernel.tx.models.TxDate;
 import com.textkernel.tx.models.api.geocoding.GeocodeCredentials;
 import com.textkernel.tx.models.api.geocoding.GeocodeProvider;
+import com.textkernel.tx.models.api.matchV2.MatchV2Environment;
 import com.textkernel.tx.models.api.parsing.ParseJobResponseValue;
 import com.textkernel.tx.models.api.parsing.ParseOptions;
 import com.textkernel.tx.models.api.parsing.ParseRequest;
@@ -32,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class TestBase {
     protected static TxClient Client;
+    protected static TxClient ClientDESv2;
     protected static GeocodeCredentials GeocodeCredentials;
 
     protected static ParsedResume TestParsedResume;
@@ -48,9 +50,9 @@ public abstract class TestBase {
     }
 
     private static class TestDataCenter extends DataCenter {
-        public static TestDataCenter Local = new TestDataCenter("https://api-acc.us.textkernel.com/tx", "v10");
-        protected TestDataCenter(String root, String version) {
-            super(root, version, true);
+        public static TestDataCenter Local = new TestDataCenter("https://api-acc.us.textkernel.com/tx/v10");
+        protected TestDataCenter(String root) {
+            super(root);
         }
     }
 
@@ -63,9 +65,21 @@ public abstract class TestBase {
             GeocodeCredentials.Provider = GeocodeProvider.Google;
             GeocodeCredentials.ProviderKey = data.GeocodeProviderKey;
 
-            Client = new TxClient(data.AccountId, data.ServiceKey, TestDataCenter.Local);
+            TxClientSettings settings = new TxClientSettings();
+            settings.AccountId = data.AccountId;
+            settings.ServiceKey = data.ServiceKey;
+            settings.DataCenter = TestDataCenter.Local;
+            Client = new TxClient(settings);
 
-            ParseResumeResponseValue parseResumeResponseValue = Client.parseResume(new ParseRequest(TestData.Resume, null)).Value;
+            TxClientSettings settingsV2 = new TxClientSettings();
+            settingsV2.AccountId = data.AccountId;
+            settingsV2.ServiceKey = data.ServiceKey;
+            settingsV2.DataCenter = TestDataCenter.Local;
+            settingsV2.SkillsIntelligenceIncludeCertifications = true;
+            settingsV2.MatchV2Environment = MatchV2Environment.ACC;
+            ClientDESv2 = new TxClient(settingsV2);
+
+            ParseResumeResponseValue parseResumeResponseValue = Client.parser().parseResume(new ParseRequest(TestData.Resume, null)).Value;
             TestParsedResume = parseResumeResponseValue.ResumeData;
 
             ParseOptions v2Options = new ParseOptions();
@@ -74,19 +88,19 @@ public abstract class TestBase {
             v2Options.SkillsSettings = new SkillsSettings();
             v2Options.SkillsSettings.Normalize = true;
             v2Options.SkillsSettings.TaxonomyVersion = "V2";
-            parseResumeResponseValue = Client.parseResume(new ParseRequest(TestData.Resume, v2Options)).Value;
+            parseResumeResponseValue = Client.parser().parseResume(new ParseRequest(TestData.Resume, v2Options)).Value;
             TestParsedResumeV2 = parseResumeResponseValue.ResumeData;
 
-            parseResumeResponseValue = Client.parseResume(new ParseRequest(TestData.ResumeWithAddress, null)).Value;
+            parseResumeResponseValue = Client.parser().parseResume(new ParseRequest(TestData.ResumeWithAddress, null)).Value;
             TestParsedResumeWithAddress = parseResumeResponseValue.ResumeData;
 
-            ParseJobResponseValue parseJobResponseValue = Client.parseJob(new ParseRequest(TestData.JobOrder, null)).Value;
+            ParseJobResponseValue parseJobResponseValue = Client.parser().parseJob(new ParseRequest(TestData.JobOrder, null)).Value;
             TestParsedJob = parseJobResponseValue.JobData;
 
-            parseJobResponseValue = Client.parseJob(new ParseRequest(TestData.JobOrderWithAddress, null)).Value;
+            parseJobResponseValue = Client.parser().parseJob(new ParseRequest(TestData.JobOrderWithAddress, null)).Value;
             TestParsedJobWithAddress = parseJobResponseValue.JobData;
 
-            parseJobResponseValue = Client.parseJob(new ParseRequest(TestData.JobOrderTech, null)).Value;
+            parseJobResponseValue = Client.parser().parseJob(new ParseRequest(TestData.JobOrderTech, null)).Value;
             TestParsedJobTech = parseJobResponseValue.JobData;
         }
         catch (Exception e) {
@@ -97,16 +111,21 @@ public abstract class TestBase {
         return new Document("./src/test/resources/" + filename);
     }
 
+
     public static void delayForIndexSync() {
+        delayForIndexSync(1);
+    }
+
+    public static void delayForIndexSync(long timeout) {
         try {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(timeout);
         }
         catch (Exception e) { }
     }
 
     public static void cleanUpIndex(String indexName) {
         try {
-            Client.deleteIndex(indexName);
+            Client.searchMatchV1().deleteIndex(indexName);
         }
         catch (Exception e) { }
     }
