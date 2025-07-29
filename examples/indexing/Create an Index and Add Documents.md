@@ -8,7 +8,11 @@ import com.textkernel.tx.models.resume.ParsedResume;
 
 public class ParsingExample {
     public static void main(String[] args) {
-        TxClient client = new TxClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US);
+        TxClientSettings settings = new TxClientSettings();
+        settings.AccountId = "12345678";
+        settings.ServiceKey = "abcdefghijklmnopqrstuvwxyz";
+        settings.DataCenter = DataCenter.US;
+        TxClient client = new TxClient(settings);
         
         ParsedResume parsedResume1 = ...;//output from Resume Parser
         ParsedResume parsedResume2 = ...;//output from Resume Parser
@@ -16,9 +20,9 @@ public class ParsingExample {
         String indexId = "myResumes";
     
         try {
-            client.createIndex(IndexType.Resume, indexId);
-            client.indexDocument(parsedResume1, indexId, "resume-1", null);
-            client.indexDocument(parsedResume2, indexId, "resume-2", null);
+            client.searchMatchV1().createIndex(IndexType.Resume, indexId);
+            client.searchMatchV1().indexDocument(parsedResume1, indexId, "resume-1", null);
+            client.searchMatchV1().indexDocument(parsedResume2, indexId, "resume-2", null);
             
             //if we get here, it was 200-OK and all operations succeeded
             System.out.println("Success!");

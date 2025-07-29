@@ -46,10 +46,31 @@ For full code examples, see [here][examples].
 ### Creating a `TxClient`
 This is the object that you will use to perform API calls. You create it with your account credentials and the `TxClient` makes the raw API calls for you. These credentials can be found in the [Tx Console][portal]. Be sure to select the correct `DataCenter` for your account.
 ```java
-TxClient client = new TxClient("12345678", "abcdefghijklmnopqrstuvwxyz", DataCenter.US);
+TxClientSettings settings = new TxClientSettings();
+settings.AccountId = "12345678";
+settings.ServiceKey = "abcdefghijklmnopqrstuvwxyz";
+settings.DataCenter = DataCenter.US;
+TxClient client = new TxClient(settings);
 ```
 
 For self-hosted customers, you can create a `DataCenter` object with your custom URL using the constructor provided on that class.
+
+### Using the various `TxClient` services
+The `TxClient` has the following services available:
+- `parser()`
+- `geocoder()`
+- `formatter()`
+- `skillsIntelligence()`
+- `searchMatchV1()`
+- `searchMatchV2()`
+
+Each service exposes certain API functionality via its methods. For example, to parse a resume you would do something like:
+```java
+TxClient client;//created or injected however
+ParseResumeResponse parseResponse = client.parser().parseResume(...);
+```
+
+For the complete list of methods on each service and their method signatures, check out our [online Javadoc][javadoc_url].
 
 ### Handling errors and the `TxException`
 Every call to any of the methods in the `TxClient` should be wrapped in a `try/catch` block. Any 4xx/5xx level errors will cause a `TxException` to be thrown. Sometimes these are a normal and expected part of the Tx API. For example, if you have a website where users upload resumes, sometimes a user will upload a scanned image as their resume. Textkernel does not process these, and will return a `422 Unprocessable Entity` response which will throw a `TxException`. You should handle any `TxException` in a way that makes sense in your application.
