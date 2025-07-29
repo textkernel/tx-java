@@ -92,14 +92,14 @@ public class ApiEndpoints {
 
     String matchV2CandidatesAddDocument(String documentId) { return _dataCenter.Url + "/matchv2/candidates/" + documentId; }
     String matchV2CandidatesDeleteDocuments(List<String> documentIds, String env) { 
-        return String.format("%smatchv2/candidates?ids=%s&SearchAndMatchEnvironment=%s", _dataCenter.Url, String.join(",", documentIds), env);
+        return String.format("%s/matchv2/candidates?ids=%s&SearchAndMatchEnvironment=%s", _dataCenter.Url, String.join(",", documentIds), env);
     }
     String matchV2CandidatesSearch() { return _dataCenter.Url + "/matchv2/candidates/search"; }
     String matchV2CandidatesMatchDocument() { return _dataCenter.Url + "/matchv2/candidates/match"; }
     String matchV2CandidatesAutocomplete() { return _dataCenter.Url + "/matchv2/candidates/autocomplete"; }
     String matchV2JobsAddDocument(String documentId) { return _dataCenter.Url + "/matchv2/vacancies/" + documentId; }
     String matchV2JobsDeleteDocuments(List<String> documentIds, String env) { 
-        return String.format("%smatchv2/vacancies?ids=%s&SearchAndMatchEnvironment=%s", _dataCenter.Url, String.join(",", documentIds), env);
+        return String.format("%s/matchv2/vacancies?ids=%s&SearchAndMatchEnvironment=%s", _dataCenter.Url, String.join(",", documentIds), env);
     }
     String matchV2JobsSearch() { return _dataCenter.Url + "/matchv2/vacancies/search"; }
     String matchV2JobsMatchDocument() { return _dataCenter.Url + "/matchv2/vacancies/match"; }

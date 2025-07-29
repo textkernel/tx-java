@@ -11,6 +11,7 @@ import com.textkernel.tx.models.Location;
 import com.textkernel.tx.models.TxDate;
 import com.textkernel.tx.models.api.geocoding.GeocodeCredentials;
 import com.textkernel.tx.models.api.geocoding.GeocodeProvider;
+import com.textkernel.tx.models.api.matchV2.MatchV2Environment;
 import com.textkernel.tx.models.api.parsing.ParseJobResponseValue;
 import com.textkernel.tx.models.api.parsing.ParseOptions;
 import com.textkernel.tx.models.api.parsing.ParseRequest;
@@ -75,6 +76,7 @@ public abstract class TestBase {
             settingsV2.ServiceKey = data.ServiceKey;
             settingsV2.DataCenter = TestDataCenter.Local;
             settingsV2.SkillsIntelligenceIncludeCertifications = true;
+            settingsV2.MatchV2Environment = MatchV2Environment.PROD;
             ClientDESv2 = new TxClient(settingsV2);
 
             ParseResumeResponseValue parseResumeResponseValue = Client.parser().parseResume(new ParseRequest(TestData.Resume, null)).Value;
@@ -109,9 +111,14 @@ public abstract class TestBase {
         return new Document("./src/test/resources/" + filename);
     }
 
+
     public static void delayForIndexSync() {
+        delayForIndexSync(1);
+    }
+
+    public static void delayForIndexSync(long timeout) {
         try {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(timeout);
         }
         catch (Exception e) { }
     }
