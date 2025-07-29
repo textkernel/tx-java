@@ -36,7 +36,11 @@ import okhttp3.RequestBody;
 /** See {@link TxClient#searchMatchV2()} */
 public class MatchV2Service extends ServiceBase {
 
-    /** See {@link TxClient#searchMatchV2()} */
+    /**
+     * Do not use this. See {@link TxClient#searchMatchV2()}
+     * @param httpClient The http client for API calls
+     * @param settings environment settings
+     */
     public MatchV2Service(OkHttpClient httpClient, EnvironmentSettings settings) {
         super(httpClient, settings);
     }
@@ -72,7 +76,7 @@ public class MatchV2Service extends ServiceBase {
     /**
      * Upload a job to the search and match V2 environment.
      * @param documentId The id to use for the document
-     * @param resume Parsed output from the Textkernel Job Parser
+     * @param job Parsed output from the Textkernel Job Parser
      * @param roles (optional) The roles associated with the request. Defaults to <code>["All"]</code> if none are provided.
      * @param customFields (optional) A collection of custom fields represented as key-value pairs
      * @return The API response body

@@ -64,7 +64,11 @@ import okhttp3.RequestBody;
 /** See {@link TxClient#skillsIntelligence()} */
 public class SkillsIntelligenceService extends ServiceBase {
 
-    /** See {@link TxClient#skillsIntelligence()} */
+    /**
+     * Do not use this. See {@link TxClient#skillsIntelligence()}
+     * @param httpClient The http client for API calls
+     * @param settings environment settings
+     */
     public SkillsIntelligenceService(OkHttpClient httpClient, EnvironmentSettings settings) {
         super(httpClient, settings);
     }

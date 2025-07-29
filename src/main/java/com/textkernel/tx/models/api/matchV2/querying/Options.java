@@ -5,6 +5,7 @@
 
 package com.textkernel.tx.models.api.matchV2.querying;
 
+import com.textkernel.tx.models.api.matchV2.querying.results.SearchResult;
 import java.util.List;
 
 /** Options for a Search or Match request */

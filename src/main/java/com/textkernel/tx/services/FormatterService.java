@@ -19,7 +19,11 @@ import okhttp3.RequestBody;
 /** See {@link TxClient#formatter()} */
 public class FormatterService extends ServiceBase {
 
-    /** See {@link TxClient#formatter()} */
+    /**
+     * Do not use this. See {@link TxClient#formatter()}
+     * @param httpClient The http client for API calls
+     * @param settings environment settings
+     */
     public FormatterService(OkHttpClient httpClient, EnvironmentSettings settings) {
         super(httpClient, settings);
     }

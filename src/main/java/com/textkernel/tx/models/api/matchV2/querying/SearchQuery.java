@@ -8,6 +8,7 @@ package com.textkernel.tx.models.api.matchV2.querying;
 import java.util.List;
 
 import com.textkernel.tx.models.api.matchV2.querying.results.QueryPart;
+import com.textkernel.tx.models.api.matchV2.querying.results.SearchResult;
 
 /** A search query */
 public class SearchQuery {
