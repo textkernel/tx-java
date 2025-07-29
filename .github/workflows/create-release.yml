@@ -73,6 +73,6 @@ jobs:
     - name: Publish to Apache Maven Central
       run: mvn -B clean deploy -DskipTests
       env:
-        MAVEN_USERNAME: GerskonW
+        MAVEN_USERNAME: KBp2Uz
         MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN_TK }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE_TK }}
