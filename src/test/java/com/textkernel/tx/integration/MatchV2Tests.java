@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Arrays;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -50,8 +50,8 @@ public class MatchV2Tests  extends TestBase {
 
     @AfterAll
     static void done() throws TxException {
-        ClientDESv2.searchMatchV2().deleteCandidates(List.of(_documentId));
-        ClientDESv2.searchMatchV2().deleteJobs(List.of(_documentId));
+        ClientDESv2.searchMatchV2().deleteCandidates(Arrays.asList(_documentId));
+        ClientDESv2.searchMatchV2().deleteJobs(Arrays.asList(_documentId));
     }
 
     private static Stream<Arguments> provideSearchTerms() {
@@ -113,7 +113,7 @@ public class MatchV2Tests  extends TestBase {
             assertTrue(foundDocId);
         });
 
-        ClientDESv2.searchMatchV2().deleteCandidates(List.of(docId));
+        ClientDESv2.searchMatchV2().deleteCandidates(Arrays.asList(docId));
         delayForIndexSync(5);
     }
 
