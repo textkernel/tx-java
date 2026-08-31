@@ -70,7 +70,9 @@ public class TxClient {
 
     /**
      * @return access all endpoints/methods for Search &amp; Match V1
+     * @deprecated Search &amp; Match V1 is deprecated. You should use {@link #searchMatchV2()} instead.
      */
+    @Deprecated
     public SearchMatchService searchMatchV1() { return _searchMatchV1Service; }
     
     static {

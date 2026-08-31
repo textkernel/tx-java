@@ -540,7 +540,9 @@ public class SearchMatchService extends ServiceBase {
      * @param settings The settings for this search request. Use {@code null} for defaults.
      * @return The API response body
      * @throws TxException Thrown when an API error occurs
+     * @deprecated BimetricScore is deprecated.
      */
+    @Deprecated
     @SuppressWarnings("unchecked") //these actually are checked, compiler just can't tell
     public <TTarget extends IParsedDocWithId> BimetricScoreResponse bimetricScore(
             ParsedResumeWithId sourceResume,
@@ -585,7 +587,9 @@ public class SearchMatchService extends ServiceBase {
      * @param settings The settings for this search request. Use {@code null} for defaults.
      * @return The API response body
      * @throws TxException Thrown when an API error occurs
+     * @deprecated BimetricScore is deprecated.
      */
+    @Deprecated
     @SuppressWarnings("unchecked") //these actually are checked, compiler just can't tell
     public <TTarget extends IParsedDocWithId> BimetricScoreResponse bimetricScore(
             ParsedJobWithId sourceJob,
