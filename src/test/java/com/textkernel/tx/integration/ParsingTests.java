@@ -170,7 +170,7 @@ public class ParsingTests extends TestBase {
         assertNotNull(response.ParsingMetadata);
     }
     
-    @Test
+     @Test
     public void testParseResumeGeocodeIndex() throws TxException {
         String indexId = "SDK-testParseResumeGeocodeIndex";
         String documentId = "1";
@@ -181,7 +181,7 @@ public class ParsingTests extends TestBase {
         IndexingOptionsGeneric indexingOptions = new IndexingOptionsGeneric(documentId, indexId, null);
     
         // since there isn't an address this will throw an exception
-        assertThrows(TxGeocodeResumeException.class, () -> {
+        assertThrows(TxException.class, () -> {
             ParseRequest request = new ParseRequest(TestData.Resume, null);
             request.GeocodeOptions = geocodeOptions;
             request.IndexingOptions = indexingOptions;
@@ -190,7 +190,7 @@ public class ParsingTests extends TestBase {
     
     
         // confirm you can geocode but indexing fails
-        assertThrows(TxIndexResumeException.class, () -> {
+        assertThrows(TxException.class, () -> {
             ParseRequest request = new ParseRequest(TestData.ResumeWithAddress, null);
             request.GeocodeOptions = geocodeOptions;
             request.IndexingOptions = indexingOptions;

@@ -13,7 +13,7 @@ The official Java SDK for the Textkernel Tx v10 API for resume/CV and job parsin
 ### Gradle Users
 Add this dependency to your project's build file:
 ```
-implementation "com.textkernel:tx-java:3.0.2"
+implementation "com.textkernel:tx-java:3.0.3"
 ```
 
 ### Maven Users
