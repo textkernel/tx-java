@@ -170,7 +170,7 @@ public class ParsingTests extends TestBase {
         assertNotNull(response.ParsingMetadata);
     }
     
-    @Test
+     @Test
     public void testParseResumeGeocodeIndex() throws TxException {
         String indexId = "SDK-testParseResumeGeocodeIndex";
         String documentId = "1";
@@ -180,28 +180,29 @@ public class ParsingTests extends TestBase {
     
         IndexingOptionsGeneric indexingOptions = new IndexingOptionsGeneric(documentId, indexId, null);
     
+        // since there isn't an address this will throw an exception
+        assertThrows(TxException.class, () -> {
+            ParseRequest request = new ParseRequest(TestData.Resume, null);
+            request.GeocodeOptions = geocodeOptions;
+            request.IndexingOptions = indexingOptions;
+            Client.parser().parseResume(request);
+        });
+    
+    
+        // confirm you can geocode but indexing fails
+        assertThrows(TxException.class, () -> {
+            ParseRequest request = new ParseRequest(TestData.ResumeWithAddress, null);
+            request.GeocodeOptions = geocodeOptions;
+            request.IndexingOptions = indexingOptions;
+            Client.parser().parseResume(request);
+        });
+    
         try {
+            // set the document id and create the index
+            indexingOptions.DocumentId = documentId;
             Client.searchMatchV1().createIndex(IndexType.Resume, indexId);
             delayForIndexSync();
-
-            // since there isn't an address this will throw an exception
-            assertThrows(TxGeocodeResumeException.class, () -> {
-                ParseRequest request = new ParseRequest(TestData.Resume, null);
-                request.GeocodeOptions = geocodeOptions;
-                request.IndexingOptions = indexingOptions;
-                Client.parser().parseResume(request);
-            });
-
-            // confirm you can geocode but indexing fails (nonexistent index)
-            assertThrows(TxException.class, () -> {
-                ParseRequest request = new ParseRequest(TestData.ResumeWithAddress, null);
-                request.GeocodeOptions = geocodeOptions;
-                request.IndexingOptions = new IndexingOptionsGeneric(documentId, indexId + "-nonexistent", null);
-                Client.parser().parseResume(request);
-            });
-
-            indexingOptions.DocumentId = documentId;
-
+    
             // confirm you can parse/geocode/index
             assertDoesNotThrow(() -> {
                 ParseRequest request = new ParseRequest(TestData.ResumeWithAddress, null);
