@@ -35,6 +35,10 @@ import com.textkernel.tx.models.api.matchV2.querying.results.SearchResult;
 import com.textkernel.tx.models.api.parsing.ParseOptions;
 import com.textkernel.tx.models.api.parsing.ParseRequest;
 import com.textkernel.tx.models.api.parsing.ParseResumeResponse;
+import com.textkernel.tx.models.api.parsing.SkillsSettings;
+import com.textkernel.tx.TestData;
+import com.textkernel.tx.models.job.ParsedJob;
+import com.textkernel.tx.models.resume.ParsedResume;
 
 public class MatchV2Tests  extends TestBase {
 
@@ -42,9 +46,16 @@ public class MatchV2Tests  extends TestBase {
 
     @BeforeAll
     static void setup() throws TxException {
-        // add a document to each index
-        ClientDESv2.searchMatchV2().addJob(_documentId, TestParsedJobTech, null, null);
-        ClientDESv2.searchMatchV2().addCandidate(_documentId, TestParsedResume, null, false, null);
+        ParseOptions v2Options = new ParseOptions();
+        v2Options.SkillsSettings = new SkillsSettings();
+        v2Options.SkillsSettings.Normalize = true;
+        v2Options.SkillsSettings.TaxonomyVersion = "V2";
+
+        ParsedJob jobV2 = ClientDESv2.parser().parseJob(new ParseRequest(TestData.JobOrderTech, v2Options)).Value.JobData;
+        ParsedResume resumeV2 = ClientDESv2.parser().parseResume(new ParseRequest(TestData.Resume, v2Options)).Value.ResumeData;
+
+        ClientDESv2.searchMatchV2().addJob(_documentId, jobV2, null, null);
+        ClientDESv2.searchMatchV2().addCandidate(_documentId, resumeV2, null, false, null);
         delayForIndexSync(5);
     }
 
@@ -94,6 +105,9 @@ public class MatchV2Tests  extends TestBase {
 
         ParseOptions options = new ParseOptions();
         options.IndexingOptions = new IndexingOptionsGeneric(MatchV2Environment.PROD, docId, null, null);
+        options.SkillsSettings = new SkillsSettings();
+        options.SkillsSettings.Normalize = true;
+        options.SkillsSettings.TaxonomyVersion = "V2";
 
         ParseResumeResponse parseResponse = ClientDESv2.parser().parseResume(new ParseRequest(document, options));
         assertTrue(parseResponse.Value.IndexingResponse.isSuccess());
