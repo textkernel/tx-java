@@ -85,11 +85,6 @@ abstract class ServiceBase {
             rawResponse = _httpClient.newCall(apiRequest).execute();
             apiResponse = new HttpResponse<T>(rawResponse, classOfT);
 
-            if (rawResponse != null && rawResponse.code() == 413) {
-                errorInfo.Message = "Request body was too large.";
-                throw new TxException(requestBody, rawResponse, errorInfo, null);
-            }
-            
             if (rawResponse != null && apiResponse.getData() == null && rawResponse.code() != 200) {
                 //something went wrong, a non-200 status code
                 errorInfo.Message = rawResponse.code() + " - " + rawResponse.message();
