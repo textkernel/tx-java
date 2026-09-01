@@ -192,8 +192,16 @@ public class ParsingTests extends TestBase {
                 Client.parser().parseResume(request);
             });
 
+            // confirm you can geocode but indexing fails (nonexistent index)
+            assertThrows(TxException.class, () -> {
+                ParseRequest request = new ParseRequest(TestData.ResumeWithAddress, null);
+                request.GeocodeOptions = geocodeOptions;
+                request.IndexingOptions = new IndexingOptionsGeneric(documentId, indexId + "-nonexistent", null);
+                Client.parser().parseResume(request);
+            });
+
             indexingOptions.DocumentId = documentId;
-    
+
             // confirm you can parse/geocode/index
             assertDoesNotThrow(() -> {
                 ParseRequest request = new ParseRequest(TestData.ResumeWithAddress, null);
