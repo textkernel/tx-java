@@ -855,7 +855,9 @@ public class SkillsIntelligenceService extends ServiceBase {
      * @param request The request body
      * @return The API response body
      * @throws TxException Thrown when an API error occurs
+     * @deprecated This feature is deprecated and will be discontinued on June 23, 2027.
      */
+    @Deprecated
     public GenerateJobResponse generateJobDescription(GenerateJobRequest request) throws TxException {
         RequestBody body = createJsonBody(request);
         Request apiRequest = new Request.Builder()
@@ -874,7 +876,9 @@ public class SkillsIntelligenceService extends ServiceBase {
      * @param limit Maximum number of skills to suggest. If not specified this parameter defaults to 10. This value cannot exceed 50.
      * @return The API response body
      * @throws TxException Thrown when an API error occurs
+     * @deprecated This feature is deprecated and will be discontinued on June 23, 2027.
      */
+    @Deprecated
     public SuggestSkillsFromJobTitleResponse suggestSkillsFromJobTitle(String jobTitle, String language, Integer limit) throws TxException {
         SuggestSkillsFromJobTitleRequest request = new SuggestSkillsFromJobTitleRequest();
         request.JobTitle = jobTitle;
@@ -896,7 +900,9 @@ public class SkillsIntelligenceService extends ServiceBase {
      * @param jobTitle The title of the job for which skills are being suggested.
      * @return The API response body
      * @throws TxException Thrown when an API error occurs
+     * @deprecated This feature is deprecated and will be discontinued on June 23, 2027.
      */
+    @Deprecated
     public SuggestSkillsFromJobTitleResponse suggestSkillsFromJobTitle(String jobTitle) throws TxException {
         return suggestSkillsFromJobTitle(jobTitle, "en", null);
     }
